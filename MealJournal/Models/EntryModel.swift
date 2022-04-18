@@ -11,8 +11,9 @@ import SwiftUI
 
 struct Meal: Identifiable, Hashable{
     var id = UUID()
+    var brand: String
     var mealName: String
-    var calories: Int
+    var calories: String
     var quantity: Int
     var amount: String
     var protein:  Int

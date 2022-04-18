@@ -39,15 +39,15 @@ struct FoodSearchResultsView: View {
                         VStack{
                             HStack{
                                 VStack(alignment: .leading){
-                                    Text(foodApi.foodDescription)
-                                    Text(foodApi.calories + " cal")
+                                    Text(foodApi.userSearchResults[1].mealName)
+                                    Text(foodApi.userSearchResults[1].calories + " cal")
                                         .font(.caption)
                                         .offset(y:8)
                                     }
                                         .foregroundColor(.black)
                                 
                                 Spacer()
-                                Text("foodApi.foodUnit")
+                                Text(foodApi.userSearchResults[1].brand)
                             }
                         
                         .frame(width:200, height:40) //width of background

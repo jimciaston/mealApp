@@ -7,90 +7,182 @@
 
 import Foundation
 import SwiftUI
-
-//main structure of food structs
 struct APISearchResults: Codable {
-    let totalHits, currentPage, totalPages: Int
-    let pageList: [Int]
-    //let foodSearchCriteria: FoodSearchCriteria
-    let foods: [FoodCoreInfo]
+    let totalHits, currentPage, totalPages: Int?
+    let pageList: [Int]?
+    let foodSearchCriteria: FoodSearchCriteria?
+    let foods: [Food]?
+    let aggregations: Aggregations?
+}
+
+// MARK: - Aggregations
+struct Aggregations: Codable {
+    let dataType: DataType?
+    let nutrients: Nutrients?
+}
+
+// MARK: - DataType
+struct DataType: Codable {
+    let branded, srLegacy, surveyFNDDS, foundation: Int?
+    let experimental: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case branded = "Branded"
+        case srLegacy = "SR Legacy"
+        case surveyFNDDS = "Survey (FNDDS)"
+        case foundation = "Foundation"
+        case experimental = "Experimental"
+    }
+}
+
+// MARK: - Nutrients
+struct Nutrients: Codable {
 }
 
 // MARK: - FoodSearchCriteria
-//struct FoodSearchCriteria: Codable {
-//    let dataType: [Any]
-//    let query, generalSearchInput: String
-//    let pageNumber, numberOfResultsPerPage, pageSize: Int
-//    let requireAllWords: Bool
-//}
+struct FoodSearchCriteria: Codable {
+    let query: String?
+    let pageNumber, numberOfResultsPerPage, pageSize: Int?
+    let requireAllWords: Bool?
+}
 
 // MARK: - Food
-struct FoodCoreInfo: Codable {
-    let fdcID: Int
-    let foodDescription, lowercaseDescription, commonNames, additionalDescriptions: String?
-    let dataType: String
-    let ndbNumber: Int?
-    let publishedDate, foodCategory, allHighlightFields: String
-    let score: Double
-    let foodNutrients: [FoodNutrientInformation]
-
+struct Food: Codable {
+    let fdcID: Int?
+      let foodDescription, lowercaseDescription, dataType, gtinUpc: String?
+      let publishedDate, brandOwner, ingredients, marketCountry: String?
+      let foodCategory, modifiedDate, dataSource, servingSizeUnit: String?
+      let servingSize: Double?
+      let householdServingFullText, allHighlightFields: String?
+      let score: Double?
+      let foodNutrients: [FoodNutrient]?
+      let finalFoodInputFoods, foodMeasures, foodAttributes: [JSONAny]?
+      let foodAttributeTypes: [FoodAttributeType]?
+      let foodVersionIDS: [JSONAny]?
+      let brandName: String?
+ 
     enum CodingKeys: String, CodingKey {
         case fdcID = "fdcId"
         case foodDescription = "description"
-        case lowercaseDescription, commonNames, additionalDescriptions, dataType, ndbNumber, publishedDate, foodCategory, allHighlightFields, score, foodNutrients
+        case lowercaseDescription, dataType, gtinUpc, publishedDate, brandOwner, ingredients, marketCountry, foodCategory, modifiedDate, dataSource, servingSizeUnit, servingSize, householdServingFullText, allHighlightFields, score, foodNutrients, finalFoodInputFoods, foodMeasures, foodAttributes, foodAttributeTypes
+        case foodVersionIDS = "foodVersionIds"
+        case brandName
+    }
+}
+
+// MARK: - FinalFoodInputFood
+struct FinalFoodInputFood: Codable {
+    let foodDescription: String?
+    let portionCode, portionDescription, unit: String?
+    let rank, srCode, value: Int?
+}
+
+// MARK: - FoodAttributeType
+struct FoodAttributeType: Codable {
+    let name, foodAttributeTypeDescription: String?
+    let id: Int?
+    let foodAttributes: [FoodAttribute]?
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case foodAttributeTypeDescription = "description"
+        case id, foodAttributes
+    }
+}
+
+// MARK: - FoodAttribute
+struct FoodAttribute: Codable {
+    let value: String?
+    let id, sequenceNumber: Int?
+    let name: String?
+}
+
+// MARK: - FoodMeasure
+struct FoodMeasure: Codable {
+    let disseminationText: String?
+    let gramWeight, id: Double?
+    let modifier: String?
+    let rank: Int?
+    let measureUnitAbbreviation, measureUnitName: String?
+    let measureUnitID: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case disseminationText, gramWeight, id, modifier, rank, measureUnitAbbreviation, measureUnitName
+        case measureUnitID = "measureUnitId"
     }
 }
 
 // MARK: - FoodNutrient
-struct FoodNutrientInformation: Codable {
+struct FoodNutrient: Codable {
     let nutrientID: Int?
-    let nutrientName, nutrientNumber, unitName, derivationCode: String
-    let derivationDescription: String?
-    let derivationID: Int?
+    let nutrientName, nutrientNumber: String?
+    //let unitName: UnitName?
     let value: Double?
-    let foodNutrientSourceID: Int?
-    let foodNutrientSourceCode, foodNutrientSourceDescription: String?
-    let rank, indentLevel, foodNutrientID, dataPoints: Int?
+    let rank, indentLevel, foodNutrientID: Int?
 
     enum CodingKeys: String, CodingKey {
         case nutrientID = "nutrientId"
-        case nutrientName, nutrientNumber, unitName, derivationCode, derivationDescription
-        case derivationID = "derivationId"
-        case value
-        case foodNutrientSourceID = "foodNutrientSourceId"
-        case foodNutrientSourceCode, foodNutrientSourceDescription, rank, indentLevel
+        case nutrientName, nutrientNumber, value, rank, indentLevel
         case foodNutrientID = "foodNutrientId"
-        case dataPoints
     }
 }
 
+extension URL {
+
+    /// Adds a query item to a URL
+    public func queryItem(_ queryItem: String, value: String?) -> URL {
+        guard var urlComponents = URLComponents(string: absoluteString) else { return absoluteURL }
+        var queryItems: [URLQueryItem] = urlComponents.queryItems ??  []
+        let queryItem = URLQueryItem(name: queryItem, value: value)
+        queryItems.append(queryItem)
+        urlComponents.queryItems = queryItems
+        return urlComponents.url!
+    }
+    
+    /// Retrieves the query items of a URL
+    public var queryParameters: [String: String]? {
+        guard
+            let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
+            let queryItems = components.queryItems else { return nil }
+        return queryItems.reduce(into: [String: String]()) { (result, item) in
+            result[item.name] = item.value
+        }
+    }
+
+}
 
 class FoodApiSearch: ObservableObject{
-    @Published var foodDescription = ""
+        var userSearchResults: [Meal] = Array()
     @Published var foodUnit = ""
     @Published var calories = ""
+    @Published var brand = ""
     
     //will search for user Input
     func searchFood(userItem: String){
-       //calls api search
-        guard let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?query=\(userItem)&dataType=&pageSize=1&pageNumber=1&api_key=bRbzV0uKJyenEtd1GMgJJNh4BzGWtDvDZVOy8cqG") else {return}
-        
-        URLSession.shared.dataTask(with: url) { (data, _,_) in
-            let searchResults = try! JSONDecoder().decode(APISearchResults.self, from: data!)
-            
-            DispatchQueue.main.async {
-                for item in searchResults.foods{
-                    self.foodDescription = item.lowercaseDescription?.firstCapitalized ?? "food not valid"
-                    self.calories = String(Double(round(item.foodNutrients[3].value!)).removeZerosFromEnd())
+       ///IMPROVE API FUNCTION LATER ON DURING LAUNCH
+        ///
+        let urlEncoded = userItem.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+           guard
+                let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=bRbzV0uKJyenEtd1GMgJJNh4BzGWtDvDZVOy8cqG&query=\(urlEncoded!)") else {return}
+                URLSession.shared.dataTask(with: url) { (data, _,_) in
+                  //  print(String(data: data!, encoding: .utf8) ?? "test")
+                    let searchResults = try! JSONDecoder().decode(APISearchResults.self, from: data!)
+                    
+                    DispatchQueue.main.async {
+                        var counter = 0
+                            for item in searchResults.foods ?? []{
+                                if (counter < 2){
+                                    self.userSearchResults.append(Meal(id: UUID(), brand: item.brandOwner ?? "Brand Unavailable", mealName: item.foodDescription ?? "food invalid", calories: String(Double(round(item.foodNutrients?[3].value! ?? 0.00)).removeZerosFromEnd()), quantity: 2, amount: "test", protein: 2, carbs: 2, fat: 2))
+                                    counter += 1
+                                    print(self.userSearchResults)
+                                }
+                                else{return}
+        //                       self.foodDescription = item.lowercaseDescription?.firstCapitalized ?? "food not valid"
+        //                        self.calories = String(Double(round(item.foodNutrients?[3].value! ?? 0.00)).removeZerosFromEnd())
+        //                        self.brand = item.brandOwner ?? "General"
+                               
+                                }
                    
-                      //  print(self.foodDescription)
-                    print(item.foodNutrients[0].nutrientName)
-                    print(item.foodNutrients[1].nutrientName)
-                    print(item.foodNutrients[2].nutrientName)
-                    print(item.foodNutrients[3].nutrientName)
-                   
-                    }
-               
                 }
         }
         .resume()
