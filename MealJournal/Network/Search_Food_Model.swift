@@ -144,15 +144,15 @@ extension URL {
         guard
             let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
             let queryItems = components.queryItems else { return nil }
-        return queryItems.reduce(into: [String: String]()) { (result, item) in
-            result[item.name] = item.value
-        }
+            return queryItems.reduce(into: [String: String]()) { (result, item) in
+                result[item.name] = item.value
+            }
     }
 
 }
 
 class FoodApiSearch: ObservableObject{
-        var userSearchResults: [Meal] = Array()
+    @Published var userSearchResults: [Meal] = Array()
     @Published var foodUnit = ""
     @Published var calories = ""
     @Published var brand = ""
@@ -165,27 +165,31 @@ class FoodApiSearch: ObservableObject{
            guard
                 let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=bRbzV0uKJyenEtd1GMgJJNh4BzGWtDvDZVOy8cqG&query=\(urlEncoded!)") else {return}
                 URLSession.shared.dataTask(with: url) { (data, _,_) in
-                  //  print(String(data: data!, encoding: .utf8) ?? "test")
-                    let searchResults = try! JSONDecoder().decode(APISearchResults.self, from: data!)
-                    
-                    DispatchQueue.main.async {
+                    let searchResults = try! JSONDecoder().decode(APISearchResults.self, from: data!)   
+                    DispatchQueue.main.async { [self] in
                         var counter = 0
                             for item in searchResults.foods ?? []{
-                                if (counter < 2){
-                                    self.userSearchResults.append(Meal(id: UUID(), brand: item.brandOwner ?? "Brand Unavailable", mealName: item.foodDescription ?? "food invalid", calories: String(Double(round(item.foodNutrients?[3].value! ?? 0.00)).removeZerosFromEnd()), quantity: 2, amount: "test", protein: 2, carbs: 2, fat: 2))
+                                if (counter < 5){
+                                    self.userSearchResults.append(Meal(
+                                        id: UUID(),
+                                        brand: item.brandOwner?.lowercased().firstCapitalized ?? "Brand Unavailable",
+                                        mealName: item.lowercaseDescription?.firstCapitalized ?? "food invalid",
+                                        calories: String(Double(round(item.foodNutrients?[3].value! ?? 0.00)).removeZerosFromEnd()),
+                                        quantity: 2,
+                                        amount: "test",
+                                        protein: 2,
+                                        carbs: 2,
+                                        fat: 2)
+                                    )
                                     counter += 1
-                                    print(self.userSearchResults)
                                 }
                                 else{return}
-        //                       self.foodDescription = item.lowercaseDescription?.firstCapitalized ?? "food not valid"
-        //                        self.calories = String(Double(round(item.foodNutrients?[3].value! ?? 0.00)).removeZerosFromEnd())
-        //                        self.brand = item.brandOwner ?? "General"
-                               
-                                }
-                   
                 }
+                   
+            }
         }
         .resume()
     }
+   
 }
 

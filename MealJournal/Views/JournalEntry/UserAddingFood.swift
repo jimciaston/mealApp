@@ -13,9 +13,3 @@ struct UserAddingFood: View {
        MealSearchBar()
     }
 }
-
-struct UserAddingFood_Previews: PreviewProvider {
-    static var previews: some View {
-        UserAddingFood()
-    }
-}

@@ -24,7 +24,7 @@ struct LandingPage: View {
                 }
                 .offset(y:-25)
                 VStack{
-                    NavigationLink(destination: UserDashController() .navigationBarHidden(true), label:{
+                    NavigationLink(destination: JournalEntryMain() .navigationBarHidden(true), label:{
                         Text("Get Started").fontWeight(.bold)
                         .frame(minWidth: 0, maxWidth: 200)
                         .padding(10)
@@ -40,7 +40,7 @@ struct LandingPage: View {
                         
                     })
                     
-                    NavigationLink(destination: testA().navigationBarHidden(true), label: {
+                    NavigationLink(destination: userLogin().navigationBarHidden(true), label: {
                         Text("Login").fontWeight(.semibold)
                             .frame(minWidth:0, maxWidth: 200)
                             .padding(10)
