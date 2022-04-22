@@ -15,29 +15,26 @@ struct MealSearchBar: View {
     @State private var didUserSearch = false
     //calls search API
     @StateObject private var foodApi = FoodApiSearch()
-    
+    @Binding var isUserDoneSearching: Bool
     var body: some View {
-       
         VStack{
             ZStack{
                 Rectangle()
                     .foregroundColor(Color("LightWhite"))
                 HStack{
                     Image(systemName: "magnifyingglass")
-                    TextField("enter first name", text: $userFoodInput)
+                    TextField("Enter Meal", text: $userFoodInput)
                         .onSubmit {
                             foodApi.searchFood(userItem: userFoodInput)
                             didUserSearch = true
                             didtextComplete = true
+                            isUserDoneSearching = true
                             if didtextComplete{
-                                print("complete")
                                 foodApi.userSearchResults = [] //emptys list
                                 userFoodInput = ""
                             }
                         }
-                  
-                    
-                    //Text(foodApi.foodDescription)
+
                 }
                 .foregroundColor(.black)
                 .padding(.leading, 13)
@@ -50,7 +47,7 @@ struct MealSearchBar: View {
             .padding(12)
         }
         
-        FoodSearchResultsView(userSearch: $didUserSearch, textComplete: $didtextComplete)
+        FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
             .environmentObject(foodApi)
     }
     

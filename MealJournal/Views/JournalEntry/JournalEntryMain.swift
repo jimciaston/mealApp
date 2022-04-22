@@ -7,19 +7,18 @@
 
 import SwiftUI
 
-let mealEntrys = MealEntrys() //initialize mealentry model
-func deleteItems(at offsets: IndexSet) {
-    mealEntrys.mealEntrysBreakfast.remove(atOffsets: offsets)
-}
+
 
 
 
 struct JournalEntryMain: View {
+    @StateObject var mealEntrys = MealEntrys()
+    
     @Environment(\.dismiss) var dismiss
   //will be set to variable
     @State private var foodName = ""
+    @State private var isUserSearching = false
     var body: some View {
-        
     NavigationView{
         VStack{
             Button(action: {
@@ -31,57 +30,63 @@ struct JournalEntryMain: View {
             }
             .padding()
             .padding(.leading, 250)
-           MacroView()
         
     //search bar - sets foodname to foodname
-    MealSearchBar()
+        MealSearchBar(isUserDoneSearching: $isUserSearching)//when user is completed searching
             
-            List {
-                Section(header: Text(Sectionheader(secHead: "Breakfast"))
-                            .foregroundColor(.black),
-                        footer:Button("Edit"){
-                            //do something
-                            }) {
-                    if(mealEntrys.mealEntrysBreakfast.isEmpty){
-                        Text("")
+            if(!isUserSearching){
+                List {
+                    Section(header: Text(Sectionheader(secHead: "Breakfast"))
+                                .foregroundColor(.black),
+                            footer:Button("Edit"){
+                                //do something
+                                })
+                    {
+                        if(mealEntrys.mealEntrysBreakfast.isEmpty){
+                            Text("")
                     }
                         ForEach(mealEntrys.mealEntrysBreakfast) { meal in
                                 EntryRow(meal: meal)
-                        }.onDelete(perform: deleteItems)
                         }
-                Section(header: Text("Lunch"),
-                        footer: Button("Add Meal"){
-                    //do something later
-                }){
-                    if(mealEntrys.mealEntrysLunch.isEmpty){
-                        Text("")
                     }
-                    ForEach(mealEntrys.mealEntrysLunch){ meal in
-                        EntryRow(meal:meal)
+                    Section(header: Text("Lunch"),
+                            footer: Button("Add Meal"){
+                        //do something later
+                    }){
+                        if(mealEntrys.mealEntrysLunch.isEmpty){
+                            Text("")
+                        }
+                        ForEach(mealEntrys.mealEntrysLunch){ meal in
+                            EntryRow(meal:meal)
+                        }
                     }
+                    Section(header:Text("Dinner"),
+                            footer: Button("Add Meal"){
+                        //do something later
+                    }){
+                        if(mealEntrys.mealEntrysDinner.isEmpty){
+                            Text("")
+                        }
+                        ForEach(mealEntrys.mealEntrysDinner, id: \.self){ meal in
+                           EntryRow(meal:meal)
+                           
+                       }
+                        
+                    }
+                   
                 }
-                Section(header:Text("Dinner"),
-                        footer: Button("Add Meal"){
-                    //do something later
-                }){
-                    if(mealEntrys.mealEntrysDinner.isEmpty){
-                        Text("")
-                    }
-                    ForEach(mealEntrys.mealEntrysDinner, id: \.self){ meal in
-                       EntryRow(meal:meal)
-                       
-                   }
-                    
-                }
-               
+                //list stylings
+                            .listStyle(GroupedListStyle())
+                            .foregroundColor(.black)
             }
-            //list stylings
-                        .listStyle(GroupedListStyle())
-                        .foregroundColor(.black)
+           
+                        
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+       
         }
+    .environmentObject(mealEntrys) //references meal entry
     }
    
 

@@ -8,24 +8,22 @@
 import SwiftUI
 
 struct FoodSearchResultsView: View {
-    //calls API
     @EnvironmentObject private var foodApi: FoodApiSearch
+    @EnvironmentObject var mealEntryObj: MealEntrys
+    
     //textfield input
     @State private var searchResultsItem = ""
     //if toggled, will display, binded to search bar
     @Binding var userSearch: Bool
-    //var holds if textfield typing is complete by user
-    @Binding var textComplete: Bool
-    //triggers select breakfast, lunch, dinner optins
     
     //when false, api results will not display
-    @State private var isViewSearching = false
+    @Binding var isViewSearching:Bool //sending to searchboar
+    
     var body: some View {
         if userSearch{
             VStack{
                 Text(isViewSearching ? "Results" : "Searching..")
                 Spacer()
-                
               //  delays showing api call
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
@@ -39,40 +37,46 @@ struct FoodSearchResultsView: View {
                             HStack{
                                 VStack(alignment: .leading){
                                     Text(meal.mealName)
-                                    HStack{
+                                        .padding(.leading,-50)
+                                    HStack(alignment: .firstTextBaseline, spacing: 0){
                                         Text(meal.calories + " cals, ")
                                             .font(.caption)
                                             .offset(y:8)
                                         Text(meal.brand)
                                             .font(.caption)
                                             .offset(y:8)
+                                            .frame(maxWidth:80)
                                         }
+                                    .padding(.leading,-50)
                                     }
-                                        .foregroundColor(.black)
-                                
-                                Spacer()
-                                Button(action: {
-                                    userSearch = false
-                                    isViewSearching = false
-                                }){
-                                    Image(systemName: "plus.app")
-                                        .font(.title2)
-                                        .foregroundColor(.blue)
-                                        .offset(x: 30)
-                                }
-                               
+                                .padding(.leading,5)
+                                .foregroundColor(.black)
+                            Button(action: {
+                                print(meal.calories)
+                                userSearch = false
+                                isViewSearching = false //is user actively searching, communicates with journalEntryMain
+                                //push meal to meal entry break fast
+                                mealEntryObj.mealEntrysBreakfast.append(meal)
+                            }){
+                                Image(systemName: "plus.app")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.blue)
+                                   // .offset(x: 70)
+                                   // .frame(width:100)
+                                    .padding(.leading, 100)
                             }
-                        
-                        .frame(width:200, height:40) //width of background
-                        .padding([.leading, .trailing], 60)
-                        .padding([.top, .bottom], 10)
-                        .background(RoundedRectangle(
-                            cornerRadius:20).fill(Color("LightWhite")))
-                        .foregroundColor(.black)
-                         Spacer()
                         }
                     }
-                    .frame(height:800)
+                    .frame(width:220, height:40) //width of background
+                    .padding([.leading, .trailing], 60)
+                    .padding([.top, .bottom], 10)
+                    .background(RoundedRectangle(
+                        cornerRadius:20).fill(Color("LightWhite")))
+                    .foregroundColor(.black)
+                        
+                    }
+                    .listStyle(.plain)
+                    .listRowSeparator(.hidden)
                 }
             }
         }
@@ -82,7 +86,7 @@ struct FoodSearchResultsView: View {
 
 //struct FoodSearch_Previews: PreviewProvider {
 //    static var previews: some View {
-//        FoodSearchResultsView(userSearch: Binding.constant(true), textComplete: Binding.constant(true))
+//        FoodSearchResultsView(userSearch: Binding.constant(true), isViewSearching: Binding.constant(true))
 //    }
 //}
 

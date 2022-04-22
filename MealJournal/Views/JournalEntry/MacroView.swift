@@ -32,8 +32,8 @@ struct MacroView: View {
                         .padding(-5)
                 }
                 .padding(30)
-        
             }
+            .padding(.top, -15)
         }
         .foregroundColor(.black)
     }
