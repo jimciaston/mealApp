@@ -20,6 +20,7 @@ struct FoodItemView: View {
                 .padding(.top, 5)
             Spacer()
                 .frame(maxWidth:.infinity)
+           // NutrionalPieChart()
         }
     }
 }

@@ -9,16 +9,18 @@ import SwiftUI
 
 struct FoodSearchResultsView: View {
     @EnvironmentObject private var foodApi: FoodApiSearch
-    @EnvironmentObject var mealEntryObj: MealEntrys
     
+    @State var MealObject = Meal()
+    
+    @State private var chooseMealTiming = false
+    @State private var sheetMode: SheetMode = .none
     //textfield input
     @State private var searchResultsItem = ""
     //if toggled, will display, binded to search bar
     @Binding var userSearch: Bool
-    
     //when false, api results will not display
-    @Binding var isViewSearching:Bool //sending to searchboar
-    
+    @Binding var isViewSearching:Bool //sending to searchbar
+    @State var mealTimingToggle = false //Tells whether mealtiming list is open or closed, binded to meal timing selector view
     var body: some View {
         if userSearch{
             VStack{
@@ -33,30 +35,43 @@ struct FoodSearchResultsView: View {
                 //if user has completed searching for a food
                 if isViewSearching{
                     List(foodApi.userSearchResults){meal in
-                        VStack{
                             HStack{
-                                VStack(alignment: .leading){
-                                    Text(meal.mealName)
-                                        .padding(.leading,-50)
-                                    HStack(alignment: .firstTextBaseline, spacing: 0){
-                                        Text(meal.calories + " cals, ")
+                                VStack (alignment:.leading){
+                                    Text(meal.mealName ?? "default")
+                                        .font(.title3)
+                                    HStack{
+                                        Text(meal.brand ?? "Brand Unavailable")
                                             .font(.caption)
-                                            .offset(y:8)
-                                        Text(meal.brand)
+                                           // .offset(y:8)
+                                        Text(meal.calories!  + ", cals ")
                                             .font(.caption)
-                                            .offset(y:8)
-                                            .frame(maxWidth:80)
+                                          //  .offset(y:8)
+                                       
+                                            
+                                            
+                                           
                                         }
-                                    .padding(.leading,-50)
+                                    .border(.red)
+                                 
+                                  
                                     }
-                                .padding(.leading,5)
+                                .padding(.leading, -40)
+                               
+                              
                                 .foregroundColor(.black)
+                                
                             Button(action: {
-                                print(meal.calories)
-                                userSearch = false
-                                isViewSearching = false //is user actively searching, communicates with journalEntryMain
-                                //push meal to meal entry break fast
-                                mealEntryObj.mealEntrysBreakfast.append(meal)
+                                switch sheetMode {
+                                    case .none:
+                                        sheetMode = .mealTimingSelection
+                                    case .mealTimingSelection:
+                                        sheetMode = .none
+                                case .quarter:
+                                    sheetMode = .mealTimingSelection
+                                }
+                                //communicates with mealtimingselectionview
+                                MealObject = meal
+                                mealTimingToggle = true
                             }){
                                 Image(systemName: "plus.app")
                                     .font(.largeTitle)
@@ -65,7 +80,8 @@ struct FoodSearchResultsView: View {
                                    // .frame(width:100)
                                     .padding(.leading, 100)
                             }
-                        }
+                            
+                           
                     }
                     .frame(width:220, height:40) //width of background
                     .padding([.leading, .trailing], 60)
@@ -73,15 +89,23 @@ struct FoodSearchResultsView: View {
                     .background(RoundedRectangle(
                         cornerRadius:20).fill(Color("LightWhite")))
                     .foregroundColor(.black)
-                        
                     }
-                    .listStyle(.plain)
-                    .listRowSeparator(.hidden)
+                .listStyle(.plain)
+                .listRowSeparator(.hidden)
+                   
                 }
+                
+            }
+            
+            FlexibleSheet(sheetMode: $sheetMode) {
+                MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle)
+                }
+                .frame(width:400, height:200)
+                .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
             }
         }
     }
-}
+
    
 
 //struct FoodSearch_Previews: PreviewProvider {
@@ -89,5 +113,5 @@ struct FoodSearchResultsView: View {
 //        FoodSearchResultsView(userSearch: Binding.constant(true), isViewSearching: Binding.constant(true))
 //    }
 //}
-
+//
 

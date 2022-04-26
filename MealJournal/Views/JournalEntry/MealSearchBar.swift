@@ -34,19 +34,16 @@ struct MealSearchBar: View {
                                 userFoodInput = ""
                             }
                         }
-
                 }
                 .foregroundColor(.black)
                 .padding(.leading, 13)
-                
-               
             }
             
             .frame(height:40)
             .cornerRadius(15)
             .padding(12)
         }
-        
+
         FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
             .environmentObject(foodApi)
     }

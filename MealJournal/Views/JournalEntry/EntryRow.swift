@@ -15,12 +15,12 @@ struct EntryRow: View {
    
     var body: some View {
         let mealCalories = meal.calories
-        let mealCaloriesString = String(mealCalories)
+        let mealCaloriesString = String(mealCalories ?? "Default Value")
         
         HStack{
                 VStack(alignment: .leading){
-                    Text(meal.mealName)
-                        Text(meal.amount)
+                    Text(meal.mealName ?? "Default Value")
+                        Text(meal.brand ?? "Default Value")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                            

@@ -9,8 +9,7 @@ import SwiftUI
 
 class MealEntrys: ObservableObject{
     @Published var mealEntrysBreakfast: [Meal] = []
-    let mealEntrysLunch: [Meal] = [
-       
-    ]
-    let mealEntrysDinner: [Meal] = []
+    @Published var mealEntrysLunch: [Meal] = []
+    @Published var mealEntrysDinner: [Meal] = []
+    
 }

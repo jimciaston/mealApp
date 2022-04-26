@@ -16,9 +16,7 @@ struct RecipeFullListView: View {
     }
     
     var body: some View {
-     
             VStack{
-                
                 Text("Recipes")
                     //.padding(.bottom, -20)
                     //.padding(.top, 40)
@@ -52,12 +50,6 @@ struct RecipeFullListView: View {
                                 }
                                     .padding(.top, -10)
                                     .padding(5)
-                                    
-                                    
-                                    //shows active recipe when clicked
-                                    
-                                    
-                            
                         }
                     }
                 }

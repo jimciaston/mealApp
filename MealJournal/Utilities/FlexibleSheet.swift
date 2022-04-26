@@ -10,10 +10,10 @@ import SwiftUI
 enum SheetMode {
     case none
     case quarter
+    case mealTimingSelection
 }
 
 struct FlexibleSheet<Content: View>: View {
-    
     let content: () -> Content
     var sheetMode: Binding<SheetMode>
     
@@ -28,7 +28,9 @@ struct FlexibleSheet<Content: View>: View {
             case .none:
                 return UIScreen.main.bounds.height
             case .quarter:
-                return UIScreen.main.bounds.height - 450
+                return UIScreen.main.bounds.height - 450 //450 default
+        case .mealTimingSelection:
+            return UIScreen.main.bounds.height - 860
         }
         
     }

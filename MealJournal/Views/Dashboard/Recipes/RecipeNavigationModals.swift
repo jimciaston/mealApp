@@ -55,8 +55,8 @@ struct RecipeNavigationModals: View {
                             sheetModeIngredients = .quarter
                             case .quarter:
                             sheetModeIngredients = .quarter
-                            
-        
+                        case .mealTimingSelection:
+                            return 
                         }
                     }){
                         Text("Ingredients")
@@ -79,6 +79,8 @@ struct RecipeNavigationModals: View {
                         sheetModeDirections = .quarter
                     case .quarter:
                         sheetModeDirections = .quarter
+                    case .mealTimingSelection: //only used for when user selects meal option on mealtiming
+                        return
                     }
                         
                 }){

@@ -30,7 +30,8 @@ struct JournalEntryMain: View {
             }
             .padding()
             .padding(.leading, 250)
-        
+            
+        MacroView()
     //search bar - sets foodname to foodname
         MealSearchBar(isUserDoneSearching: $isUserSearching)//when user is completed searching
             
@@ -79,12 +80,11 @@ struct JournalEntryMain: View {
                             .listStyle(GroupedListStyle())
                             .foregroundColor(.black)
             }
-           
+//            NutrionalPieChartView(values: [15,10,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
                         
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
-       
         }
     .environmentObject(mealEntrys) //references meal entry
     }

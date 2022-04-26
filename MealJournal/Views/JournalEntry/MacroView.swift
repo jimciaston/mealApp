@@ -8,26 +8,33 @@
 import SwiftUI
 
 struct MacroView: View {
+    @EnvironmentObject var mealEntryObj: MealEntrys
+    var dailyMacrosCounter = DailyMacrosCounter()
+    //@StateObject var mealE = MealEntrys()
     var body: some View {
-        let macroCount = DailyMacrosCounter()
+      
         VStack{
             Text("Daily Macros")
                 .font(.title2)
             HStack{
                 VStack{
-                    Text(macroCount.getCarbs())
+                   // Text(String(testa())
                     Text("Carbs")
                         .padding(-5)
                 }
                 .padding(30)
                 VStack{
-                    Text(macroCount.getFat())
-                        Text("Fat")
+                    Text(dailyMacrosCounter.getFatTotals(
+                            breakfast: mealEntryObj,
+                            lunch: mealEntryObj,
+                            dinner: mealEntryObj)
+                        )
+                         Text("Fat")
                         .padding(-5)
                 }
                 .padding(30)
                 VStack{
-                    Text(macroCount.getProtein())
+                  //  Text(macroCount.getProtein())
                        Text("Protein")
                         .padding(-5)
                 }
