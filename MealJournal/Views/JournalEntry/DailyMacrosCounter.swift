@@ -20,9 +20,33 @@ struct DailyMacrosCounter{
             for index in (0 ..< dinner.mealEntrysDinner.count){
                 totalFats += breakfast.mealEntrysDinner[index].fat ?? 0
                 }
-                
             return String(totalFats)
-        
+        }
+    func getProteinTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String {
+        var totalProtein = 0
+            for index in (0 ..< breakfast.mealEntrysBreakfast.count){
+                totalProtein += breakfast.mealEntrysBreakfast[index].protein ?? 0
+                }
+            for index in (0 ..< lunch.mealEntrysLunch.count){
+                totalProtein += breakfast.mealEntrysLunch[index].protein ?? 0
+                }
+            for index in (0 ..< dinner.mealEntrysDinner.count){
+                totalProtein += breakfast.mealEntrysDinner[index].protein ?? 0
+                }
+            return String(totalProtein)
+        }
+    func getCarbTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String {
+        var totalCarbs = 0
+            for index in (0 ..< breakfast.mealEntrysBreakfast.count){
+                totalCarbs += breakfast.mealEntrysBreakfast[index].carbs ?? 0
+                }
+            for index in (0 ..< lunch.mealEntrysLunch.count){
+                totalCarbs += breakfast.mealEntrysLunch[index].carbs ?? 0
+                }
+            for index in (0 ..< dinner.mealEntrysDinner.count){
+                totalCarbs += breakfast.mealEntrysDinner[index].carbs ?? 0
+                }
+            return String(totalCarbs)
         }
     
 }

@@ -30,7 +30,8 @@ struct FlexibleSheet<Content: View>: View {
             case .quarter:
                 return UIScreen.main.bounds.height - 450 //450 default
         case .mealTimingSelection:
-            return UIScreen.main.bounds.height - 860
+            return UIScreen.main.bounds.height - 650
+                
         }
         
     }

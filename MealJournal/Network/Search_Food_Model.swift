@@ -28,7 +28,8 @@ class FoodApiSearch: ObservableObject{
                                     self.userSearchResults.append(Meal(
                                         id: UUID(),
                                         brand: item.brandOwner?.lowercased().firstCapitalized ?? "Brand Unavailable",
-                                        mealName: item.lowercaseDescription?.firstCapitalized ?? "food invalid",
+                                        ///note padding on mealName cuts string off at 18 char, preventing sloppy UI if long meal name
+                                        mealName: item.lowercaseDescription?.firstCapitalized.padding(toLength: 18, withPad: " ", startingAt: 0) ?? "food invalid",
                                         calories: String(Double(round(item.foodNutrients?[3].value! ?? 0.00)).removeZerosFromEnd()),
                                         quantity: Int(item.servingSize ?? 2.00),
                                         amount: item.servingSizeUnit ?? "Invalid Amount",
@@ -40,7 +41,8 @@ class FoodApiSearch: ObservableObject{
                                 }
                         else{return}
                     }
-                       
+//                        let testString = "bla bli blah"
+//                        testString.padding(toLength: 3, withPad: " ", startingAt: 0)
                 }
             }
             .resume()

@@ -8,14 +8,20 @@
 import SwiftUI
 
 
-
+//func removeRows(at offsets: IndexSet) {
+//        numbers.remove(atOffsets: offsets)
+//    }
 
 
 struct JournalEntryMain: View {
+    
+    func removeJournalEntry(at offsets: IndexSet) {
+        mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)
+    }
+    
     @StateObject var mealEntrys = MealEntrys()
     
     @Environment(\.dismiss) var dismiss
-  //will be set to variable
     @State private var foodName = ""
     @State private var isUserSearching = false
     var body: some View {
@@ -49,6 +55,8 @@ struct JournalEntryMain: View {
                         ForEach(mealEntrys.mealEntrysBreakfast) { meal in
                                 EntryRow(meal: meal)
                         }
+                        .onDelete { offsets in
+                            mealEntrys.mealEntrysBreakfast.remove(atOffsets: offsets)}
                     }
                     Section(header: Text("Lunch"),
                             footer: Button("Add Meal"){
@@ -60,6 +68,9 @@ struct JournalEntryMain: View {
                         ForEach(mealEntrys.mealEntrysLunch){ meal in
                             EntryRow(meal:meal)
                         }
+                        .onDelete{ offsets in
+                            mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)}
+                        
                     }
                     Section(header:Text("Dinner"),
                             footer: Button("Add Meal"){
@@ -70,9 +81,9 @@ struct JournalEntryMain: View {
                         }
                         ForEach(mealEntrys.mealEntrysDinner, id: \.self){ meal in
                            EntryRow(meal:meal)
-                           
                        }
-                        
+                        .onDelete{offsets in
+                            mealEntrys.mealEntrysDinner.remove(atOffsets: offsets)}
                     }
                    
                 }

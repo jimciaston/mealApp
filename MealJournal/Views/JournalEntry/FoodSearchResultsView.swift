@@ -38,50 +38,41 @@ struct FoodSearchResultsView: View {
                             HStack{
                                 VStack (alignment:.leading){
                                     Text(meal.mealName ?? "default")
-                                        .font(.title3)
+                                        .font(.body)
                                     HStack{
-                                        Text(meal.brand ?? "Brand Unavailable")
+                                        Text(meal.brand ?? "Generic")
                                             .font(.caption)
+                                            .frame(width:70)
                                            // .offset(y:8)
-                                        Text(meal.calories!  + ", cals ")
+                                        Text(", " + meal.calories!  + "cals ")
                                             .font(.caption)
-                                          //  .offset(y:8)
-                                       
-                                            
-                                            
-                                           
                                         }
-                                    .border(.red)
-                                 
-                                  
                                     }
-                                .padding(.leading, -40)
-                               
-                              
+                                .frame(width: 300)
+                                .offset(x: -50)
                                 .foregroundColor(.black)
+                               
                                 
                             Button(action: {
                                 switch sheetMode {
                                     case .none:
                                         sheetMode = .mealTimingSelection
+                                    mealTimingToggle = true //meal timing list comes to view
                                     case .mealTimingSelection:
                                         sheetMode = .none
+                                    mealTimingToggle = false //list leaves view
                                 case .quarter:
-                                    sheetMode = .mealTimingSelection
+                                    sheetMode = .none
                                 }
                                 //communicates with mealtimingselectionview
                                 MealObject = meal
-                                mealTimingToggle = true
+                                //mealTimingToggle = true
                             }){
                                 Image(systemName: "plus.app")
                                     .font(.largeTitle)
                                     .foregroundColor(.blue)
-                                   // .offset(x: 70)
-                                   // .frame(width:100)
-                                    .padding(.leading, 100)
+                                   .padding(.trailing, 25)
                             }
-                            
-                           
                     }
                     .frame(width:220, height:40) //width of background
                     .padding([.leading, .trailing], 60)
@@ -89,6 +80,7 @@ struct FoodSearchResultsView: View {
                     .background(RoundedRectangle(
                         cornerRadius:20).fill(Color("LightWhite")))
                     .foregroundColor(.black)
+                    .opacity(mealTimingToggle ? 0.3 : 1)
                     }
                 .listStyle(.plain)
                 .listRowSeparator(.hidden)
@@ -96,12 +88,14 @@ struct FoodSearchResultsView: View {
                 }
                 
             }
-            
-            FlexibleSheet(sheetMode: $sheetMode) {
-                MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle)
+            if(mealTimingToggle){
+                FlexibleSheet(sheetMode: $sheetMode) {
+                    MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle)
+                    }
+                ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
+                .frame(height:240)
+                .animation(.easeInOut)
                 }
-                .frame(width:400, height:200)
-                .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
             }
         }
     }

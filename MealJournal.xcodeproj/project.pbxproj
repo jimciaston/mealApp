@@ -331,10 +331,10 @@
 				0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */,
 				0AE0DB9527C21124006F1835 /* MealSearchBar.swift */,
 				0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */,
+				0A3B9B222813550800EC631A /* MealTimingSelectorView.swift */,
 				0A3B9B1027FFDF5A00EC631A /* UserAddingFood.swift */,
 				0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */,
 				0AE0DB8F27BD5041006F1835 /* EntryRow.swift */,
-				0A3B9B222813550800EC631A /* MealTimingSelectorView.swift */,
 				0A70A8BE27FA8B8B00318780 /* FoodItemMain */,
 			);
 			path = JournalEntry;

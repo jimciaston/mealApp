@@ -18,7 +18,11 @@ struct MacroView: View {
                 .font(.title2)
             HStack{
                 VStack{
-                   // Text(String(testa())
+                   Text(dailyMacrosCounter.getCarbTotals(
+                    breakfast: mealEntryObj,
+                    lunch: mealEntryObj,
+                    dinner: mealEntryObj)
+                        )
                     Text("Carbs")
                         .padding(-5)
                 }
@@ -34,7 +38,10 @@ struct MacroView: View {
                 }
                 .padding(30)
                 VStack{
-                  //  Text(macroCount.getProtein())
+                   Text(dailyMacrosCounter.getProteinTotals(
+                    breakfast: mealEntryObj,
+                    lunch: mealEntryObj,
+                    dinner: mealEntryObj))
                        Text("Protein")
                         .padding(-5)
                 }
