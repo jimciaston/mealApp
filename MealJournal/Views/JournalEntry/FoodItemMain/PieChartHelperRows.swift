@@ -19,13 +19,20 @@ struct PieChartHelperRows: View {
                 RoundedRectangle(cornerRadius: 5.0)
                     .fill(self.colors[i])
                     .frame(width: 20, height: 20)
+                    .padding(.leading, 20)
+                
                 Text(self.names[i])
+                    .padding(.leading, 10)
+                
                 Spacer()
+                
                 VStack(alignment: .trailing){
                     Text(self.values[i])
                     Text(self.percents[i])
                         .foregroundColor(Color.gray)
+                        
                 }
+                .padding(.trailing, 25)
             }
         }
     }

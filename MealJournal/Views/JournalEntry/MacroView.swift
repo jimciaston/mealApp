@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct MacroView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
     var dailyMacrosCounter = DailyMacrosCounter()
+    
     //@StateObject var mealE = MealEntrys()
     var body: some View {
-      
+        let dailyA = Double(dailyMacrosCounter.getCarbTotals(
+            breakfast: mealEntryObj,
+            lunch: mealEntryObj,
+            dinner: mealEntryObj))
         VStack{
             Text("Daily Macros")
                 .font(.title2)
@@ -25,6 +30,7 @@ struct MacroView: View {
                         )
                     Text("Carbs")
                         .padding(-5)
+//                    NutrionalPieChartView(values: [dailyA,10,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
                 }
                 .padding(30)
                 VStack{

@@ -16,6 +16,9 @@ struct MealSearchBar: View {
     //calls search API
     @StateObject private var foodApi = FoodApiSearch()
     @Binding var isUserDoneSearching: Bool
+    
+    @State var showMoreResults = false
+    
     var body: some View {
         VStack{
             ZStack{
@@ -25,7 +28,7 @@ struct MealSearchBar: View {
                     Image(systemName: "magnifyingglass")
                     TextField("Enter Meal", text: $userFoodInput)
                         .onSubmit {
-                            foodApi.searchFood(userItem: userFoodInput)
+                            foodApi.searchFood(userItem: userFoodInput, showMoreResults: showMoreResults)
                             didUserSearch = true
                             didtextComplete = true
                             isUserDoneSearching = true
@@ -42,10 +45,12 @@ struct MealSearchBar: View {
             .frame(height:40)
             .cornerRadius(15)
             .padding(12)
+            
         }
 
         FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
             .environmentObject(foodApi)
+    
     }
     
 }

@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct NutrionalPieChartView: View {
+    var dailyMacrosCounter = DailyMacrosCounter()
+    @EnvironmentObject var mealEntryObj: MealEntrys
     
+   public var a: String {
+        get{
+            (dailyMacrosCounter.getCarbTotals(
+                breakfast: mealEntryObj,
+                lunch: mealEntryObj,
+                dinner: mealEntryObj))
+        }
+    }
     public let values: [Double]
     public var colors: [Color]
     public let names: [String]
@@ -39,8 +49,9 @@ struct NutrionalPieChartView: View {
                         NutrionalPieChart(pieSliceData: self.slices[i])
                     }
                     //adjust size
-                    .frame(width: geometry.size.width-200, height: geometry.size.width)
+                    .frame(width: geometry.size.width - 80, height: geometry.size.width)
                 }
+                
                     PieChartHelperRows(
                         colors: self.colors,
                         names: self.names,
@@ -53,10 +64,11 @@ struct NutrionalPieChartView: View {
             }
         }
     }
+   
 }
 
 struct NutrionalPieChartView_Previews: PreviewProvider {
     static var previews: some View {
-        NutrionalPieChartView(values: [15,10,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
+        NutrionalPieChartView(values: [05,5,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
     }
 }

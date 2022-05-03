@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FoodSearchResultsView: View {
     @EnvironmentObject private var foodApi: FoodApiSearch
-    
     @State var MealObject = Meal()
     
     @State private var chooseMealTiming = false
@@ -21,6 +20,9 @@ struct FoodSearchResultsView: View {
     //when false, api results will not display
     @Binding var isViewSearching:Bool //sending to searchbar
     @State var mealTimingToggle = false //Tells whether mealtiming list is open or closed, binded to meal timing selector view
+    
+    
+    @State var resultsDisplayed = 5
     var body: some View {
         if userSearch{
             VStack{
@@ -34,60 +36,92 @@ struct FoodSearchResultsView: View {
                            }
                 //if user has completed searching for a food
                 if isViewSearching{
-                    List(foodApi.userSearchResults){meal in
-                            HStack{
-                                VStack (alignment:.leading){
-                                    Text(meal.mealName ?? "default")
-                                        .font(.body)
-                                    HStack{
-                                        Text(meal.brand ?? "Generic")
-                                            .font(.caption)
-                                            .frame(width:70)
-                                           // .offset(y:8)
-                                        Text(", " + meal.calories!  + "cals ")
-                                            .font(.caption)
+                    List{
+                        ForEach(foodApi.userSearchResults.prefix(resultsDisplayed)) { meal in
+                            ZStack{
+                                HStack{
+                                    VStack (alignment:.leading){
+                                        Text(meal.mealName ?? "default")
+                                            .font(.body)
+                                        HStack{
+                                            Text(meal.brand ?? "Generic")
+                                                .font(.caption)
+                                                .frame(width:70)
+                                               // .offset(y:8)
+                                            Text(", " + meal.calories!  + "cals ")
+                                                .font(.caption)
+                                            }
                                         }
-                                    }
-                                .frame(width: 300)
-                                .offset(x: -50)
-                                .foregroundColor(.black)
-                               
-                                
-                            Button(action: {
-                                switch sheetMode {
-                                    case .none:
-                                        sheetMode = .mealTimingSelection
-                                    mealTimingToggle = true //meal timing list comes to view
-                                    case .mealTimingSelection:
+                                    .frame(width: 300)
+                                    .offset(x: -50)
+                                    .foregroundColor(.black)
+                                  
+                                    
+                                Button(action: {
+                                    switch sheetMode {
+                                        case .none:
+                                            sheetMode = .mealTimingSelection
+                                        mealTimingToggle = true //meal timing list comes to view
+                                        case .mealTimingSelection:
+                                            sheetMode = .none
+                                        mealTimingToggle = false //list leaves view
+                                    case .quarter:
                                         sheetMode = .none
-                                    mealTimingToggle = false //list leaves view
-                                case .quarter:
-                                    sheetMode = .none
+                                    }
+                                    //communicates with mealtimingselectionview
+                                    MealObject = meal
+                                    //mealTimingToggle = true
+                                }){
+                                    Image(systemName: "plus.app")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.blue)
+                                       .padding(.trailing, 25)
                                 }
-                                //communicates with mealtimingselectionview
-                                MealObject = meal
-                                //mealTimingToggle = true
-                            }){
-                                Image(systemName: "plus.app")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.blue)
-                                   .padding(.trailing, 25)
-                            }
+                                
+                                .buttonStyle(BorderlessButtonStyle())
+                                    
+                        }
+                                
+                                //HIDES STUPID STUPID STUPID LIST ARROWS
+                                NavigationLink(destination: FoodItemView(
+                                    meal:$MealObject,
+                                    mealName: meal.mealName ?? "Default",
+                                    mealBrand: meal.brand ?? "Generic",
+                                    mealCalories: meal.calories ?? "Default",
+                                    mealCarbs: meal.carbs ?? 0,
+                                    mealProtein: meal.protein ?? 0,
+                                    mealFat: meal.fat ?? 0
+                                    )
+                                ){
+                                    emptyview()
+                                }
+                                .opacity(0)
+                               
                     }
-                    .frame(width:220, height:40) //width of background
-                    .padding([.leading, .trailing], 60)
-                    .padding([.top, .bottom], 10)
-                    .background(RoundedRectangle(
-                        cornerRadius:20).fill(Color("LightWhite")))
-                    .foregroundColor(.black)
-                    .opacity(mealTimingToggle ? 0.3 : 1)
+                        .frame(width:220, height:40) //width of background
+                        .padding([.leading, .trailing], 60)
+                        .padding([.top, .bottom], 10)
+                        .background(RoundedRectangle(
+                            cornerRadius:20).fill(Color("LightWhite")))
+                        .foregroundColor(.black)
+                        .opacity(mealTimingToggle ? 0.3 : 1)
+                        }
+                        Button("View More"){
+                            resultsDisplayed += 5
+                          
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding([.top, .bottom], 15)
+                        .multilineTextAlignment(.center)
                     }
-                .listStyle(.plain)
-                .listRowSeparator(.hidden)
-                   
+                    .listStyle(.plain)
+                    .listRowSeparator(.hidden)
+                        
                 }
+              
+        }
                 
-            }
+    }
             if(mealTimingToggle){
                 FlexibleSheet(sheetMode: $sheetMode) {
                     MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle)
@@ -98,7 +132,7 @@ struct FoodSearchResultsView: View {
                 }
             }
         }
-    }
+    
 
    
 

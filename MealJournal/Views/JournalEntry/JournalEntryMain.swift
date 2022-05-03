@@ -91,7 +91,7 @@ struct JournalEntryMain: View {
                             .listStyle(GroupedListStyle())
                             .foregroundColor(.black)
             }
-//            NutrionalPieChartView(values: [15,10,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
+           
                         
         }
         .navigationBarTitle("")
