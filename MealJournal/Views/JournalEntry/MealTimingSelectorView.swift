@@ -11,17 +11,23 @@ import SwiftUI
 ///more details on jouranlEntry where they see full meal stats
 struct MealTimingSelectorView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
+    
+    @Environment(\.dismiss) var dismiss
     @Binding var meal: Meal
     @Binding var isViewSearching: Bool
     @Binding var userSearch: Bool
     @Binding var mealTimingToggle: Bool
-    init(meal: Binding<Meal>, isViewSearching: Binding<Bool>, userSearch: Binding<Bool>, mealTimingToggle: Binding<Bool>){
+    @Binding var extendedViewOpen: Bool
+    @Binding var mealSelected: Bool
+    init(meal: Binding<Meal>, isViewSearching: Binding<Bool>, userSearch: Binding<Bool>, mealTimingToggle: Binding<Bool>, extendedViewOpen: Binding<Bool>, mealSelected: Binding<Bool>){
         ///commented the view color out for now, as it was having a weird effect on the journalEntryMain list. 
         UITableView.appearance().backgroundColor = .clear
         self._meal = meal
         self._isViewSearching = isViewSearching
         self._userSearch = userSearch
         self._mealTimingToggle = mealTimingToggle
+        self._extendedViewOpen = extendedViewOpen
+        self._mealSelected = mealSelected
     }
     
     var body: some View {
@@ -42,7 +48,7 @@ struct MealTimingSelectorView: View {
                         .font(.body)
                         .frame(maxWidth: .infinity)
                         .frame(height:50)
-                        
+        
                         .multilineTextAlignment(.center)
                    
                 }.background(Color("LightWhite"))
@@ -54,6 +60,11 @@ struct MealTimingSelectorView: View {
                         userSearch = false
                         mealEntryObj.mealEntrysBreakfast.append(meal)
                         mealTimingToggle = false
+                        mealSelected = true //user selected a meal
+                        if(extendedViewOpen){
+                            mealSelected = true
+                            dismiss()
+                        }
                       
                     }){
                         Text("Breakfast")
@@ -64,15 +75,27 @@ struct MealTimingSelectorView: View {
                         userSearch = false
                         mealEntryObj.mealEntrysLunch.append(meal)
                         mealTimingToggle = false
+                        mealSelected = true //user selected a meal
+                        
+                        if(extendedViewOpen){
+                            mealSelected = true
+                            dismiss()
+                        }
                     }){
                         Text("Lunch")
                     }
                         .listRowSeparator(.automatic)
+                    
                     Button(action: {
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysDinner.append(meal)
                         mealTimingToggle = false
+                        mealSelected = true //user selected a meal
+                        if(extendedViewOpen){
+                            mealSelected = true
+                            dismiss()
+                        }
                     }){
                         Text("Dinner")
                     }
@@ -90,6 +113,6 @@ struct MealTimingSelectorView: View {
 }
 struct MealTimingSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        MealTimingSelectorView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Jim", calories: "Jim", quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), isViewSearching: .constant(true), userSearch: .constant(true), mealTimingToggle: .constant(true))
+        MealTimingSelectorView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Jim", calories: "Jim", quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), isViewSearching: .constant(true), userSearch: .constant(true), mealTimingToggle: .constant(true), extendedViewOpen: .constant(true), mealSelected: .constant(true))
 }
 }

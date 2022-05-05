@@ -92,7 +92,7 @@ struct FitnessForm: View {
                         
                     }
             
-            NavigationLink(destination: UserDashController().navigationBarHidden(true)){
+            NavigationLink(destination: UserDashboardView().navigationBarHidden(true)){
                 Button(""){
                     print("test it works")
                 }

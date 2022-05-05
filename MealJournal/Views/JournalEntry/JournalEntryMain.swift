@@ -27,17 +27,9 @@ struct JournalEntryMain: View {
     var body: some View {
     NavigationView{
         VStack{
-            Button(action: {
-                dismiss()
-            }) {
-                Image(systemName: "xmark")
-                    .font(.body)
-                    .foregroundColor(.black)
-            }
-            .padding()
-            .padding(.leading, 250)
-            
         MacroView()
+                .environmentObject(mealEntrys) //references meal entry
+              
     //search bar - sets foodname to foodname
         MealSearchBar(isUserDoneSearching: $isUserSearching)//when user is completed searching
             

@@ -10,7 +10,7 @@ import SwiftUI
 struct FoodSearchResultsView: View {
     @EnvironmentObject private var foodApi: FoodApiSearch
     @State var MealObject = Meal()
-    
+    @State var extendedViewOpen = false
     @State private var chooseMealTiming = false
     @State private var sheetMode: SheetMode = .none
     //textfield input
@@ -20,9 +20,16 @@ struct FoodSearchResultsView: View {
     //when false, api results will not display
     @Binding var isViewSearching:Bool //sending to searchbar
     @State var mealTimingToggle = false //Tells whether mealtiming list is open or closed, binded to meal timing selector view
+    @State var isListFull = false //checks if all api results are shown
+    
+    @State var listCounter = 0 //keeps track of list on appear
+    @State var resultsDisplayed = 5 //bursts of results added to the screen
+    @Environment(\.dismiss) var dismiss
+    @State var mealSelected = false //not used, just there for meal selector
+    
+    @State var testRun = false
     
     
-    @State var resultsDisplayed = 5
     var body: some View {
         if userSearch{
             VStack{
@@ -30,12 +37,19 @@ struct FoodSearchResultsView: View {
                 Spacer()
               //  delays showing api call
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        testRun = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.isViewSearching = true
+                            testRun = true
                                }
+                        if mealSelected {
+                            resultsDisplayed = 5
+                        }
+                        mealSelected = false
                            }
                 //if user has completed searching for a food
                 if isViewSearching{
+                    
                     List{
                         ForEach(foodApi.userSearchResults.prefix(resultsDisplayed)) { meal in
                             ZStack{
@@ -56,7 +70,6 @@ struct FoodSearchResultsView: View {
                                     .offset(x: -50)
                                     .foregroundColor(.black)
                                   
-                                    
                                 Button(action: {
                                     switch sheetMode {
                                         case .none:
@@ -68,23 +81,27 @@ struct FoodSearchResultsView: View {
                                     case .quarter:
                                         sheetMode = .none
                                     }
+                                    
                                     //communicates with mealtimingselectionview
                                     MealObject = meal
-                                    //mealTimingToggle = true
                                 }){
                                     Image(systemName: "plus.app")
                                         .font(.largeTitle)
                                         .foregroundColor(.blue)
                                        .padding(.trailing, 25)
                                 }
-                                
+                                    
+                                .onAppear(){
+                                    listCounter += 1
+                                }
+                                    //allows button to be separely clicked //in view
                                 .buttonStyle(BorderlessButtonStyle())
                                     
                         }
                                 
-                                //HIDES STUPID STUPID STUPID LIST ARROWS
+                                //HIDES STUPID STUPID LIST ARROWS
                                 NavigationLink(destination: FoodItemView(
-                                    meal:$MealObject,
+                                    meal:.constant(meal),
                                     mealName: meal.mealName ?? "Default",
                                     mealBrand: meal.brand ?? "Generic",
                                     mealCalories: meal.calories ?? "Default",
@@ -92,10 +109,11 @@ struct FoodSearchResultsView: View {
                                     mealProtein: meal.protein ?? 0,
                                     mealFat: meal.fat ?? 0
                                     )
+                                             
                                 ){
                                     emptyview()
                                 }
-                                .opacity(0)
+                                .opacity(0)//hides emptyview
                                
                     }
                         .frame(width:220, height:40) //width of background
@@ -106,14 +124,27 @@ struct FoodSearchResultsView: View {
                         .foregroundColor(.black)
                         .opacity(mealTimingToggle ? 0.3 : 1)
                         }
-                        Button("View More"){
-                            resultsDisplayed += 5
-                          
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding([.top, .bottom], 15)
-                        .multilineTextAlignment(.center)
+                        //load more results
+                        
+                        if(!isListFull){
+                            if testRun{
+                                Button(isListFull ? "" : "View More"){
+                                    if (foodApi.userSearchResults.count > listCounter){
+                                        resultsDisplayed += 5
+                                    }
+                                    else{
+                                        isListFull = true
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding([.top, .bottom], 15)
+                                .multilineTextAlignment(.center)
+                            }
+                            }
+                            
+                       
                     }
+                    
                     .listStyle(.plain)
                     .listRowSeparator(.hidden)
                         
@@ -124,7 +155,7 @@ struct FoodSearchResultsView: View {
     }
             if(mealTimingToggle){
                 FlexibleSheet(sheetMode: $sheetMode) {
-                    MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle)
+                    MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
                     }
                 ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
                 .frame(height:240)

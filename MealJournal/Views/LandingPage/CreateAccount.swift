@@ -43,7 +43,6 @@ struct createUserAccount: View {
                            
                         }
                                 Button("Continue"){
-                                    print("View")
                                     let newUser = User(context: moc)
                                     newUser.id = UUID()
                                     newUser.firstName = userInformation.firstname

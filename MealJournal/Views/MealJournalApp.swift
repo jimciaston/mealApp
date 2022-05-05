@@ -11,11 +11,13 @@ import Foundation
 
 @main
 struct MealJournalApp: App {
+    @StateObject var mealEntrys = MealEntrys()
     @StateObject private var dataController = DataController()
     var body: some Scene {
         //load and ready coredata
         WindowGroup{
             ContentView()
+                .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, DataController.container.viewContext)
         }
     }

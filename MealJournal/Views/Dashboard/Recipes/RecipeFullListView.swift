@@ -66,10 +66,11 @@ struct RecipeFullListView: View {
                                 .foregroundColor(.black)
                         }
                     }
+                    
                 }
             }
         }
-        }
+    }
        
 
 

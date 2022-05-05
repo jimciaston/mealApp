@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LandingPage: View {
     @Environment (\.dismiss) var dismiss
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -24,7 +25,7 @@ struct LandingPage: View {
                 }
                 .offset(y:-25)
                 VStack{
-                    NavigationLink(destination: JournalEntryMain() .navigationBarHidden(true), label:{
+                    NavigationLink(destination: UserDashboardView().navigationBarHidden(true), label:{
                         Text("Get Started").fontWeight(.bold)
                         .frame(minWidth: 0, maxWidth: 200)
                         .padding(10)
@@ -38,7 +39,7 @@ struct LandingPage: View {
                                         endPoint: .bottomTrailing
                                     )))
                         
-                    })
+                    }) 
                     
                     NavigationLink(destination: userLogin().navigationBarHidden(true), label: {
                         Text("Login").fontWeight(.semibold)
@@ -53,7 +54,6 @@ struct LandingPage: View {
                 }
                
             }
-           
         }
        
     }

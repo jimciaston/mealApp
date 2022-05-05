@@ -11,7 +11,7 @@ struct NutrionalPieChartView: View {
     var dailyMacrosCounter = DailyMacrosCounter()
     @EnvironmentObject var mealEntryObj: MealEntrys
     
-   public var a: String {
+   public var meals: String {
         get{
             (dailyMacrosCounter.getCarbTotals(
                 breakfast: mealEntryObj,
@@ -19,6 +19,7 @@ struct NutrionalPieChartView: View {
                 dinner: mealEntryObj))
         }
     }
+    
     public let values: [Double]
     public var colors: [Color]
     public let names: [String]
@@ -46,10 +47,10 @@ struct NutrionalPieChartView: View {
             VStack{
                 ZStack{
                     ForEach(0..<self.values.count){ i in
-                        NutrionalPieChart(pieSliceData: self.slices[i])
+                        NutrionalPieChart(pieSliceData: self.slices[i])    
                     }
                     //adjust size
-                    .frame(width: geometry.size.width - 80, height: geometry.size.width)
+                    .frame(width: geometry.size.width - 150, height: geometry.size.width)
                 }
                 
                     PieChartHelperRows(
@@ -66,6 +67,9 @@ struct NutrionalPieChartView: View {
     }
    
 }
+
+
+///NOTICED BUG WHEN FOOD HAS 0%. WILL CORRECT LATER UPDATE
 
 struct NutrionalPieChartView_Previews: PreviewProvider {
     static var previews: some View {
