@@ -15,8 +15,7 @@ struct RecipeController: View {
     
     var recipeList = RecipeList.recipes
     var body: some View {
-       
-            VStack{
+        
                 VStack(){
                     Image(image)
                         .resizable()
@@ -29,7 +28,7 @@ struct RecipeController: View {
           
                 RecipeNavigationModals()
                    
-            }
+            
       }
     
     }

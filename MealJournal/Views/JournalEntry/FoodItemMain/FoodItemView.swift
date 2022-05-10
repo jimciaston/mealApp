@@ -55,6 +55,7 @@ struct FoodItemView: View {
     }
  
     var body: some View {
+        
         VStack(alignment:.leading, spacing: 0){
             HStack{
                 Spacer()
@@ -96,7 +97,8 @@ struct FoodItemView: View {
             
         }
         .padding(.leading, 15)
-        .navigationBarHidden(true)
+        .navigationBarTitle("")
+              
         
         if(mealTimingToggle){
             FlexibleSheet(sheetMode: $sheetMode) {

@@ -36,10 +36,7 @@ struct JournalEntryMain: View {
             if(!isUserSearching){
                 List {
                     Section(header: Text(Sectionheader(secHead: "Breakfast"))
-                                .foregroundColor(.black),
-                            footer:Button("Edit"){
-                                //do something
-                                })
+                                .foregroundColor(.black))
                     {
                         if(mealEntrys.mealEntrysBreakfast.isEmpty){
                             Text("")
@@ -50,10 +47,8 @@ struct JournalEntryMain: View {
                         .onDelete { offsets in
                             mealEntrys.mealEntrysBreakfast.remove(atOffsets: offsets)}
                     }
-                    Section(header: Text("Lunch"),
-                            footer: Button("Add Meal"){
-                        //do something later
-                    }){
+                    Section(header: Text("Lunch")
+                            ){
                         if(mealEntrys.mealEntrysLunch.isEmpty){
                             Text("")
                         }
@@ -64,10 +59,8 @@ struct JournalEntryMain: View {
                             mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)}
                         
                     }
-                    Section(header:Text("Dinner"),
-                            footer: Button("Add Meal"){
-                        //do something later
-                    }){
+                    Section(header:Text("Dinner")
+                           ){
                         if(mealEntrys.mealEntrysDinner.isEmpty){
                             Text("")
                         }
@@ -91,8 +84,7 @@ struct JournalEntryMain: View {
         }
     .environmentObject(mealEntrys) //references meal entry
     }
-   
-
+        
 
 
 func Sectionheader(secHead: String) -> String {

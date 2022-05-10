@@ -27,7 +27,6 @@ struct FollowUserButton: View {
                    }
                    
                    if subscribeWindow {
-                       
                        withAnimation(.easeIn(duration: 1)) {
                            SubscriptionPopUp(show: $subscribeWindow)
                                .frame(width:700, height: 800)

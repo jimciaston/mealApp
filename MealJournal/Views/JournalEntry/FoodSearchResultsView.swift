@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FoodSearchResultsView: View {
+    
     @EnvironmentObject private var foodApi: FoodApiSearch
     @State var MealObject = Meal()
     @State var extendedViewOpen = false
@@ -27,14 +28,28 @@ struct FoodSearchResultsView: View {
     @Environment(\.dismiss) var dismiss
     @State var mealSelected = false //not used, just there for meal selector
     
-    @State var testRun = false
+    @State var testRun = false //update name later
     
     
     var body: some View {
         if userSearch{
             VStack{
-                Text(isViewSearching ? "Results" : "Searching..")
+                HStack{
+                    Text(isViewSearching ? "Results" : "Searching..")
+                    Button(action: {
+                        userSearch = false
+                        isViewSearching = false
+                    }){
+                      Image(systemName: "xmark")
+                            
+                    }
+                    .foregroundColor(.black)
+                }
+               
                 Spacer()
+                
+               
+                
               //  delays showing api call
                     .onAppear {
                         testRun = false
@@ -48,8 +63,8 @@ struct FoodSearchResultsView: View {
                         mealSelected = false
                            }
                 //if user has completed searching for a food
+                
                 if isViewSearching{
-                    
                     List{
                         ForEach(foodApi.userSearchResults.prefix(resultsDisplayed)) { meal in
                             ZStack{
@@ -108,7 +123,7 @@ struct FoodSearchResultsView: View {
                                     mealCarbs: meal.carbs ?? 0,
                                     mealProtein: meal.protein ?? 0,
                                     mealFat: meal.fat ?? 0
-                                    )
+                                ) 
                                              
                                 ){
                                     emptyview()
@@ -167,10 +182,10 @@ struct FoodSearchResultsView: View {
 
    
 
-//struct FoodSearch_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FoodSearchResultsView(userSearch: Binding.constant(true), isViewSearching: Binding.constant(true))
-//    }
-//}
-//
+struct FoodSearch_Previews: PreviewProvider {
+    static var previews: some View {
+        FoodSearchResultsView(userSearch: Binding.constant(true), isViewSearching: Binding.constant(true))
+    }
+}
+
 

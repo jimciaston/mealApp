@@ -8,46 +8,57 @@
 import SwiftUI
 
 struct UserDashController: View {
-    
-   // @State private var showMealView = false
-    @State private var showSettingsView = false
-    @State private var showAddViews = false
   
-    
-    
-    init(){
-        
-       // UIToolbar.appearance().backgroundColor = UIColor(red: 0.0/255.0, green: 125/255.0, blue: 0.0/255.0, alpha: 1.0)
-//        UIToolbar.appearance().scrollEdgeAppearance = UIToolbar().compactAppearance
-        UIToolbar.appearance().isTranslucent = true
-       
-    }
+    @State private var action: Int? = 0
     
     var body: some View {
-       
-    
+
             VStack{
+                NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
+                                    EmptyView()
+                                }
+                
+                NavigationLink(destination: MacroView(), tag: 2, selection: $action) {
+                                    EmptyView()
+                                }
                 
                 ProfilePicture()
-  
-                FollowUserButton()
-                    .padding(.top, 10)
                 
-                MacroView()
-                   
-                    .padding(.top, 25)
-                    .padding(.bottom, -20)
+                Text("Bradley Martin")
+                    .padding()
+                HStack{
+                    HStack{
+                        Text("20").bold()
+                        Text("Following").foregroundColor(.gray)
+                    }
+                    .onTapGesture {
+                        //perform some tasks if needed before opening Destination view
+                        self.action = 1
+                        }
+                    
+                    HStack{
+                        Text("73").bold()
+                        Text("Followers").foregroundColor(.gray)
+                    }
+                    .onTapGesture {
+                        //perform some tasks if needed before opening Destination view
+                        self.action = 2
+                    }
+                }
+                .padding(.top, -5)
+                
+//                FollowUserButton()
+//                    .padding(.top, 10)
+                
                 RecipeListView()
-                   
-                   
             }
         }
     }
 
         
     
-
-
+//
+//
 struct UserDashController_Previews: PreviewProvider {
     static var previews: some View {
         UserDashController()

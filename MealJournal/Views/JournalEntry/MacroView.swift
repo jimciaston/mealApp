@@ -30,9 +30,10 @@ struct MacroView: View {
                         )
                     Text("Carbs")
                         .padding(-5)
-//                    NutrionalPieChartView(values: [dailyA,10,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
+                   
                 }
                 .padding(30)
+                
                 VStack{
                     Text(dailyMacrosCounter.getFatTotals(
                             breakfast: mealEntryObj,

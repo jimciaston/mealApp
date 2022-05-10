@@ -11,7 +11,7 @@ struct LandingPage: View {
     @Environment (\.dismiss) var dismiss
     
     var body: some View {
-        NavigationView{
+     
             VStack{
                 VStack{
                     Image("bodybuilding-1")
@@ -54,8 +54,8 @@ struct LandingPage: View {
                 }
                
             }
-        }
-       
+        
+        
     }
 }
    

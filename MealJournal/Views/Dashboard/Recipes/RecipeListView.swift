@@ -10,12 +10,13 @@ import SwiftUI
 struct RecipeListView: View {
     @State var listofRecipes: [RecipeListModel] = RecipeList.recipes
     @State var recipeViewToggle = false
-   
+  
     init(){
         UITableView.appearance().backgroundColor = .clear
     }
     
     var body: some View {
+        
         VStack{
             List{
                 ForEach(listofRecipes, id: \.id){ recipe in
@@ -27,7 +28,7 @@ struct RecipeListView: View {
                             VStack{
                                 ZStack{
                                     Text(recipe.name)
-                                        .font(.title2)
+                                        .font(.body)
                                     //temp solution until I can center it
                                         .padding(.top, 1)
                                     //as a note, sets empty view to hide list arrow
@@ -38,7 +39,7 @@ struct RecipeListView: View {
                                         .buttonStyle(PlainButtonStyle())
                                     
                                     Text("10g 25g 88g")
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
                                         .padding(.top, 80)
                                         .padding(.bottom, 10)
                                         .padding(.trailing, 10)
@@ -70,14 +71,12 @@ struct RecipeListView: View {
                                .padding(.top, 20)
                        }
                 }
-             
-                    
-                }
-               
             }
-        
-        }
+           
+        }//
+    
     }
+}
 
 
 
