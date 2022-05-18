@@ -16,7 +16,7 @@ struct createUserAccount: View {
     }
   
     var body: some View {
-        NavigationView{
+      
             ZStack{
                 Form{
                     Section(){
@@ -63,8 +63,14 @@ struct createUserAccount: View {
                                     .opacity(userInformation.isSignUpComplete ? 1 : 0.5)
                                     .offset(y: keyboardResponder.currentHeight*2)
                                     .disabled(!userInformation.isSignUpComplete)
+                
                                     .fullScreenCover(isPresented: $showFitnessForm){
-                                        FitnessForm()
+                                        FitnessForm(
+                                            userFirstName: $userInformation.firstname,
+                                            userLastName: $userInformation.lastname,
+                                            userEmailAddress: $userInformation.email,
+                                            userLoginPassword: $userInformation.password
+                                        )
                                             .ignoresSafeArea(.all)
                                     }
               
@@ -81,9 +87,7 @@ struct createUserAccount: View {
                
             }
             
-        }
-        
-            .navigationViewStyle(.stack)
+       
     }
 }
 struct createUserAccount_Previews: PreviewProvider {

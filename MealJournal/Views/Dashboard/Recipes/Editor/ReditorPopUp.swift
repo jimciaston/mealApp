@@ -29,6 +29,7 @@ struct ReditorPopUp: View {
                         Text("Edit")
                             .foregroundColor(.black)
                     } .buttonStyle(BorderlessButtonStyle())
+                    
                         .sheet(isPresented: $showEditRecipe){
                             RecipeEditor()
                         }
@@ -44,17 +45,12 @@ struct ReditorPopUp: View {
                             .foregroundColor(.black)
                     } .buttonStyle(BorderlessButtonStyle())
                 }
-               
-                
             }
-           
-            
-         
         }
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
-        ///art of animations
+        ///art of animation
         .transition(.backslide)
         .animation(.easeInOut(duration: 0.25))
     }

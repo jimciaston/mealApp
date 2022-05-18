@@ -10,7 +10,7 @@ import SwiftUI
 struct UserDashController: View {
   
     @State private var action: Int? = 0
-    
+   
     var body: some View {
 
             VStack{
@@ -46,15 +46,17 @@ struct UserDashController: View {
                     }
                 }
                 .padding(.top, -5)
-                
+               
 //                FollowUserButton()
 //                    .padding(.top, 10)
                 
                 RecipeListView()
-            }
+            }    
         }
-    }
+   
 
+    }
+    
         
     
 //

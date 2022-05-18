@@ -10,6 +10,8 @@ import SwiftUI
 struct UserDashboardView: View {
     @State var selectedIndex = 0
    
+    
+    @StateObject var mealEntrys = MealEntrys()
     init(){
         UITabBar.appearance().backgroundColor = UIColor.white
         
@@ -27,14 +29,15 @@ struct UserDashboardView: View {
                             }
                         }
                 
-                           JournalEntryMain()
+                           JournalEntryMain().environmentObject(mealEntrys) //references meal entry
+                    
                             .tabItem{
                                 VStack{
                                     Image(systemName: "pencil.circle")
                                         .font(.title3)
                                     Text("Meals")
                                 }
-                        }
+                        } 
                     
                 FollowingListView()
                             .tabItem{
@@ -46,6 +49,7 @@ struct UserDashboardView: View {
                         }
                            
             }.accentColor(.black)
+               
         }
         .navigationBarHidden(true)
       

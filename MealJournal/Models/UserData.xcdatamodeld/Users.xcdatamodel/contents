@@ -10,7 +10,14 @@
         <attribute name="password" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="UserRecipe" representedClassName="UserRecipe" syncable="YES">
+        <attribute name="recipeDirections" optional="YES" attributeType="String"/>
+        <attribute name="recipeImage" optional="YES" attributeType="Binary"/>
+        <attribute name="recipeIngredients" optional="YES" attributeType="String"/>
+        <attribute name="recipeName" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="User" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="UserRecipe" positionX="-63" positionY="45" width="128" height="89"/>
     </elements>
 </model>

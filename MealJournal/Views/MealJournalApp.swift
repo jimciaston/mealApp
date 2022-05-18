@@ -19,10 +19,10 @@ struct MealJournalApp: App {
             ContentView()
                 .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, DataController.container.viewContext)
-        }
+        
     }
 }
-
+}
 /*
  Client id : 8223cbe075c0470d8d4ac95313d18b86
  Client Secret: dac3b78ec3724ffbaff6addc8eab4c9b

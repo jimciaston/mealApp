@@ -41,7 +41,7 @@ struct RecipeFullListRow: View {
                             .padding(.trailing, 10)
                             .frame(height:90)
                         
-                        if self.showRecipeOptions{
+                        if showRecipeOptions{
                             ReditorPopUp()
                                     .padding(.top, 20)
                                     .padding(.leading, 15)

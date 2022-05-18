@@ -27,10 +27,11 @@ struct JournalEntryMain: View {
     var body: some View {
     NavigationView{
         VStack{
+            
         MacroView()
                 .environmentObject(mealEntrys) //references meal entry
-              
-    //search bar - sets foodname to foodname
+           
+            //search bar - sets foodname to foodname
         MealSearchBar(isUserDoneSearching: $isUserSearching)//when user is completed searching
             
             if(!isUserSearching){

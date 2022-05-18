@@ -8,8 +8,9 @@
 import SwiftUI
 import CoreData
 
-class FormViewModel: ObservableObject {
-    
+final class FormViewModel: ObservableObject {
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
     @Published var firstname = ""
     @Published var lastname = ""
     @Published var email = ""
@@ -33,6 +34,7 @@ class FormViewModel: ObservableObject {
         } else {
             return "*Please enter a valid email address"
         }
+        
     }
     
     var passwordPrompt: String {

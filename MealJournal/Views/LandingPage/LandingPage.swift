@@ -11,7 +11,7 @@ struct LandingPage: View {
     @Environment (\.dismiss) var dismiss
     
     var body: some View {
-     
+        NavigationView{
             VStack{
                 VStack{
                     Image("bodybuilding-1")
@@ -25,7 +25,7 @@ struct LandingPage: View {
                 }
                 .offset(y:-25)
                 VStack{
-                    NavigationLink(destination: UserDashboardView().navigationBarHidden(true), label:{
+                    NavigationLink(destination: createUserAccount().navigationBarHidden(true), label:{
                         Text("Get Started").fontWeight(.bold)
                         .frame(minWidth: 0, maxWidth: 200)
                         .padding(10)
@@ -55,7 +55,7 @@ struct LandingPage: View {
                
             }
         
-        
+        }
     }
 }
    

@@ -16,7 +16,7 @@ class FoodApiSearch: ObservableObject{
     func searchFood(userItem: String, showMoreResults: Bool){
        ///IMPROVE API FUNCTION LATER ON DURING LAUNCH
         var counter = 0
-        let urlEncoded = userItem.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        let urlEncoded = userItem.addingPercentEncoding(withAllowedCharacters: .alphanumerics) //accounts for user spacing
            guard
                 let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=bRbzV0uKJyenEtd1GMgJJNh4BzGWtDvDZVOy8cqG&query=\(urlEncoded!)") else {return}
                 URLSession.shared.dataTask(with: url) { (data, _,_) in
@@ -35,13 +35,11 @@ class FoodApiSearch: ObservableObject{
                                             amount: item.servingSizeUnit ?? "Invalid Amount",
                                             protein: Int(Double(round(item.foodNutrients?[0].value! ?? 0.00)).removeZerosFromEnd()),
                                             carbs: Int(Double(round(item.foodNutrients?[2].value! ?? 0.00)).removeZerosFromEnd()),
-                                            fat: Int(Double(round(item.foodNutrients?[1].value! ?? 0.00)).removeZerosFromEnd())
-                                            
+                                            fat: Int(Double(round(item.foodNutrients?[1].value! ?? 0.00)).removeZerosFromEnd()),
+                                            servingSize: item.servingSize,
+                                            servingSizeUnit: item.servingSizeUnit
                                         ))
-                                        
-                                       
-                                
-                              
+
                         
                     }
                 }

@@ -29,7 +29,7 @@ struct FlexibleSheetPicker<Content: View>: View {
             case .none:
                 return UIScreen.main.bounds.height
             case .quarter:
-                return UIScreen.main.bounds.height - 250 //450 default
+                return UIScreen.main.bounds.height - 550 //450 default
         case .mealTimingSelection:
             return UIScreen.main.bounds.height
         }

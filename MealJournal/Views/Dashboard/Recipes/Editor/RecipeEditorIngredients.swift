@@ -1,21 +1,13 @@
 //
-//  Recipe Ingredients.swift
+//  RecipeEditorIngredients.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 3/15/22.
+//  Created by Jim Ciaston on 5/12/22.
 //
 
 import SwiftUI
 
-
-struct RecipeIngredients: View {
-    
-    @State private var sheetMode: SheetMode = .quarter
-    
-    init(){
-        UITableView.appearance().backgroundColor = .clear
-    }
-    
+struct RecipeEditorIngredients: View {
     var body: some View {
         ZStack{
             VStack{
@@ -25,6 +17,8 @@ struct RecipeIngredients: View {
                             .font(.title2)
                             .foregroundColor(.green)
                             .fontWeight(.bold)
+                            .padding(5)
+                            .border(.black)
                         Text("Chicken Breast")
                             .font(.title3)
                     }
@@ -54,13 +48,11 @@ struct RecipeIngredients: View {
           
             
             }
-        }
-    }
-
-
-struct Recipe_Ingredients_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeIngredients()
     }
 }
 
+struct RecipeEditorIngredients_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeEditorIngredients()
+    }
+}

@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct FollowingListView: View {
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
+    
     var body: some View {
         VStack{
-            FollowingListRow()
-            FollowingListRow()
-            FollowingListRow()
+            List {
+                ForEach(allUsers) { user in
+                    Text(user.firstName ?? "user unknown")
+                }
+            }
+            Text("All Users : \(allUsers.count)")
         }
         
     }

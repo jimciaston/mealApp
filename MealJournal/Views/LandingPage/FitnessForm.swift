@@ -8,12 +8,23 @@
 import SwiftUI
 
 struct FitnessForm: View {
-    @State var selectedGenderIndex: Int = 0
-    @State var selectedHeightIndex: Int = 0
-    @State var selectedWeightIndex: Int = 0
-    @State private var agenda = ""
+    @Environment(\.managedObjectContext) var moc
+    
+    
+    @State private var selectedGender = ""
+    @State private var selectedHeight = ""
+    @State private var selectedWeight = ""
+    @State private var agenda = "" //bulking, cutting , or maintaoinin
+    
     public var signUpCompleted = false
     @State var pickerVisible: Bool = false
+    
+    //getting info from previous sign up view
+    @Binding var userFirstName: String
+    @Binding var userLastName: String
+    @Binding var userEmailAddress: String
+    @Binding var userLoginPassword: String
+    
     @State private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
    
     private var genderOptions = ["Male", "Female", "Other"]
@@ -23,11 +34,17 @@ struct FitnessForm: View {
   //  @Environment (\.dismiss) var dismiss
     
     //sets color of picker in selected
-    init() {
+    init(userFirstName: Binding <String>, userLastName: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
         UISegmentedControl.appearance().selectedSegmentTintColor = .orange
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
         UITableView.appearance().backgroundColor = .clear
+        
+        self._userFirstName = userFirstName
+        self._userLastName = userLastName
+        self._userEmailAddress = userEmailAddress
+        self._userLoginPassword = userLoginPassword
+        
     }
    
     //moves button offset when picker dropdown occurs
@@ -50,22 +67,22 @@ struct FitnessForm: View {
                 Form{
                     HStack{
                         Text("Gender")
-                        Picker("", selection: $selectedGenderIndex){
-                            ForEach(0..<genderOptions.count, id: \.self){
-                                Text(self.genderOptions[$0])
+                        Picker("", selection: $selectedGender){
+                            ForEach(genderOptions, id: \.self){ gender in
+                                Text(gender)
                             }
                     }
                     }
-                    Picker(selection: $selectedHeightIndex,label: Text("Height")){
-                        ForEach(0..<heightOptions.count){
-                            Text(self.heightOptions[$0]).tag($0)
+                    Picker(selection: $selectedHeight, label: Text("Height")){
+                        ForEach(heightOptions, id: \.self){ height in
+                            Text(height)
                         }
                     }
                     HStack{
                         Text("Weight")
-                             Picker(selection: $selectedWeightIndex,label: Text("")){
-                                 ForEach(0..<weightOptions.weightArray().count){
-                                     Text(weightOptions.weightArray()[$0]+" Ibs")
+                             Picker(selection: $selectedWeight,label: Text("")){
+                                 ForEach(weightOptions.weightArray(), id: \.self){weight in
+                                     Text(weight + " Ibs")
                                  }
                                  .pickerStyle(WheelPickerStyle())
                             // .frame(width:300, height:100)
@@ -88,13 +105,21 @@ struct FitnessForm: View {
                         .pickerStyle(.segmented)
                         .navigationBarTitle(Text("Fitness Stats"))
                         .frame(height:50)
-                       
-                        
                     }
             
             NavigationLink(destination: UserDashboardView().navigationBarHidden(true)){
                 Button(""){
-                    print("test it works")
+                    let newUser = User(context: moc)
+                    newUser.id = UUID()
+                    newUser.email = userEmailAddress
+                    newUser.firstName = userFirstName
+                    newUser.goals = agenda
+                    newUser.height = selectedHeight
+                    newUser.lastName = userLastName
+                    newUser.password = userLoginPassword
+                    newUser.weight = selectedWeight
+                    
+                    try? moc.save()
                 }
                 Text("Finish Up")
                    .frame(width: 150)
@@ -105,20 +130,19 @@ struct FitnessForm: View {
                     .background(.clear)
                     .cornerRadius(5)
                     .offset(y:CGFloat(isPickerVisible()))
-                   
                     }
-           
                 }
             } .offset(y:20) //moves down form
         
             .navigationViewStyle(.stack)
+        
     }
 }
 
-
-struct FitnessForm_Previews: PreviewProvider {
-    static var previews: some View {
-        FitnessForm()
-    }
-}
+//
+//struct FitnessForm_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FitnessForm(userFirstName: .constant("dummy string"))
+//    }
+//}
 

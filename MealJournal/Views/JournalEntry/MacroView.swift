@@ -10,9 +10,10 @@ import Foundation
 
 struct MacroView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
+    
     var dailyMacrosCounter = DailyMacrosCounter()
     
-    //@StateObject var mealE = MealEntrys()
+  
     var body: some View {
         let dailyA = Double(dailyMacrosCounter.getCarbTotals(
             breakfast: mealEntryObj,

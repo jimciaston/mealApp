@@ -57,6 +57,7 @@ struct FoodSearchResultsView: View {
                             self.isViewSearching = true
                             testRun = true
                                }
+                        //api loads all ,then only displays 5 at a time
                         if mealSelected {
                             resultsDisplayed = 5
                         }
@@ -122,12 +123,13 @@ struct FoodSearchResultsView: View {
                                     mealCalories: meal.calories ?? "Default",
                                     mealCarbs: meal.carbs ?? 0,
                                     mealProtein: meal.protein ?? 0,
-                                    mealFat: meal.fat ?? 0
-                                ) 
-                                             
+                                    mealFat: meal.fat ?? 0,
+                                    mealUnitSize: meal.servingSizeUnit ?? "Default"
+                                )
                                 ){
                                     emptyview()
                                 }
+                                .navigationBarHidden(true)
                                 .opacity(0)//hides emptyview
                                
                     }
@@ -155,18 +157,14 @@ struct FoodSearchResultsView: View {
                                 .padding([.top, .bottom], 15)
                                 .multilineTextAlignment(.center)
                             }
-                            }
-                            
-                       
+                        }
                     }
-                    
+                   
                     .listStyle(.plain)
                     .listRowSeparator(.hidden)
                         
                 }
-              
         }
-                
     }
             if(mealTimingToggle){
                 FlexibleSheet(sheetMode: $sheetMode) {

@@ -19,4 +19,6 @@ struct Meal: Identifiable, Hashable{
     var protein:  Int?
     var carbs: Int?
     var fat: Int?
+    var servingSize: Double?
+    var servingSizeUnit: String?
 }
