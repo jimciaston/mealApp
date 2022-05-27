@@ -11,6 +11,7 @@ import CoreData
 final class FormViewModel: ObservableObject {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
+    
     @Published var firstname = ""
     @Published var lastname = ""
     @Published var email = ""
@@ -18,15 +19,21 @@ final class FormViewModel: ObservableObject {
     @Published var password = ""
    // @Published var isValid = false
     
+    
+
     func isPasswordValid() -> Bool {
         let passwordTest = NSPredicate(format: "SELF MATCHES%@", "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$")
         return passwordTest.evaluate(with: password)
     }
     func isEmailValid() -> Bool {
+        var isValid = false
         let emailTest = NSPredicate(format: "SELF MATCHES%@", "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
         return emailTest.evaluate(with: email)
     }
-    
+//    for result in results as! [NSManagedObject]{
+//                    if let mail = result.value(forKey: "mail") as? String{
+//                        self.mailArray.append(mail)
+//                    }
     //email and password prompts if incomplete or incorrect
     var emailPrompt: String {
         if isEmailValid() || email == "" {

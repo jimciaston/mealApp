@@ -56,7 +56,7 @@ struct NutrionalPieChartView: View {
                     PieChartHelperRows(
                         colors: self.colors,
                         names: self.names,
-                        values: self.values.map { String($0) },
+                        values: self.values.map { String(format: "%.0f", $0) },
                         percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) })
                 
                 

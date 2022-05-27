@@ -8,9 +8,23 @@
 import SwiftUI
 import CoreData
 import Foundation
+import Firebase
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        return true
+    }
+}
 
 @main
 struct MealJournalApp: App {
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    init(){
+        FirebaseApp.configure()
+    }
+    
     @StateObject var mealEntrys = MealEntrys()
     @StateObject private var dataController = DataController()
     var body: some Scene {
@@ -19,9 +33,8 @@ struct MealJournalApp: App {
             ContentView()
                 .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, DataController.container.viewContext)
-        
+        }
     }
-}
 }
 /*
  Client id : 8223cbe075c0470d8d4ac95313d18b86

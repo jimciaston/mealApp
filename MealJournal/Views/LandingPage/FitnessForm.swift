@@ -6,18 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct FitnessForm: View {
+    
+    @StateObject var signUpController = SignUpController()
+   
+    @State private var userSignedIn = false
     @Environment(\.managedObjectContext) var moc
-    
-    
-    @State private var selectedGender = ""
-    @State private var selectedHeight = ""
-    @State private var selectedWeight = ""
-    @State private var agenda = "" //bulking, cutting , or maintaoinin
-    
-    public var signUpCompleted = false
-    @State var pickerVisible: Bool = false
     
     //getting info from previous sign up view
     @Binding var userFirstName: String
@@ -25,13 +21,18 @@ struct FitnessForm: View {
     @Binding var userEmailAddress: String
     @Binding var userLoginPassword: String
     
-    @State private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
-   
+    public var signUpCompleted = false
+    
+    //options for picker
+    @State private var selectedGender = ""
+    @State private var selectedHeight = ""
+    @State private var selectedWeight = ""
+    @State private var agenda = "" //bulking, cutting , or maintaoinin
+    @State var pickerVisible: Bool = false
+    
+    private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
     private var genderOptions = ["Male", "Female", "Other"]
     private var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
-    
-   // @Environment (\.managedObjectContext) var moc
-  //  @Environment (\.dismiss) var dismiss
     
     //sets color of picker in selected
     init(userFirstName: Binding <String>, userLastName: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
@@ -40,15 +41,17 @@ struct FitnessForm: View {
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
         UITableView.appearance().backgroundColor = .clear
         
+        //iniatlize firebase
+       
+        //iniatilizes the binding , error if we take these out
         self._userFirstName = userFirstName
         self._userLastName = userLastName
         self._userEmailAddress = userEmailAddress
         self._userLoginPassword = userLoginPassword
-        
+       
     }
    
     //moves button offset when picker dropdown occurs
-    
     func isPickerVisible() -> Int{
         if pickerVisible {
             return 200
@@ -56,10 +59,7 @@ struct FitnessForm: View {
             return 25
         }
     }
-    func saveUser(){
-       // try? moc.save()
-    }
-  
+   
     private var weightOptions = getWeight()
     var body: some View {
     NavigationView{
@@ -95,6 +95,7 @@ struct FitnessForm: View {
                         .padding()
                         .frame(width:300, height: 5 )
                         .multilineTextAlignment(.center)
+                        .listRowSeparator(.hidden)
                    
                     Picker("", selection: $agenda){
                         ForEach(fitnessAgenda, id: \.self) {
@@ -106,23 +107,26 @@ struct FitnessForm: View {
                         .navigationBarTitle(Text("Fitness Stats"))
                         .frame(height:50)
                     }
-            
-            NavigationLink(destination: UserDashboardView().navigationBarHidden(true)){
-                Button(""){
-                    let newUser = User(context: moc)
-                    newUser.id = UUID()
-                    newUser.email = userEmailAddress
-                    newUser.firstName = userFirstName
-                    newUser.goals = agenda
-                    newUser.height = selectedHeight
-                    newUser.lastName = userLastName
-                    newUser.password = userLoginPassword
-                    newUser.weight = selectedWeight
-                    
-                    try? moc.save()
+            Button(action: {
+                
+                    if(Auth.auth().currentUser?.email != nil){
+                       //check if user is signed in
+                        userSignedIn = true
+                        print("user  signed in")
+                       
+                    }
+                else{
+                    print("user is not signed in")
+                   
+                   
                 }
-                Text("Finish Up")
-                   .frame(width: 150)
+                
+            })
+            {
+                NavigationLink("", destination: UserDashboardView(signUpController: signUpController), isActive: $userSignedIn)
+                
+                Text("Finish Me Off Baby")
+                    .frame(width: 150)
                     .foregroundColor(.white)
                     .padding()
                     .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
@@ -130,14 +134,56 @@ struct FitnessForm: View {
                     .background(.clear)
                     .cornerRadius(5)
                     .offset(y:CGFloat(isPickerVisible()))
-                    }
+            }
+           
+//            NavigationLink(destination: UserDashboardView().navigationBarHidden(true)){
+//
+//                Button(""){
+////                    let newUser = User(context: moc)
+////                    newUser.id = UUID()
+////                    newUser.email = userEmailAddress
+////                    newUser.firstName = userFirstName
+////                    newUser.goals = agenda
+////                    newUser.height = selectedHeight
+////                    newUser.lastName = userLastName
+////                    newUser.password = userLoginPassword
+////                    newUser.weight = selectedWeight
+////
+////                    try? moc.save()
+//                    print("balls")
+//                    createNewUserAccount(userEmail: userEmailAddress, userPassword: userLoginPassword)
+//
+//                }
+//                Text("Finish Up")
+//                   .frame(width: 150)
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
+//                    .font(.title3)
+//                    .background(.clear)
+//                    .cornerRadius(5)
+//                    .offset(y:CGFloat(isPickerVisible()))
+//                    }
                 }
+        
             } .offset(y:20) //moves down form
         
             .navigationViewStyle(.stack)
-        
+       
     }
+        
 }
+
+//private func createNewUserAccount(userEmail: String, userPassword: String) {
+//    Auth.auth().createUser(withEmail: userEmail, password: userPassword){ result, err in
+//        if let err = err {
+//            print("Failed to create user " , err)
+//            return
+//        }
+//        print("Succesfully created user: \(result?.user.uid ?? "")")
+//    }
+//}
+
 
 //
 //struct FitnessForm_Previews: PreviewProvider {

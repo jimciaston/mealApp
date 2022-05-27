@@ -11,16 +11,24 @@ struct FollowingListView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
     
+    func deleteUser(at offsets: IndexSet){
+        for offset in offsets {
+            let user = allUsers[offset]
+            moc.delete(user)
+        }
+        try? moc.save()
+    }
+    
     var body: some View {
         VStack{
             List {
                 ForEach(allUsers) { user in
-                    Text(user.firstName ?? "user unknown")
+                    Text(user.email ?? "user unknown")
                 }
+                .onDelete(perform: deleteUser)
             }
             Text("All Users : \(allUsers.count)")
         }
-        
     }
 }
 

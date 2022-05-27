@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
-
+import Firebase
 struct UserDashboardView: View {
-    @State var selectedIndex = 0
-   
-    
     @StateObject var mealEntrys = MealEntrys()
-    init(){
-        UITabBar.appearance().backgroundColor = UIColor.white
-        
-    }
-  
+    @ObservedObject var signUpController: SignUpController
+    
+    @State private var signedOut = false
+    
+    @Environment (\.dismiss) var dismiss//    init(){
+//        UITabBar.appearance().backgroundColor = UIColor.white
+//        self._signUpController = signUpController
+//    }
+    
     var body: some View {
         NavigationView{
             TabView{
@@ -52,13 +53,12 @@ struct UserDashboardView: View {
                
         }
         .navigationBarHidden(true)
-      
-      
+
     }
       
 }
-struct UserDashboardView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserDashboardView()
-    }
-}
+//struct UserDashboardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserDashboardView()
+//    }
+//}
