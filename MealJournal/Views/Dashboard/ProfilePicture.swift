@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfilePicture: View {
     var body: some View {
         VStack{
-            Image("userProfile")
+            Image("profileDefaultPicture")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width:150, height: 150)

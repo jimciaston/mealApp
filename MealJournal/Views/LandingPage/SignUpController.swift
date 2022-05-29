@@ -23,7 +23,7 @@ class SignUpController: ObservableObject  {
             }
             print("Succesfully created user: \(result?.user.uid ?? "")")
             self.userIsLoggedIn = true
-            self.signedIn = true
+            self.signedIn = true //appStorage
         }
     }
     
@@ -47,6 +47,8 @@ class SignUpController: ObservableObject  {
     func logOutUser() {
         do {
             try Auth.auth().signOut()
+            print("userSignedOut")
+            self.signedIn = false
         }
         catch let error as NSError {
             print(error.localizedDescription)

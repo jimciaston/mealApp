@@ -10,10 +10,31 @@ import SwiftUI
 struct UserDashController: View {
   
     @State private var action: Int? = 0
-   
+   @State private var showMenu = false
     var body: some View {
-
+        NavigationView{
             VStack{
+//                 .navigationBarTitle("")
+//                .navigationBarHidden(true)
+//                    Button(action: {
+//                       //display menu
+//                        showMenu.toggle()
+//                    }, label: {
+//                            Image(systemName: "line.3.horizontal")
+//                                .resizable().aspectRatio(contentMode: .fit)
+//                                .frame(width: 30, height: 40)
+//                                .foregroundColor(.black)
+//                    })
+//                        .padding(.trailing, 25)
+//
+//                }
+//                .padding(.bottom, -25)
+//
+                    
+                  
+                    
+                
+                //Following and Follower button
                 NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
                                     EmptyView()
                                 }
@@ -22,7 +43,9 @@ struct UserDashController: View {
                                     EmptyView()
                                 }
                 
+                //profile picture
                 ProfilePicture()
+                
                 
                 Text("Bradley Martin")
                     .padding()
@@ -46,21 +69,38 @@ struct UserDashController: View {
                     }
                 }
                 .padding(.top, -5)
-               
-//                FollowUserButton()
-//                    .padding(.top, 10)
-                
+        
                 RecipeListView()
-            }    
+            }
+            .toolbar{
+                ToolbarItem (placement: .navigationBarTrailing){
+                    Menu {
+                        Button(action: {
+                            
+                        }){
+                            Text("Sign Out")
+                               
+                        }
+                    }
+                label: {
+                    Label(
+                        title: { Text("fjkd;a") },
+                        icon: {
+                            Image(systemName: "plus")
+                                
+                        })
+                    }
+                }
+            }
+            .padding(.top, -70)
+        
         }
-   
-
+        
+            
+        }
     }
     
-        
-    
-//
-//
+
 struct UserDashController_Previews: PreviewProvider {
     static var previews: some View {
         UserDashController()

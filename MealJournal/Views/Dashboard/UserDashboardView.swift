@@ -19,7 +19,7 @@ struct UserDashboardView: View {
 //    }
     
     var body: some View {
-        NavigationView{
+     
             TabView{
                 UserDashController()
                         .tabItem{
@@ -27,6 +27,7 @@ struct UserDashboardView: View {
                                 Image(systemName: "house.circle")
                                     .font(.title3)
                                 Text("Home")
+                                   
                             }
                         }
                 
@@ -49,11 +50,10 @@ struct UserDashboardView: View {
                                 }
                         }
                            
-            }.accentColor(.black)
+            }
+            .accentColor(.black)
                
-        }
-        .navigationBarHidden(true)
-
+        
     }
       
 }
