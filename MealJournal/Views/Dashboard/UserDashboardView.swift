@@ -10,10 +10,11 @@ import Firebase
 struct UserDashboardView: View {
     @StateObject var mealEntrys = MealEntrys()
     @ObservedObject var signUpController: SignUpController
+   
     
     @State private var signedOut = false
     
-    @Environment (\.dismiss) var dismiss//    init(){
+    //    init(){
 //        UITabBar.appearance().backgroundColor = UIColor.white
 //        self._signUpController = signUpController
 //    }
@@ -21,13 +22,12 @@ struct UserDashboardView: View {
     var body: some View {
      
             TabView{
-                UserDashController()
+                UserDashController(signUpController: signUpController)
                         .tabItem{
                             VStack{
                                 Image(systemName: "house.circle")
                                     .font(.title3)
                                 Text("Home")
-                                   
                             }
                         }
                 

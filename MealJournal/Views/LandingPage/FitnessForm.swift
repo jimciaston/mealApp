@@ -113,20 +113,19 @@ struct FitnessForm: View {
                        //check if user is signed in
                         userSignedIn = true
                         print("user  signed in")
+                        
+                        //save user to Firebase
+                        SignUpController.storeUserInfomation(email: userEmailAddress, firstName: userFirstName, lastName: userLastName, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
                        
                     }
                 else{
                     print("user is not signed in")
-                   
-                   
-                }
                 
+                }
             })
             {
-                NavigationLink("", destination: UserDashboardView(signUpController: signUpController), isActive: $userSignedIn)
-                
-                Text("Finish Me Off Baby")
-                    .frame(width: 150)
+                Text("Complete")
+                    .frame(width: 200, height:50)
                     .foregroundColor(.white)
                     .padding()
                     .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
@@ -135,54 +134,18 @@ struct FitnessForm: View {
                     .cornerRadius(5)
                     .offset(y:CGFloat(isPickerVisible()))
             }
-           
-//            NavigationLink(destination: UserDashboardView().navigationBarHidden(true)){
-//
-//                Button(""){
-////                    let newUser = User(context: moc)
-////                    newUser.id = UUID()
-////                    newUser.email = userEmailAddress
-////                    newUser.firstName = userFirstName
-////                    newUser.goals = agenda
-////                    newUser.height = selectedHeight
-////                    newUser.lastName = userLastName
-////                    newUser.password = userLoginPassword
-////                    newUser.weight = selectedWeight
-////
-////                    try? moc.save()
-//                    print("balls")
-//                    createNewUserAccount(userEmail: userEmailAddress, userPassword: userLoginPassword)
-//
-//                }
-//                Text("Finish Up")
-//                   .frame(width: 150)
-//                    .foregroundColor(.white)
-//                    .padding()
-//                    .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
-//                    .font(.title3)
-//                    .background(.clear)
-//                    .cornerRadius(5)
-//                    .offset(y:CGFloat(isPickerVisible()))
-//                    }
-                }
+            .fullScreenCover(isPresented: $userSignedIn){
+               UserDashboardView(signUpController: signUpController)
+            }
+        }
+    
+    } .offset(y:20) //moves down form
         
-            } .offset(y:20) //moves down form
-        
-            .navigationViewStyle(.stack)
+.navigationViewStyle(.stack)
        
     }
         
 }
-
-//private func createNewUserAccount(userEmail: String, userPassword: String) {
-//    Auth.auth().createUser(withEmail: userEmail, password: userPassword){ result, err in
-//        if let err = err {
-//            print("Failed to create user " , err)
-//            return
-//        }
-//        print("Succesfully created user: \(result?.user.uid ?? "")")
-//    }
-//}
 
 
 //

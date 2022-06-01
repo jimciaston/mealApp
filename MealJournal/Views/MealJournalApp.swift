@@ -21,11 +21,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MealJournalApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
     init(){
         FirebaseApp.configure()
     }
-    
     @StateObject var mealEntrys = MealEntrys()
     @StateObject private var dataController = DataController()
     var body: some Scene {

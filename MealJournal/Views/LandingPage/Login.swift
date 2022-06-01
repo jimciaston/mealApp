@@ -12,13 +12,15 @@ struct userLogin: View {
     
     @State var userEmail: String = "";
     @State var userPassword: String = "";
-    
+    @State  var isPWSecured = true
     @ObservedObject var userInformation = FormViewModel()
     @ObservedObject var keyboardResponder = KeyboardResponder()
 
     @ObservedObject var signUpController: SignUpController
    
-   
+    @State var success = false //binded with loginUser function
+    @State var userAttemptedToLogin = false
+    
     var body: some View {
        
             VStack{
@@ -26,14 +28,16 @@ struct userLogin: View {
                     .font(.title)
                     .fontWeight(.medium)
                 HStack{
-                    Image(systemName: "lock")
+                    Image(systemName: "mail")
                         .padding(15)
                         .foregroundColor(.orange)
                     
                     TextField("Email", text: $userEmail)
                         .font(.title3)
-                        .frame(width:200, height:50)
+                        .frame(width:240, height:50)
+                    
                     }
+                .padding(.trailing, 25) //evens out email width with password
                 
                     .overlay( RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color.gray, lineWidth: 3)
@@ -44,12 +48,29 @@ struct userLogin: View {
                 VStack{
                     HStack{
                         Image(systemName: "lock")
-                            .padding(15)
+                            .padding(10)
                             .foregroundColor(.orange)
                         
-                        TextField("Password", text: $userPassword)
-                        .font(.body)
-                        .frame(width:200, height:50)
+                        HStack{
+                            if isPWSecured {
+                                SecureField("Password", text: $userPassword)
+                                    .font(.body)
+                                    .frame(width:220, height:50)
+                            }
+                            else {
+                                TextField("Password", text: $userPassword)
+                                    .font(.body)
+                                    .frame(width:220, height:50)
+                            }
+                            Button(action: {
+                                isPWSecured.toggle()
+                            }){
+                                Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
+                                                    .accentColor(.gray)
+                                                    .padding(.trailing, 25)
+                            }
+                        }
+
                     }
                     
                     .overlay( RoundedRectangle(cornerRadius: 25)
@@ -61,23 +82,37 @@ struct userLogin: View {
                         hide_UserKeyboard()
                     }
                     
+                    if userAttemptedToLogin {
+                        if(!signUpController.failedMessage.isEmpty){
+                            Text(signUpController.failedMessage)
+                                    .font(.caption).italic().foregroundColor(.red)
+                                    .padding(.top, 25)
+                                    .padding(.trailing, 60)
+                        }
+                        
+                        
+                    }
+                    
+                    
                     NavigationLink(
                         destination: JournalEntryMain() .navigationBarHidden(true)){
                             Text("Forgot Password?").font(.subheadline).italic()
                     }
-                    .foregroundColor(.gray)
-                    .padding(.leading, 100)
-                    .offset(y:20)
+                        .foregroundColor(.gray)
+                        .padding(.leading, 100)
+                        .offset(y:20)
                 }
                 
                 //user Login button
                 Button(action: {
+                    userAttemptedToLogin = true
                     signUpController.loginUser(userEmail: userEmail, userPassword: userPassword)
+                    if (signUpController.userIsLoggedIn){
+                        success = true
+                    }
+                   
                 }){
-                    /*
-                     Navigation link symbolic, if userlogin success, will send to user dashboard view
-                     
-                     */
+                    
                     NavigationLink("", destination: UserDashboardView(signUpController: signUpController)
                                    , isActive: $signUpController.userIsLoggedIn)
                    
@@ -92,12 +127,16 @@ struct userLogin: View {
                                 endPoint: .bottomTrailing
                             ))
                         )
+                  
                 }
                 .offset(y:50)
-            }
+                .onAppear{
+                    print(success)
+                }            }
             .offset(y:-100)
             .offset(y: keyboardResponder.currentHeight/20)
         }
+       
     }
     
 

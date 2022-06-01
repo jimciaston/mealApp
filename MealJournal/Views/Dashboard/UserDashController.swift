@@ -6,34 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct UserDashController: View {
-  
+    @ObservedObject var dashboardLogic = DashboardLogic()
+    @ObservedObject var signUpController: SignUpController
+    
     @State private var action: Int? = 0
-   @State private var showMenu = false
+    @State private var userSigningOut = false
+    @State private var showMenu = false
+    
+ 
     var body: some View {
         NavigationView{
             VStack{
-//                 .navigationBarTitle("")
-//                .navigationBarHidden(true)
-//                    Button(action: {
-//                       //display menu
-//                        showMenu.toggle()
-//                    }, label: {
-//                            Image(systemName: "line.3.horizontal")
-//                                .resizable().aspectRatio(contentMode: .fit)
-//                                .frame(width: 30, height: 40)
-//                                .foregroundColor(.black)
-//                    })
-//                        .padding(.trailing, 25)
-//
-//                }
-//                .padding(.bottom, -25)
-//
-                    
-                  
-                    
-                
                 //Following and Follower button
                 NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
                                     EmptyView()
@@ -47,7 +33,7 @@ struct UserDashController: View {
                 ProfilePicture()
                 
                 
-                Text("Bradley Martin")
+                Text(dashboardLogic.firstName)
                     .padding()
                 HStack{
                     HStack{
@@ -72,11 +58,19 @@ struct UserDashController: View {
         
                 RecipeListView()
             }
+            
             .toolbar{
                 ToolbarItem (placement: .navigationBarTrailing){
                     Menu {
                         Button(action: {
-                            
+                            //action
+                        }){
+                            Text("Settings")
+                        }
+                        Button(role: .destructive, action: {
+                            //logs out user
+                            userSigningOut = true
+                            signUpController.logOutUser()
                         }){
                             Text("Sign Out")
                                
@@ -84,7 +78,7 @@ struct UserDashController: View {
                     }
                 label: {
                     Label(
-                        title: { Text("fjkd;a") },
+                        title: { Text("User Settings") },
                         icon: {
                             Image(systemName: "plus")
                                 
@@ -95,6 +89,10 @@ struct UserDashController: View {
             .padding(.top, -70)
         
         }
+            .fullScreenCover(isPresented: $userSigningOut){
+                userLogin(signUpController: signUpController)
+            }
+        
         
             
         }
@@ -103,7 +101,7 @@ struct UserDashController: View {
 
 struct UserDashController_Previews: PreviewProvider {
     static var previews: some View {
-        UserDashController()
+        UserDashController(signUpController: SignUpController())
     }
 }
 

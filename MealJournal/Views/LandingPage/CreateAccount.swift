@@ -53,7 +53,7 @@ struct createUserAccount: View {
                               
                             }
                             else {
-                                TextField("password", text: $userInformation.password)
+                                TextField("Password", text: $userInformation.password)
                                
                             }
                             Button(action: {
