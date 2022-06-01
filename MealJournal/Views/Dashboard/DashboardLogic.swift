@@ -8,7 +8,7 @@
 import Foundation
 
 class DashboardLogic: ObservableObject {
-   @Published var firstName = ""
+    @Published var userModel: UserModel?
     
     init(){
         fetchCurrentUser()
@@ -31,7 +31,17 @@ class DashboardLogic: ObservableObject {
                 return
             }
             
-            self.firstName = data["firstName"] as? String ?? "def"
+            let uid = data["uid"] as? String ?? "Unavailable"
+            let email = data["email"] as? String ?? "Unavailable"
+            let firstName = data["firstName"] as? String ?? "Unavailable"
+            let lastName = data["lastName"] as? String ?? "Unavailable"
+            let gender = data["gender"] as? String ?? "Unavailable"
+            let height = data["height"] as? String ?? "Unavailable"
+            let weight = data["weight"] as? String ?? "Unavailable"
+            let agenda = data["agenda"] as? String ?? "Unavailable"
+            let profilePictureURL = data ["profilePicture"] as? String ?? "Unavailable"
+            
+            self.userModel = UserModel(uid: uid, email: email, firstName: firstName, lastName: lastName, gender: gender, height: height, weight: weight, agenda: agenda, profilePictureURL: profilePictureURL)
         }
     }
 }

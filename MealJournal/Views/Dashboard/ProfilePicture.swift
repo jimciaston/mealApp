@@ -8,11 +8,13 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import SDWebImageSwiftUI
 struct ProfilePicture: View {
-
+    @ObservedObject var vm = DashboardLogic()
+    
     @State private var showingImagePicker = false
     @State private var inputImage: UIImage?
-    
+   // AsyncImage(url: URL(string: "https://your_image_url_address"))
     var body: some View {
         ZStack (alignment: .topTrailing){
             VStack{
@@ -25,7 +27,7 @@ struct ProfilePicture: View {
                     
                      
                  } else{
-                     Image("profileDefaultPicture")
+                     WebImage(url: URL(string: vm.userModel?.profilePictureURL ?? ""))
                          .resizable()
                          .aspectRatio(contentMode: .fill)
                          .frame(width:150, height: 150)

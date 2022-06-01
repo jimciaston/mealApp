@@ -9,14 +9,14 @@ import SwiftUI
 import Firebase
 
 struct UserDashController: View {
-    @ObservedObject var dashboardLogic = DashboardLogic()
+    @ObservedObject var vm = DashboardLogic()
     @ObservedObject var signUpController: SignUpController
     
     @State private var action: Int? = 0
     @State private var userSigningOut = false
     @State private var showMenu = false
     
- 
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -32,8 +32,11 @@ struct UserDashController: View {
                 //profile picture
                 ProfilePicture()
                 
-                
-                Text(dashboardLogic.firstName)
+                HStack{
+                    Text(vm.userModel?.firstName ?? "Billy" )
+                    Text(vm.userModel?.lastName ?? "Eilish")
+                }
+               
                     .padding()
                 HStack{
                     HStack{
