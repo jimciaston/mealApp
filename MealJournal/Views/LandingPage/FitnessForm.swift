@@ -16,8 +16,7 @@ struct FitnessForm: View {
     @Environment(\.managedObjectContext) var moc
     
     //getting info from previous sign up view
-    @Binding var userFirstName: String
-    @Binding var userLastName: String
+    @Binding var name: String
     @Binding var userEmailAddress: String
     @Binding var userLoginPassword: String
     
@@ -29,13 +28,13 @@ struct FitnessForm: View {
     @State private var selectedWeight = ""
     @State private var agenda = "" //bulking, cutting , or maintaoinin
     @State var pickerVisible: Bool = false
-    
+    private var weightOptions = getWeight()
     private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
     private var genderOptions = ["Male", "Female", "Other"]
     private var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
     
     //sets color of picker in selected
-    init(userFirstName: Binding <String>, userLastName: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
+    init(name: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
         UISegmentedControl.appearance().selectedSegmentTintColor = .orange
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
@@ -44,8 +43,7 @@ struct FitnessForm: View {
         //iniatlize firebase
        
         //iniatilizes the binding , error if we take these out
-        self._userFirstName = userFirstName
-        self._userLastName = userLastName
+        self._name = name
         self._userEmailAddress = userEmailAddress
         self._userLoginPassword = userLoginPassword
        
@@ -60,7 +58,7 @@ struct FitnessForm: View {
         }
     }
    
-    private var weightOptions = getWeight()
+   
     var body: some View {
     NavigationView{
         ZStack{
@@ -71,7 +69,7 @@ struct FitnessForm: View {
                             ForEach(genderOptions, id: \.self){ gender in
                                 Text(gender)
                             }
-                    }
+                        }
                     }
                     Picker(selection: $selectedHeight, label: Text("Height")){
                         ForEach(heightOptions, id: \.self){ height in
@@ -85,8 +83,6 @@ struct FitnessForm: View {
                                      Text(weight + " Ibs")
                                  }
                                  .pickerStyle(WheelPickerStyle())
-                            // .frame(width:300, height:100)
-                                
                          }
                     }
                    
@@ -115,7 +111,7 @@ struct FitnessForm: View {
                         print("user  signed in")
                         
                         //save user to Firebase
-                        SignUpController.storeUserInfomation(email: userEmailAddress, firstName: userFirstName, lastName: userLastName, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
+                        SignUpController.storeUserInfomation(email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
                        
                     }
                 else{

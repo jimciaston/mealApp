@@ -14,7 +14,7 @@ struct ProfilePicture: View {
     
     @State private var showingImagePicker = false
     @State private var inputImage: UIImage?
-   // AsyncImage(url: URL(string: "https://your_image_url_address"))
+  
     var body: some View {
         ZStack (alignment: .topTrailing){
             VStack{
@@ -24,14 +24,15 @@ struct ProfilePicture: View {
                      .aspectRatio(contentMode: .fill)
                      .frame(width:150, height: 150)
                      .clipShape(Circle())
-                    
                      
                  } else{
                      WebImage(url: URL(string: vm.userModel?.profilePictureURL ?? ""))
-                         .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width:150, height: 150)
-                         .clipShape(Circle())
+                         .placeholder(Image("profileDefaultPicture").resizable())
+                             .resizable()
+                             .aspectRatio(contentMode: .fill)
+                             .frame(width:150, height: 150)
+                             .clipShape(Circle())
+        
                  }
                     
                 Button(action: {

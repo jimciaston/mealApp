@@ -12,8 +12,7 @@ final class FormViewModel: ObservableObject {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
     
-    @Published var firstname = ""
-    @Published var lastname = ""
+    @Published var name = ""
     @Published var email = ""
     @Published var gender = ""
     @Published var password = ""
@@ -30,11 +29,7 @@ final class FormViewModel: ObservableObject {
         let emailTest = NSPredicate(format: "SELF MATCHES%@", "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
         return emailTest.evaluate(with: email)
     }
-//    for result in results as! [NSManagedObject]{
-//                    if let mail = result.value(forKey: "mail") as? String{
-//                        self.mailArray.append(mail)
-//                    }
-    //email and password prompts if incomplete or incorrect
+
     var emailPrompt: String {
         if isEmailValid() || email == "" {
             return ""
@@ -53,7 +48,7 @@ final class FormViewModel: ObservableObject {
     }
     
     var isSignUpComplete: Bool {
-        if !isPasswordValid() || !isEmailValid() || firstname == "" || lastname == "" {
+        if !isPasswordValid() || !isEmailValid() || name == "" {
             return false
         }
         return true

@@ -15,7 +15,7 @@ struct UserDashController: View {
     @State private var action: Int? = 0
     @State private var userSigningOut = false
     @State private var showMenu = false
-    
+    @State private var presentSettingsPage = false
     
     var body: some View {
         NavigationView{
@@ -33,8 +33,7 @@ struct UserDashController: View {
                 ProfilePicture()
                 
                 HStack{
-                    Text(vm.userModel?.firstName ?? "Billy" )
-                    Text(vm.userModel?.lastName ?? "Eilish")
+                    Text(vm.userModel?.name ?? "Billy" )
                 }
                
                     .padding()
@@ -66,7 +65,7 @@ struct UserDashController: View {
                 ToolbarItem (placement: .navigationBarTrailing){
                     Menu {
                         Button(action: {
-                            //action
+                            presentSettingsPage = true
                         }){
                             Text("Settings")
                         }
@@ -92,6 +91,10 @@ struct UserDashController: View {
             .padding(.top, -70)
         
         }
+        .fullScreenCover(isPresented: $presentSettingsPage){
+            SettingsView()
+        }
+    
             .fullScreenCover(isPresented: $userSigningOut){
                 userLogin(signUpController: signUpController)
             }

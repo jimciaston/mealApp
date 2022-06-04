@@ -34,9 +34,9 @@ struct createUserAccount: View {
             ZStack{
                 Form{
                     Section(){
-                        TextField("FirstName", text: $userInformation.firstname)
-                        TextField("LastName", text: $userInformation.lastname)
+                        TextField("Name", text: $userInformation.name)
                         TextField("Email", text: $userInformation.email)
+                        
                         //email promp letting user know to type valid email
                             if userInformation.emailPrompt != "" {
                                 Text(userInformation.emailPrompt)
@@ -121,8 +121,7 @@ struct createUserAccount: View {
                 
                                     .fullScreenCover(isPresented: $showFitnessForm){
                                         FitnessForm(
-                                           userFirstName: $userInformation.firstname,
-                                           userLastName: $userInformation.lastname,
+                                           name: $userInformation.name,
                                            userEmailAddress: $userInformation.email,
                                            userLoginPassword: $userInformation.password
                                            )  .transition(transition)

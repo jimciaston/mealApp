@@ -65,8 +65,7 @@ class SignUpController: ObservableObject  {
     
     static func storeUserInfomation(
         email:          String,
-        firstName:      String,
-        lastName:       String,
+        name:           String,
         height:         String,
         weight:         String,
         gender:         String,
@@ -75,8 +74,7 @@ class SignUpController: ObservableObject  {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         let userData = [
             "email" :           email,
-            "firstName":        firstName,
-            "lastName" :        lastName,
+            "name":             name,
             "height":           height,
             "weight":           weight,
             "agenda" :          agenda,

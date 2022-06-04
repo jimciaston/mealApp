@@ -19,8 +19,14 @@ class DashboardLogic: ObservableObject {
             print ("Could not find UID")
             return
         }
+        guard let email = FirebaseManager.shared.auth.currentUser?.email else {
+            print("could not locate email")
+            return
+        }
         
-        FirebaseManager.shared.firestore.collection("users").document(uid).getDocument { snapshot, error in
+        FirebaseManager.shared.firestore
+            .collection("users").document(uid)
+            .getDocument { snapshot, error in
             if let error = error {
                 print ("failed to fetch user \(error)")
                 return
@@ -31,17 +37,8 @@ class DashboardLogic: ObservableObject {
                 return
             }
             
-            let uid = data["uid"] as? String ?? "Unavailable"
-            let email = data["email"] as? String ?? "Unavailable"
-            let firstName = data["firstName"] as? String ?? "Unavailable"
-            let lastName = data["lastName"] as? String ?? "Unavailable"
-            let gender = data["gender"] as? String ?? "Unavailable"
-            let height = data["height"] as? String ?? "Unavailable"
-            let weight = data["weight"] as? String ?? "Unavailable"
-            let agenda = data["agenda"] as? String ?? "Unavailable"
-            let profilePictureURL = data ["profilePicture"] as? String ?? "Unavailable"
+            self.userModel = .init(data: data)
             
-            self.userModel = UserModel(uid: uid, email: email, firstName: firstName, lastName: lastName, gender: gender, height: height, weight: weight, agenda: agenda, profilePictureURL: profilePictureURL)
         }
     }
 }
