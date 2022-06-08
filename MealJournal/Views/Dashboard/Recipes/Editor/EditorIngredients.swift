@@ -9,33 +9,67 @@ import SwiftUI
 
 struct EditorIngredients: View {
     @State private var sizing: String = ""
-    @State private var name: String = ""
+    @State private var description: String = ""
+    @State private var counter = 1
+    @State private var filledOut = false
+    @State var uploadedRecipes: [Ingredients] = []
+   
     
+    @State  var testArr: [String] = []
     var body: some View {
         ZStack{
             VStack{
-                List{
-                    HStack{
-                        TextField("ex. 1 cup", text: $sizing)
-                            .font(.title2)
-                            .foregroundColor(.green)
-                           
-                        TextField("ex. Chicken Breast", text: $name)
-                            .font(.title3)
+                HStack{
+                    TextField("ex. 1 cup", text: $sizing)
+                        .font(.body)
+                        .padding(.leading, 30)
                        
+                    TextField("ex. Chicken Breast", text: $description)
+                        .font(.body)
+                }
+                .padding(.top, 25) //set to give space from ingredient/direction section
+                
+                    Button(action: {
+                        if (sizing != "" && description != ""){
+                            let newIngredient = Ingredients(sizing: sizing, description: description)
+                                uploadedRecipes.append(newIngredient)
+                                counter += 1
+                                sizing = ""
+                                description  = ""
+                        }
+                        
+                    })
+                       {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.blue)
+                            .padding(.leading, 20)
+                            .padding(.top, 20)
+                            .opacity(!sizing.isEmpty && !description.isEmpty ? 1.0 : 0.5)
+                           Spacer()
+                              
                     }
-                    Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.blue)
-                       
+                       .padding(.top, -10)
+                       .padding(.bottom, 10)
+                List{
+                    ForEach(uploadedRecipes){ recipe in
+                        HStack{
+                            Text(recipe.sizing)
+                                .font(.body)
+                                .fontWeight(.bold)
+                                .foregroundColor(.green)
+                                //.padding(.leading, 20)
+                            Spacer()
+                            Text(recipe.description)
+                                .font(.body)
+                                //.padding(.trailing, 20)
+                        }
+                    }
                 }
+                .frame(height: 200) //list size
+                .padding(.top, -25)
                
-                .listStyle(SidebarListStyle())
-            
-                
-                
-                }
-            Spacer()
-            
+            }
+            .padding(.top, 150) //moves down from instruction/directins modal
             }
         .padding(.top, -50)
         }

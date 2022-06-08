@@ -16,18 +16,14 @@ struct RecipeEditorView: View {
     
     var body: some View {
         VStack{
-            HStack(spacing: 0){
-                ZStack{
-                    Image(systemName:("pencil"))
-                        .padding(.leading, 150)
-                        .foregroundColor(Color("completeGreen"))
+        
                     TextField("Recipe Title", text: $recipeTitle)
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.black)
                         .font(.title3)
                     
-                }
+                
                 .multilineTextAlignment(.center)
-            }
+            
            
             
             HStack(spacing: 0){
@@ -35,17 +31,17 @@ struct RecipeEditorView: View {
                     Image(systemName:("clock"))
                         .padding(.leading, 150)
                         .foregroundColor(Color("completeGreen"))
-                    Picker("Cooking Time", selection: $pickerTime) {
+                    Picker(selection: $pickerTime, label: Text("Gender")) {
                                    ForEach(cookingTime, id: \.self) {
                                        Text($0)
                                    }
-                    }.foregroundColor(.red)
+                    }
                     
                 }
                 .multilineTextAlignment(.center)
             }
-            .padding(.bottom, 70)
-            RecipeEditModals()
+           
+         
             }
            
         }

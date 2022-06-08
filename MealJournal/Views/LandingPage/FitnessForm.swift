@@ -58,19 +58,16 @@ struct FitnessForm: View {
         }
     }
    
-   
     var body: some View {
     NavigationView{
         ZStack{
                 Form{
-                    HStack{
-                        Text("Gender")
-                        Picker("", selection: $selectedGender){
+                        Picker(selection: $selectedGender, label: Text("Gender")){
                             ForEach(genderOptions, id: \.self){ gender in
                                 Text(gender)
                             }
                         }
-                    }
+                    
                     Picker(selection: $selectedHeight, label: Text("Height")){
                         ForEach(heightOptions, id: \.self){ height in
                             Text(height)
@@ -104,7 +101,6 @@ struct FitnessForm: View {
                         .frame(height:50)
                     }
             Button(action: {
-                
                     if(Auth.auth().currentUser?.email != nil){
                        //check if user is signed in
                         userSignedIn = true

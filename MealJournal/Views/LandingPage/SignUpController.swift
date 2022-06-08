@@ -77,6 +77,7 @@ class SignUpController: ObservableObject  {
             "name":             name,
             "height":           height,
             "weight":           weight,
+            "gender":           gender,
             "agenda" :          agenda,
             "uid":              uid,
         

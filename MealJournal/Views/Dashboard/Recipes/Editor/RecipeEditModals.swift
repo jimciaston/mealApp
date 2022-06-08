@@ -16,33 +16,7 @@ struct RecipeEditModals: View {
     @State private var sheetModeDirections: SheetMode = .none
     @State private var isDirectionsActive = false
     var body: some View {
-            ZStack {
-                FlexibleSheet(sheetMode: $sheetModeIngredients) {
-                    VStack {
-                        EditorIngredients()
-                    }
-                    
-                    //.frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
-                    //sets coordinates of view on dash
-                 .offset(y:-360)
-                    
-                }
-                FlexibleSheet(sheetMode: $sheetModeDirections) {
-                    VStack {
-                       
-                        EditorDirections()
-                    }
-                    
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
-                    
-                    //sets coordinates of view on dash
-                    .offset(y:-360)
-                }
-                
+            VStack {
                 HStack(){
                     //ingredients BUTTON
                     Button(action: {
@@ -64,10 +38,11 @@ struct RecipeEditModals: View {
                                 .font(.title2)
                         }
                     
-                         Divider()
-                        .frame(width: 0.8, height:45)
+                        
+                      
                             .padding(.bottom, 0.9)
-                            .background(Color.black)
+                      
+                    
                     //directions BUTTON
                     Button(action: {
                         isIngredientsActive = false
@@ -90,10 +65,39 @@ struct RecipeEditModals: View {
                     }
                         
                 }
+                //*****INGREDIENTS*****
+                FlexibleSheet(sheetMode: $sheetModeIngredients) {
+                        EditorIngredients()
+                    
+                        .padding()
+                   .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    //.background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+                    //sets coordinates of view on dash
+                    .padding(.top,-750)
+                    
+                }
+             
                 
-        .offset(y:-200)
+                FlexibleSheet(sheetMode: $sheetModeDirections) {
+                    VStack {
+                        EditorDirections()
+                    }
+                    
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+                    
+                    //sets coordinates of view on dash
+                    .padding(.top, -525)
+                }
+                
+                
+      
                 
         }
+            
+        Spacer()
     }
 }
 

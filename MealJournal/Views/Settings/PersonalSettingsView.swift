@@ -11,6 +11,7 @@ import UIKit
 
 
 struct PersonalSettingsView: View {
+    
     @ObservedObject var vm = DashboardLogic() //call to viewModel
     @State private var currentUserEmail = FirebaseManager.shared.auth.currentUser?.email
     @State private var email: String = ""
@@ -28,12 +29,13 @@ struct PersonalSettingsView: View {
     private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
     private var genderOptions = ["Male", "Female", "Other"]
     private var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView{
             Form{
-                Section(header: Text("Personal Settings")
+                Section(header: Text("Personal Settings").foregroundColor(.blue).font(.title3)
                             .foregroundColor(.black)
                             .font(.body)
                             .textCase(nil)){
@@ -51,7 +53,7 @@ struct PersonalSettingsView: View {
                                                 print(err)
                                             }
                                             //IF GOOD, WE UPDATE THE COLLECTION VALUE OF EMAIL AS WELL
-                                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).setData(["email": email])
+                                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["email": email])
                                             showSuccessAlertForEmail.toggle()
                                             print("user email updated")
                                         }
@@ -69,13 +71,14 @@ struct PersonalSettingsView: View {
                                 .foregroundColor(Color("ButtonTwo"))
                             TextField(vm.userModel?.email ?? "User Password", text: $password)
                         }
+                    
                         HStack{
                             Image(systemName: "person.crop.rectangle")
                                 .foregroundColor(Color("ButtonTwo"))
-                            TextField(vm.userModel?.name ?? "Name", text: $name)
+                            TextField(vm.userModel?.name ?? "Name", text: $name).submitLabel(.done)
                                 .onSubmit{
                                     if (vm.userModel?.name != name){
-                                        FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).setData(["name": name])
+                                        FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["name": name])
                                         showSuccessAlertForName.toggle()
                                         print("user email updated")
                                     }
@@ -86,49 +89,53 @@ struct PersonalSettingsView: View {
                                                 .default(Text("Close")))
                                 })
                                 .padding(.trailing, 20)
-//
-                           //removed beCAUSE causes werid back issue with button
-                            //onSubmit{
-//                                FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).setData(["name": name])
-//                                print("success")
-//                            }
                         }
+                    
+                 HStack{
+                     Image(systemName: "person.fill.questionmark")
+                         .foregroundColor(Color("ButtonTwo"))
+                     if (vm.userModel != nil){
+                         Picker(selection: Binding<String>(
+                             get: {vm.userModel!.gender },
+                             set: {vm.userModel!.gender = $0
+                                 FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["gender": $0])
+                             }),
+                                label: Text("Gender")) {
+                             ForEach(genderOptions, id: \.self ){ gender in
+                                     Text(gender)
+                             }
+                         }
                     }
+                 }
+             }
                 
-                Section(header: Text("Health Stats")
+                Section(header: Text("Health Stats").foregroundColor(.blue).font(.title3)
                             .foregroundColor(.black)
                             .font(.body)
                             .textCase(nil)){
-                          
-                       
-                    HStack{
-                        Text("Gender")
-                        Picker("", selection: $gender){
-                            ForEach(genderOptions, id: \.self){ gender in
-                                Text(gender)
-                            }.pickerStyle(WheelPickerStyle())
-                        }
-                    }
             
                     HStack{
                         if (vm.userModel != nil){
                             Picker(selection: Binding<String> (
                                 get: {vm.userModel!.height },
-                                set: {vm.userModel!.height = $0 }),
+                                set: {vm.userModel!.height = $0
+                                    FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["height": $0])
+                                }),
                                    label: Text("Height")) {
                                 ForEach(heightOptions, id: \.self ){ height in
                                         Text(height)
                                 }
                             }
                         }
-                      
-                        
-                        }
+                    }
+                    
                         HStack{
                             if (vm.userModel != nil){
                                 Picker(selection: Binding<String> (
                                     get: {vm.userModel!.weight },
-                                    set: {vm.userModel!.weight = $0 }),
+                                    set: {vm.userModel!.weight = $0
+                                        FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["weight": $0])
+                                    }),
                                        label: Text("Weight")) {
                                     ForEach(weightOptions.weightArray(), id: \.self ){ weight in
                                             Text(weight + " ibs")
@@ -140,7 +147,9 @@ struct PersonalSettingsView: View {
                         if (vm.userModel != nil){
                             Picker(selection: Binding<String> (
                                 get: {vm.userModel!.agenda },
-                                set: {vm.userModel!.agenda = $0 }),
+                                set: {vm.userModel!.agenda = $0
+                                    FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["agenda": $0])
+                                }),
                                    label: Text("Fitness Agenda")) {
                                 ForEach(fitnessAgenda, id: \.self ){ reason in
                                         Text(reason)
@@ -148,11 +157,9 @@ struct PersonalSettingsView: View {
                             }
                         }
                     }
-                    
-                  
-                }
+    }
                 
-                            
+               
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
@@ -165,6 +172,9 @@ struct PersonalSettingsView: View {
             }
         }
         
+    }
+    private func hello(){
+        print("balls")
     }
 }
 

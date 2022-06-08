@@ -29,8 +29,8 @@ struct ReditorPopUp: View {
                         Text("Edit")
                             .foregroundColor(.black)
                     } .buttonStyle(BorderlessButtonStyle())
-                    
-                        .sheet(isPresented: $showEditRecipe){
+                    //present editor
+                        .fullScreenCover(isPresented: $showEditRecipe){
                             RecipeEditor()
                         }
                 }
