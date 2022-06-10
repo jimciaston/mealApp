@@ -9,16 +9,16 @@ import Foundation
 import SwiftUI
 
 
-class Recipe {
-    var RecipeTitle: String
-    var RecipePrepTime: String
-    var ingredient: [Ingredients] = []
-    var directions: [Directions] = []
+class Recipe: ObservableObject {
+    @Published var recipeTitle:      String = ""
+    @Published var recipePrepTime:   String = ""
+    @Published var ingredients:     [Ingredients] = []
+    @Published var directions:     [Directions]  = []
    
-    init(RecipeTitle: String, RecipePrepTime: String){
-        self.RecipeTitle = RecipeTitle
-        self.RecipePrepTime = RecipePrepTime
-    }
+//    init(recipeTitle: String, recipePrepTime: String){
+//        self.recipeTitle = recipeTitle
+//        self.recipePrepTime = recipePrepTime
+//    }
 }
 
 class Ingredients: Identifiable {

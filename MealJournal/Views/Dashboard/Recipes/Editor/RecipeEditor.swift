@@ -9,6 +9,9 @@ import SwiftUI
 
 struct RecipeEditor: View {
     @State private var showSaveButton = false
+    @StateObject private var recipeClass = Recipe()
+    
+    
     @State private var sheetMode: SheetMode = .none
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -57,7 +60,7 @@ struct RecipeEditor: View {
             
             //display save button
             FlexibleSheet(sheetMode: $sheetMode) {
-                    SaveRecipeButton()
+                SaveRecipeButton()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 
@@ -65,7 +68,7 @@ struct RecipeEditor: View {
              .offset(y:-200)
             }
         }
-       
+        .environmentObject(recipeClass)
     }
 }
 struct RecipeEditor_Previews: PreviewProvider {

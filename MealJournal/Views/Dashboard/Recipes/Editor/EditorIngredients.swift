@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct EditorIngredients: View {
+    @EnvironmentObject var recipeClass: Recipe
+    
     @State private var sizing: String = ""
     @State private var description: String = ""
     @State private var counter = 1
     @State private var filledOut = false
-    @State var uploadedRecipes: [Ingredients] = []
-   
     
+
     @State  var testArr: [String] = []
     var body: some View {
         ZStack{
@@ -32,7 +33,7 @@ struct EditorIngredients: View {
                     Button(action: {
                         if (sizing != "" && description != ""){
                             let newIngredient = Ingredients(sizing: sizing, description: description)
-                                uploadedRecipes.append(newIngredient)
+                            recipeClass.ingredients.append(newIngredient)
                                 counter += 1
                                 sizing = ""
                                 description  = ""
@@ -51,7 +52,7 @@ struct EditorIngredients: View {
                        .padding(.top, -10)
                        .padding(.bottom, 10)
                 List{
-                    ForEach(uploadedRecipes){ recipe in
+                    ForEach(recipeClass.ingredients){ recipe in
                         HStack{
                             Text(recipe.sizing)
                                 .font(.body)

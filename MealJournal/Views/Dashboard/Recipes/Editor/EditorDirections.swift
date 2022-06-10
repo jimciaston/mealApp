@@ -9,16 +9,17 @@ import SwiftUI
 import UIKit
 
 struct EditorDirections: View {
-    @State private var isUserEditingDirections = false
+    @EnvironmentObject var recipeClass: Recipe
     
-    @State private var recipeDirections: [String] = ["Marinate chicken breast for 2 hours upon cooking", "Boil water and throw pasta in the pot", "oh man"]
+    @State private var isUserEditingDirections = false
     @State private var userDirection = ""
     @State private var userWantsNewDirection = false
-    @State var allUserDirections: [Directions] = []
-    @State private var counter = 0
+    @State private var recipeDirections: [String] = ["Marinate chicken breast for 2 hours upon cooking", "Boil water and throw pasta in the pot", "oh man"]
     
+    @State private var counter = 0
+   
     func move(from source: IndexSet, to destination: Int) {
-        allUserDirections.move(fromOffsets: source, toOffset: destination)
+        recipeClass.directions.move(fromOffsets: source, toOffset: destination)
        }
     
     var body: some View {
@@ -32,7 +33,7 @@ struct EditorDirections: View {
                 Button(action: {
                     if (userDirection != "" ){
                         let newDirection = Directions(description: userDirection)
-                            allUserDirections.append(newDirection)
+                        recipeClass.directions.append(newDirection)
                             counter += 1
                             userDirection = ""
                     }
@@ -53,7 +54,7 @@ struct EditorDirections: View {
                
                
                 List{
-                    ForEach(Array(allUserDirections.enumerated()), id: \.offset){ (index, direction) in
+                    ForEach(Array(recipeClass.directions.enumerated()), id: \.offset){ (index, direction) in
                         HStack{
                             Text(String(index + 1))
                                 .font(.title)
@@ -68,7 +69,7 @@ struct EditorDirections: View {
                     .onMove(perform: move)
                     
                     .onDelete(perform: { indexSet in
-                        allUserDirections.remove(atOffsets: indexSet)
+                        recipeClass.directions.remove(atOffsets: indexSet)
                     })
                   
                    

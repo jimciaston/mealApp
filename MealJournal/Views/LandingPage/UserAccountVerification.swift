@@ -16,10 +16,7 @@ final class FormViewModel: ObservableObject {
     @Published var email = ""
     @Published var gender = ""
     @Published var password = ""
-   // @Published var isValid = false
-    
-    
-
+   
     func isPasswordValid() -> Bool {
         let passwordTest = NSPredicate(format: "SELF MATCHES%@", "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$")
         return passwordTest.evaluate(with: password)

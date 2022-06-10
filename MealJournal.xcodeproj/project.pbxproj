@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A07D957284592760080A4ED /* AddProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07D956284592760080A4ED /* AddProfilePicture.swift */; };
 		0A07D9592847EA180080A4ED /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07D9582847EA180080A4ED /* FirebaseManager.swift */; };
 		0A07D95B2847F0850080A4ED /* DashboardLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07D95A2847F0850080A4ED /* DashboardLogic.swift */; };
 		0A07D95D284801260080A4ED /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A07D95C284801260080A4ED /* UserModel.swift */; };
@@ -117,7 +116,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A07D956284592760080A4ED /* AddProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfilePicture.swift; sourceTree = "<group>"; };
 		0A07D9582847EA180080A4ED /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		0A07D95A2847F0850080A4ED /* DashboardLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogic.swift; sourceTree = "<group>"; };
 		0A07D95C284801260080A4ED /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 				0A5B49AA282370CF0051A20B /* UserDashboardView.swift */,
 				0A6534D527DF8A1A00A50FB8 /* UserDashController.swift */,
 				0A07D95A2847F0850080A4ED /* DashboardLogic.swift */,
-				0A07D956284592760080A4ED /* AddProfilePicture.swift */,
 				0A8D958427BAB24700193B84 /* FollowUserButton.swift */,
 				0A8D957E27B9626700193B84 /* ProfilePicture.swift */,
 				0A9FC9C527DD50ED0008D0CD /* SubscriptionPopOut.swift */,
@@ -781,7 +778,6 @@
 				0A9A055327B2E6E100CAD66B /* Login.swift in Sources */,
 				0A0C631727EE10170093692D /* RecipeFullListView.swift in Sources */,
 				0AE0DB8B27BC1823006F1835 /* JournalEntryMain.swift in Sources */,
-				0A07D957284592760080A4ED /* AddProfilePicture.swift in Sources */,
 				0A70A8BB27F8BC0900318780 /* Search_Food_Model.swift in Sources */,
 				0A07D95D284801260080A4ED /* UserModel.swift in Sources */,
 				0A8D8077282A2AEE0055021A /* IngredientsPicker.swift in Sources */,
