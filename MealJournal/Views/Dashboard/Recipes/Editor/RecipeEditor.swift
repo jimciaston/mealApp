@@ -10,21 +10,23 @@ import SwiftUI
 struct RecipeEditor: View {
     @State private var showSaveButton = false
     @StateObject private var recipeClass = Recipe()
-    
-    
+    @State private var showSuccessMessage = false
     @State private var sheetMode: SheetMode = .none
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack{
             HStack{
                 Button(action: {
-                   dismiss()
+                    showSuccessMessage.toggle()
+                    SaveRecipeButton.newRecipeCreated = false
+                   
                 }){
                     Image(systemName:"xmark").resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(Color("ButtonTwo"))
                     
                 }
+                .blur(radius: showSuccessMessage ? 15 : 0)
                 .padding(.leading, 20)
                 Spacer()
                 Button(action: {
@@ -32,12 +34,10 @@ struct RecipeEditor: View {
                     switch sheetMode {
                         case .none:
                             sheetMode = .mealTimingSelection
-                     
                         case .mealTimingSelection:
                             sheetMode = .none
-                       
-                    case .quarter:
-                        sheetMode = .none
+                        case .quarter:
+                            sheetMode = .none
                     }
                 }){
                     Image(systemName:"checkmark.circle.fill").resizable()
@@ -46,17 +46,24 @@ struct RecipeEditor: View {
                         .foregroundColor(Color("ButtonTwo"))
                         .padding(.trailing, 20)
                 }
+                .blur(radius: showSuccessMessage ? 15 : 0)
             }
-         
            
             RecipeEditorImage()
                 .padding(.top,50)
+                .blur(radius: showSuccessMessage ? 15 : 0)
            
+            if showSuccessMessage {
+                RecipeSuccessPopUp(shown: $showSuccessMessage)
+            }
             RecipeEditorView()
+                .blur(radius: showSuccessMessage ? 15 : 0)
                 .padding(.top, 80)
             
             RecipeEditModals()
+                .blur(radius: showSuccessMessage ? 15 : 0)
             Spacer()
+            
             
             //display save button
             FlexibleSheet(sheetMode: $sheetMode) {
@@ -67,9 +74,13 @@ struct RecipeEditor: View {
                 //sets coordinates of view on dash
              .offset(y:-200)
             }
+            
         }
+      
         .environmentObject(recipeClass)
+       
     }
+    
 }
 struct RecipeEditor_Previews: PreviewProvider {
     static var previews: some View {

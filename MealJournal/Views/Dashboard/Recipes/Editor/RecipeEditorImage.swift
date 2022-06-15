@@ -7,6 +7,8 @@
 
 import SwiftUI
 import UIKit
+import FirebaseFirestore
+import SDWebImageSwiftUI
 
 struct RecipeEditorImage: View {
     @State private var showingImagePicker = false
@@ -43,6 +45,32 @@ struct RecipeEditorImage: View {
                     }
             }
         }
+    
+    //Save Profile picture to firestore
+    private func persistImageToStorage() {
+            guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+            let ref = FirebaseManager.shared.storage.reference(withPath: uid)
+        
+            guard let imageData = self.inputImage?.jpegData(compressionQuality: 0.5) else { return }
+            ref.putData(imageData, metadata: nil) { metadata, err in
+                if let err = err {
+                   print("failed to push to storage \(err)")
+                    return
+                }
+
+                ref.downloadURL { url, err in
+                    if let err = err {
+                        print("failed to fetch download link")
+                        return
+                    }
+
+                   print("Image saved Successfully")
+                    guard let url = url else { return }
+                    Firestore.firestore().collection("users").document(uid).setData([ "recipeImage": url.absoluteString ], merge: true)
+                }
+            }
+        }
+    
     
 }
         

@@ -8,13 +8,12 @@
 import SwiftUI
 import Firebase
 
-
-
-
 struct SaveRecipeButton: View {
-    
     @EnvironmentObject var recipeClass: Recipe
-   
+    @Environment(\.dismiss) var dismiss
+    
+    static var newRecipeCreated = false
+    
     func saveRecipe (){
         //saves from object in RecipeModel to arrays
         var ingredientArr:[String:String] = [:]
@@ -29,8 +28,7 @@ struct SaveRecipeButton: View {
         }
         //sets up firebase w/ recipe as subcollection
         let newRecipeInfo: [String: Any] = [
-            "userRecipes": [
-                "recipe": [
+                recipeClass.recipeTitle: [
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,
                     "createdAt": Date.now,
@@ -38,29 +36,39 @@ struct SaveRecipeButton: View {
                     "directions": directionArr
                     ]
                 ]
-            ]
-
+            
 //grab current user
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
 //updates data in firebase
         do {
-            try FirebaseManager.shared.firestore.collection("users").document(uid).updateData(newRecipeInfo)
+        try
+            FirebaseManager.shared.firestore.collection("users").document(uid).setData(["userRecipes": newRecipeInfo], merge: true)
+            //empty recipe class 
+            recipeClass.recipeTitle = ""
+            recipeClass.recipePrepTime = ""
+            recipeClass.directions = []
+            recipeClass.ingredients = []
+            recipeClass.isCompleted = true
+            //goes back to original view
+            dismiss()
             print("successfully save to database")
-        } catch let error {
+        }
+        catch let error {
             print("Error writing recipe to Firestore: \(error)")
         }
     }
     
     var body: some View {
         Button(action: {
-            
+            //action
         }){
             HStack{
                 Image(systemName: "pencil").resizable()
                     .frame(width:40, height:40)
                     .foregroundColor(.white)
+                
                 Button(action: {
                     saveRecipe()
                    
@@ -70,9 +78,8 @@ struct SaveRecipeButton: View {
                         .frame(width:200)
                         .foregroundColor(.white)
                 }
-                
-                    
             }
+          
             .padding(EdgeInsets(top: 12, leading: 100, bottom: 12, trailing: 100))
             .background(
                 RoundedRectangle(cornerRadius: 10)

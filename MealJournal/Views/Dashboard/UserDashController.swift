@@ -16,7 +16,7 @@ struct UserDashController: View {
     @State private var userSigningOut = false
     @State private var showMenu = false
     @State private var presentSettingsPage = false
-    
+   
     var body: some View {
         NavigationView{
             VStack{
@@ -33,10 +33,10 @@ struct UserDashController: View {
                 ProfilePicture()
                 
                 HStack{
-                    Text(vm.userModel?.name ?? "Billy" )
+                    Text(vm.userModel?.name ?? "Name Unavailable" )
                 }
-               
                     .padding()
+                
                 HStack{
                     HStack{
                         Text("20").bold()

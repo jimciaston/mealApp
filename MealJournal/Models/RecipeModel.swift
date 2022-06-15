@@ -14,7 +14,7 @@ class Recipe: ObservableObject {
     @Published var recipePrepTime:   String = ""
     @Published var ingredients:     [Ingredients] = []
     @Published var directions:     [Directions]  = []
-   
+    @Published var isCompleted = false
 //    init(recipeTitle: String, recipePrepTime: String){
 //        self.recipeTitle = recipeTitle
 //        self.recipePrepTime = recipePrepTime

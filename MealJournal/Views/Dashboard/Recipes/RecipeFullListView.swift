@@ -11,7 +11,7 @@ struct RecipeFullListView: View {
     @Environment(\.dismiss) var dismiss
     @State var listofRecipes: [RecipeListModel] = RecipeList.recipes
     @State private var active = false
-   
+  
     
     
     init(){
@@ -29,9 +29,7 @@ struct RecipeFullListView: View {
                 List{
                     ForEach(listofRecipes, id: \.id){ recipe in
                         RecipeFullListRow(recipe: recipe, recipeName: recipe.name)
-                       
                     }
-                    
                 }
               
             }//end of VStack

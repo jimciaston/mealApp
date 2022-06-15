@@ -11,7 +11,6 @@ import SwiftUI
 struct RecipeFullListRow: View {
     var recipe: RecipeListModel
     var recipeName: String
-    
     @State var showRecipeOptions = false
     
    
@@ -22,7 +21,6 @@ struct RecipeFullListRow: View {
                        .frame (width: 70, height:70)
                         .cornerRadius(15)
                     ZStack{
-                        
                         Text(recipeName)
                             .font(.body)
                         //temp solution until I can center it
@@ -52,7 +50,7 @@ struct RecipeFullListRow: View {
                     
                    
                     Button(action: {
-                       
+                      
                         
                     }){
                         Image(systemName: "slider.horizontal.3")
@@ -65,6 +63,7 @@ struct RecipeFullListRow: View {
                     .buttonStyle(BorderlessButtonStyle())
                    
             }
+     
     }
 }
 
