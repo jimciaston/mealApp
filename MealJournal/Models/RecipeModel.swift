@@ -10,10 +10,11 @@ import SwiftUI
 
 
 class Recipe: ObservableObject {
+    @Published var recipeImage:      String = ""
     @Published var recipeTitle:      String = ""
     @Published var recipePrepTime:   String = ""
-    @Published var ingredients:     [Ingredients] = []
-    @Published var directions:     [Directions]  = []
+    @Published var ingredients:      [Ingredients] = []
+    @Published var directions:       [Directions]  = []
     @Published var isCompleted = false
 //    init(recipeTitle: String, recipePrepTime: String){
 //        self.recipeTitle = recipeTitle

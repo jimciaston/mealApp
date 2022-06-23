@@ -18,6 +18,5 @@ struct RecipeList{
     RecipeListModel(image: "examplePicture2", name: "Big ole Donuts", id: UUID()),
     RecipeListModel(image: "examplePicture2", name: "Tuna Sandwich", id: UUID()),
     RecipeListModel(image: "examplePicture2", name: "Ham & Swiss", id: UUID()),
-    RecipeListModel(image: "examplePicture2", name: "Ham & Swiss", id: UUID()), 
     ]
 }

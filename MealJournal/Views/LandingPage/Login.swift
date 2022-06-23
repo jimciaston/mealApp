@@ -9,20 +9,18 @@ import SwiftUI
 
 struct userLogin: View {
     @State private var userLoginSuccess: Bool = false
-    
     @State var userEmail: String = "";
     @State var userPassword: String = "";
     @State  var isPWSecured = true
-    @ObservedObject var userInformation = FormViewModel()
-    @ObservedObject var keyboardResponder = KeyboardResponder()
-
-    @ObservedObject var signUpController: SignUpController
-   
     @State var success = false //binded with loginUser function
     @State var userAttemptedToLogin = false
     
+    @ObservedObject var userInformation = FormViewModel()
+    @ObservedObject var keyboardResponder = KeyboardResponder()
+    @ObservedObject var signUpController: SignUpController
+   
+    
     var body: some View {
-       
             VStack{
                 Text("Sign In")
                     .font(.title)
@@ -38,7 +36,7 @@ struct userLogin: View {
                     
                     }
                 .padding(.trailing, 25) //evens out email width with password
-                
+        
                     .overlay( RoundedRectangle(cornerRadius: 25)
                                 .stroke(Color.gray, lineWidth: 3)
                         )
@@ -92,21 +90,29 @@ struct userLogin: View {
                         
                         
                     }
-                    
-                    
-                    NavigationLink(
-                        destination: JournalEntryMain() .navigationBarHidden(true)){
-                            Text("Forgot Password?").font(.subheadline).italic()
-                    }
+                    HStack{
+                        
+                        NavigationLink(destination: JournalEntryMain() .navigationBarHidden(true)){
+                                Text("Forgot Password?").font(.subheadline).italic()
+                        }
                         .foregroundColor(.gray)
-                        .padding(.leading, 100)
                         .offset(y:20)
+                        
+                        NavigationLink(destination: createUserAccount() .navigationBarHidden(true)){
+                                Text("Create account").font(.subheadline).italic()
+                        }
+                        .foregroundColor(.black)
+                        .offset(y:20)
+                    }
+                    
+                        
                 }
                 
                 //user Login button
                 Button(action: {
                     userAttemptedToLogin = true
                     signUpController.loginUser(userEmail: userEmail, userPassword: userPassword)
+                    
                     if (signUpController.userIsLoggedIn){
                         success = true
                     }
@@ -130,9 +136,11 @@ struct userLogin: View {
                   
                 }
                 .offset(y:50)
+                
                 .onAppear{
                     print(success)
-                }            }
+                }
+            }
             .offset(y:-100)
             .offset(y: keyboardResponder.currentHeight/20)
         }
@@ -143,7 +151,7 @@ struct userLogin: View {
 
 //struct Login_Previews: PreviewProvider {
 //    static var previews: some View {
-//        userLogin(, signUpController: <#SignUpController#>)
+//        userLogin(userEmail: "jim", userPassword: 111, isPWSecured: true, success: false, userAttemptedToLogin: true, userInformation: FormViewModel(), keyboardResponder: <#T##KeyboardResponder#>, signUpController: <#T##SignUpController#>)
 //    }
 //}
-    
+//

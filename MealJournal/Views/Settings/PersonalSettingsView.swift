@@ -33,6 +33,7 @@ struct PersonalSettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
         NavigationView{
             Form{
                 Section(header: Text("Personal Settings").foregroundColor(.blue).font(.title3)
@@ -42,7 +43,7 @@ struct PersonalSettingsView: View {
                         HStack{
                             Image(systemName: "person.fill")
                                 .foregroundColor(Color("ButtonTwo"))
-                            TextField(vm.userModel?.email ?? "User Email", text: $email)
+                            TextField(currentUserEmail ?? "User Email", text: $email)
                                 .submitLabel(.done)
                             //update firestore with new email
                                 .onSubmit {
@@ -53,7 +54,13 @@ struct PersonalSettingsView: View {
                                                 print(err)
                                             }
                                             //IF GOOD, WE UPDATE THE COLLECTION VALUE OF EMAIL AS WELL
-                                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["email": email])
+                                            FirebaseManager.shared.firestore
+                                                .collection("users")
+                                                .document(FirebaseManager.shared.auth.currentUser!.uid)
+                                                .collection("privateUserInfo")
+                                                .document("private")
+                                                .updateData(["email": email])
+                                            
                                             showSuccessAlertForEmail.toggle()
                                             print("user email updated")
                                         }
@@ -69,7 +76,7 @@ struct PersonalSettingsView: View {
                         HStack{
                             Image(systemName: "key")
                                 .foregroundColor(Color("ButtonTwo"))
-                            TextField(vm.userModel?.email ?? "User Password", text: $password)
+                            TextField(vm.userModel?.name ?? "User Password", text: $password)
                         }
                     
                         HStack{

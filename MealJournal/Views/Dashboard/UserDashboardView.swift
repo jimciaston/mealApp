@@ -11,7 +11,7 @@ struct UserDashboardView: View {
     @StateObject var mealEntrys = MealEntrys()
     @ObservedObject var signUpController: SignUpController
    
-    
+    @State var isLoading = true
     @State private var signedOut = false
     
     //    init(){
@@ -20,7 +20,6 @@ struct UserDashboardView: View {
 //    }
     
     var body: some View {
-     
             TabView{
                 UserDashController(signUpController: signUpController)
                         .tabItem{
@@ -32,14 +31,13 @@ struct UserDashboardView: View {
                         }
                 
                            JournalEntryMain().environmentObject(mealEntrys) //references meal entry
-                    
-                            .tabItem{
-                                VStack{
-                                    Image(systemName: "pencil.circle")
-                                        .font(.title3)
-                                    Text("Meals")
-                                }
-                        } 
+                                .tabItem{
+                                    VStack{
+                                        Image(systemName: "pencil.circle")
+                                            .font(.title3)
+                                        Text("Meals")
+                                    }
+                                } 
                     
                 FollowingListView()
                             .tabItem{
@@ -52,7 +50,6 @@ struct UserDashboardView: View {
                            
             }
             .accentColor(.black)
-               
         
     }
       

@@ -12,13 +12,14 @@ struct RecipeFullListRow: View {
     var recipe: RecipeListModel
     var recipeName: String
     @State var showRecipeOptions = false
-    
-   
+    @Binding var active: Int?
+    let index: Int
+  
     var body: some View {
                 HStack{
                     Image(recipe.image)
                         .resizable()
-                       .frame (width: 70, height:70)
+                        .frame (width: 70, height:70)
                         .cornerRadius(15)
                     ZStack{
                         Text(recipeName)
@@ -27,7 +28,7 @@ struct RecipeFullListRow: View {
                             .padding(.top, 1)
                         //as a note, sets empty view to hide list arrow
                         NavigationLink(destination: {RecipeController(name: recipe.name, image: recipe.image)}, label: {
-                            emptyview()
+                                emptyview()
                             })
                             .opacity(0.0)
                             .buttonStyle(PlainButtonStyle())
@@ -38,26 +39,31 @@ struct RecipeFullListRow: View {
                             .padding(.bottom, 10)
                             .padding(.trailing, 10)
                             .frame(height:90)
-                        
-                        if showRecipeOptions{
-                            ReditorPopUp()
+                       
+                        //if index is active
+                        if index == active{
+                                ReditorPopUp()
+                                    .onTapGesture {
+                                        active = nil
+                                    }
                                     .padding(.top, 20)
                                     .padding(.leading, 15)
+                                }
+                            
                         }
-                    }
-                        .padding(.top, -10)
-                        .padding(5)
-                    
-                   
+                            .padding(.top, -10)
+                            .padding(5)
+     
                     Button(action: {
-                      
-                        
+                        //action
                     }){
                         Image(systemName: "slider.horizontal.3")
                             .padding(.top, 10)
                             .foregroundColor(.black)
+                        
                             .onTapGesture{
-                                showRecipeOptions.toggle()
+                                active = index
+                              
                             }
                     }
                     .buttonStyle(BorderlessButtonStyle())

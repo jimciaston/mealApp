@@ -80,7 +80,9 @@ struct ProfilePicture: View {
                     }
 
                    print("Image saved Successfully")
+                    
                     guard let url = url else { return }
+                    
                     Firestore.firestore().collection("users").document(uid).setData([ "profilePicture": url.absoluteString ], merge: true)
                 }
             }

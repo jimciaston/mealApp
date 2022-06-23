@@ -11,6 +11,7 @@ import FirebaseFirestore
 import SDWebImageSwiftUI
 
 struct RecipeEditorImage: View {
+    @EnvironmentObject var recipeClass: Recipe
     @State private var showingImagePicker = false
     @State private var inputImage: UIImage?
     
@@ -36,6 +37,7 @@ struct RecipeEditorImage: View {
                     .foregroundColor(Color("completeGreen"))
                     .frame(width:50, height:10)
                     .contentShape(Rectangle())
+            
                     .onTapGesture {
                         showingImagePicker = true
                     }
@@ -44,6 +46,10 @@ struct RecipeEditorImage: View {
                         EditorImagePicker(image: $inputImage)
                     }
             }
+        .onChange(of: inputImage, perform: { _ in
+            persistImageToStorage()
+        })
+        
         }
     
     //Save Profile picture to firestore
@@ -66,7 +72,8 @@ struct RecipeEditorImage: View {
 
                    print("Image saved Successfully")
                     guard let url = url else { return }
-                    Firestore.firestore().collection("users").document(uid).setData([ "recipeImage": url.absoluteString ], merge: true)
+                    recipeClass.recipeImage = url.absoluteString
+//                    Firestore.firestore().collection("users").document(uid).collection("userRecipes").document("recipes").setData([ "recipeImage": url.absoluteString ], merge: true)
                 }
             }
         }

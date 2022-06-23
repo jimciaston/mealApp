@@ -33,7 +33,7 @@ struct UserDashController: View {
                 ProfilePicture()
                 
                 HStack{
-                    Text(vm.userModel?.name ?? "Name Unavailable" )
+                    Text(vm.userModel?.name ?? "" )
                 }
                     .padding()
                 
@@ -60,6 +60,7 @@ struct UserDashController: View {
         
                 RecipeListView()
             }
+            
             
             .toolbar{
                 ToolbarItem (placement: .navigationBarTrailing){
@@ -88,6 +89,7 @@ struct UserDashController: View {
                     }
                 }
             }
+          
             .padding(.top, -70)
         
         }

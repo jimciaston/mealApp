@@ -32,30 +32,23 @@ struct LandingPage: View {
                             .font(.title)
                             .padding()
                     }
-                    
                     .offset(y:-25)
+                    
                     VStack{
-    //                    Text("click me")
-    //                        .onTapGesture{
-    //                            test.toggle()
-    //                        }
-    //                        .fullScreenCover(isPresented: $test){
-    //                            createUserAccount()
-    //                        }
-                            NavigationLink(destination:createUserAccount() .navigationBarHidden(true),
-                           label:{
-                                Text("Get Started").fontWeight(.bold)
-                                    .frame(minWidth: 0, maxWidth: 200)
-                                    .padding(10)
-                                    .foregroundColor(.white)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(
-                                                LinearGradient(
-                                                    colors: [.orange, .yellow],
-                                                    startPoint: .topLeading,
-                                                    endPoint: .bottomTrailing
-                                                )))
+                        NavigationLink(destination:createUserAccount() .navigationBarHidden(true),
+                       label:{
+                            Text("Get Started").fontWeight(.bold)
+                                .frame(minWidth: 0, maxWidth: 200)
+                                .padding(10)
+                                .foregroundColor(.white)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [.orange, .yellow],
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )))
 
                         })
                         
@@ -75,8 +68,7 @@ struct LandingPage: View {
             
             }
         }
-        }
-       
+    }
 }
 
 

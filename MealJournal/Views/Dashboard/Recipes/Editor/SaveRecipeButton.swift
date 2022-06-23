@@ -29,6 +29,7 @@ struct SaveRecipeButton: View {
         //sets up firebase w/ recipe as subcollection
         let newRecipeInfo: [String: Any] = [
                 recipeClass.recipeTitle: [
+                    "recipeImage": recipeClass.recipeImage,
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,
                     "createdAt": Date.now,
@@ -43,21 +44,27 @@ struct SaveRecipeButton: View {
         }
 //updates data in firebase
         do {
-        try
-            FirebaseManager.shared.firestore.collection("users").document(uid).setData(["userRecipes": newRecipeInfo], merge: true)
-            //empty recipe class 
-            recipeClass.recipeTitle = ""
-            recipeClass.recipePrepTime = ""
-            recipeClass.directions = []
-            recipeClass.ingredients = []
-            recipeClass.isCompleted = true
-            //goes back to original view
-            dismiss()
-            print("successfully save to database")
-        }
-        catch let error {
-            print("Error writing recipe to Firestore: \(error)")
-        }
+            try
+                FirebaseManager.shared.firestore
+                .collection("users")
+                .document(uid).collection("userRecipes")
+                .document("recipes")
+                .setData(["recipes": newRecipeInfo], merge:true)
+                //empty recipe class
+                recipeClass.recipeImage = ""
+                recipeClass.recipeTitle = ""
+                recipeClass.recipePrepTime = ""
+                recipeClass.directions = []
+                recipeClass.ingredients = []
+                recipeClass.isCompleted = true
+            
+                //goes back to original view
+                dismiss()
+                print("successfully save to database")
+            }
+            catch let error {
+                print("Error writing recipe to Firestore: \(error)")
+            }
     }
     
     var body: some View {

@@ -71,26 +71,31 @@ class SignUpController: ObservableObject  {
         gender:         String,
         agenda:         String
     ){
+        //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-        let userData = [
-            "email" :           email,
+        
+        let publicUserData = [
             "name":             name,
             "height":           height,
             "weight":           weight,
             "gender":           gender,
-            "agenda" :          agenda,
-            "uid":              uid,
+            "agenda" :          agenda ] as [String : Any]
         
-        ] as [String : Any]
+        let privateUserData = [
+            "email" : email ] as [String: Any]
+        
         
         FirebaseManager.shared.firestore.collection("users")
-            .document(uid).setData(userData) { err in
+            .document(uid).setData(publicUserData) { err in
                 if let err = err {
                     print(err)
                     return
                 }
-                print("Account created in Database Successfully")
             }
+        
+        //save to private
+        FirebaseManager.shared.firestore.collection("users")
+            .document(uid).collection("privateUserInfo").document("private").setData(privateUserData)
         
     }
     

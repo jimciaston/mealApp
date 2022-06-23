@@ -11,7 +11,6 @@ struct createUserAccount: View {
     @ObservedObject var userInformation = FormViewModel()
     //moves up stuff in view if keyboard is out
     @ObservedObject var keyboardResponder = KeyboardResponder()
-    
     //calls signUpController
     @StateObject var signUpController = SignUpController()
    

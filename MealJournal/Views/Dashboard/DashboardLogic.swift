@@ -9,6 +9,7 @@ import Foundation
 
 class DashboardLogic: ObservableObject {
     @Published var userModel: UserModel?
+    @Published var privateUserModel: privateUserModel?
     
     init(){
         fetchCurrentUser()
@@ -35,10 +36,32 @@ class DashboardLogic: ObservableObject {
                 print ("no data found for user")
                 return
             }
-            
-            self.userModel = .init(data: data)
-            
+                DispatchQueue.main.async {
+                    self.userModel = .init(data: data)
+                }
+                
         }
+        //save to private database
+        FirebaseManager.shared.firestore
+            .collection("users").document(uid)
+            .collection("privateUserInfo")
+            .document("private")
+            .getDocument { snapshot, error in
+                if let error = error {
+                    print("oh no we messed up")
+                    return
+                }
+                //save snapshot of database from firestore
+                guard let userEmail = snapshot?.data() else {
+                    return
+                }
+                
+                DispatchQueue.main.async{
+                    self.privateUserModel = .init(data:userEmail)
+                }
+                
+            }
+        
     }
 }
 
