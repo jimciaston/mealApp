@@ -9,10 +9,9 @@ import SwiftUI
 
 struct RecipeNavigationModals: View {
     @Environment (\.dismiss) var dismiss
+    
     @State private var sheetModeIngredients: SheetMode = .quarter
     @State private var isIngredientsActive = true
-   
-    
     @State private var sheetModeDirections: SheetMode = .none
     @State private var isDirectionsActive = false
     
@@ -27,7 +26,7 @@ struct RecipeNavigationModals: View {
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 //sets coordinates of view on dash
-                .offset(y:-300)
+                .offset(y:-400)
                 
             }
             FlexibleSheet(sheetMode: $sheetModeDirections) {
@@ -40,7 +39,7 @@ struct RecipeNavigationModals: View {
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 
                 //sets coordinates of view on dash
-                .offset(y:-300)
+                .offset(y:-400)
             }
             
             HStack(){
@@ -68,6 +67,7 @@ struct RecipeNavigationModals: View {
                     .frame(width: 0.8, height:45)
                         .padding(.bottom, 0.9)
                         .background(Color.black)
+                
                 //directions BUTTON
                 Button(action: {
                     isIngredientsActive = false

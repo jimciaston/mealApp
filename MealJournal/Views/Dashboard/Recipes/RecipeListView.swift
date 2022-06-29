@@ -6,9 +6,10 @@
 //when recipe is clicked assign id to go to page
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct RecipeListView: View {
-    @State var listofRecipes: [RecipeListModel] = RecipeList.recipes
+    @ObservedObject var rm = RecipeLogic()
     @State var recipeViewToggle = false
   
     init(){
@@ -16,23 +17,24 @@ struct RecipeListView: View {
     }
     
     var body: some View {
-        
         VStack{
             List{
-                ForEach(listofRecipes, id: \.id){ recipe in
+                ForEach(rm.recipes, id: \.id ){ recipe in
                         HStack{
-                            Image(recipe.image)
-                                .resizable()
-                               .frame (width: 70, height:70)
-                                .cornerRadius(15)
+                            WebImage(url: URL(string: recipe.recipeImage))
+                                .placeholder(Image("defaultRecipeImage-1").resizable())
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame (width: 70, height:70)
+                                    .cornerRadius(15)
                             VStack{
                                 ZStack{
-                                    Text(recipe.name)
+                                    Text(recipe.recipeTitle)
                                         .font(.body)
                                     //temp solution until I can center it
                                         .padding(.top, 1)
                                     //as a note, sets empty view to hide list arrow
-                                    NavigationLink(destination: {RecipeController(name: recipe.name, image: recipe.image)}, label: {
+                                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem)}, label: {
                                         emptyview()
                                         })
                                         .opacity(0.0)
@@ -53,11 +55,14 @@ struct RecipeListView: View {
                         }
                 
                 .onAppear {
+                    //load all the recipes
+                    self.rm.grabRecipes()
+                    
                     //sets recipe to only show 3 recipes
-                    if listofRecipes.count > 3 {
-                        listofRecipes = listofRecipes.dropLast(listofRecipes.count - 3)
+                    if rm.recipes.count > 3 {
+                        rm.recipes = rm.recipes.dropLast(rm.recipes.count - 3)
                     }
-                   }
+               }
                 ZStack{
                     NavigationLink(destination:RecipeFullListView()) {
                            emptyview()

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class DashboardLogic: ObservableObject {
     @Published var userModel: UserModel?

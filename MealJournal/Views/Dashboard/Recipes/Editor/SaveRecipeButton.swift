@@ -28,14 +28,14 @@ struct SaveRecipeButton: View {
         }
         //sets up firebase w/ recipe as subcollection
         let newRecipeInfo: [String: Any] = [
-                recipeClass.recipeTitle: [
+             
                     "recipeImage": recipeClass.recipeImage,
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,
                     "createdAt": Date.now,
                     "ingredientItem": ingredientArr,
                     "directions": directionArr
-                    ]
+                    
                 ]
             
 //grab current user
@@ -48,8 +48,8 @@ struct SaveRecipeButton: View {
                 FirebaseManager.shared.firestore
                 .collection("users")
                 .document(uid).collection("userRecipes")
-                .document("recipes")
-                .setData(["recipes": newRecipeInfo], merge:true)
+                .document(recipeClass.id)
+                .setData(newRecipeInfo, merge:true)
                 //empty recipe class
                 recipeClass.recipeImage = ""
                 recipeClass.recipeTitle = ""
@@ -77,7 +77,17 @@ struct SaveRecipeButton: View {
                     .foregroundColor(.white)
                 
                 Button(action: {
-                    saveRecipe()
+                    if (recipeClass.recipeTitle != "" &&
+                        recipeClass.recipePrepTime != "" &&
+                        recipeClass.ingredients.isEmpty == false &&
+                        recipeClass.directions.isEmpty == false
+                    ){
+                        saveRecipe()
+                    }
+                    else{
+                      print("not valid")
+                    }
+                    
                    
                 }){
                     Text("Save Recipe")

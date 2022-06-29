@@ -9,17 +9,14 @@ import Foundation
 import SwiftUI
 
 
-class Recipe: ObservableObject {
+class Recipe: ObservableObject, Identifiable {
+    let id = UUID().uuidString
     @Published var recipeImage:      String = ""
     @Published var recipeTitle:      String = ""
     @Published var recipePrepTime:   String = ""
     @Published var ingredients:      [Ingredients] = []
     @Published var directions:       [Directions]  = []
-    @Published var isCompleted = false
-//    init(recipeTitle: String, recipePrepTime: String){
-//        self.recipeTitle = recipeTitle
-//        self.recipePrepTime = recipePrepTime
-//    }
+    @Published var isCompleted =     false
 }
 
 class Ingredients: Identifiable {

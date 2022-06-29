@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecipeFullListView: View {
     @Environment(\.dismiss) var dismiss
-    @State var listofRecipes: [RecipeListModel] = RecipeList.recipes
+    @ObservedObject var rm = RecipeLogic()
     @State private var isActive = false
     @State private var active: Int? = nil
     
@@ -18,7 +18,7 @@ struct RecipeFullListView: View {
     }
     
     var body: some View {
-        let recipeList = listofRecipes.enumerated().map({ $0 })
+        let recipeList = rm.recipes.enumerated().map({ $0 })
         ZStack{
             VStack{
                 Text("Recipes")
@@ -27,9 +27,9 @@ struct RecipeFullListView: View {
                     .font(.title2)
                
                 List{
-                    ForEach(recipeList, id: \.element.name){ index, recipe in
+                    ForEach(recipeList, id: \.element.recipeTitle){ index, recipe in
                         HStack{
-                            RecipeFullListRow(recipe: recipe, recipeName: recipe.name, active: $active, index: index)
+                            RecipeFullListRow(recipe: recipe, recipeName: recipe.recipeTitle, active: $active, index: index)
                        
                             }
                         }

@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
-
+import FirebaseFirestore
+import Firebase
 
 struct RecipeIngredients: View {
-    
     @State private var sheetMode: SheetMode = .quarter
-    
-    init(){
-        UITableView.appearance().backgroundColor = .clear
-    }
-    
+   //will comment back in later
+//    init(){
+//        UITableView.appearance().backgroundColor = .clear
+//    }
+//
     var body: some View {
         ZStack{
             VStack{

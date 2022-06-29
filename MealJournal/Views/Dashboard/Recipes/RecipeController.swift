@@ -6,26 +6,28 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct RecipeController: View {
-   @State var name: String
+    @State var name: String
     @State var image: String
-   
     @State var recipeEdit = true
+    @State var ingredients: [String]
     
-    var recipeList = RecipeList.recipes
     var body: some View {
                 VStack(){
-                    Image(image)
+                    WebImage(url: URL(string: image))
                         .resizable()
+                        .frame(width:500, height: 250)
                         .aspectRatio(contentMode: .fill)
-                        .frame(width:300, height: 100)
+                        
                     }
-                
+                .frame(width:300, height: 80)
                 RecipeDashHeader(recipeName: name)//title
                     .padding()
-          
+        //ingredients or directions selction
                 RecipeNavigationModals()
+            .padding(.top, 50)
       }
     
     }

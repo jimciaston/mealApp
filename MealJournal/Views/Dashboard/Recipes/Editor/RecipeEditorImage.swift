@@ -27,7 +27,6 @@ struct RecipeEditorImage: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width:200, height: 100)
-            
             }
                 
                 Image(systemName:("plus.circle.fill")).renderingMode(.original)
@@ -49,8 +48,7 @@ struct RecipeEditorImage: View {
         .onChange(of: inputImage, perform: { _ in
             persistImageToStorage()
         })
-        
-        }
+    }
     
     //Save Profile picture to firestore
     private func persistImageToStorage() {
@@ -72,13 +70,12 @@ struct RecipeEditorImage: View {
 
                    print("Image saved Successfully")
                     guard let url = url else { return }
+                    
+                    //save to recipe model
                     recipeClass.recipeImage = url.absoluteString
-//                    Firestore.firestore().collection("users").document(uid).collection("userRecipes").document("recipes").setData([ "recipeImage": url.absoluteString ], merge: true)
                 }
             }
-        }
-    
-    
+        }    
 }
         
 

@@ -10,7 +10,7 @@ import SwiftUI
 class getWeight{
     func weightArray() -> Array <String> {
         var arr = [90]
-        for index in 90...500 {
+        for index in 80...500 {
             arr.append(index)
         }
         let newArr = arr.map {String($0)}

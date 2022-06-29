@@ -10,6 +10,7 @@ import Firebase
 
 struct UserDashController: View {
     @ObservedObject var vm = DashboardLogic()
+    @ObservedObject var rm = RecipeLogic()
     @ObservedObject var signUpController: SignUpController
     
     @State private var action: Int? = 0
@@ -101,9 +102,9 @@ struct UserDashController: View {
                 userLogin(signUpController: signUpController)
             }
         
-        
             
         }
+        
     }
     
 

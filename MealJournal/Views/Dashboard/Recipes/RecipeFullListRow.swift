@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 
 struct RecipeFullListRow: View {
-    var recipe: RecipeListModel
+    var recipe: RecipeItem
     var recipeName: String
     @State var showRecipeOptions = false
     @Binding var active: Int?
@@ -17,17 +17,17 @@ struct RecipeFullListRow: View {
   
     var body: some View {
                 HStack{
-                    Image(recipe.image)
+                    WebImage(url: URL(string: recipe.recipeImage))
                         .resizable()
                         .frame (width: 70, height:70)
                         .cornerRadius(15)
                     ZStack{
-                        Text(recipeName)
+                        Text(recipe.recipeTitle)
                             .font(.body)
                         //temp solution until I can center it
                             .padding(.top, 1)
                         //as a note, sets empty view to hide list arrow
-                        NavigationLink(destination: {RecipeController(name: recipe.name, image: recipe.image)}, label: {
+                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem)}, label: {
                                 emptyview()
                             })
                             .opacity(0.0)
