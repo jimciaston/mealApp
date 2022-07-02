@@ -9,7 +9,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct RecipeListView: View {
-    @ObservedObject var rm = RecipeLogic()
+    //keep as stateOBJ, if observed object - causes weird issue with loading recipes
+    @StateObject var rm = RecipeLogic()
     @State var recipeViewToggle = false
   
     init(){
@@ -19,10 +20,11 @@ struct RecipeListView: View {
     var body: some View {
         VStack{
             List{
-                ForEach(rm.recipes, id: \.id ){ recipe in
+                //prefix = only show 3 recipes at a time
+                ForEach(rm.recipes.prefix(3), id: \.id ){ recipe in
                         HStack{
                             WebImage(url: URL(string: recipe.recipeImage))
-                                .placeholder(Image("defaultRecipeImage-1").resizable())
+                                .placeholder(Image("defaultRecipeImage-2").resizable())
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame (width: 70, height:70)
@@ -34,7 +36,7 @@ struct RecipeListView: View {
                                     //temp solution until I can center it
                                         .padding(.top, 1)
                                     //as a note, sets empty view to hide list arrow
-                                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem)}, label: {
+                                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
                                         emptyview()
                                         })
                                         .opacity(0.0)
@@ -54,15 +56,15 @@ struct RecipeListView: View {
                             }
                         }
                 
-                .onAppear {
-                    //load all the recipes
-                    self.rm.grabRecipes()
-                    
-                    //sets recipe to only show 3 recipes
-                    if rm.recipes.count > 3 {
-                        rm.recipes = rm.recipes.dropLast(rm.recipes.count - 3)
-                    }
-               }
+//                .onAppear {
+//                    //load all the recipes
+//                   // self.rm.grabRecipes()
+//
+//                    //sets recipe to only show 3 recipes
+//                    if rm.recipes.count > 3 {
+//                        rm.recipes = rm.recipes.dropLast(rm.recipes.count - 3)
+//                    }
+//               }
                 ZStack{
                     NavigationLink(destination:RecipeFullListView()) {
                            emptyview()

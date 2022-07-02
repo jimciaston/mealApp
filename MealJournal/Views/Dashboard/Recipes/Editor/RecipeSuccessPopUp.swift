@@ -29,9 +29,8 @@ struct RecipeSuccessPopUp: View {
                 .foregroundColor(.white)
                 .frame(width: UIScreen.main.bounds.width, height: 40)
                 .background(Color("SuccessButtonColor"))
-                             
-                  }
-                    }
+              }
+            }
             .frame(width: UIScreen.main.bounds.width-50, height: 200)
             .background(Color.blue)
             .cornerRadius(25)

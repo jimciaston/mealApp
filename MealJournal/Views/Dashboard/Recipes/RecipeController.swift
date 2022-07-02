@@ -12,21 +12,26 @@ struct RecipeController: View {
     @State var name: String
     @State var image: String
     @State var recipeEdit = true
-    @State var ingredients: [String]
+    @State var ingredients: [String: String]
+    @State var directions: [String]
+    @State var recipeID: String
     
     var body: some View {
                 VStack(){
                     WebImage(url: URL(string: image))
+                        .placeholder(Image("defaultRecipeImage-2").resizable())
                         .resizable()
                         .frame(width:500, height: 250)
                         .aspectRatio(contentMode: .fill)
                         
                     }
                 .frame(width:300, height: 80)
-                RecipeDashHeader(recipeName: name)//title
+        
+                RecipeDashHeader(recipeName: name)
                     .padding()
-        //ingredients or directions selction
-                RecipeNavigationModals()
+        
+                //ingredients or directions selction
+        RecipeNavigationModals(directions: directions, ingredients: ingredients)
             .padding(.top, 50)
       }
     

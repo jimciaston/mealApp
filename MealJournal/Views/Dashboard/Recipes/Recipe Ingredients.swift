@@ -11,6 +11,8 @@ import Firebase
 
 struct RecipeIngredients: View {
     @State private var sheetMode: SheetMode = .quarter
+    @ObservedObject var rm = RecipeLogic()
+    @Binding var ingredients: [String: String]
    //will comment back in later
 //    init(){
 //        UITableView.appearance().backgroundColor = .clear
@@ -20,47 +22,29 @@ struct RecipeIngredients: View {
         ZStack{
             VStack{
                 List{
-                    HStack{
-                        Text("4 oz")
-                            .font(.title2)
-                            .foregroundColor(.green)
-                            .fontWeight(.bold)
-                        Text("Chicken Breast")
-                            .font(.title3)
+                    ForEach(Array(ingredients), id:\.key){ measurement, ingredient in
+                        HStack{
+                           Text(measurement)
+                               .font(.title2)
+                               .foregroundColor(.green)
+                               .fontWeight(.bold)
+                           Text(ingredient)
+                               .font(.title3)
+                       }
                     }
-                    
-                    HStack{
-                        Text("1 cup")
-                            .font(.title2)
-                            .foregroundColor(.green)
-                            .fontWeight(.bold)
-                        Text("Milk")
-                            .font(.title3)
-                    }
-                    
-                    HStack{
-                        Text("3 cups")
-                            .font(.title2)
-                            .foregroundColor(.green)
-                            .fontWeight(.bold)
-                        Text("BreadCrumbs")
-                            .font(.title3)
-                    }
-                    
                 }
                 .listStyle(SidebarListStyle())
             
                 }
           
-            
             }
         }
     }
 
 
-struct Recipe_Ingredients_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeIngredients()
-    }
-}
+//struct Recipe_Ingredients_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeIngredients()
+//    }
+//}
 

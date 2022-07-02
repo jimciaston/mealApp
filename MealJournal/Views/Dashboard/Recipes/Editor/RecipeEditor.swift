@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct RecipeEditor: View {
-    @State private var showSaveButton = false
-    @StateObject private var recipeClass = Recipe()
-    @State private var showSuccessMessage = false
-    @State private var sheetMode: SheetMode = .none
     @Environment(\.dismiss) var dismiss
+    
+    @State private var showSaveButton = false
+    @State var showSuccessMessage = false
+    @State private var sheetMode: SheetMode = .none
+    
+    @StateObject private var recipeClass = Recipe()
+    
+    
     var body: some View {
         VStack{
             HStack{
                 Button(action: {
-                    showSuccessMessage.toggle()
                     SaveRecipeButton.newRecipeCreated = false
-                   
                 }){
                     Image(systemName:"xmark").resizable()
                         .frame(width: 20, height: 20)
@@ -67,7 +69,7 @@ struct RecipeEditor: View {
             
             //display save button
             FlexibleSheet(sheetMode: $sheetMode) {
-                SaveRecipeButton()
+                SaveRecipeButton(showSuccessMessage: $showSuccessMessage)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 
@@ -78,12 +80,11 @@ struct RecipeEditor: View {
         }
       
         .environmentObject(recipeClass)
-       
     }
     
 }
-struct RecipeEditor_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeEditor()
-    }
-}
+//struct RecipeEditor_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeEditor()
+//    }
+//}

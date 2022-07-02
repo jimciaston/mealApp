@@ -9,11 +9,8 @@ import SwiftUI
 
 struct RecipeEditorView: View {
     @EnvironmentObject var recipeClass: Recipe
-    
-    @State private var userSavedRecipe = false
     @State private var recipeTitle = ""
     @State private var recipeTime = "Cook Time"
-    @State private var sheetMode: SheetMode = .none
     @State private var pickerTime: String = ""
     
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]

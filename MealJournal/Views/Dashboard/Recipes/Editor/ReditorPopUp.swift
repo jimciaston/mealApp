@@ -17,7 +17,6 @@ struct ReditorPopUp: View {
     @State var showEditRecipe = false
     
     var body: some View {
-        
             ZStack{
                 VStack (alignment: .leading, spacing: 20){
                     HStack(spacing:12){
@@ -30,10 +29,12 @@ struct ReditorPopUp: View {
                             Text("Edit")
                                 .foregroundColor(.black)
                         } .buttonStyle(BorderlessButtonStyle())
+                        
                         //present editor
                             .fullScreenCover(isPresented: $showEditRecipe){
                                     RecipeEditor()
                                 }
+                            
                     }
                     HStack(spacing: 12){
                         Image(systemName: "trash")
@@ -44,7 +45,8 @@ struct ReditorPopUp: View {
                         }){
                             Text("Delete")
                                 .foregroundColor(.black)
-                        } .buttonStyle(BorderlessButtonStyle())
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
                     }
                 }
             }

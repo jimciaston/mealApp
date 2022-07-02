@@ -15,7 +15,15 @@ class RecipeLogic: ObservableObject {
     init(){
      grabRecipes()
     }
+//    func deleteRecipe(){
+//        FirebaseManager.shared.firestore
+//            .collection("users")
+//            .document(uid)
+//            .collection("userRecipes")
+//    }
     
+    
+    //fetch recipes
    func grabRecipes(){
        //grab current user
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -36,9 +44,9 @@ class RecipeLogic: ObservableObject {
                     let recipePrepTime = data ["recipePrepTime"] as? String ?? ""
                     let recipeImage = data ["recipeImage"] as? String ?? ""
                     let createdAt = data ["createdAt"] as? String ?? ""
-                    let ingredients = data ["ingredientItem"] as? [String] ?? [""]
+                    let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
                     let directions = data ["directions"] as? [String] ?? [""]
-                    let recipe = RecipeItem(recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, directions: directions, ingredientItem: ingredients)
+                    let recipe = RecipeItem(id: UUID().uuidString, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, directions: directions, ingredientItem: ingredients)
                     return recipe
                 }
             }

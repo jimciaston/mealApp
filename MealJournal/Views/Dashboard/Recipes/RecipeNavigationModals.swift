@@ -15,11 +15,13 @@ struct RecipeNavigationModals: View {
     @State private var sheetModeDirections: SheetMode = .none
     @State private var isDirectionsActive = false
     
+    @State var directions: [String]
+    @State var ingredients: [String: String]
     var body: some View {
         ZStack {
             FlexibleSheet(sheetMode: $sheetModeIngredients) {
                 VStack {
-                    RecipeIngredients()
+                    RecipeIngredients(ingredients: $ingredients)
                 }
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -31,7 +33,7 @@ struct RecipeNavigationModals: View {
             }
             FlexibleSheet(sheetMode: $sheetModeDirections) {
                 VStack {
-                    RecipeDirections()
+                    RecipeDirections(directions: $directions)
                 }
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -95,8 +97,8 @@ struct RecipeNavigationModals: View {
     }
 }
 
-struct ContentVieww_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeNavigationModals()
-    }
-}
+//struct ContentVieww_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeNavigationModals()
+//    }
+//}

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipeFullListView: View {
-    @Environment(\.dismiss) var dismiss
+    
     @ObservedObject var rm = RecipeLogic()
     @State private var isActive = false
     @State private var active: Int? = nil
@@ -35,6 +35,7 @@ struct RecipeFullListView: View {
                         }
                     }
                 }
+
             }
         }
     }

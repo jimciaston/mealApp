@@ -18,6 +18,7 @@ struct RecipeFullListRow: View {
     var body: some View {
                 HStack{
                     WebImage(url: URL(string: recipe.recipeImage))
+                        .placeholder(Image("defaultRecipeImage-2").resizable())
                         .resizable()
                         .frame (width: 70, height:70)
                         .cornerRadius(15)
@@ -27,7 +28,7 @@ struct RecipeFullListRow: View {
                         //temp solution until I can center it
                             .padding(.top, 1)
                         //as a note, sets empty view to hide list arrow
-                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem)}, label: {
+                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
                                 emptyview()
                             })
                             .opacity(0.0)

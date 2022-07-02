@@ -8,10 +8,20 @@
 import SwiftUI
 import Firebase
 
+extension AnyTransition {
+    static var sideSlide: AnyTransition {
+        AnyTransition.asymmetric(
+            insertion: .move(edge: .bottom),
+            removal: .move(edge: .top))}
+}
 struct SaveRecipeButton: View {
-    @EnvironmentObject var recipeClass: Recipe
-    @Environment(\.dismiss) var dismiss
+
     
+    @Binding var showSuccessMessage: Bool
+    
+    @EnvironmentObject var recipeClass: Recipe
+   
+    @State var isNewRecipeValid = false
     static var newRecipeCreated = false
     
     func saveRecipe (){
@@ -28,14 +38,13 @@ struct SaveRecipeButton: View {
         }
         //sets up firebase w/ recipe as subcollection
         let newRecipeInfo: [String: Any] = [
-             
+                    "recipeID": UUID().uuidString,
                     "recipeImage": recipeClass.recipeImage,
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,
                     "createdAt": Date.now,
                     "ingredientItem": ingredientArr,
                     "directions": directionArr
-                    
                 ]
             
 //grab current user
@@ -50,17 +59,14 @@ struct SaveRecipeButton: View {
                 .document(uid).collection("userRecipes")
                 .document(recipeClass.id)
                 .setData(newRecipeInfo, merge:true)
-                //empty recipe class
-                recipeClass.recipeImage = ""
-                recipeClass.recipeTitle = ""
-                recipeClass.recipePrepTime = ""
-                recipeClass.directions = []
-                recipeClass.ingredients = []
-                recipeClass.isCompleted = true
             
-                //goes back to original view
-                dismiss()
-                print("successfully save to database")
+//                //empty recipe class (leaving commented out but think its unessary
+//                recipeClass.recipeImage = ""
+//                recipeClass.recipeTitle = ""
+//                recipeClass.recipePrepTime = ""
+//                recipeClass.directions = []
+//                recipeClass.ingredients = []
+//                print("successfully save to database")
             }
             catch let error {
                 print("Error writing recipe to Firestore: \(error)")
@@ -82,13 +88,14 @@ struct SaveRecipeButton: View {
                         recipeClass.ingredients.isEmpty == false &&
                         recipeClass.directions.isEmpty == false
                     ){
+                        isNewRecipeValid = true
+                        showSuccessMessage.toggle()
                         saveRecipe()
                     }
                     else{
-                      print("not valid")
+                        isNewRecipeValid = false
                     }
-                    
-                   
+                 
                 }){
                     Text("Save Recipe")
                         .font(.title)
@@ -104,7 +111,11 @@ struct SaveRecipeButton: View {
                         Color("completeGreen")))
             
         }
+        .transition(.sideSlide)
+        .animation(.easeInOut(duration: 0.25))
     }
+    
+     
 }
 
 //struct SaveRecipeButton_Previews: PreviewProvider {
