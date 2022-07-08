@@ -335,6 +335,7 @@
 				0AAE15AE282D9DFE00B9B85A /* RecipeEditorIngredients.swift */,
 				0AAE15B0282DA34900B9B85A /* EditorIngredients.swift */,
 				0AAE15B2282DA3E400B9B85A /* EditorDirections.swift */,
+				0A9F495A286532EC002F227E /* RecipeLogic.swift */,
 				0A07D96E284E332D0080A4ED /* SaveRecipeButton.swift */,
 			);
 			path = Editor;
@@ -448,7 +449,6 @@
 			isa = PBXGroup;
 			children = (
 				0A95BB91284EDEF30020C7B2 /* RecipeModel.swift */,
-				0A9F495A286532EC002F227E /* RecipeLogic.swift */,
 				0AC1B7B927D8F5430070895D /* UserData.xcdatamodeld */,
 				0AC1B7B427D7F2EB0070895D /* DataController.swift */,
 				0A12639227CE5CD10076876B /* MealEntrys.swift */,

@@ -28,9 +28,10 @@ struct RecipeFullListRow: View {
                         //temp solution until I can center it
                             .padding(.top, 1)
                         //as a note, sets empty view to hide list arrow
-                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
+                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, prepTime: recipe.recipePrepTime, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
                                 emptyview()
                             })
+                           
                             .opacity(0.0)
                             .buttonStyle(PlainButtonStyle())
                         
@@ -70,7 +71,6 @@ struct RecipeFullListRow: View {
                     .buttonStyle(BorderlessButtonStyle())
                    
             }
-     
     }
 }
 

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RecipeNavigationModals: View {
     @Environment (\.dismiss) var dismiss
-    
+    //binding to recipe controller 
+    @Binding var editRecipeMode: Bool
     @State private var sheetModeIngredients: SheetMode = .quarter
     @State private var isIngredientsActive = true
     @State private var sheetModeDirections: SheetMode = .none

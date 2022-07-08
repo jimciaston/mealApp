@@ -17,18 +17,19 @@ struct UserDashController: View {
     @State private var userSigningOut = false
     @State private var showMenu = false
     @State private var presentSettingsPage = false
-   
+    @State private var presentAddRecipePage = false
+    
     var body: some View {
         NavigationView{
             VStack{
                 //Following and Follower button
                 NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
-                                    EmptyView()
-                                }
+                        EmptyView()
+                    }
                 
                 NavigationLink(destination: MacroView(), tag: 2, selection: $action) {
-                                    EmptyView()
-                                }
+                    EmptyView()
+                }
                 
                 //profile picture
                 ProfilePicture()
@@ -67,6 +68,11 @@ struct UserDashController: View {
                 ToolbarItem (placement: .navigationBarTrailing){
                     Menu {
                         Button(action: {
+                            presentAddRecipePage = true
+                        }){
+                            Text("Add Recipe")
+                        }
+                        Button(action: {
                             presentSettingsPage = true
                         }){
                             Text("Settings")
@@ -82,7 +88,7 @@ struct UserDashController: View {
                     }
                 label: {
                     Label(
-                        title: { Text("User Settings") },
+                        title: { Text("") },
                         icon: {
                             Image(systemName: "plus")
                                 
@@ -97,10 +103,14 @@ struct UserDashController: View {
         .fullScreenCover(isPresented: $presentSettingsPage){
             SettingsView()
         }
+        
+        .fullScreenCover(isPresented: $presentAddRecipePage){
+            RecipeEditor()
+        }
     
-            .fullScreenCover(isPresented: $userSigningOut){
-                userLogin(signUpController: signUpController)
-            }
+        .fullScreenCover(isPresented: $userSigningOut){
+            userLogin(signUpController: signUpController)
+        }
         
             
         }

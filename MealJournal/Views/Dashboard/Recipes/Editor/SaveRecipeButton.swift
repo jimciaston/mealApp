@@ -25,6 +25,7 @@ struct SaveRecipeButton: View {
     static var newRecipeCreated = false
     
     func saveRecipe (){
+        let recipeIDCreator = UUID().uuidString
         //saves from object in RecipeModel to arrays
         var ingredientArr:[String:String] = [:]
         var directionArr: [String] = []
@@ -38,7 +39,7 @@ struct SaveRecipeButton: View {
         }
         //sets up firebase w/ recipe as subcollection
         let newRecipeInfo: [String: Any] = [
-                    "recipeID": UUID().uuidString,
+                    "recipeID": recipeIDCreator,
                     "recipeImage": recipeClass.recipeImage,
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,

@@ -22,6 +22,7 @@ struct RecipeEditor: View {
             HStack{
                 Button(action: {
                     SaveRecipeButton.newRecipeCreated = false
+                    dismiss()
                 }){
                     Image(systemName:"xmark").resizable()
                         .frame(width: 20, height: 20)
@@ -31,6 +32,7 @@ struct RecipeEditor: View {
                 .blur(radius: showSuccessMessage ? 15 : 0)
                 .padding(.leading, 20)
                 Spacer()
+                
                 Button(action: {
                     showSaveButton.toggle()
                     switch sheetMode {
@@ -78,7 +80,6 @@ struct RecipeEditor: View {
             }
             
         }
-      
         .environmentObject(recipeClass)
     }
     
