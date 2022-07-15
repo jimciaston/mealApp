@@ -10,18 +10,19 @@ import SDWebImageSwiftUI
 
 struct RecipeController: View {
     @StateObject var rm = RecipeLogic()
-    
-    
+    @ObservedObject var ema = EditModeActive()
+   
     @State var name: String
     @State var prepTime: String
     @State var image: String
-    @State var recipeEdit = true
     @State var ingredients: [String: String]
     @State var directions: [String]
     @State var recipeID: String
-    
-    @State var editRecipeMode = false
-    
+
+    /*/
+     can add if ingredients != ema.updatedINgredients then run the saveRecipes function
+     
+     */
     var body: some View {
                 VStack{
                     WebImage(url: URL(string: image))
@@ -32,23 +33,29 @@ struct RecipeController: View {
                     }
                 .frame(width:300, height: 80)
 
-        RecipeDashHeader(recipeName: name, recipePrepTime: prepTime,editingRecipe: $editRecipeMode)
+        RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, ema: ema)
                     .padding()
         
                 //ingredients or directions selction
-        RecipeNavigationModals( editRecipeMode: $editRecipeMode, directions: directions, ingredients: ingredients)
+        RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
             .padding(.top, 50)
         
         //edit recipe button
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
-                        editRecipeMode.toggle()
+                        ema.editMode.toggle()
+                        //if user is saving when complete is on the button
+                        if !ema.editMode {
+                            let mergedIngredients = ingredients.merging(ema.updatedIngredients) { (current, _) in current }
+                            print(ema.updatedIngredients)
+                            rm.saveRecipe(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
+                        }
                     }){
                         HStack{
-                            Image(systemName: !editRecipeMode ? "pencil.circle" : "")
+                            Image(systemName: !ema.editMode ? "pencil.circle" : "")
                                     .foregroundColor(.black)
-                            Text(!editRecipeMode ? "Edit" : "Complete")
+                            Text(!ema.editMode ? "Edit" : "Complete")
                                 .foregroundColor(.black)
                             }
                        
@@ -58,7 +65,6 @@ struct RecipeController: View {
                 }
             }
       }
-       
     }
   
                 

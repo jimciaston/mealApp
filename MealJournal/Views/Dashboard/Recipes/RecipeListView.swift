@@ -12,7 +12,7 @@ struct RecipeListView: View {
     //keep as stateOBJ, if observed object - causes weird issue with loading recipes
     @StateObject var rm = RecipeLogic()
     @State var recipeViewToggle = false
-  
+    @EnvironmentObject var emaGlobal: EditModeActive
     init(){
         UITableView.appearance().backgroundColor = .clear
     }
@@ -56,15 +56,6 @@ struct RecipeListView: View {
                             }
                         }
                 
-//                .onAppear {
-//                    //load all the recipes
-//                   // self.rm.grabRecipes()
-//
-//                    //sets recipe to only show 3 recipes
-//                    if rm.recipes.count > 3 {
-//                        rm.recipes = rm.recipes.dropLast(rm.recipes.count - 3)
-//                    }
-//               }
                 ZStack{
                     NavigationLink(destination:RecipeFullListView()) {
                            emptyview()
@@ -81,7 +72,9 @@ struct RecipeListView: View {
             }
            
         }
-    
+        .onAppear{
+            emaGlobal.editMode = false
+        }
     }
 }
 

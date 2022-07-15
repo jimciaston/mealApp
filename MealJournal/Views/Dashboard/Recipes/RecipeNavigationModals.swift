@@ -9,21 +9,24 @@ import SwiftUI
 
 struct RecipeNavigationModals: View {
     @Environment (\.dismiss) var dismiss
-    //binding to recipe controller 
-    @Binding var editRecipeMode: Bool
+    
+    //located in EditModeActive Class
+    @ObservedObject var ema: EditModeActive
     @State private var sheetModeIngredients: SheetMode = .quarter
     @State private var isIngredientsActive = true
     @State private var sheetModeDirections: SheetMode = .none
     @State private var isDirectionsActive = false
-    
+    @State var currentRecipeID: String
     @State var directions: [String]
     @State var ingredients: [String: String]
+    
     var body: some View {
         ZStack {
             FlexibleSheet(sheetMode: $sheetModeIngredients) {
                 VStack {
-                    RecipeIngredients(ingredients: $ingredients)
+                    RecipeIngredients(ema: ema, currentRecipeID: $currentRecipeID, ingredients: $ingredients)
                 }
+                
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.white)
@@ -75,16 +78,17 @@ struct RecipeNavigationModals: View {
                 Button(action: {
                     isIngredientsActive = false
                     isDirectionsActive = true
-                    //leave on quarter so user can't disapear a view on the screen
-                    switch sheetModeDirections {
-                    case .none:
-                        sheetModeIngredients = .none
-                        sheetModeDirections = .quarter
-                    case .quarter:
-                        sheetModeDirections = .quarter
-                    case .mealTimingSelection: //only used for when user selects meal option on mealtiming
-                        return
-                    }
+                    
+                        //leave on quarter so user can't disapear a view on the screen
+                        switch sheetModeDirections {
+                        case .none:
+                            sheetModeIngredients = .none
+                            sheetModeDirections = .quarter
+                        case .quarter:
+                            sheetModeDirections = .quarter
+                        case .mealTimingSelection: //only used for when user selects meal option on mealtiming
+                            return
+                        }
                         
                 }){
                     Text("Directions")

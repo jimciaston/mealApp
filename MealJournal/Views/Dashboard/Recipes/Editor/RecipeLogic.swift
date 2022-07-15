@@ -32,7 +32,6 @@ class RecipeLogic: ObservableObject {
                 }
                 else{
                     for doc in snapshot!.documents {
-                        print("test")
                             FirebaseManager.shared.firestore
                                 .collection("users")
                                 .document(uid)
@@ -43,12 +42,41 @@ class RecipeLogic: ObservableObject {
                                         } else {
                                             print("Document successfully removed!")
                                         }
+                                    }
                                 }
-                        
+                            }
+                        }
+                    }
+    
+    //save recipes when edited
+    func saveRecipe(ingredientList: [String: String], currentRecipe: String){
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("userRecipes")
+            .whereField("recipeID", isEqualTo: currentRecipe)
+            .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            FirebaseManager.shared.firestore
+                                .collection("users")
+                                .document(uid)
+                                .collection("userRecipes")
+                                .document(document.documentID)
+                                .setData(["ingredientItem" : ingredientList], merge: true)
+                                    
+                            print("Updated Recipe")
+                        }
                     }
                 }
             }
-        }
+    
+    
     
     //fetch recipes
    func grabRecipes(){

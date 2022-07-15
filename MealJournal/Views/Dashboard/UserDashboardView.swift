@@ -29,7 +29,7 @@ struct UserDashboardView: View {
                                 Text("Home")
                             }
                         }
-                
+                        .environmentObject(EditModeActive())
                            JournalEntryMain().environmentObject(mealEntrys) //references meal entry
                                 .tabItem{
                                     VStack{

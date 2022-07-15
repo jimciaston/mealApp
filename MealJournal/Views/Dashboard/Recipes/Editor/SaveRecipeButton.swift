@@ -61,13 +61,6 @@ struct SaveRecipeButton: View {
                 .document(recipeClass.id)
                 .setData(newRecipeInfo, merge:true)
             
-//                //empty recipe class (leaving commented out but think its unessary
-//                recipeClass.recipeImage = ""
-//                recipeClass.recipeTitle = ""
-//                recipeClass.recipePrepTime = ""
-//                recipeClass.directions = []
-//                recipeClass.ingredients = []
-//                print("successfully save to database")
             }
             catch let error {
                 print("Error writing recipe to Firestore: \(error)")

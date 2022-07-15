@@ -79,6 +79,8 @@
 		0A9A055327B2E6E100CAD66B /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A055227B2E6E100CAD66B /* Login.swift */; };
 		0A9F495B286532ED002F227E /* RecipeLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F495A286532EC002F227E /* RecipeLogic.swift */; };
 		0A9F495D28653382002F227E /* RecipeModelTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F495C28653382002F227E /* RecipeModelTwo.swift */; };
+		0A9F495F28793E33002F227E /* EditModeActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F495E28793E32002F227E /* EditModeActive.swift */; };
+		0A9F4965287BCBCC002F227E /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 0A9F4964287BCBCC002F227E /* OrderedCollections */; };
 		0A9FC9C627DD50ED0008D0CD /* SubscriptionPopOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9FC9C527DD50ED0008D0CD /* SubscriptionPopOut.swift */; };
 		0AA11757281A3ABD0024FECE /* ServingUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA11756281A3ABD0024FECE /* ServingUnitPicker.swift */; };
 		0AA11759282031400024FECE /* WholeNFractionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA11758282031400024FECE /* WholeNFractionPicker.swift */; };
@@ -188,6 +190,7 @@
 		0A9A055227B2E6E100CAD66B /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		0A9F495A286532EC002F227E /* RecipeLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeLogic.swift; sourceTree = "<group>"; };
 		0A9F495C28653382002F227E /* RecipeModelTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModelTwo.swift; sourceTree = "<group>"; };
+		0A9F495E28793E32002F227E /* EditModeActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModeActive.swift; sourceTree = "<group>"; };
 		0A9FC9C527DD50ED0008D0CD /* SubscriptionPopOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPopOut.swift; sourceTree = "<group>"; };
 		0AA11756281A3ABD0024FECE /* ServingUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServingUnitPicker.swift; sourceTree = "<group>"; };
 		0AA11758282031400024FECE /* WholeNFractionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeNFractionPicker.swift; sourceTree = "<group>"; };
@@ -221,6 +224,7 @@
 			files = (
 				0A07D96028480A140080A4ED /* SDWebImageSwiftUI in Frameworks */,
 				5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */,
+				0A9F4965287BCBCC002F227E /* OrderedCollections in Frameworks */,
 				0A6A6883284577210047CFB9 /* FirebaseStorage in Frameworks */,
 				0A6A687F284577210047CFB9 /* FirebaseAuth in Frameworks */,
 				0A6A6881284577210047CFB9 /* FirebaseFirestore in Frameworks */,
@@ -345,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				0A53021027E8EFAD00B8D261 /* FlexibleSheet.swift */,
+				0A9F495E28793E32002F227E /* EditModeActive.swift */,
 				0A8D8074282A28CB0055021A /* FlexibleSheetPicker.swift */,
 				0A8D957527B6E42700193B84 /* hideKeyboard.swift */,
 				0A8D957A27B7216400193B84 /* keyboardResponder.swift */,
@@ -522,6 +527,7 @@
 				0A6A6880284577210047CFB9 /* FirebaseFirestore */,
 				0A6A6882284577210047CFB9 /* FirebaseStorage */,
 				0A07D95F28480A140080A4ED /* SDWebImageSwiftUI */,
+				0A9F4964287BCBCC002F227E /* OrderedCollections */,
 			);
 			productName = MealJournal;
 			productReference = 0A8F98DD27AB09AE008F5584 /* MealJournal.app */;
@@ -601,6 +607,7 @@
 			packageReferences = (
 				0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0A07D95E28480A130080A4ED /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				0A9F4963287BCBCC002F227E /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 0A8F98DE27AB09AE008F5584 /* Products */;
 			projectDirPath = "";
@@ -808,6 +815,7 @@
 				0AE0DB8E27BC1E03006F1835 /* EntryModel.swift in Sources */,
 				0A8D80682826CBF60055021A /* RecipeEditor.swift in Sources */,
 				0A07D969284AA1780080A4ED /* SuccessAlert.swift in Sources */,
+				0A9F495F28793E33002F227E /* EditModeActive.swift in Sources */,
 				0AAE15B1282DA34900B9B85A /* EditorIngredients.swift in Sources */,
 				0AA11759282031400024FECE /* WholeNFractionPicker.swift in Sources */,
 				0A3FF73427F230F500789FD0 /* GetFoodApi.swift in Sources */,
@@ -1171,6 +1179,14 @@
 				kind = branch;
 			};
 		};
+		0A9F4963287BCBCC002F227E /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1193,6 +1209,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		0A9F4964287BCBCC002F227E /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A9F4963287BCBCC002F227E /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */
 

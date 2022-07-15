@@ -11,17 +11,17 @@ struct RecipeDashHeader: View {
     @State var recipeName = ""
     @State var recipePrepTime = ""
     @State var updatedRecipeName = ""
-    @Binding var editingRecipe: Bool
+    @ObservedObject var ema: EditModeActive
     
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]
     @State private var pickerTime: String = ""
     
     @ViewBuilder
     var body: some View {
-        if editingRecipe {
+        if ema.editMode {
             VStack{
                 TextField(recipeName, text: $recipeName)
-                    .foregroundColor(!editingRecipe ? Color.black : Color.gray)
+                    .foregroundColor(!ema.editMode ? Color.black : Color.gray)
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .padding()

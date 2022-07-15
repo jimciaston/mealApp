@@ -9,12 +9,15 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct RecipeFullListRow: View {
+    @EnvironmentObject var emaGlobal: EditModeActive
     var recipe: RecipeItem
+    @ObservedObject var ema = EditModeActive()
     var recipeName: String
     @State var showRecipeOptions = false
     @Binding var active: Int?
     let index: Int
-  
+    //clean this up later to make all go through envir
+    
     var body: some View {
                 HStack{
                     WebImage(url: URL(string: recipe.recipeImage))
@@ -28,6 +31,9 @@ struct RecipeFullListRow: View {
                         //temp solution until I can center it
                             .padding(.top, 1)
                         //as a note, sets empty view to hide list arrow
+                            
+                        
+                        
                         NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, prepTime: recipe.recipePrepTime, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
                                 emptyview()
                             })
@@ -71,6 +77,9 @@ struct RecipeFullListRow: View {
                     .buttonStyle(BorderlessButtonStyle())
                    
             }
+                .onAppear{
+                    emaGlobal.editMode = false
+                }
     }
 }
 

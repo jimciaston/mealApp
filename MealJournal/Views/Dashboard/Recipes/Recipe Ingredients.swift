@@ -8,35 +8,99 @@
 import SwiftUI
 import FirebaseFirestore
 import Firebase
+import OrderedCollections
+
 
 struct RecipeIngredients: View {
     @State private var sheetMode: SheetMode = .quarter
+    @State private var sizing = ""
+    @State private var description = ""
+    
     @ObservedObject var rm = RecipeLogic()
+    @ObservedObject var ema: EditModeActive
+    
+    @Binding var currentRecipeID: String
     @Binding var ingredients: [String: String]
-   //will comment back in later
-//    init(){
-//        UITableView.appearance().backgroundColor = .clear
-//    }
-//
+    
+    //turn into Ordered Dictionary so I can grab ingredients key
+    func turnIntoOrderedDictionary(regularDictionary: [String: String]) -> OrderedDictionary <String, String>{
+        var dict = OrderedDictionary <String, String> (
+            uniqueKeys: regularDictionary.keys,
+            values: regularDictionary.values
+        )
+        dict.sort()
+        return dict
+    }
+    
+    private func listContent(for keys: [String]) -> some View {
+        ForEach(keys, id: \.self) { key in
+            HStack{
+                Text(key)
+                    .font(.title2)
+                    .foregroundColor(.green)
+                    .fontWeight(.bold)
+                Text(turnIntoOrderedDictionary(regularDictionary: ingredients)[key] ?? "default")
+                    .font(.title3)
+            }
+        }
+        .onDelete { indexSet in
+            if ema.editMode{
+                var ingredientsOrdered = turnIntoOrderedDictionary(regularDictionary: ingredients)
+                let key = ingredientsOrdered.keys[indexSet.first!]
+                ingredients.removeValue(forKey: key)
+                ema.updatedIngredients = ingredients
+            }
+           
+        }
+    }
+   
     var body: some View {
         ZStack{
             VStack{
-                List{
-                    ForEach(Array(ingredients), id:\.key){ measurement, ingredient in
-                        HStack{
-                           Text(measurement)
-                               .font(.title2)
-                               .foregroundColor(.green)
-                               .fontWeight(.bold)
-                           Text(ingredient)
-                               .font(.title3)
-                       }
+                if ema.editMode{
+                    HStack{
+                        TextField("ex. 1 cup", text: $sizing)
+                            .font(.body)
+                            .padding(.leading, 30)
+                           
+                        TextField("ex. Chicken Breast", text: $description)
+                            .font(.body)
                     }
+                    .padding(.top, 25) //set to give space from ingredient/direction section
+                    
+                    Button(action: {
+                        if (sizing != "" && description != ""){
+                            ingredients[sizing] = description
+                            ingredients[sizing] = description
+                            
+                            ema.updatedIngredients[sizing] = description
+                                sizing = ""
+                                description  = ""
+                        }
+                        
+                    })
+                       {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.blue)
+                            .padding(.leading, 20)
+                            .padding(.top, 20)
+                            .opacity(!sizing.isEmpty && !description.isEmpty ? 1.0 : 0.5)
+                           Spacer()
+                              
+                    }
+                       .padding(.top, -10)
+                       .padding(.bottom, 10)
+                }
+                List{
+                    self.listContent(for: Array(turnIntoOrderedDictionary(regularDictionary: ingredients).keys))
+                  
+                }
+                .onAppear{
+                    ema.updatedIngredients = ingredients
                 }
                 .listStyle(SidebarListStyle())
             
                 }
-          
             }
         }
     }

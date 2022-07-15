@@ -12,11 +12,11 @@ struct EditorIngredients: View {
     
     @State private var sizing: String = ""
     @State private var description: String = ""
-    @State private var counter = 1
+    //@State private var counter = 1
     @State private var filledOut = false
     
 
-    @State  var testArr: [String] = []
+   
     var body: some View {
         ZStack{
             VStack{
@@ -34,7 +34,7 @@ struct EditorIngredients: View {
                         if (sizing != "" && description != ""){
                             let newIngredient = Ingredients(sizing: sizing, description: description)
                             recipeClass.ingredients.append(newIngredient)
-                                counter += 1
+                                //clear when appended
                                 sizing = ""
                                 description  = ""
                         }
