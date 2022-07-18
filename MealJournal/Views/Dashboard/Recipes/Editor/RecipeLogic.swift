@@ -49,7 +49,7 @@ class RecipeLogic: ObservableObject {
                     }
     
     //save recipes when edited
-    func saveRecipe(ingredientList: [String: String], currentRecipe: String){
+    func saveRecipeIngredients(ingredientList: [String: String], currentRecipe: String){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
@@ -68,7 +68,7 @@ class RecipeLogic: ObservableObject {
                                 .document(uid)
                                 .collection("userRecipes")
                                 .document(document.documentID)
-                                .setData(["ingredientItem" : ingredientList], merge: true)
+                                .updateData(["ingredientItem" : ingredientList])
                                     
                             print("Updated Recipe")
                         }
@@ -76,6 +76,32 @@ class RecipeLogic: ObservableObject {
                 }
             }
     
+    func saveRecipeDirections(directions: [String: String], currentRecipe: String){
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("userRecipes")
+            .whereField("recipeID", isEqualTo: currentRecipe)
+            .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            FirebaseManager.shared.firestore
+                                .collection("users")
+                                .document(uid)
+                                .collection("userRecipes")
+                                .document(document.documentID)
+                                .updateData(["directions" : directions])
+                                    
+                            print("Updated Recipe")
+                        }
+                    }
+                }
+            }
     
     
     //fetch recipes

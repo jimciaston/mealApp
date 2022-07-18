@@ -47,9 +47,9 @@ struct RecipeController: View {
                         ema.editMode.toggle()
                         //if user is saving when complete is on the button
                         if !ema.editMode {
-                            let mergedIngredients = ingredients.merging(ema.updatedIngredients) { (current, _) in current }
-                            print(ema.updatedIngredients)
-                            rm.saveRecipe(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
+                            
+                 //save to firestore
+                            rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
                         }
                     }){
                         HStack{

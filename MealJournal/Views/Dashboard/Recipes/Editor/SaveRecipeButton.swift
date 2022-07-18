@@ -47,6 +47,7 @@ struct SaveRecipeButton: View {
                     "ingredientItem": ingredientArr,
                     "directions": directionArr
                 ]
+       
             
 //grab current user
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
