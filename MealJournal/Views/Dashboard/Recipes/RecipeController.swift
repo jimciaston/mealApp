@@ -47,9 +47,12 @@ struct RecipeController: View {
                         ema.editMode.toggle()
                         //if user is saving when complete is on the button
                         if !ema.editMode {
-                            
-                 //save to firestore
-                            rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
+                            if ema.isIngredientsActive{
+                                rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
+                            }
+                            else{
+                                rm.saveRecipeDirections(directions: ema.updatedDirections, currentRecipe: recipeID)
+                            }
                         }
                     }){
                         HStack{

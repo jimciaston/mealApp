@@ -76,7 +76,7 @@ class RecipeLogic: ObservableObject {
                 }
             }
     
-    func saveRecipeDirections(directions: [String: String], currentRecipe: String){
+    func saveRecipeDirections(directions: [String], currentRecipe: String){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
@@ -97,7 +97,7 @@ class RecipeLogic: ObservableObject {
                                 .document(document.documentID)
                                 .updateData(["directions" : directions])
                                     
-                            print("Updated Recipe")
+                            print("Updated Direction Recipe")
                         }
                     }
                 }

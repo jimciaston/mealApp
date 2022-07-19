@@ -37,7 +37,7 @@ struct RecipeNavigationModals: View {
             }
             FlexibleSheet(sheetMode: $sheetModeDirections) {
                 VStack {
-                    RecipeDirections(directions: $directions)
+                    RecipeDirections(ema: ema, directions: $directions)
                 }
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -53,7 +53,8 @@ struct RecipeNavigationModals: View {
                 Button(action: {
                         isDirectionsActive = false
                         isIngredientsActive = true
-                        
+                        ema.isIngredientsActive = true
+                    
                         switch sheetModeIngredients {
                             case .none:
                             sheetModeDirections = .none
@@ -77,6 +78,8 @@ struct RecipeNavigationModals: View {
                 //directions BUTTON
                 Button(action: {
                     isIngredientsActive = false
+                    ema.isIngredientsActive = false
+                    
                     isDirectionsActive = true
                     
                         //leave on quarter so user can't disapear a view on the screen

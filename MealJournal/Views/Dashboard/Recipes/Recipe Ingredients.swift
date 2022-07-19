@@ -31,7 +31,8 @@ struct RecipeIngredients: View {
         dict.sort()
         return dict
     }
-    
+   
+    //produces view
     private func listContent(for keys: [String]) -> some View {
         ForEach(keys, id: \.self) { key in
             HStack{

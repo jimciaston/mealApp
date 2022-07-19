@@ -14,7 +14,7 @@ struct EditorDirections: View {
     @State private var isUserEditingDirections = false
     @State private var userDirection = ""
     @State private var userWantsNewDirection = false
-    @State private var recipeDirections: [String] = ["Marinate chicken breast for 2 hours upon cooking", "Boil water and throw pasta in the pot", "oh man"]
+
     
     @State private var counter = 0
    
@@ -50,9 +50,7 @@ struct EditorDirections: View {
                 }
                 .padding(.top, -10)
                 .padding(.bottom, 10)
-               
-               
-               
+            
                 List{
                     ForEach(Array(recipeClass.directions.enumerated()), id: \.offset){ (index, direction) in
                         HStack{
@@ -71,8 +69,6 @@ struct EditorDirections: View {
                     .onDelete(perform: { indexSet in
                         recipeClass.directions.remove(atOffsets: indexSet)
                     })
-                  
-                   
                 }
                 .padding(.top, -20)
                

@@ -10,5 +10,10 @@ import SwiftUI
 
 class EditModeActive: ObservableObject {
     @Published var editMode: Bool = false
+        //user added ingredients during edit mode
     @Published var updatedIngredients: [String: String] = [:]
+    //user added directions during edit mode
+    @Published var updatedDirections: [String] = []
+    //connects with recipeController
+    @Published var isIngredientsActive = false
 }
