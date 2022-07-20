@@ -52,6 +52,7 @@ struct RecipeNavigationModals: View {
                 //ingredients BUTTON
                 Button(action: {
                         isDirectionsActive = false
+                        ema.isDirectionsActive = false
                         isIngredientsActive = true
                         ema.isIngredientsActive = true
                     
@@ -69,9 +70,9 @@ struct RecipeNavigationModals: View {
                             .foregroundColor(isIngredientsActive ? .gray : .black)
                             .font(.title2)
                     }
-                
+                //line between
                      Divider()
-                    .frame(width: 0.8, height:45)
+                    .frame(width: 0.8, height:40)
                         .padding(.bottom, 0.9)
                         .background(Color.black)
                 
@@ -81,7 +82,7 @@ struct RecipeNavigationModals: View {
                     ema.isIngredientsActive = false
                     
                     isDirectionsActive = true
-                    
+                    ema.isDirectionsActive = true
                         //leave on quarter so user can't disapear a view on the screen
                         switch sheetModeDirections {
                         case .none:
@@ -97,11 +98,15 @@ struct RecipeNavigationModals: View {
                     Text("Directions")
                         .foregroundColor(isDirectionsActive ? .gray : .black)
                          .font(.title3)
+                   
                 }
                     
             }
-     .offset(y:-200)
+    //sets divider on view, adjust to move up or down
+     .offset(y:-170)
         }
+        
+        
     }
 }
 

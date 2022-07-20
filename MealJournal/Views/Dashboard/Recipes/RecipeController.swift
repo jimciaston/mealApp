@@ -40,6 +40,15 @@ struct RecipeController: View {
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
             .padding(.top, 50)
         
+        if ema.editMode{
+            DeleteRecipe(currentRecipeID: recipeID)
+        }
+        //offsets toolbar, if text removed, would interrupt toolbar. 
+       Text("")
+            
+       
+        
+        
         //edit recipe button
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing){
@@ -48,10 +57,12 @@ struct RecipeController: View {
                         //if user is saving when complete is on the button
                         if !ema.editMode {
                             if ema.isIngredientsActive{
-                                rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
+                                    rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
                             }
                             else{
-                                rm.saveRecipeDirections(directions: ema.updatedDirections, currentRecipe: recipeID)
+                                if ema.isDirectionsActive{
+                                    rm.saveRecipeDirections(directions: ema.updatedDirections, currentRecipe: recipeID)
+                                }
                             }
                         }
                     }){
@@ -74,13 +85,13 @@ struct RecipeController: View {
                 
          
       
-       
-
-
-
+//
+//
+//
+//
 //struct RecipeController_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RecipeController(name: .constant(true), image: .constant(true))
+//        RecipeController(name: "jimmy", prepTime: "20 mins", image: "", ingredients: ["peppers": "ghost"], directions: ["hello"], recipeID: "223")
 //    }
 //}
 

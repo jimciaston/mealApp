@@ -84,8 +84,8 @@ struct RecipeEditor: View {
     }
     
 }
-//struct RecipeEditor_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeEditor()
-//    }
-//}
+struct RecipeEditor_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeEditor()
+    }
+}

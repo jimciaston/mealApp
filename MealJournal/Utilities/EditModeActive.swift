@@ -16,4 +16,6 @@ class EditModeActive: ObservableObject {
     @Published var updatedDirections: [String] = []
     //connects with recipeController
     @Published var isIngredientsActive = false
+    //connects with recipeController
+    @Published var isDirectionsActive = false
 }
