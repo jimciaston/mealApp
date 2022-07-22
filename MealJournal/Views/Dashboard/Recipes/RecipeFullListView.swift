@@ -1,7 +1,7 @@
 //
 //  RecipeFullListView.swift
 //  MealJournal
-//
+//FULL LIST VIEW
 //  Created by Jim Ciaston on 3/25/22.
 //
 
@@ -21,9 +21,7 @@ struct RecipeFullListView: View {
         let recipeList = rm.recipes.enumerated().map({ $0 })
         ZStack{
             VStack{
-                Text("Recipes")
-                    //.padding(.bottom, -20)
-                    //.padding(.top, 40)
+                Text("All Recipes")
                     .font(.title2)
                
                 List{

@@ -12,6 +12,10 @@ struct RecipeEditorView: View {
     @State private var recipeTitle = ""
     @State private var recipeTime = "Cook Time"
     @State private var pickerTime: String = ""
+    //calls macro pickers
+    @State var fatPicker: Int = 0
+    @State var carbPicker: Int = 0
+    @State var proteinPicker: Int = 0
     
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]
     
@@ -24,7 +28,43 @@ struct RecipeEditorView: View {
                 .foregroundColor(Color.black)
                 .font(.title3)
                 .multilineTextAlignment(.center)
+            //macro selectors
+            HStack{
+                //macro pickers for recipe
+                Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
+                   ForEach(pickerGramCounter(), id: \.self) {
+                       Text(String($0) + "g Fat")
+                   }
+                   .onChange(of: fatPicker, perform: { _ in
+                       recipeClass.recipeFatMacro = fatPicker
+                   })
+                   .pickerStyle(.wheel)
+                }
                 
+                
+                Picker(selection: $carbPicker, label: Text("")) {
+                   ForEach(pickerGramCounter(), id: \.self) {
+                       Text(String($0) + "g Carbs")
+                   }
+                   .onChange(of: carbPicker, perform: { _ in
+                       recipeClass.recipeCarbMacro = carbPicker
+                   })
+                   .pickerStyle(.wheel)
+                }
+               
+                
+                Picker(selection: $proteinPicker, label: Text("")) {
+                    //calls func that counts to 200
+                   ForEach(pickerGramCounter(), id: \.self) {
+                       Text(String($0) + "g Protein")
+                   }
+                   .onChange(of: proteinPicker, perform: { _ in
+                       recipeClass.recipeProteinMacro = proteinPicker
+                   })
+                   .pickerStyle(.wheel)
+                }
+               
+            }
             HStack(spacing: 0){
                 ZStack{
                     Image(systemName:("clock"))
@@ -41,9 +81,7 @@ struct RecipeEditorView: View {
                 }
                 .multilineTextAlignment(.center)
             }
-           
         }
-       
     }
        
 }

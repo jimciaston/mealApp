@@ -15,13 +15,18 @@ struct RecipeEditorImage: View {
     @State private var showingImagePicker = false
     @State private var inputImage: UIImage?
     
+    
+    
     var body: some View {
         ZStack (alignment: .trailing){
            if let inputImage = inputImage {
                Image(uiImage: inputImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width:200, height: 100)
+               .frame(width:350, height: 200)
+               .clipped()
+               //moves up recipeTitle
+               .padding(.bottom, -35)
             } else{
                 Image("defaultRecipeImage")
                     .resizable()
@@ -45,6 +50,7 @@ struct RecipeEditorImage: View {
                         EditorImagePicker(image: $inputImage)
                     }
             }
+        //save to storage when image is selected
         .onChange(of: inputImage, perform: { _ in
             persistImageToStorage()
         })
@@ -73,6 +79,8 @@ struct RecipeEditorImage: View {
                     
                     //save to recipe model
                     recipeClass.recipeImage = url.absoluteString
+                    
+                    
                 }
             }
         }    

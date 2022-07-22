@@ -11,6 +11,7 @@ import FirebaseFirestore
 struct RecipeItem: Identifiable, Hashable{
     let id: String
     var recipeTitle, recipePrepTime, recipeImage, createdAt: String
+    var recipeFatMacro, recipeCarbMacro, recipeProteinMacro: Int
     var directions: [String]
     var ingredientItem: [String: String]
 }

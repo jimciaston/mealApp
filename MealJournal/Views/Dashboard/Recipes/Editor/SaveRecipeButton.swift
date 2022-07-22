@@ -16,9 +16,8 @@ extension AnyTransition {
 }
 struct SaveRecipeButton: View {
 
-    
     @Binding var showSuccessMessage: Bool
-    
+    //stores recipe
     @EnvironmentObject var recipeClass: Recipe
    
     @State var isNewRecipeValid = false
@@ -43,6 +42,9 @@ struct SaveRecipeButton: View {
                     "recipeImage": recipeClass.recipeImage,
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,
+                    "recipeFatMacro": recipeClass.recipeFatMacro,
+                    "recipeCarbMacro": recipeClass.recipeCarbMacro,
+                    "recipeProteinMacro": recipeClass.recipeProteinMacro,
                     "createdAt": Date.now,
                     "ingredientItem": ingredientArr,
                     "directions": directionArr

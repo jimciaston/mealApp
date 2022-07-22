@@ -36,18 +36,23 @@ struct RecipeListView: View {
                                     //temp solution until I can center it
                                         .padding(.top, 1)
                                     //as a note, sets empty view to hide list arrow
-                                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
+                                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
                                         emptyview()
                                         })
                                         .opacity(0.0)
                                         .buttonStyle(PlainButtonStyle())
                                     
-                                    Text("10g 25g 88g")
-                                        .foregroundColor(.gray)
-                                        .padding(.top, 80)
-                                        .padding(.bottom, 10)
-                                        .padding(.trailing, 10)
-                                        .frame(height:90)
+                                    HStack{
+                                        Text(String(recipe.recipeFatMacro) + "g")
+                                            .foregroundColor(.gray)
+                                        Text(String(recipe.recipeCarbMacro) + "g")
+                                            .foregroundColor(.gray)
+                                        Text(String(recipe.recipeProteinMacro) + "g")
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding(.top, 80)
+                                    .padding(.bottom, 10)
+                                    .frame(height:90)
                                 }
                                 .padding(.top, -20)
             
@@ -60,8 +65,10 @@ struct RecipeListView: View {
                     NavigationLink(destination:RecipeFullListView()) {
                            emptyview()
                        }
+                   
                     .opacity(0.0)
                     .buttonStyle(PlainButtonStyle())
+                    
                        HStack {
                            Text("View More")
                                .font(.body)

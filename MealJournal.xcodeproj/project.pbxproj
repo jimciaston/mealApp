@@ -41,6 +41,7 @@
 		0A5E691427C5F97900ACB6A5 /* DailyMacrosCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */; };
 		0A5E691627CC5C1D00ACB6A5 /* MacroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */; };
 		0A6325F22887961F003B3D02 /* DeleteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F12887961F003B3D02 /* DeleteRecipe.swift */; };
+		0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */; };
 		0A6534D627DF8A1A00A50FB8 /* UserDashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6534D527DF8A1A00A50FB8 /* UserDashController.swift */; };
 		0A6534D827E021C100A50FB8 /* AddToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6534D727E021C100A50FB8 /* AddToolbar.swift */; };
 		0A6534DA27E0D3F400A50FB8 /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6534D927E0D3F400A50FB8 /* RecipeController.swift */; };
@@ -153,6 +154,7 @@
 		0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMacrosCounter.swift; sourceTree = "<group>"; };
 		0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroView.swift; sourceTree = "<group>"; };
 		0A6325F12887961F003B3D02 /* DeleteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecipe.swift; sourceTree = "<group>"; };
+		0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerOptionsStorage.swift; sourceTree = "<group>"; };
 		0A6534D527DF8A1A00A50FB8 /* UserDashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashController.swift; sourceTree = "<group>"; };
 		0A6534D727E021C100A50FB8 /* AddToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToolbar.swift; sourceTree = "<group>"; };
 		0A6534D927E0D3F400A50FB8 /* RecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeController.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				0A3B9B162808DFAE00EC631A /* CapitalFirstLetter.swift */,
 				0A3B9B18280BEC9D00EC631A /* DecodingJSON.swift */,
 				0A07D9582847EA180080A4ED /* FirebaseManager.swift */,
+				0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
 				0A6A687C283C84DC0047CFB9 /* SignUpController.swift in Sources */,
 				0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */,
+				0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */,
 				0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */,
 				0AAE15B3282DA3E400B9B85A /* EditorDirections.swift in Sources */,
 				0A3B9B2928163E2F00EC631A /* PieChartHelperRows.swift in Sources */,

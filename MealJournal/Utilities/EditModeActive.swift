@@ -18,4 +18,12 @@ class EditModeActive: ObservableObject {
     @Published var isIngredientsActive = false
     //connects with recipeController
     @Published var isDirectionsActive = false
+    
+    //recipe macros and dash headers
+    @Published var recipeTitle = ""
+    @Published var recipePrepTime = ""
+    @Published var recipeFatMacro = 0
+    @Published var recipeCarbMacro = 0
+    @Published var recipeProteinMacro = 0
+    @Published var recipeImage = ""
 }

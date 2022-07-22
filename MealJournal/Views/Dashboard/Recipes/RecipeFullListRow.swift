@@ -20,10 +20,6 @@ struct RecipeFullListRow: View {
     @Binding var active: Int?
     let index: Int
     
-    
-    
-    
-    
     var body: some View {
                 HStack{
                     WebImage(url: URL(string: recipe.recipeImage))
@@ -38,37 +34,35 @@ struct RecipeFullListRow: View {
                             .padding(.top, 1)
                         //as a note, sets empty view to hide list arrow
                         
-                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, prepTime: recipe.recipePrepTime, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id)}, label: {
+                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, prepTime: recipe.recipePrepTime, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
                                 emptyview()
                             })
                            
                             .opacity(0.0)
                             .buttonStyle(PlainButtonStyle())
-                        
-                        Text("10g 25g 88g")
-                            .foregroundColor(.gray)
-                            .padding(.top, 80)
-                            .padding(.bottom, 10)
-                            .padding(.trailing, 10)
-                            .frame(height:90)
-                       
-                        //if index is active
-                        if index == active{
-                                ReditorPopUp()
-                                    .onTapGesture {
-                                        active = nil
-                                    }
-                                    .padding(.top, 20)
-                                    .padding(.leading, 15)
-                                }
+                          //printing macros on row
+                        HStack{
+                            Text(String(recipe.recipeFatMacro) + "g")
+                                .foregroundColor(.gray)
+                            Text(String(recipe.recipeCarbMacro) + "g")
+                                .foregroundColor(.gray)
+                            Text(String(recipe.recipeProteinMacro) + "g")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.top, 80)
+                        .padding(.bottom, 10)
+                        .frame(height:90)
+                          
                             
                         }
                             .padding(.top, -10)
-                            .padding(5)
+                            .padding(.trailing, 40)
                         }
+               
                 .onAppear{
                     emaGlobal.editMode = false
                 }
+               
     }
 }
 
