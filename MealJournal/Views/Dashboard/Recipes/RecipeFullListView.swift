@@ -1,7 +1,7 @@
 //
 //  RecipeFullListView.swift
 //  MealJournal
-//FULL LIST VIEW
+//
 //  Created by Jim Ciaston on 3/25/22.
 //
 
@@ -13,6 +13,7 @@ struct RecipeFullListView: View {
     @State private var isActive = false
     @State private var active: Int? = nil
     
+    
     init(){
         UITableView.appearance().backgroundColor = .clear
     }
@@ -21,22 +22,14 @@ struct RecipeFullListView: View {
         let recipeList = rm.recipes.enumerated().map({ $0 })
         ZStack{
             VStack{
-                Text("All Recipes")
-                    .font(.title2)
-               
-                List{
-                    ForEach(recipeList, id: \.element.recipeTitle){ index, recipe in
-                        HStack{
-                            RecipeFullListRow(recipe: recipe, recipeName: recipe.recipeTitle, active: $active, index: index)
-                       
-                            }
-                        }
-                    }
-                }
-
+                Text("Recipes")
+                TagCloudView(allRecipes: rm.recipes)
+                
             }
+
         }
     }
+}
        
 
 

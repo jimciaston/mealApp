@@ -31,16 +31,19 @@ struct RecipeEditorView: View {
             //macro selectors
             HStack{
                 //macro pickers for recipe
-                Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
+                Picker(selection: $fatPicker, label: Text("")) {
                    ForEach(pickerGramCounter(), id: \.self) {
                        Text(String($0) + "g Fat")
+                          
                    }
+                 
                    .onChange(of: fatPicker, perform: { _ in
                        recipeClass.recipeFatMacro = fatPicker
                    })
-                   .pickerStyle(.wheel)
+                  
+                  
                 }
-                
+                .accentColor(.gray)
                 
                 Picker(selection: $carbPicker, label: Text("")) {
                    ForEach(pickerGramCounter(), id: \.self) {
@@ -49,9 +52,8 @@ struct RecipeEditorView: View {
                    .onChange(of: carbPicker, perform: { _ in
                        recipeClass.recipeCarbMacro = carbPicker
                    })
-                   .pickerStyle(.wheel)
                 }
-               
+                .accentColor(.gray)
                 
                 Picker(selection: $proteinPicker, label: Text("")) {
                     //calls func that counts to 200
@@ -61,9 +63,8 @@ struct RecipeEditorView: View {
                    .onChange(of: proteinPicker, perform: { _ in
                        recipeClass.recipeProteinMacro = proteinPicker
                    })
-                   .pickerStyle(.wheel)
                 }
-               
+                .accentColor(.gray)
             }
             HStack(spacing: 0){
                 ZStack{
@@ -78,6 +79,7 @@ struct RecipeEditorView: View {
                     .onChange(of: pickerTime, perform: { _ in
                         recipeClass.recipePrepTime = pickerTime
                     })
+                    .accentColor(.gray)
                 }
                 .multilineTextAlignment(.center)
             }

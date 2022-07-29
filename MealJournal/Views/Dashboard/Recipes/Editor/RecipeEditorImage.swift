@@ -21,23 +21,23 @@ struct RecipeEditorImage: View {
         ZStack (alignment: .trailing){
            if let inputImage = inputImage {
                Image(uiImage: inputImage)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-               .frame(width:350, height: 200)
-               .clipped()
-               //moves up recipeTitle
-               .padding(.bottom, -35)
+                   .resizable()
+                   .frame(width:200, height: 200)
+                   .aspectRatio(contentMode: .fill)
+                   .clipped()
+                  .padding(.bottom, -60) // << move up recipe title
             } else{
                 Image("defaultRecipeImage")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width:200, height: 100)
             }
+         
                 
                 Image(systemName:("plus.circle.fill")).renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .offset(x: 20)
+                    .offset(x: 20, y: -10)
                     .foregroundColor(Color("completeGreen"))
                     .frame(width:50, height:10)
                     .contentShape(Rectangle())

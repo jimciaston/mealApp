@@ -12,11 +12,13 @@ class DashboardLogic: ObservableObject {
     @Published var userModel: UserModel?
     @Published var privateUserModel: privateUserModel?
     
+    //grab users
     init(){
-        fetchCurrentUser()
+        self.fetchCurrentUser()
+        
     }
 
-    private func fetchCurrentUser () {
+     func fetchCurrentUser () {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
@@ -49,7 +51,7 @@ class DashboardLogic: ObservableObject {
             .document("private")
             .getDocument { snapshot, error in
                 if let error = error {
-                    print("oh no we messed up")
+                    print("Unable to grab from database")
                     return
                 }
                 //save snapshot of database from firestore

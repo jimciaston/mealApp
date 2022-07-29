@@ -26,4 +26,6 @@ class EditModeActive: ObservableObject {
     @Published var recipeCarbMacro = 0
     @Published var recipeProteinMacro = 0
     @Published var recipeImage = ""
+    
+    
 }

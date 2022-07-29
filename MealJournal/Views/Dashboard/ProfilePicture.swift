@@ -25,7 +25,7 @@ struct ProfilePicture: View {
                      .frame(width:150, height: 150)
                      .clipShape(Circle())
                      
-                 } else{
+                 } else {
                      WebImage(url: URL(string: vm.userModel?.profilePictureURL ?? ""))
                          .placeholder(Image("profileDefaultPicture").resizable())
                              .resizable()
@@ -43,7 +43,9 @@ struct ProfilePicture: View {
                         .aspectRatio(contentMode: .fill)
                         .foregroundColor(Color("ButtonTwo"))
                         .frame(width:30, height:25)
-                        .contentShape(Rectangle())
+                        .padding(.top, -20)
+                        .padding(.leading, 50)
+                       
                 }
                
             //PRESENT PICKER

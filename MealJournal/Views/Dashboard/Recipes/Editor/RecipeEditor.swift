@@ -54,7 +54,7 @@ struct RecipeEditor: View {
             }
            
             RecipeEditorImage()
-                .padding(.top,50)
+                .padding(.top,5)
                 .blur(radius: showSuccessMessage ? 15 : 0)
            
             if showSuccessMessage {

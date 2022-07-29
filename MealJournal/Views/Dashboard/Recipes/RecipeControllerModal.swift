@@ -1,14 +1,18 @@
 //
-//  RecipeView.swift
+//  RecipeControllerModal.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 3/15/22.
+//  Created by Jim Ciaston on 7/29/22.
 //
+
+import SwiftUI
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct RecipeController: View {
+struct RecipeControllerModal: View {
+    @Environment(\.dismiss) var dismiss // << dismiss view
+    
     @StateObject var rm = RecipeLogic()
     @ObservedObject var ema = EditModeActive()
     //displays image picker
@@ -62,6 +66,8 @@ struct RecipeController: View {
         }
     
     var body: some View {
+        NavigationView{
+            VStack{
                 VStack{
                     WebImage(url: URL(string: image))
                         .placeholder(Image("defaultRecipeImage-2").resizable())
@@ -99,6 +105,14 @@ struct RecipeController: View {
             
         //edit recipe button
         .toolbar{
+            ToolbarItem(placement: .navigationBarLeading){
+                Button(action: {
+                    dismiss()
+                })
+                {
+                    Text("Back")
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
                         ema.editMode.toggle()
@@ -137,21 +151,11 @@ struct RecipeController: View {
 
                 }
             }
+            }
+        }
+               
        
       }
     }
   
-                
-                
-         
       
-//
-//
-//
-//
-//struct RecipeController_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeController(name: "jimmy", prepTime: "20 mins", image: "", ingredients: ["peppers": "ghost"], directions: ["hello"], recipeID: "223")
-//    }
-//}
-

@@ -119,6 +119,7 @@ class RecipeLogic: ObservableObject {
                     print("no documents present")
                     return
                 }
+                
                 self.recipes = documents.map { (querySnapshot) -> RecipeItem in
                     let data = querySnapshot.data()
                     let recipeTitle = data ["recipeTitle"] as? String ?? ""
@@ -132,7 +133,9 @@ class RecipeLogic: ObservableObject {
                     let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
                     let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
                     let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                    
                     return recipe
+                    
                 }
             }
         }

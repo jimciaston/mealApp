@@ -19,7 +19,11 @@ struct UserDashController: View {
     @State private var presentSettingsPage = false
     @State private var presentAddRecipePage = false
     
+   
+    
+    
     var body: some View {
+        
         NavigationView{
             VStack{
                 //Following and Follower button

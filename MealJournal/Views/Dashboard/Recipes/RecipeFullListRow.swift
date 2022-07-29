@@ -19,55 +19,84 @@ struct RecipeFullListRow: View {
     @State var showRecipeOptions = false
     @Binding var active: Int?
     let index: Int
-    
+    /*
+     
+     VStack{
+         Image("defaultRecipeImage")
+              .resizable()
+              .frame (width: 130, height:150)
+              .cornerRadius(15)
+         
+         HStack{
+             Text("Eggs").bold()
+             Spacer()
+         }
+         .frame(width:200)
+         .padding(.bottom, 2)
+         .padding(.leading, 100)
+         HStack{
+             Text("5g 10g 40g")
+                 .foregroundColor(.gray)
+             Spacer()
+         }
+         .frame(width:200)
+         .padding(.leading, 100)
+     }
+     
+     
+     
+     
+     
+     
+     */
     var body: some View {
+        
+        VStack{
+            WebImage(url: URL(string: recipe.recipeImage))
+                .placeholder(Image("defaultRecipeImage-2").resizable())
+                .resizable()
+                .frame (width: 130, height:150)
+                .cornerRadius(15)
+            
+            ZStack{
                 HStack{
-                    WebImage(url: URL(string: recipe.recipeImage))
-                        .placeholder(Image("defaultRecipeImage-2").resizable())
-                        .resizable()
-                        .frame (width: 70, height:70)
-                        .cornerRadius(15)
-                    ZStack{
-                        Text(recipe.recipeTitle)
-                            .font(.body)
-                        //temp solution until I can center it
-                            .padding(.top, 1)
-                        //as a note, sets empty view to hide list arrow
-                        
-                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle, prepTime: recipe.recipePrepTime, image: recipe.recipeImage, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
-                                emptyview()
-                            })
-                           
-                            .opacity(0.0)
-                            .buttonStyle(PlainButtonStyle())
-                          //printing macros on row
-                        HStack{
-                            Text(String(recipe.recipeFatMacro) + "g")
-                                .foregroundColor(.gray)
-                            Text(String(recipe.recipeCarbMacro) + "g")
-                                .foregroundColor(.gray)
-                            Text(String(recipe.recipeProteinMacro) + "g")
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.top, 80)
-                        .padding(.bottom, 10)
-                        .frame(height:90)
-                          
-                            
-                        }
-                            .padding(.top, -10)
-                            .padding(.trailing, 40)
-                        }
-               
-                .onAppear{
-                    emaGlobal.editMode = false
+                    Text(recipe.recipeTitle).bold()
+                    Spacer()
+                    
+                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
+                        emptyview()
+                        })
+                        .opacity(0.0)
+                        .buttonStyle(PlainButtonStyle())
+                    
                 }
+            }
+                .frame(width:130)
+                .padding(.bottom, 2)
+                
+                HStack{
+                    Text(String(recipe.recipeFatMacro) + "g")
+                        .foregroundColor(.gray)
+                    Text(String(recipe.recipeCarbMacro) + "g")
+                        .foregroundColor(.gray)
+                    Text(String(recipe.recipeProteinMacro) + "g")
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+                .frame(width:130)
+            }
+            .onAppear{
+                emaGlobal.editMode = false
+            }
+            
+        }
+                
                
     }
-}
 
+//
 //struct RecipeFullListRow_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RecipeFullListRow()
+//        RecipeFullListRow(recipe: RecipeItem(id: "Test", recipeTitle: "Test", recipePrepTime: "Test", recipeImage: "Test", createdAt: "Test", recipeFatMacro: 0, recipeCarbMacro: 0, recipeProteinMacro: 0, directions: ["Test"], ingredientItem: ["Test":"Test"]), recipeName: "Test", active: Int , index: 9)
 //    }
 //}
