@@ -25,7 +25,7 @@ struct TagCloudView: View {
                 self.generateContent(in: geometry)
             }
         }
-        .frame(height: totalHeight + 300 )// << bring stack to the top
+        .frame(height: totalHeight + 250 )// << bring stack to the top
         //.frame(maxHeight: totalHeight) // << variant for VStack
     }
 
@@ -40,7 +40,7 @@ struct TagCloudView: View {
                     .alignmentGuide(.leading, computeValue: { d in
                             if (abs(width - d.width) > g.size.width){
                                 width = 0
-                                height -= d.height
+                                height -= d.height + 50
                             }
                             let result = width
                         
