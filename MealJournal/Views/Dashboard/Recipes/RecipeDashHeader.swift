@@ -102,7 +102,7 @@ struct RecipeDashHeader: View {
         //if not editing recipe
         else{
             VStack{
-                Text(recipeName)
+                Text(recipeName.capitalized)
                     .font(.title2)
                     .padding()
                 
@@ -130,7 +130,6 @@ struct RecipeDashHeader: View {
                 .padding(.top, 10)
               
             }
-          
             .frame(width:280, height:125)
             .background(Color.white)
             .cornerRadius(15)

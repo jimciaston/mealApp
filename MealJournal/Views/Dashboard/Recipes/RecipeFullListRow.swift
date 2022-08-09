@@ -14,41 +14,14 @@ struct RecipeFullListRow: View {
    
     //standard recipe item
     var recipe: RecipeItem
+    
     @ObservedObject var ema = EditModeActive()
     var recipeName: String
     @State var showRecipeOptions = false
     @Binding var active: Int?
     let index: Int
-    /*
-     
-     VStack{
-         Image("defaultRecipeImage")
-              .resizable()
-              .frame (width: 130, height:150)
-              .cornerRadius(15)
-         
-         HStack{
-             Text("Eggs").bold()
-             Spacer()
-         }
-         .frame(width:200)
-         .padding(.bottom, 2)
-         .padding(.leading, 100)
-         HStack{
-             Text("5g 10g 40g")
-                 .foregroundColor(.gray)
-             Spacer()
-         }
-         .frame(width:200)
-         .padding(.leading, 100)
-     }
-     
-     
-     
-     
-     
-     
-     */
+    
+    
     var body: some View {
         
         VStack{

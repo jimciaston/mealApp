@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 class RecipeLogic: ObservableObject {
     @Published var recipes = [RecipeItem]()
-   
+    @Environment (\.dismiss) var dismiss
     init(){
      grabRecipes()
     }
@@ -40,6 +40,7 @@ class RecipeLogic: ObservableObject {
                                     if let err = err {
                                             print("Error removing document: \(err)")
                                         } else {
+                                            self.dismiss()
                                             print("Document successfully removed!")
                                         }
                                     }
@@ -199,7 +200,5 @@ class RecipeLogic: ObservableObject {
                     }
                 }
             }
-    
-    
         }
 

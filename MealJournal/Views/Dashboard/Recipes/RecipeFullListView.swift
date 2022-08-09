@@ -19,11 +19,11 @@ struct RecipeFullListView: View {
     }
     
     var body: some View {
-        let recipeList = rm.recipes.enumerated().map({ $0 })
         ZStack{
             VStack{
-                Text("Recipes")
-                TagCloudView(allRecipes: rm.recipes)
+                Text("Recipes").bold()
+                    .padding(.bottom, 20)
+                FullListOfRecipes(allRecipes: rm.recipes)
                 
             }
 

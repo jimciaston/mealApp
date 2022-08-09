@@ -8,12 +8,10 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct TagCloudView: View {
-   
+struct FullListOfRecipes: View {
     @State var showRecipeModal = false
-   
-    
     var allRecipes: [RecipeItem]
+    @State var selectedRecipe: RecipeItem?
     
     @State private var totalHeight
         //   = CGFloat.zero       // << variant for ScrollView/List
@@ -35,12 +33,13 @@ struct TagCloudView: View {
        // var arrOfRecipes: [RecipeItem] = Array(arrayLiteral: self.tags)
         return ZStack (alignment: .topLeading) {
             ForEach(allRecipes, id: \.self) { recipe in
+               
                 self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
                     .padding([.horizontal, .vertical], 4)
                     .alignmentGuide(.leading, computeValue: { d in
                             if (abs(width - d.width) > g.size.width){
                                 width = 0
-                                height -= d.height + 50
+                                height -= d.height + 30 // <<height between rows
                             }
                             let result = width
                         
@@ -58,11 +57,14 @@ struct TagCloudView: View {
                             }
                             return result
                         })
-              
+                        .onTapGesture{
+                            selectedRecipe = recipe
+                        }
             }
-        }.background(viewHeightReader($totalHeight))
+        }
+        .background(viewHeightReader($totalHeight))
     }
-
+//individual item
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
         VStack{
             WebImage(url: URL(string: image))
@@ -81,24 +83,24 @@ struct TagCloudView: View {
                 .padding(.bottom, 2)
                 //macros
                 HStack{
-                   Text("20g")
+                   Text(String(recipeFatMacro) + "g")
                         Spacer()
-                    Text("20g")
+                    Text(String(recipeCarbMacro) + "g")
                         Spacer()
-                    Text("20g")
+                    Text(String(recipeProteinMacro) + "g")
                         Spacer()
                 }
                 
                 .padding(.leading, 20)
                 .frame(width:150)
+
+                .fullScreenCover(item: $selectedRecipe){
+                    RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
+                }
             }
-        .onTapGesture {
-            showRecipeModal = true
-        }
+       
+        
         .padding(.leading, 30) // << center on screen
-        .fullScreenCover(isPresented: $showRecipeModal){
-            RecipeControllerModal(name: title, prepTime: prepTime, image: image, ingredients: ingredients, directions: directions, recipeID: recipeID, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro)
-        }
         
     }
        
@@ -124,19 +126,17 @@ struct TestTagCloudView : View {
            // Text("All Recipes").font(.largeTitle)
             
             ForEach (recipeList, id: \.self){ recipe in
-                TagCloudView(allRecipes: recipeList)
+                FullListOfRecipes(allRecipes: recipeList)
             }
            
         }
-       
     }
-   
 }
 
 struct TestRowOne_Previews: PreviewProvider {
     
     static var previews: some View {
-        TagCloudView(allRecipes: [RecipeItem(id: "Test", recipeTitle: "Balls", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Two", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Three", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
+        FullListOfRecipes(allRecipes: [RecipeItem(id: "Test", recipeTitle: "Balls", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Two", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Three", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
                                   RecipeItem(id: "Last", recipeTitle: "Four", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
                                  
                                  ])

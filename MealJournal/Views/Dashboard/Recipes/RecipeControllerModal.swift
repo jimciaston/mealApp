@@ -78,7 +78,8 @@ struct RecipeControllerModal: View {
                 .onChange(of: inputImage, perform: { _ in
                     persistImageToStorage()
                 })
-                .frame(width:300, height: 80)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width:300, height: 40)
         //show image picker
                 .onTapGesture {
                     if(ema.editMode){
@@ -89,13 +90,13 @@ struct RecipeControllerModal: View {
                     EditorImagePicker(image: $inputImage)
                 }
     
-        RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
+                RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()
         
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
             .padding(.top, 50)
-        
+           
         //delete recipe
         if ema.editMode{
             DeleteRecipe(currentRecipeID: recipeID)

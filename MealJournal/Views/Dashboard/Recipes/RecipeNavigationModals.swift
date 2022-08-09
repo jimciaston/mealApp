@@ -32,7 +32,7 @@ struct RecipeNavigationModals: View {
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 //sets coordinates of view on dash
-                .offset(y:-400)
+                .offset(y:-370)
                 
             }
             FlexibleSheet(sheetMode: $sheetModeDirections) {
@@ -45,7 +45,7 @@ struct RecipeNavigationModals: View {
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 
                 //sets coordinates of view on dash
-                .offset(y:-400)
+                .offset(y:-370)
             }
             
             HStack(){

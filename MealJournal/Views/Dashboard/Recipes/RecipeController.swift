@@ -72,7 +72,8 @@ struct RecipeController: View {
                 .onChange(of: inputImage, perform: { _ in
                     persistImageToStorage()
                 })
-                .frame(width:300, height: 80)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width:300, height: 40)
         //show image picker
                 .onTapGesture {
                     if(ema.editMode){
@@ -84,6 +85,7 @@ struct RecipeController: View {
                 }
     
         RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
+           
                     .padding()
         
                 //ingredients or directions selction
@@ -134,10 +136,11 @@ struct RecipeController: View {
 
                     }
                    
-
+                    
                 }
+           
             }
-       
+        
       }
     }
   

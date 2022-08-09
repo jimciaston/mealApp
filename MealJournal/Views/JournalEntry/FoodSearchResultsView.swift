@@ -29,40 +29,29 @@ struct FoodSearchResultsView: View {
     @State var mealSelected = false //not used, just there for meal selector
     
     @State var testRun = false //update name later
-    
-    
+  
     var body: some View {
         if userSearch{
             VStack{
                 HStack{
-                    Text(isViewSearching ? "Results" : "Searching..")
-                    Button(action: {
-                        userSearch = false
-                        isViewSearching = false
-                    }){
-                      Image(systemName: "xmark")
-                            
-                    }
-                    .foregroundColor(.black)
+                    Text(foodApi.isFoodSearchLoading ? "Searching..." : "Results")
                 }
-               
+                //if api loading
+                if(foodApi.isFoodSearchLoading){
+                    ActivityIndicator() // << show progress bar
+                }
                 Spacer()
-                
-               
                 
               //  delays showing api call
                     .onAppear {
                         testRun = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.isViewSearching = true
-                            testRun = true
-                               }
+                      
                         //api loads all ,then only displays 5 at a time
                         if mealSelected {
                             resultsDisplayed = 5
                         }
                         mealSelected = false
-                           }
+                       }
                 //if user has completed searching for a food
                 
                 if isViewSearching{
@@ -143,21 +132,15 @@ struct FoodSearchResultsView: View {
                         }
                         //load more results
                         
-                        if(!isListFull){
-                            if testRun{
-                                Button(isListFull ? "" : "View More"){
-                                    if (foodApi.userSearchResults.count > listCounter){
-                                        resultsDisplayed += 5
-                                    }
-                                    else{
-                                        isListFull = true
-                                    }
-                                }
-                                .frame(maxWidth: .infinity)
-                                .padding([.top, .bottom], 15)
-                                .multilineTextAlignment(.center)
-                            }
+                        Button(action: {
+                            foodApi.foodResultsDisplayed = 0
+                            resultsDisplayed += 5
+                        }){
+                            Text("View More")
                         }
+                        .frame(maxWidth: .infinity)
+                        .padding([.top, .bottom], 15)
+                        .multilineTextAlignment(.center)
                     }
                    
                     .listStyle(.plain)
