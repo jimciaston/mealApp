@@ -18,7 +18,7 @@ struct UserDashboardView: View {
 //        UITabBar.appearance().backgroundColor = UIColor.white
 //        self._signUpController = signUpController
 //    }
-    
+   
     var body: some View {
             TabView{
                 UserDashController(signUpController: signUpController)
@@ -42,9 +42,9 @@ struct UserDashboardView: View {
                 FollowingListView()
                             .tabItem{
                                 VStack{
-                                    Image(systemName: "person.2.circle")
+                                    Image(systemName: "magnifyingglass.circle")
                                         .font(.title3)
-                                    Text("Following")
+                                    Text("Search")
                                 }
                         }
                            

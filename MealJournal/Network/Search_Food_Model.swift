@@ -26,7 +26,7 @@ class FoodApiSearch: ObservableObject{
                     self.foodResultsDisplayed = 0 // << resets counter on search
                     DispatchQueue.main.async { [self] in
                             for item in searchResults.foods ?? []{
-                                if foodResultsDisplayed < 6 { // << show six foods on screen
+                                if foodResultsDisplayed < 50 { // << show six foods on screen
                                   
                                     self.userSearchResults.append(Meal(
                                         id: UUID(),

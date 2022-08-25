@@ -11,14 +11,34 @@ import SwiftUI
 class DashboardLogic: ObservableObject {
     @Published var userModel: UserModel?
     @Published var privateUserModel: privateUserModel?
-    
+    @Published var isUserDataLoading = true
+    @Published var allUsers = [UserModel]() //<< all users appended
     //grab users
     init(){
         self.fetchCurrentUser()
-        
+        self.grabAllUsers()
     }
+    func grabAllUsers(){
+        FirebaseManager.shared.firestore.collection("users")
+            .getDocuments { documentSnapshot, error in
+               if let error = error {
+                   print("Error no users were returned")
+                   return
+               }
+               documentSnapshot?.documents.forEach({ snapshot in
+                   let data = snapshot.data()
+                   let user = UserModel(data: data)
 
-     func fetchCurrentUser () {
+                   if user.uid != FirebaseManager.shared.auth.currentUser?.uid { // << if current user, don't show in search results
+                       self.allUsers.append(.init(data: data)) // <<save users to array
+                      
+                   }
+               })
+           }
+        }
+     
+    
+    func fetchCurrentUser () {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
@@ -41,6 +61,7 @@ class DashboardLogic: ObservableObject {
             }
                 DispatchQueue.main.async {
                     self.userModel = .init(data: data)
+                    self.isUserDataLoading = false
                 }
                 
         }

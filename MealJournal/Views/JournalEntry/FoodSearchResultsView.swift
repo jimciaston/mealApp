@@ -26,7 +26,7 @@ struct FoodSearchResultsView: View {
     @State var listCounter = 0 //keeps track of list on appear
     @State var resultsDisplayed = 5 //bursts of results added to the screen
     @Environment(\.dismiss) var dismiss
-    @State var mealSelected = false //not used, just there for meal selector
+    @State var mealSelected = false
     
     @State var testRun = false //update name later
   
@@ -59,20 +59,23 @@ struct FoodSearchResultsView: View {
                         ForEach(foodApi.userSearchResults.prefix(resultsDisplayed)) { meal in
                             ZStack{
                                 HStack{
-                                    VStack (alignment:.leading){
+                                    VStack(alignment:.leading){
                                         Text(meal.mealName ?? "default")
                                             .font(.body)
                                         HStack{
                                             Text(meal.brand ?? "Generic")
                                                 .font(.caption)
-                                                .frame(width:70)
-                                               // .offset(y:8)
-                                            Text(", " + meal.calories!  + "cals ")
+                                            
+                                            Text(", " + meal.calories!  + " cals")
                                                 .font(.caption)
+                                                .padding(.leading, -10) // << moves closer to meal name
                                             }
+                                            .frame(maxWidth: .infinity, alignment: .leading) //<<aligns to left of frame
                                         }
-                                    .frame(width: 300)
-                                    .offset(x: -50)
+                                   
+                                    .frame(width:200)
+                                    .padding(.leading, -50)
+                                    
                                     .foregroundColor(.black)
                                   
                                 Button(action: {
@@ -93,7 +96,7 @@ struct FoodSearchResultsView: View {
                                     Image(systemName: "plus.app")
                                         .font(.largeTitle)
                                         .foregroundColor(.blue)
-                                       .padding(.trailing, 25)
+                                        .padding(.trailing, -30) // <<moves plus
                                 }
                                     
                                 .onAppear(){
@@ -104,7 +107,6 @@ struct FoodSearchResultsView: View {
                                     
                         }
                                 
-                                //HIDES STUPID STUPID LIST ARROWS
                                 NavigationLink(destination: FoodItemView(
                                     meal:.constant(meal),
                                     mealName: meal.mealName ?? "Default",
@@ -122,7 +124,7 @@ struct FoodSearchResultsView: View {
                                 .opacity(0)//hides emptyview
                                
                     }
-                        .frame(width:220, height:40) //width of background
+                      
                         .padding([.leading, .trailing], 60)
                         .padding([.top, .bottom], 10)
                         .background(RoundedRectangle(
@@ -138,15 +140,31 @@ struct FoodSearchResultsView: View {
                         }){
                             Text("View More")
                         }
+                        .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
                         .frame(maxWidth: .infinity)
                         .padding([.top, .bottom], 15)
                         .multilineTextAlignment(.center)
+                        Button(action: {
+                            resultsDisplayed = 5
+                            isViewSearching = false
+                            userSearch = false
+                        }){
+                            Text("Cancel Search")
+                        }
+                        .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
+                       
+                        .foregroundColor(.red)
+                        .font(.caption)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, -10)
+                        .listRowSeparator(.hidden)
                     }
                    
                     .listStyle(.plain)
                     .listRowSeparator(.hidden)
                         
                 }
+                    
         }
     }
             if(mealTimingToggle){

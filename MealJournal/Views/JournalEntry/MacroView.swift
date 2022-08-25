@@ -22,6 +22,7 @@ struct MacroView: View {
         VStack{
             Text("Daily Macros")
                 .font(.title2)
+            
             HStack{
                 VStack{
                    Text(dailyMacrosCounter.getCarbTotals(

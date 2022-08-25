@@ -23,8 +23,8 @@ struct FullListOfRecipes: View {
                 self.generateContent(in: geometry)
             }
         }
-        .frame(height: totalHeight + 250 )// << bring stack to the top
-        //.frame(maxHeight: totalHeight) // << variant for VStack
+     //   .frame(height: totalHeight + 350 )// << bring stack to the top
+        .frame(maxHeight: totalHeight + 350) // << variant for VStack
     }
 
     private func generateContent(in g: GeometryProxy) -> some View {
@@ -68,6 +68,7 @@ struct FullListOfRecipes: View {
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
         VStack{
             WebImage(url: URL(string: image))
+                .placeholder(Image("defaultRecipeImage-2").resizable())
                 .resizable()
                 .frame (width: 110, height:130)
                 .cornerRadius(15)

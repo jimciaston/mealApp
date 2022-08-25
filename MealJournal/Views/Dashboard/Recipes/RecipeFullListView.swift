@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct RecipeFullListView: View {
-    
+    @State var recipes: [RecipeItem]
     @ObservedObject var rm = RecipeLogic()
     @State private var isActive = false
     @State private var active: Int? = nil
     
     
-    init(){
+    init(recipes: [RecipeItem ]){
+        self.recipes = recipes
         UITableView.appearance().backgroundColor = .clear
     }
     
@@ -23,7 +24,7 @@ struct RecipeFullListView: View {
             VStack{
                 Text("Recipes").bold()
                     .padding(.bottom, 20)
-                FullListOfRecipes(allRecipes: rm.recipes)
+                FullListOfRecipes(allRecipes: recipes)
                 
             }
 
@@ -32,9 +33,9 @@ struct RecipeFullListView: View {
 }
        
 
-
-struct RecipeFullListView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeFullListView()
-    }
-}
+//
+//struct RecipeFullListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeFullListView()
+//    }
+//}

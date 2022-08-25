@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct UserModel {
+struct UserModel: Identifiable {
+    var id: String = UUID().uuidString
+    
+    
     var uid, name, gender, height, weight, agenda, profilePictureURL: String
     
     init(data: [String: Any]){

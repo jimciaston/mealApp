@@ -23,7 +23,7 @@ struct JournalEntryMain: View {
     
     @Environment(\.dismiss) var dismiss
     @State private var foodName = ""
-    @State private var isUserSearching = false
+    @State var isUserSearching = false
     var body: some View {
     NavigationView{
         VStack{
@@ -76,8 +76,9 @@ struct JournalEntryMain: View {
                 //list stylings
                             .listStyle(GroupedListStyle())
                             .foregroundColor(.black)
+                
             }
-           
+              
                         
         }
         .navigationBarTitle("")

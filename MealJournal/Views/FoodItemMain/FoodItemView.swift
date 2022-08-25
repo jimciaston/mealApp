@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FoodItemView: View {
-    
+    @Environment (\.dismiss) var dismiss
     @EnvironmentObject var mealEntryObj: MealEntrys
     @StateObject var mealEntrys = MealEntrys()
     
@@ -61,13 +61,24 @@ struct FoodItemView: View {
         
     }
    
-    
     var body: some View {
         ScrollView{
             VStack(alignment:.leading, spacing: 0){
                 HStack{
-                    Spacer()
+                    //dismiss selected food view
                     Button(action: {
+                        dismiss() //<< go back
+                    })
+                    {
+                        Image(systemName: "xmark").resizable()
+                            .frame(width: 20, height: 20)
+                            .multilineTextAlignment(.leading)
+                            .font(.body)
+                    }
+                    Spacer()
+                    //add recipe
+                    Button(action: {
+                       
                         switch sheetMode {
                             case .none:
                                 sheetMode = .mealTimingSelection
@@ -107,13 +118,13 @@ struct FoodItemView: View {
                 
                 NutrionalPieChartView(values: [Double(mealFat),Double(mealProtein),Double(mealCarbs)], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
                     .opacity(mealTimingToggle ? 0.0 : 1.0)
-                   
-                    Spacer()
-                
+                  
             }
             .padding(.leading, 15)
         }
-        
+        //get rid of that stupid space up top
+        .navigationTitle("")
+        .navigationBarHidden(true)
        
         if(mealTimingToggle){
             FlexibleSheet(sheetMode: $sheetMode) {
@@ -123,10 +134,14 @@ struct FoodItemView: View {
             ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
             .frame(height:240)
             .foregroundColor(.black)
+           
             //.animation(.easeInOut)
+           
             }
            
+            
     }
+     
 }
 
 struct FoodItemView_Previews: PreviewProvider {

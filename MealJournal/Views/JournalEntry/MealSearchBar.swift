@@ -32,11 +32,12 @@ struct MealSearchBar: View {
                             didUserSearch = true
                             didtextComplete = true
                             isUserDoneSearching = true
+                            
                             if didtextComplete{
                                 foodApi.userSearchResults = [] //emptys list
                                 userFoodInput = ""
-                            }
                         }
+                    }
                 }
                 .foregroundColor(.black)
                 .padding(.leading, 13)

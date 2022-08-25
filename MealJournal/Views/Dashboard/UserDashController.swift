@@ -20,106 +20,105 @@ struct UserDashController: View {
     @State private var presentAddRecipePage = false
     
    
-    
-    
     var body: some View {
-        
-        NavigationView{
-            VStack{
-                //Following and Follower button
-                NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
-                        EmptyView()
-                    }
-                
-                NavigationLink(destination: MacroView(), tag: 2, selection: $action) {
-                    EmptyView()
-                }
-                
-                //profile picture
-                ProfilePicture()
-                
-                HStack{
-                    Text(vm.userModel?.name ?? "" )
-                }
-                    .padding()
-                
-                HStack{
-                    HStack{
-                        Text("20").bold()
-                        Text("Following").foregroundColor(.gray)
-                    }
-                    .onTapGesture {
-                        //perform some tasks if needed before opening Destination view
-                        self.action = 1
+        if !vm.isUserDataLoading { // << if user data loaded
+            NavigationView{
+                VStack{
+                    //Following and Follower button
+                    NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
+                            EmptyView()
                         }
                     
+                    NavigationLink(destination: MacroView(), tag: 2, selection: $action) {
+                        EmptyView()
+                    }
+                    
+                    //profile picture
+                    ProfilePicture()
+                    
                     HStack{
-                        Text("73").bold()
-                        Text("Followers").foregroundColor(.gray)
+                        Text(vm.userModel?.name ?? "" )
                     }
-                    .onTapGesture {
-                        //perform some tasks if needed before opening Destination view
-                        self.action = 2
+                        .padding()
+                    
+                    HStack{
+                        HStack{
+                            Text("20").bold()
+                            Text("Following").foregroundColor(.gray)
+                        }
+                        .onTapGesture {
+                            //perform some tasks if needed before opening Destination view
+                            self.action = 1
+                            }
+                        
+                        HStack{
+                            Text("73").bold()
+                            Text("Followers").foregroundColor(.gray)
+                        }
+                        .onTapGesture {
+                            //perform some tasks if needed before opening Destination view
+                            self.action = 2
+                        }
+                    }
+                    .padding(.top, -5)
+            
+                    RecipeListView()
+                }
+                
+                
+                .toolbar{
+                    ToolbarItem (placement: .navigationBarTrailing){
+                        Menu {
+                            Button(action: {
+                                presentAddRecipePage = true
+                            }){
+                                Text("Add Recipe")
+                            }
+                            Button(action: {
+                                presentSettingsPage = true
+                            }){
+                                Text("Settings")
+                            }
+                            Button(role: .destructive, action: {
+                                //logs out user
+                                userSigningOut = true
+                                signUpController.logOutUser()
+                            }){
+                                Text("Sign Out")
+                                   
+                            }
+                        }
+                    label: {
+                        Label(
+                            title: { Text("") },
+                            icon: {
+                                Image(systemName: "plus")
+                                    
+                            })
+                        }
                     }
                 }
-                .padding(.top, -5)
-        
-                RecipeListView()
+              
+                .padding(.top, -70)
+            
+            }
+            .fullScreenCover(isPresented: $presentSettingsPage){
+                SettingsView()
             }
             
-            
-            .toolbar{
-                ToolbarItem (placement: .navigationBarTrailing){
-                    Menu {
-                        Button(action: {
-                            presentAddRecipePage = true
-                        }){
-                            Text("Add Recipe")
-                        }
-                        Button(action: {
-                            presentSettingsPage = true
-                        }){
-                            Text("Settings")
-                        }
-                        Button(role: .destructive, action: {
-                            //logs out user
-                            userSigningOut = true
-                            signUpController.logOutUser()
-                        }){
-                            Text("Sign Out")
-                               
-                        }
-                    }
-                label: {
-                    Label(
-                        title: { Text("") },
-                        icon: {
-                            Image(systemName: "plus")
-                                
-                        })
-                    }
-                }
+            .fullScreenCover(isPresented: $presentAddRecipePage){
+                RecipeEditor()
             }
-          
-            .padding(.top, -70)
         
+            .fullScreenCover(isPresented: $userSigningOut){
+                userLogin(signUpController: signUpController)
+            }
         }
-        .fullScreenCover(isPresented: $presentSettingsPage){
-            SettingsView()
+        else{
+            ActivityIndicator() // << showing loading spinner while loading
         }
-        
-        .fullScreenCover(isPresented: $presentAddRecipePage){
-            RecipeEditor()
-        }
-    
-        .fullScreenCover(isPresented: $userSigningOut){
-            userLogin(signUpController: signUpController)
-        }
-        
-            
-        }
-        
-    }
+    } 
+}
     
 
 struct UserDashController_Previews: PreviewProvider {

@@ -9,29 +9,32 @@ import SwiftUI
 
 struct FollowingListView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
+    @ObservedObject var vm = DashboardLogic()
     
-    func deleteUser(at offsets: IndexSet){
-        for offset in offsets {
-            let user = allUsers[offset]
-            moc.delete(user)
-        }
-        try? moc.save()
-    }
+    @State private var userSearch = ""
     
     var body: some View {
-        VStack{
-            List {
-                ForEach(allUsers) { user in
-                    Text(user.email ?? "user unknown")
+        NavigationView{
+                VStack{
+                    //DISPLAY USERS
+                    ScrollView{
+                        ForEach ((vm.allUsers), id:\.id ) { user in
+                            if user.name.contains(userSearch){
+                                FollowingListRow(userUID: user.uid ,userName: user.name, userProfileImage: user.profilePictureURL, userRecipes: ["fjkd;": "FJ"])
+                                   
+                            }
+                        }
+                    }
                 }
-                .onDelete(perform: deleteUser)
-            }
-            Text("All Users : \(allUsers.count)")
+                .padding(.top, 15) // << add separation from list and search bar
+                .navigationBarTitle("")
+            //SEARCH
+                .searchable(text: $userSearch,placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for Users") // << always display search bar
         }
+
+        
     }
 }
-
 struct FollowingListView_Previews: PreviewProvider {
     static var previews: some View {
         FollowingListView()

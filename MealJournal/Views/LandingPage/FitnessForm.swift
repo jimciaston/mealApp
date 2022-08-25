@@ -107,7 +107,7 @@ struct FitnessForm: View {
                         print("user  signed in")
                         
                         //save user to Firebase
-                        SignUpController.storeUserInfomation(email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
+                        SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
                        
                     }
                 else{

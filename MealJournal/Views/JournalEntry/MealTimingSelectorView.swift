@@ -92,6 +92,7 @@ struct MealTimingSelectorView: View {
                         mealEntryObj.mealEntrysDinner.append(meal)
                         mealTimingToggle = false
                         mealSelected = true //user selected a meal
+                        
                         if(extendedViewOpen){
                             mealSelected = true
                             dismiss()

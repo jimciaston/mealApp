@@ -36,16 +36,24 @@ struct NutrionalPieChart: View {
                 .fill(pieSliceData.color)
                 
                 //TOUCH GFFLOAT TO UPDATE POSITION OF PERCENTAGES IN CIRCLE
-                Text(pieSliceData.text)
-                    .position(
-                        x: geometry.size.width * 0.5 * CGFloat(1.0 + 0.60 * cos(self.midRadians)),
-                        y: geometry.size.height * 0.5 * CGFloat(1.0 - 0.60 * sin(self.midRadians))
-                    )
-                    .foregroundColor(Color.white)
+                if pieSliceData.text == "0%"{ // << if 0%, don't show in piechart
+                    Text("")
+                }
+                else{
+                    Text(pieSliceData.text).bold() // << text inside piechart
+                        .position(
+                            x: geometry.size.width * 0.5 * CGFloat(1.0 + 0.60 * cos(self.midRadians)),
+                            y: geometry.size.height * 0.5 * CGFloat(1.0 - 0.60 * sin(self.midRadians))
+                        )
+                        .foregroundColor(Color.white)
+                        .font(.body)
+                }   
             }
         }
         .aspectRatio(1, contentMode: .fit)
+        
     }
+        
 }
 
 struct PieSliceData {
