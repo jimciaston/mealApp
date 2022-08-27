@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserModel: Identifiable {
+struct UserModel: Identifiable, Hashable {
     var id: String = UUID().uuidString
     
     

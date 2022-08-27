@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class DashboardLogic: ObservableObject {
+class DashboardLogic: ObservableObject, Identifiable {
     @Published var userModel: UserModel?
     @Published var privateUserModel: privateUserModel?
     @Published var isUserDataLoading = true

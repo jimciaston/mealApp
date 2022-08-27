@@ -136,6 +136,19 @@ struct UserProfileView: View {
                 }
             }
         }
+        else{
+            VStack{
+                Image(systemName: "note")
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    
+                Text("User has yet to upload a recipe")
+                    .font(.title3)
+                    .padding()
+                Spacer()
+            }
+            
+        }
     }
         
         

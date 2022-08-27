@@ -30,6 +30,7 @@ struct RecipeListView: View {
                            ForEach(rm.recipes.prefix(3), id: \.id ){ recipe in
                                    HStack{
                                        WebImage(url: URL(string: recipe.recipeImage))
+                                           .resizable()
                                           .aspectRatio(contentMode: .fill)
                                         .frame (width: 70, height:70)
                                         .cornerRadius(15)

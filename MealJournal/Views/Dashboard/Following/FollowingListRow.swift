@@ -13,21 +13,31 @@ struct FollowingListRow: View {
     @State var userName: String
     @State var userProfileImage: String
     @State var userRecipes: [String: String]
-  
     
     var body: some View {
+        
+        /*
+         Note the two navigation Links. NOt sure what is happening, but If I remove the NavLink from the Image, the first element in the list does not click. Will figure out in next update..possibly..
+         */
+        
+        
         HStack{
-            WebImage(url: URL(string: userProfileImage))
-                .placeholder(Image("bodybuilding-2"))
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width:60, height: 60)
-                .clipShape(Circle())
-                .padding(.trailing, 45)
+            NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userProfilePicture: userProfileImage, userRecipes: userRecipes)){
+                WebImage(url: URL(string: userProfileImage))
+                    .placeholder(Image("profileDefaultPicture"))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width:60, height: 60)
+                    .clipShape(Circle())
+                    .padding(.trailing, 45)
+                    
+            }
+          
              
             VStack{
                 Text(userName)
-                    .font(.title2)
+                    .font(.title)
+                
                 NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userProfilePicture: userProfileImage, userRecipes: userRecipes)){
                     Text("View Profile")
                     .font(.caption)
@@ -37,7 +47,7 @@ struct FollowingListRow: View {
                     .border(.black)
                     .padding(.top, -5) // <<bring up button
                 }
-              
+
             }
             
         }

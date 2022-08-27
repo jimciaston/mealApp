@@ -15,19 +15,19 @@ struct FollowingListView: View {
     
     var body: some View {
         NavigationView{
-                VStack{
+           
                     //DISPLAY USERS
                     ScrollView{
                         ForEach ((vm.allUsers), id:\.id ) { user in
                             if user.name.contains(userSearch){
                                 FollowingListRow(userUID: user.uid ,userName: user.name, userProfileImage: user.profilePictureURL, userRecipes: ["fjkd;": "FJ"])
-                                   
                             }
                         }
                     }
-                }
+                
                 .padding(.top, 15) // << add separation from list and search bar
-                .navigationBarTitle("")
+                .navigationBarTitle("Search Users")
+               
             //SEARCH
                 .searchable(text: $userSearch,placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for Users") // << always display search bar
         }

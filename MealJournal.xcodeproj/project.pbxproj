@@ -335,9 +335,9 @@
 			isa = PBXGroup;
 			children = (
 				0A8D8062282573680055021A /* FollowingListView.swift */,
+				0A8D80652825D19C0055021A /* FollowingListRow.swift */,
 				0AF5B10328B0132D005533C8 /* UserProfileView.swift */,
 				0AF5B10528B5B181005533C8 /* UserProfileRecipeView.swift */,
-				0A8D80652825D19C0055021A /* FollowingListRow.swift */,
 			);
 			path = Following;
 			sourceTree = "<group>";
