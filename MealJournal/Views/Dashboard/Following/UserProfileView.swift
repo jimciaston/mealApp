@@ -7,13 +7,14 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Firebase
 
 struct UserProfileView: View {
     @State var userUID: String
     @State var name: String
     @State var userProfilePicture: String
     @State var userRecipes: [String:String]
-    
+    @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
     //get user recipes from database
    
@@ -49,9 +50,28 @@ struct UserProfileView: View {
                 })
             }
     }
+    //check if user is being followed or not
+    func isCurrentUserfollowingUser() -> Bool{
+        
+        FirebaseManager.shared.firestore.collection("users")
+            .document(Auth.auth().currentUser!.uid)
+            .getDocument { (snapshot, error) in
+               let followingList = snapshot!["FollowingUsersList"] as? String ?? "No list found"
+                if followingList.contains(userUID){
+                    print(userUID)
+                   // if user is following, return true
+               //  isUserFollowed = true
+                  
+                }
+                else{
+                 // isUserFollowed = false // << not following
+                }
+            }
+        print(isUserFollowed)
+        return isUserFollowed
+    }
     
     var body: some View {
-      
                 VStack{
                     WebImage(url: URL(string: userProfilePicture))
                         .placeholder(Image("profileDefaultPicture").resizable())
@@ -60,17 +80,76 @@ struct UserProfileView: View {
                             .frame(width:150, height: 150)
                             .clipShape(Circle())
                            
-                            
                     HStack{
                         Text(name ?? "" ) // << username
                     }
+                    //get user recipes
                     .onAppear{
                         getUserRecipes(uid: userUID)
                     }
                         .padding()
                     
                     HStack{
-                       //potentially put followers here
+                        //save following
+                        Button(action: {
+                            //grab current user UID
+                        
+                            guard let uid = Auth.auth().currentUser?.uid else { return }
+                           
+                            let followerUserUID = userUID
+                            let updateFollowerInfo = ["FollowingUsersList" : followerUserUID]
+                            
+                            FirebaseManager.shared.firestore.collection("users")
+                                .whereField("FollowingUsersList", arrayContains: followerUserUID)
+                                .getDocuments { (snapshot, err) in
+                                    print(snapshot)
+                                }
+
+                            
+                            
+                            
+//                                .getDocument { (snapshot, error) in
+//                                   let followingList = snapshot!["FollowingUsersList"] as? String ?? "No list found"
+//                                    if followingList.contains(followerUserUID){
+//
+//                                       // if user is following, on click delete
+//
+//                                            FirebaseManager.shared.firestore.collection("users")
+//                                                .document(uid)
+//                                                .updateData([
+//                                                    //delete
+//                                                    "FollowingUsersList" : FieldValue.arrayRemove([followerUserUID]),
+//                                                ])
+//                                        isUserFollowed = false // << update state variable
+//                                            }
+//                                    else{
+//
+//
+//                                        FirebaseManager.shared.firestore.collection("users")
+//                                            .document(uid)
+//                                            .updateData([
+//                                                "FollowingUsersList" : FieldValue.arrayUnion([followerUserUID]), // << add to fire
+//                                            ])
+//                                        isUserFollowed = true
+//                                        }
+//                                    }
+                            }){
+                                Text(isCurrentUserfollowingUser() ? "Following" : "Follow") // << user followed yay or nay
+                                     .frame(width: 85, height: 35)
+                                     .border(.white)
+                                     .foregroundColor(.red)
+                                     .background(.green)
+                                     .font(.body)
+                            }
+                               
+                                Image("Instagram_Logo_1")
+                                    .resizable()
+                                    .renderingMode(.original)
+                                    .frame(width: 35, height: 35)
+                                    .padding(.leading, -5) // << bring closer to follow button
+                            }
+                    .onAppear{
+                        isCurrentUserfollowingUser()
                     }
                     Spacer()
                    //display user recipes
