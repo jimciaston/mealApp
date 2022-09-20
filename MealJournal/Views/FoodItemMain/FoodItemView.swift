@@ -54,13 +54,19 @@ struct FoodItemView: View {
         }
         
     }
+    
     var mealUnitSize: String {
         didSet {
             meal.servingSizeUnit
         }
-        
     }
    
+    var mealServingSize: Double {
+        didSet{
+            meal.servingSize
+        }
+    }
+    
     var body: some View {
         ScrollView{
             VStack(alignment:.leading, spacing: 0){
@@ -109,16 +115,28 @@ struct FoodItemView: View {
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding(.top, 5)
+                    .onAppear{
+                        print(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize))
+                        print("total servings" + mealUnitSize)
+                        print("meal calories" + mealCalories)
+                        print("meal protein" + String(mealProtein))
+                        print("meal carbs" + String(mealCarbs))
+                        print("meal fat" + String(mealFat))
+                        print("meal serving size" + String(mealServingSize))
+                    }
                 
-                
-                FoodItemInputs(mealUnitSize: .constant(mealUnitSize))
+                FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: Binding.constant(mealServingSize))
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding()
                 
-                NutrionalPieChartView(values: [Double(mealFat),Double(mealProtein),Double(mealCarbs)], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
-                    .opacity(mealTimingToggle ? 0.0 : 1.0)
-                  
+                NutrionalPieChartView(values: [
+                    convertMacros(macro: Double(mealProtein), servingSize: Double(mealServingSize)),
+                    convertMacros(macro: Double(mealCarbs), servingSize: Double(mealServingSize)),
+                    convertMacros(macro: Double(mealFat), servingSize: Double(mealServingSize))
+                  ],
+                  colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                        .opacity(mealTimingToggle ? 0.0 : 1.0)
             }
             .padding(.leading, 15)
         }
@@ -146,6 +164,6 @@ struct FoodItemView: View {
 
 struct FoodItemView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodItemView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Steak", calories: "Jim", quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), mealName: "Eggs", mealBrand: "Johns", mealCalories: "23", mealCarbs: 5, mealProtein: 4, mealFat: 4, mealUnitSize: "G")
+        FoodItemView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Steak", calories: "Jim", quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), mealName: "Eggs", mealBrand: "Johns", mealCalories: "23", mealCarbs: 5, mealProtein: 4, mealFat: 4, mealUnitSize: "G", mealServingSize: 10.0)
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FoodItemInputs: View {
     @Binding var mealUnitSize: String
+    @Binding var mealServingSize: Double
     @State var userToggleServings = false
     @State var userToggleNumberServings = false
     @State var sheetOption: SheetMode = .none
@@ -30,12 +31,10 @@ struct FoodItemInputs: View {
                         }
                     userToggleNumberServings.toggle()
                 }){
-                    Text(" ")
+                    Text(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize))
                         .frame(width:80, height:20)
                 }
                 
-                .border(.black)
-             
             }
             
             //NUM SERVINGS
@@ -44,6 +43,7 @@ struct FoodItemInputs: View {
                     .frame(maxWidth:.infinity)
                     .multilineTextAlignment(.trailing)
                 Button(action: {
+                    print(mealServingSize)
                     switch sheetOption{
                         case.none:
                             sheetOption = .quarter
@@ -54,11 +54,10 @@ struct FoodItemInputs: View {
                         }
                     userToggleServings.toggle()
                 }){
-                    Text(" ")
+                    Text("oz")
                         .frame(width:80, height:20)
                 }
                 
-                .border(.black)
              
             }
         }
@@ -85,6 +84,6 @@ struct FoodItemInputs: View {
 
 struct FoodItemInputs_Previews: PreviewProvider {
     static var previews: some View {
-        FoodItemInputs(mealUnitSize: .constant( "hello "))
+        FoodItemInputs(mealUnitSize: .constant( "hello "), mealServingSize: Binding.constant(0.00))
     }
 }

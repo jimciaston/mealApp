@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FollowingListView: View {
+struct SearchUsersFeature: View {
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var vm = DashboardLogic()
     
@@ -37,6 +37,6 @@ struct FollowingListView: View {
 }
 struct FollowingListView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowingListView()
+        SearchUsersFeature()
     }
 }

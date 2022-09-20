@@ -67,6 +67,7 @@ struct LandingPage: View {
                 }
             
             }
+            
         }
     }
 }

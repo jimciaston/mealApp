@@ -55,6 +55,7 @@ class SignUpController: ObservableObject  {
             try Auth.auth().signOut()
             print("userSignedOut")
             self.signedIn = false
+            UserDefaults.standard.set(false, forKey: "signedIn")
             self.userIsLoggedIn = false
         }
         

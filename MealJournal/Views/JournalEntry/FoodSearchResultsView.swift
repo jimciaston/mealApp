@@ -57,6 +57,7 @@ struct FoodSearchResultsView: View {
                 if isViewSearching{
                     List{
                         ForEach(foodApi.userSearchResults.prefix(resultsDisplayed)) { meal in
+                            
                             ZStack{
                                 HStack{
                                     VStack(alignment:.leading){
@@ -66,7 +67,7 @@ struct FoodSearchResultsView: View {
                                             Text(meal.brand ?? "Generic")
                                                 .font(.caption)
                                             
-                                            Text(", " + meal.calories!  + " cals")
+                                            Text(", " + meal.calories! + " cals")
                                                 .font(.caption)
                                                 .padding(.leading, -10) // << moves closer to meal name
                                             }
@@ -115,7 +116,8 @@ struct FoodSearchResultsView: View {
                                     mealCarbs: meal.carbs ?? 0,
                                     mealProtein: meal.protein ?? 0,
                                     mealFat: meal.fat ?? 0,
-                                    mealUnitSize: meal.servingSizeUnit ?? "Default"
+                                    mealUnitSize: meal.servingSizeUnit ?? "Default",
+                                    mealServingSize: meal.servingSize ?? 0
                                 )
                                 ){
                                     emptyview()

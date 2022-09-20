@@ -49,20 +49,18 @@ struct UserProfileView: View {
                     }
                 })
             }
-    }
+        }
+    
     //check if user is being followed or not
     func isCurrentUserfollowingUser() -> Bool{
-        
         FirebaseManager.shared.firestore.collection("users")
             .whereField("FollowingUsersList", arrayContains: userUID)
             .getDocuments { (snapshot, err) in
                 guard let followingList = snapshot else { return }
                 if followingList.count > 0 {
-                    
                     isUserFollowed = false
                 }
                 else {
-                    
                     isUserFollowed = true
                 }
             }
@@ -93,13 +91,13 @@ struct UserProfileView: View {
                         Button(action: {
                             //grab current user UID
                         
-                            guard let uid = Auth.auth().currentUser?.uid else { return }
+                            guard let uid = Auth.auth().currentUser?.uid else { return } // << current user
                            
-                            let followerUserUID = userUID
-                            let updateFollowerInfo = ["FollowingUsersList" : followerUserUID]
+                            let followingUserUID = userUID // person following
+               
                             
                             FirebaseManager.shared.firestore.collection("users")
-                                .whereField("FollowingUsersList", arrayContains: followerUserUID)
+                                .whereField("FollowingUsersList", arrayContains: followingUserUID)
                                 .getDocuments { (snapshot, err) in
                                     guard let followingList = snapshot else { return }
                                     if followingList.count > 0 {
@@ -107,64 +105,57 @@ struct UserProfileView: View {
                                         FirebaseManager.shared.firestore.collection("users")
                                             .document(uid)
                                             .updateData([
-                                                //delete
-                                                "FollowingUsersList" : FieldValue.arrayRemove([followerUserUID]),
+                                                //updates current User
+                                                "followingCount" : FieldValue.increment(Int64(-1)),
+                                               
+                                                "FollowingUsersList" : FieldValue.arrayRemove([followingUserUID]),
                                             ])
                                         isUserFollowed = false
+                                        
+                                        //Update user who is being followed
+                                        FirebaseManager.shared.firestore.collection("users")
+                                            .document(followingUserUID)
+                                            .updateData([
+                                                "followers": FieldValue.arrayRemove([uid]),
+                                                "followersCount": FieldValue.increment(Int64(-1))
+                                            ])
                                     }
                                     else {
                                         isUserFollowed = false
+                                        //updates current User
                                         FirebaseManager.shared.firestore.collection("users")
                                           .document(uid)
                                           .updateData([
-                                              "FollowingUsersList" : FieldValue.arrayUnion([followerUserUID]), // << add to fire
+                                            "followingCount" : FieldValue.increment(Int64(1)),
+                                              "FollowingUsersList" : FieldValue.arrayUnion([followingUserUID]), // << add to fire
                                           ])
                                         isUserFollowed = true
+                                        
+                                        //Updates user being followed
+                                        FirebaseManager.shared.firestore.collection("users")
+                                            .document(followingUserUID)
+                                            .updateData([
+                                                "followers": FieldValue.arrayUnion([uid]),
+                                                "followersCount": FieldValue.increment(Int64(1))
+                                            ])
                                     }
                                 }
-
-                            
-                            
-                            
-//                                .getDocument { (snapshot, error) in
-//                                   let followingList = snapshot!["FollowingUsersList"] as? String ?? "No list found"
-//                                    if followingList.contains(followerUserUID){
-//
-//                                       // if user is following, on click delete
-//
-//                                            FirebaseManager.shared.firestore.collection("users")
-//                                                .document(uid)
-//                                                .updateData([
-//                                                    //delete
-//                                                    "FollowingUsersList" : FieldValue.arrayRemove([followerUserUID]),
-//                                                ])
-//                                        isUserFollowed = false // << update state variable
-//                                            }
-//                                    else{
-//
-//
-//                                        FirebaseManager.shared.firestore.collection("users")
-//                                            .document(uid)
-//                                            .updateData([
-//                                                "FollowingUsersList" : FieldValue.arrayUnion([followerUserUID]), // << add to fire
-//                                            ])
-//                                        isUserFollowed = true
-//                                        }
-//                                    }
                             }){
                                 Text(isCurrentUserfollowingUser() ? "Follow" : "Following") // << user followed yay or nay
                                      .frame(width: 85, height: 35)
                                      .border(.white)
-                                     .foregroundColor(.red)
+                                     .foregroundColor(.white)
                                      .background(.green)
                                      .font(.body)
                             }
-                               
-                                Image("Instagram_Logo_1")
-                                    .resizable()
-                                    .renderingMode(.original)
-                                    .frame(width: 35, height: 35)
-                                    .padding(.leading, -5) // << bring closer to follow button
+                        Link (destination: URL(string: "https://www.instagram.com/carolinafearfest/")!){
+                            Image("Instagram_Logo_1")
+                                .resizable()
+                                .renderingMode(.original)
+                                .frame(width: 35, height: 35)
+                                .padding(.leading, -5) // << bring closer to follow button
+                        }
+                             
                             }
                     .onAppear{
                         isCurrentUserfollowingUser()

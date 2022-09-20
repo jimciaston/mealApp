@@ -39,7 +39,7 @@ struct UserDashboardView: View {
                                     }
                                 } 
                     
-                FollowingListView()
+                SearchUsersFeature()
                             .tabItem{
                                 VStack{
                                     Image(systemName: "magnifyingglass.circle")

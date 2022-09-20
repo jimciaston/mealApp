@@ -18,18 +18,39 @@ struct UserDashController: View {
     @State private var showMenu = false
     @State private var presentSettingsPage = false
     @State private var presentAddRecipePage = false
+    @State var followingCount = 0
+    @State var followersCount = 0
     
-   
+    func fetchFollowingCount(){
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            print("no current User")
+            return
+        }
+        FirebaseManager.shared.firestore.collection("users")
+            .document(uid)
+            .getDocument { (snapshot, err) in
+               guard let data = snapshot?.data()
+                else{
+                    print ("error grabbing users ")
+                    return
+                }
+                followingCount = data ["followingCount"] as? Int ?? 0
+                followersCount = data ["followers"] as? Int ?? 0
+               
+            }
+    }
+    
+    
     var body: some View {
         if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
                 VStack{
                     //Following and Follower button
-                    NavigationLink(destination: FollowingListView(), tag: 1, selection: $action) {
+                    NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
                             EmptyView()
                         }
                     
-                    NavigationLink(destination: MacroView(), tag: 2, selection: $action) {
+                    NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
                         EmptyView()
                     }
                     
@@ -43,8 +64,9 @@ struct UserDashController: View {
                     
                     HStack{
                         HStack{
-                            Text("20").bold()
                             Text("Following").foregroundColor(.gray)
+                            Text(String(followingCount)).bold()
+                            
                         }
                         .onTapGesture {
                             //perform some tasks if needed before opening Destination view
@@ -52,8 +74,9 @@ struct UserDashController: View {
                             }
                         
                         HStack{
-                            Text("73").bold()
+                           
                             Text("Followers").foregroundColor(.gray)
+                            Text(String(followersCount)).bold()
                         }
                         .onTapGesture {
                             //perform some tasks if needed before opening Destination view
@@ -64,7 +87,9 @@ struct UserDashController: View {
             
                     RecipeListView()
                 }
-                
+                .onAppear{
+                    fetchFollowingCount()
+                }
                 
                 .toolbar{
                     ToolbarItem (placement: .navigationBarTrailing){

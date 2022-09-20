@@ -23,7 +23,7 @@ struct PersonalSettingsView: View {
     @State private var weight = ""
     //@State private var height: String = ""
     @State private var agenda: String = ""
-    
+    @State private var userInstagramHandle = "" // << instagram
    // **** Picker Options ****
     private var weightOptions = getWeight() //calls function that calculates weight up to 700ibs
     private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
@@ -39,10 +39,12 @@ struct PersonalSettingsView: View {
                 Section(header: Text("Personal Settings").foregroundColor(.blue).font(.title3)
                             .foregroundColor(.black)
                             .font(.body)
-                            .textCase(nil)){
+                            .textCase(nil))
+                {
                         HStack{
                             Image(systemName: "person.fill")
                                 .foregroundColor(Color("ButtonTwo"))
+                                .frame(width: 20, height: 20)
                             TextField(currentUserEmail ?? "User Email", text: $email)
                                 .submitLabel(.done)
                             //update firestore with new email
@@ -76,6 +78,7 @@ struct PersonalSettingsView: View {
                         HStack{
                             Image(systemName: "key")
                                 .foregroundColor(Color("ButtonTwo"))
+                                .frame(width: 20, height: 20)
                             TextField(vm.userModel?.name ?? "User Password", text: $password)
                         }
                     
@@ -97,23 +100,14 @@ struct PersonalSettingsView: View {
                                 })
                                 .padding(.trailing, 20)
                         }
-                    
-                 HStack{
-                     Image(systemName: "person.fill.questionmark")
-                         .foregroundColor(Color("ButtonTwo"))
-                     if (vm.userModel != nil){
-                         Picker(selection: Binding<String>(
-                             get: {vm.userModel!.gender },
-                             set: {vm.userModel!.gender = $0
-                                 FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["gender": $0])
-                             }),
-                                label: Text("Gender")) {
-                             ForEach(genderOptions, id: \.self ){ gender in
-                                     Text(gender)
-                             }
-                         }
+                    HStack{
+                        Image("Instagram-Logo-2")
+                            .renderingMode(.template)
+                            .resizable()
+                            .frame(width:20, height:20)
+                            .foregroundColor(Color("ButtonTwo"))
+                        TextField("Enter your instagram Link", text: $userInstagramHandle)
                     }
-                 }
              }
                 
                 Section(header: Text("Health Stats").foregroundColor(.blue).font(.title3)
@@ -179,9 +173,6 @@ struct PersonalSettingsView: View {
             }
         }
         
-    }
-    private func hello(){
-        print("balls")
     }
 }
 

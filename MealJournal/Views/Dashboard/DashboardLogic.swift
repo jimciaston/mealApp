@@ -56,6 +56,7 @@ class DashboardLogic: ObservableObject, Identifiable {
                 }
             
             guard let data = snapshot?.data() else {
+                UserDefaults.standard.set(false, forKey: "signedIn") // << update appStorage if no user
                 print ("no data found for user")
                 return
             }
