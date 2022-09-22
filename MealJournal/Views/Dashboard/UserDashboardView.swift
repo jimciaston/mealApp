@@ -44,7 +44,7 @@ struct UserDashboardView: View {
                                 VStack{
                                     Image(systemName: "magnifyingglass.circle")
                                         .font(.title3)
-                                    Text("Search")
+                                    Text("Search Users")
                                 }
                         }
                            

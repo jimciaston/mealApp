@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SwiftUIX
 struct FoodSearchResultsView: View {
     
     @EnvironmentObject private var foodApi: FoodApiSearch
@@ -27,11 +27,12 @@ struct FoodSearchResultsView: View {
     @State var resultsDisplayed = 5 //bursts of results added to the screen
     @Environment(\.dismiss) var dismiss
     @State var mealSelected = false
+    @State var addCustomFoodToggle = false
     
-    @State var testRun = false //update name later
   
     var body: some View {
         if userSearch{
+            
             VStack{
                 HStack{
                     Text(foodApi.isFoodSearchLoading ? "Searching..." : "Results")
@@ -39,13 +40,19 @@ struct FoodSearchResultsView: View {
                 //if api loading
                 if(foodApi.isFoodSearchLoading){
                     ActivityIndicator() // << show progress bar
+                    //every new search, reset the food results per page
+                        .onAppear{
+                            resultsDisplayed = 5
+                        }
                 }
                 Spacer()
                 
               //  delays showing api call
                     .onAppear {
-                        testRun = false
-                      
+                        if isViewSearching{
+                            resultsDisplayed = 5
+                            listCounter = 0
+                        }
                         //api loads all ,then only displays 5 at a time
                         if mealSelected {
                             resultsDisplayed = 5
@@ -57,7 +64,6 @@ struct FoodSearchResultsView: View {
                 if isViewSearching{
                     List{
                         ForEach(foodApi.userSearchResults.prefix(resultsDisplayed)) { meal in
-                            
                             ZStack{
                                 HStack{
                                     VStack(alignment:.leading){
@@ -107,7 +113,6 @@ struct FoodSearchResultsView: View {
                                 .buttonStyle(BorderlessButtonStyle())
                                     
                         }
-                                
                                 NavigationLink(destination: FoodItemView(
                                     meal:.constant(meal),
                                     mealName: meal.mealName ?? "Default",
@@ -124,7 +129,7 @@ struct FoodSearchResultsView: View {
                                 }
                                 .navigationBarHidden(true)
                                 .opacity(0)//hides emptyview
-                               
+                           
                     }
                       
                         .padding([.leading, .trailing], 60)
@@ -134,18 +139,37 @@ struct FoodSearchResultsView: View {
                         .foregroundColor(.black)
                         .opacity(mealTimingToggle ? 0.3 : 1)
                         }
-                        //load more results
+                      //add custom food search icon
+                        if (!foodApi.isFoodSearchLoading){
+                            HStack {
+                                Text("Add Custom Food Item")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .onTapGesture{
+                                        addCustomFoodToggle.toggle()
+                                    }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                           // .padding([.leading, .trailing], 60)
+                            .padding([.top, .bottom], 10)
+                            .background(RoundedRectangle(
+                                cornerRadius:20).fill(Color("AddItemColor")))
+                            .foregroundColor(.black)
+                            .opacity(mealTimingToggle ? 0.3 : 1)
+                        }
                         
+                        //view more results toggle
                         Button(action: {
                             foodApi.foodResultsDisplayed = 0
                             resultsDisplayed += 5
                         }){
                             Text("View More")
+                            
                         }
                         .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
                         .frame(maxWidth: .infinity)
                         .padding([.top, .bottom], 15)
                         .multilineTextAlignment(.center)
+                        
                         Button(action: {
                             resultsDisplayed = 5
                             isViewSearching = false
@@ -161,13 +185,26 @@ struct FoodSearchResultsView: View {
                         .padding(.top, -10)
                         .listRowSeparator(.hidden)
                     }
-                   
                     .listStyle(.plain)
                     .listRowSeparator(.hidden)
-                        
-                }
                     
+                    }
         }
+            //using windowOverlay from swiftUIX to hide TabBar
+            .windowOverlay(isKeyAndVisible: self.$addCustomFoodToggle, {
+                GeometryReader { geometry in {
+                    BottomSheetView(
+                        isOpen: self.$addCustomFoodToggle,
+                        maxHeight: geometry.size.height / 2
+                    ) {
+                        CustomFoodItemView()
+                    }
+                   
+                }().edgesIgnoringSafeArea(.all)
+                       
+                       
+                }
+            })
     }
             if(mealTimingToggle){
                 FlexibleSheet(sheetMode: $sheetMode) {
@@ -178,6 +215,7 @@ struct FoodSearchResultsView: View {
                 .animation(.easeInOut)
                 }
             }
+       
         }
     
 

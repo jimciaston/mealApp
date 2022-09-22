@@ -33,6 +33,9 @@
 		0A3E03D328C92C7D009613CF /* FollowersUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D228C92C7D009613CF /* FollowersUsersView.swift */; };
 		0A3E03D628CBB159009613CF /* practice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D528CBB159009613CF /* practice.swift */; };
 		0A3E03D828D39BC3009613CF /* GramsToOuncesConversition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D728D39BC3009613CF /* GramsToOuncesConversition.swift */; };
+		0A3E03DA28DBB615009613CF /* Flexsheet_for_CustomFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D928DBB614009613CF /* Flexsheet_for_CustomFoodItem.swift */; };
+		0A3E03DD28DCB5C5009613CF /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3E03DC28DCB5C5009613CF /* SwiftUIX */; };
+		0A3E03DF28DCD63A009613CF /* CustomFoodItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */; };
 		0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */; };
 		0A53020927E430FB00B8D261 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020827E430FB00B8D261 /* RecipeListView.swift */; };
 		0A53020D27E8005E00B8D261 /* RecipeDashHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */; };
@@ -154,6 +157,8 @@
 		0A3E03D228C92C7D009613CF /* FollowersUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersUsersView.swift; sourceTree = "<group>"; };
 		0A3E03D528CBB159009613CF /* practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = practice.swift; sourceTree = "<group>"; };
 		0A3E03D728D39BC3009613CF /* GramsToOuncesConversition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramsToOuncesConversition.swift; sourceTree = "<group>"; };
+		0A3E03D928DBB614009613CF /* Flexsheet_for_CustomFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flexsheet_for_CustomFoodItem.swift; sourceTree = "<group>"; };
+		0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoodItemView.swift; sourceTree = "<group>"; };
 		0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSuccessPopUp.swift; sourceTree = "<group>"; };
 		0A53020827E430FB00B8D261 /* RecipeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
 		0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDashHeader.swift; sourceTree = "<group>"; };
@@ -242,6 +247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A3E03DD28DCB5C5009613CF /* SwiftUIX in Frameworks */,
 				0A07D96028480A140080A4ED /* SDWebImageSwiftUI in Frameworks */,
 				5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */,
 				0A9F4965287BCBCC002F227E /* OrderedCollections in Frameworks */,
@@ -343,6 +349,7 @@
 				0A3B9B242815DAD000EC631A /* NutrionalPieChart.swift */,
 				0A3B9B2628162DE800EC631A /* NutrionalPieChartView.swift */,
 				0A3B9B2828163E2F00EC631A /* PieChartHelperRows.swift */,
+				0A3E03D928DBB614009613CF /* Flexsheet_for_CustomFoodItem.swift */,
 			);
 			path = FoodItemMain;
 			sourceTree = "<group>";
@@ -511,6 +518,7 @@
 				0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */,
 				0AE0DB9527C21124006F1835 /* MealSearchBar.swift */,
 				0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */,
+				0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */,
 				0A3B9B222813550800EC631A /* MealTimingSelectorView.swift */,
 				0A3B9B1027FFDF5A00EC631A /* UserAddingFood.swift */,
 				0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */,
@@ -566,6 +574,7 @@
 				0A6A6882284577210047CFB9 /* FirebaseStorage */,
 				0A07D95F28480A140080A4ED /* SDWebImageSwiftUI */,
 				0A9F4964287BCBCC002F227E /* OrderedCollections */,
+				0A3E03DC28DCB5C5009613CF /* SwiftUIX */,
 			);
 			productName = MealJournal;
 			productReference = 0A8F98DD27AB09AE008F5584 /* MealJournal.app */;
@@ -646,6 +655,7 @@
 				0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0A07D95E28480A130080A4ED /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				0A9F4963287BCBCC002F227E /* XCRemoteSwiftPackageReference "swift-collections" */,
+				0A3E03DB28DCB5C5009613CF /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 0A8F98DE27AB09AE008F5584 /* Products */;
 			projectDirPath = "";
@@ -860,6 +870,8 @@
 				0A6534DF27E1230600A50FB8 /* Recipe Ingredients.swift in Sources */,
 				0A95BB92284EDEF30020C7B2 /* RecipeModel.swift in Sources */,
 				0AE0DB8E27BC1E03006F1835 /* EntryModel.swift in Sources */,
+				0A3E03DA28DBB615009613CF /* Flexsheet_for_CustomFoodItem.swift in Sources */,
+				0A3E03DF28DCD63A009613CF /* CustomFoodItemView.swift in Sources */,
 				0A8D80682826CBF60055021A /* RecipeEditor.swift in Sources */,
 				0A07D969284AA1780080A4ED /* SuccessAlert.swift in Sources */,
 				0A9F495F28793E33002F227E /* EditModeActive.swift in Sources */,
@@ -1219,6 +1231,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		0A3E03DB28DCB5C5009613CF /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
 		0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1242,6 +1262,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A07D95E28480A130080A4ED /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		0A3E03DC28DCB5C5009613CF /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A3E03DB28DCB5C5009613CF /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
 		};
 		0A6A687E284577210047CFB9 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

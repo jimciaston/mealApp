@@ -131,9 +131,9 @@ struct FoodItemView: View {
                     .padding()
                 
                 NutrionalPieChartView(values: [
-                    convertMacros(macro: Double(mealProtein), servingSize: Double(mealServingSize)),
-                    convertMacros(macro: Double(mealCarbs), servingSize: Double(mealServingSize)),
-                    convertMacros(macro: Double(mealFat), servingSize: Double(mealServingSize))
+                    Double(mealProtein),
+                    Double(mealCarbs),
+                    Double(mealFat)
                   ],
                   colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
                         .opacity(mealTimingToggle ? 0.0 : 1.0)
