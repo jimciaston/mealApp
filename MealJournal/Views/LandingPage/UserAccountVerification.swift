@@ -33,7 +33,6 @@ final class FormViewModel: ObservableObject {
         } else {
             return "*Please enter a valid email address"
         }
-        
     }
     
     var passwordPrompt: String {

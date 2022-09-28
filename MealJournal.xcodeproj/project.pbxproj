@@ -31,11 +31,12 @@
 		0A3B9B2928163E2F00EC631A /* PieChartHelperRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B2828163E2F00EC631A /* PieChartHelperRows.swift */; };
 		0A3E03D128C24758009613CF /* FollowingUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D028C24758009613CF /* FollowingUsersView.swift */; };
 		0A3E03D328C92C7D009613CF /* FollowersUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D228C92C7D009613CF /* FollowersUsersView.swift */; };
-		0A3E03D628CBB159009613CF /* practice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D528CBB159009613CF /* practice.swift */; };
 		0A3E03D828D39BC3009613CF /* GramsToOuncesConversition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D728D39BC3009613CF /* GramsToOuncesConversition.swift */; };
 		0A3E03DA28DBB615009613CF /* Flexsheet_for_CustomFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03D928DBB614009613CF /* Flexsheet_for_CustomFoodItem.swift */; };
 		0A3E03DD28DCB5C5009613CF /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3E03DC28DCB5C5009613CF /* SwiftUIX */; };
 		0A3E03DF28DCD63A009613CF /* CustomFoodItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */; };
+		0A3E03E328E122CF009613CF /* CustomFoodHStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */; };
+		0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */; };
 		0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */; };
 		0A53020927E430FB00B8D261 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020827E430FB00B8D261 /* RecipeListView.swift */; };
 		0A53020D27E8005E00B8D261 /* RecipeDashHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */; };
@@ -155,10 +156,11 @@
 		0A3B9B2828163E2F00EC631A /* PieChartHelperRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartHelperRows.swift; sourceTree = "<group>"; };
 		0A3E03D028C24758009613CF /* FollowingUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingUsersView.swift; sourceTree = "<group>"; };
 		0A3E03D228C92C7D009613CF /* FollowersUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersUsersView.swift; sourceTree = "<group>"; };
-		0A3E03D528CBB159009613CF /* practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = practice.swift; sourceTree = "<group>"; };
 		0A3E03D728D39BC3009613CF /* GramsToOuncesConversition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramsToOuncesConversition.swift; sourceTree = "<group>"; };
 		0A3E03D928DBB614009613CF /* Flexsheet_for_CustomFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flexsheet_for_CustomFoodItem.swift; sourceTree = "<group>"; };
 		0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoodItemView.swift; sourceTree = "<group>"; };
+		0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoodHStacks.swift; sourceTree = "<group>"; };
+		0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCustomFoodItem.swift; sourceTree = "<group>"; };
 		0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSuccessPopUp.swift; sourceTree = "<group>"; };
 		0A53020827E430FB00B8D261 /* RecipeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
 		0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDashHeader.swift; sourceTree = "<group>"; };
@@ -301,14 +303,6 @@
 			path = LandingPage;
 			sourceTree = "<group>";
 		};
-		0A3E03D428CBB148009613CF /* Practice label */ = {
-			isa = PBXGroup;
-			children = (
-				0A3E03D528CBB159009613CF /* practice.swift */,
-			);
-			path = "Practice label";
-			sourceTree = "<group>";
-		};
 		0A3FF73527F2313B00789FD0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,7 +441,6 @@
 		0A8F98DF27AB09AE008F5584 /* MealJournal */ = {
 			isa = PBXGroup;
 			children = (
-				0A3E03D428CBB148009613CF /* Practice label */,
 				0A3FF73527F2313B00789FD0 /* Network */,
 				0A8F990C27AB0C65008F5584 /* Views */,
 				0A8D957427B6E41400193B84 /* Utilities */,
@@ -519,6 +512,8 @@
 				0AE0DB9527C21124006F1835 /* MealSearchBar.swift */,
 				0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */,
 				0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */,
+				0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */,
+				0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */,
 				0A3B9B222813550800EC631A /* MealTimingSelectorView.swift */,
 				0A3B9B1027FFDF5A00EC631A /* UserAddingFood.swift */,
 				0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */,
@@ -836,9 +831,9 @@
 				0A9FC9C627DD50ED0008D0CD /* SubscriptionPopOut.swift in Sources */,
 				0AC1B7B527D7F2EB0070895D /* DataController.swift in Sources */,
 				0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */,
+				0A3E03E328E122CF009613CF /* CustomFoodHStacks.swift in Sources */,
 				0A8D80662825D19C0055021A /* FollowingListRow.swift in Sources */,
 				0AF5B10028944FB4005533C8 /* RecipeControllerModal.swift in Sources */,
-				0A3E03D628CBB159009613CF /* practice.swift in Sources */,
 				0A9A055327B2E6E100CAD66B /* Login.swift in Sources */,
 				0A0C631727EE10170093692D /* RecipeFullListView.swift in Sources */,
 				0AE0DB8B27BC1823006F1835 /* JournalEntryMain.swift in Sources */,
@@ -857,6 +852,7 @@
 				0A8D958527BAB24700193B84 /* FollowUserButton.swift in Sources */,
 				0A8D806D28296AA90055021A /* RecipeFullListRow.swift in Sources */,
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
+				0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */,
 				0A6A687C283C84DC0047CFB9 /* SignUpController.swift in Sources */,
 				0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */,
 				0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */,

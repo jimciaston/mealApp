@@ -19,6 +19,7 @@ struct MealTimingSelectorView: View {
     @Binding var mealTimingToggle: Bool
     @Binding var extendedViewOpen: Bool
     @Binding var mealSelected: Bool
+    
     init(meal: Binding<Meal>, isViewSearching: Binding<Bool>, userSearch: Binding<Bool>, mealTimingToggle: Binding<Bool>, extendedViewOpen: Binding<Bool>, mealSelected: Binding<Bool>){
         ///commented the view color out for now, as it was having a weird effect on the journalEntryMain list. 
         UITableView.appearance().backgroundColor = .clear
