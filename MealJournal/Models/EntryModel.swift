@@ -13,7 +13,7 @@ struct Meal: Identifiable, Hashable{
     var id = UUID()
     var brand: String?
     var mealName: String?
-    var calories: String?
+    var calories: Int?
     var quantity: Int?
     var amount: String?
     var protein:  Int?

@@ -21,6 +21,7 @@ struct RecipeController: View {
     @State var ingredients: [String: String]
     @State var directions: [String]
     @State var recipeID: String
+    @State var recipeCaloriesMacro: Int
     @State var recipeFatMacro: Int
     @State var recipeCarbMacro: Int
     @State var recipeProteinMacro: Int
@@ -84,7 +85,7 @@ struct RecipeController: View {
                     EditorImagePicker(image: $inputImage)
                 }
     
-        RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
+        RecipeDashHeader(recipeName: name, recipePrepTime: prepTime,caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
            
                     .padding()
         
@@ -112,7 +113,7 @@ struct RecipeController: View {
                             rm.updateRecipeImage(recipeImage: ema.recipeImage, currentRecipe: recipeID)
                             
                             //save dash headers to firestore
-                            rm.saveDashHeaders(recipeTitle: ema.recipeTitle, recipePrepTime: ema.recipePrepTime, recipeFatMacro: ema.recipeFatMacro, recipeCarbMacro: ema.recipeCarbMacro, recipeProteinMacro: ema.recipeProteinMacro, currentRecipe: recipeID)
+                            rm.saveDashHeaders(recipeTitle: ema.recipeTitle, recipePrepTime: ema.recipePrepTime, recipeCaloriesMacro: ema.recipeCaloriesMacro, recipeFatMacro: ema.recipeFatMacro, recipeCarbMacro: ema.recipeCarbMacro, recipeProteinMacro: ema.recipeProteinMacro, currentRecipe: recipeID)
                             
                             if ema.isIngredientsActive{
                                     rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)

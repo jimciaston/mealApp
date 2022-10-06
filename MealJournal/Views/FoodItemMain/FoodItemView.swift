@@ -33,7 +33,7 @@ struct FoodItemView: View {
                meal.brand
             }
     }
-    var mealCalories: String {
+    var mealCalories: Int {
         didSet {
                 meal.calories
             }
@@ -118,7 +118,7 @@ struct FoodItemView: View {
                     .onAppear{
                         print(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize))
                         print("total servings" + mealUnitSize)
-                        print("meal calories" + mealCalories)
+                        print("meal calories" + String(mealCalories))
                         print("meal protein" + String(mealProtein))
                         print("meal carbs" + String(mealCarbs))
                         print("meal fat" + String(mealFat))
@@ -164,6 +164,6 @@ struct FoodItemView: View {
 
 struct FoodItemView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodItemView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Steak", calories: "Jim", quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), mealName: "Eggs", mealBrand: "Johns", mealCalories: "23", mealCarbs: 5, mealProtein: 4, mealFat: 4, mealUnitSize: "G", mealServingSize: 10.0)
+        FoodItemView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Steak", calories: 0, quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), mealName: "Eggs", mealBrand: "Johns", mealCalories: 0, mealCarbs: 5, mealProtein: 4, mealFat: 4, mealUnitSize: "G", mealServingSize: 10.0)
     }
 }

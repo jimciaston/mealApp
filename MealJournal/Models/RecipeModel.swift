@@ -17,6 +17,7 @@ class Recipe: ObservableObject, Identifiable {
     @Published var ingredients:      [Ingredients] = []
     @Published var directions:       [Directions]  = []
     @Published var isCompleted =     false
+    @Published var recipeCaloriesMacro:    Int = 0
     @Published var recipeFatMacro:    Int = 0
     @Published var recipeCarbMacro:    Int = 0
     @Published var recipeProteinMacro:  Int = 0

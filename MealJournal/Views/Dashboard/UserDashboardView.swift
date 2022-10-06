@@ -8,7 +8,8 @@
 import SwiftUI
 import Firebase
 struct UserDashboardView: View {
-    @StateObject var mealEntrys = MealEntrys()
+    
+    @EnvironmentObject var mealEntrys: MealEntrys
     @ObservedObject var signUpController: SignUpController
    
     @State var isLoading = true

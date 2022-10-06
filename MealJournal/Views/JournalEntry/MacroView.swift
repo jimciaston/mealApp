@@ -25,16 +25,22 @@ struct MacroView: View {
             
             HStack{
                 VStack{
-                   Text(dailyMacrosCounter.getCarbTotals(
-                    breakfast: mealEntryObj,
-                    lunch: mealEntryObj,
-                    dinner: mealEntryObj)
-                        )
-                    Text("Carbs")
+                    Text(dailyMacrosCounter.getCalorieTotals(breakfast: mealEntryObj, lunch: mealEntryObj, dinner: mealEntryObj))
+                    Text("Cals")
                         .padding(-5)
                    
                 }
-                .padding(30)
+                .padding(20)
+                VStack{
+                   Text(dailyMacrosCounter.getProteinTotals(
+                    breakfast: mealEntryObj,
+                    lunch: mealEntryObj,
+                    dinner: mealEntryObj))
+                       Text("Protein")
+                        .padding(-5)
+                }
+                .padding(20)
+               
                 
                 VStack{
                     Text(dailyMacrosCounter.getFatTotals(
@@ -45,16 +51,18 @@ struct MacroView: View {
                          Text("Fat")
                         .padding(-5)
                 }
-                .padding(30)
+                .padding(20)
                 VStack{
-                   Text(dailyMacrosCounter.getProteinTotals(
+                   Text(dailyMacrosCounter.getCarbTotals(
                     breakfast: mealEntryObj,
                     lunch: mealEntryObj,
-                    dinner: mealEntryObj))
-                       Text("Protein")
+                    dinner: mealEntryObj)
+                        )
+                    Text("Carbs")
                         .padding(-5)
+                   
                 }
-                .padding(30)
+                .padding(20)
             }
             .padding(.top, -15)
         }

@@ -13,6 +13,7 @@ struct RecipeEditorView: View {
     @State private var recipeTime = "Cook Time"
     @State private var pickerTime: String = ""
     //calls macro pickers
+    @State var caloriesPicker: Int = 0
     @State var fatPicker: Int = 0
     @State var carbPicker: Int = 0
     @State var proteinPicker: Int = 0
@@ -31,6 +32,19 @@ struct RecipeEditorView: View {
             //macro selectors
             HStack{
                 //macro pickers for recipe
+                Picker(selection: $caloriesPicker, label: Text("")) {
+                   ForEach(calorieCounter(), id: \.self) {
+                       Text(String($0) + " Calories")
+                          
+                   }
+                   .onChange(of: caloriesPicker, perform: { _ in
+                       recipeClass.recipeCaloriesMacro = caloriesPicker
+                   })
+                  
+                  
+                }
+                .accentColor(.gray)
+                
                 Picker(selection: $fatPicker, label: Text("")) {
                    ForEach(pickerGramCounter(), id: \.self) {
                        Text(String($0) + "g Fat")

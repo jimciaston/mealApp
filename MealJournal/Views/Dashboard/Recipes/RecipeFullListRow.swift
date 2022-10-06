@@ -36,7 +36,7 @@ struct RecipeFullListRow: View {
                     Text(recipe.recipeTitle).bold()
                     Spacer()
                     
-                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
+                    NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
                         emptyview()
                         })
                         .opacity(0.0)
@@ -48,6 +48,8 @@ struct RecipeFullListRow: View {
                 .padding(.bottom, 2)
                 
                 HStack{
+                    Text(String(recipe.recipeCaloriesMacro) + " calories")
+                        .foregroundColor(.gray)
                     Text(String(recipe.recipeFatMacro) + "g")
                         .foregroundColor(.gray)
                     Text(String(recipe.recipeCarbMacro) + "g")

@@ -36,10 +36,11 @@ struct UserProfileView: View {
                     let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
                     let directions = data ["directions"] as? [String] ?? [""]
                     let recipeID = data ["recipeID"] as? String ?? ""
+                    let recipeCalories = data ["recipeCaloriesMacro"] as? Int ?? 0
                     let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
                     let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
                     let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: 0, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
                     
                //first check if recipe ID exists by filtering by the id
                     let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
@@ -180,7 +181,7 @@ struct UserProfileView: View {
                                         //temp solution until I can center it
                                             .padding(.top, 1)
                                         //as a note, sets empty view to hide list arrow
-                                        NavigationLink(destination: {UserProfileRecipeView(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
+                                        NavigationLink(destination: {UserProfileRecipeView(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
                                             emptyview()
                                             })
                                             .opacity(0.0)

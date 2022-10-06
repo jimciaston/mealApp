@@ -37,6 +37,7 @@ struct MealTimingSelectorView: View {
                 HStack{
                     Button("X"){
                         mealTimingToggle = false
+                        mealSelected = false
                     }
                     .foregroundColor(.black)
                         .font(.body)
@@ -62,6 +63,7 @@ struct MealTimingSelectorView: View {
                         mealEntryObj.mealEntrysBreakfast.append(meal)
                         mealTimingToggle = false
                         mealSelected = true //user selected a meal
+                        
                         if(extendedViewOpen){
                             mealSelected = true
                             dismiss()
@@ -108,6 +110,10 @@ struct MealTimingSelectorView: View {
             }
             .frame(height:660)
             .padding(.top, -50)
+            
+            .onAppear{
+                print(mealEntryObj.mealEntrysBreakfast)
+            }
         }
            
     }
@@ -115,6 +121,6 @@ struct MealTimingSelectorView: View {
 }
 struct MealTimingSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        MealTimingSelectorView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Jim", calories: "Jim", quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), isViewSearching: .constant(true), userSearch: .constant(true), mealTimingToggle: .constant(true), extendedViewOpen: .constant(true), mealSelected: .constant(true))
+        MealTimingSelectorView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Jim", calories: 0, quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), isViewSearching: .constant(true), userSearch: .constant(true), mealTimingToggle: .constant(true), extendedViewOpen: .constant(true), mealSelected: .constant(true))
 }
 }

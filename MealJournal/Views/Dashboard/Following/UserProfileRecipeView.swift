@@ -21,6 +21,7 @@ struct UserProfileRecipeView: View {
     @State var ingredients: [String: String]
     @State var directions: [String]
     @State var recipeID: String
+    @State var recipeCaloriesMacro: Int
     @State var recipeFatMacro: Int
     @State var recipeCarbMacro: Int
     @State var recipeProteinMacro: Int

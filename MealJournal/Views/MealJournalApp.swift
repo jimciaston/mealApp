@@ -19,6 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct MealJournalApp: App {
+   
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     init(){

@@ -42,6 +42,7 @@ struct SaveRecipeButton: View {
                     "recipeImage": recipeClass.recipeImage,
                     "recipeTitle": recipeClass.recipeTitle,
                     "recipePrepTime": recipeClass.recipePrepTime,
+                    "recipeCaloriesMacro": recipeClass.recipeCaloriesMacro,
                     "recipeFatMacro": recipeClass.recipeFatMacro,
                     "recipeCarbMacro": recipeClass.recipeCarbMacro,
                     "recipeProteinMacro": recipeClass.recipeProteinMacro,

@@ -12,6 +12,7 @@ struct RecipeDashHeader: View {
     @State var recipePrepTime = ""
   
     //calls macro pickers
+    @State var caloriesPicker:Int =     0
     @State var fatPicker:Int =     0
     @State var carbPicker:Int =     0
     @State var proteinPicker:Int =     0
@@ -36,6 +37,17 @@ struct RecipeDashHeader: View {
                 })
                 HStack{
                     //macro pickers for recipe
+                    Picker(selection: $caloriesPicker, label: Text("").foregroundColor(.red)) {
+                       ForEach(calorieCounter(), id: \.self) {
+                           Text(String($0))
+                       }
+                       .onChange(of: caloriesPicker, perform: { _ in
+                           ema.recipeCaloriesMacro = caloriesPicker
+                       })
+                      
+                       .foregroundColor(.gray)
+                       .padding(.leading, 5)
+                    }
                     Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
                        ForEach(pickerGramCounter(), id: \.self) {
                            Text(String($0) + "g Fat")
@@ -90,6 +102,7 @@ struct RecipeDashHeader: View {
             .onAppear{
                 ema.recipeFatMacro = fatPicker
                 ema.recipePrepTime = pickerTime
+                ema.recipeCaloriesMacro = caloriesPicker
                 ema.recipeCarbMacro = carbPicker
                 ema.recipeProteinMacro = proteinPicker
                 ema.recipeTitle = recipeName
@@ -114,6 +127,10 @@ struct RecipeDashHeader: View {
                 .padding(.top, -10)
                 //recipe macros
                 HStack{
+                    Text(String(caloriesPicker) + " calories")
+                        .font(.body)
+                        .foregroundColor(.black)
+                        .font(.body)
                     //fat
                     Text(String(fatPicker) + "g fat")
                         .font(.body)

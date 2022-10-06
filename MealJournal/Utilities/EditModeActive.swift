@@ -22,6 +22,7 @@ class EditModeActive: ObservableObject {
     //recipe macros and dash headers
     @Published var recipeTitle = ""
     @Published var recipePrepTime = ""
+    @Published var recipeCaloriesMacro = 0
     @Published var recipeFatMacro = 0
     @Published var recipeCarbMacro = 0
     @Published var recipeProteinMacro = 0

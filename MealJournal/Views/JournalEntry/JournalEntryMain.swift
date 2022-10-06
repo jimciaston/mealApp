@@ -19,7 +19,7 @@ struct JournalEntryMain: View {
         mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)
     }
     
-    @StateObject var mealEntrys = MealEntrys()
+    @EnvironmentObject var mealEntrys: MealEntrys
     
     @Environment(\.dismiss) var dismiss
     @State private var foodName = ""

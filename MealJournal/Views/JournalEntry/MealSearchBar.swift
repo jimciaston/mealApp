@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MealSearchBar: View {
+    @ObservedObject var logic = CustomFoodLogic()
     //TEXTFIELD
     @State var userFoodInput = ""
     @State private var didtextComplete = false
@@ -32,11 +33,13 @@ struct MealSearchBar: View {
                             didUserSearch = true
                             didtextComplete = true
                             isUserDoneSearching = true
+                            foodApi.userSearch = userFoodInput
                             
                             if didtextComplete{
                                 foodApi.userSearchResults = [] //emptys list
                                 userFoodInput = ""
                         }
+                           
                     }
                 }
                 .foregroundColor(.black)

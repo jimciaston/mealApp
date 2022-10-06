@@ -9,16 +9,31 @@ import SwiftUI
 
 struct DailyMacrosCounter{
   
+    func getCalorieTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String{
+        var totalCals = 0
+            for index in (0 ..< breakfast.mealEntrysBreakfast.count){
+                totalCals += breakfast.mealEntrysBreakfast[index].calories ?? 0
+                }
+            for index in (0 ..< lunch.mealEntrysLunch.count){
+                totalCals += lunch.mealEntrysLunch[index].calories ?? 0
+                }
+            for index in (0 ..< dinner.mealEntrysDinner.count){
+                totalCals += dinner.mealEntrysDinner[index].calories ?? 0
+                }
+            return String(totalCals)
+    }
+    
+    
     func getFatTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String {
         var totalFats = 0
             for index in (0 ..< breakfast.mealEntrysBreakfast.count){
                 totalFats += breakfast.mealEntrysBreakfast[index].fat ?? 0
                 }
             for index in (0 ..< lunch.mealEntrysLunch.count){
-                totalFats += breakfast.mealEntrysLunch[index].fat ?? 0
+                totalFats += lunch.mealEntrysLunch[index].fat ?? 0
                 }
             for index in (0 ..< dinner.mealEntrysDinner.count){
-                totalFats += breakfast.mealEntrysDinner[index].fat ?? 0
+                totalFats += dinner.mealEntrysDinner[index].fat ?? 0
                 }
             return String(totalFats)
         }
@@ -28,10 +43,10 @@ struct DailyMacrosCounter{
                 totalProtein += breakfast.mealEntrysBreakfast[index].protein ?? 0
                 }
             for index in (0 ..< lunch.mealEntrysLunch.count){
-                totalProtein += breakfast.mealEntrysLunch[index].protein ?? 0
+                totalProtein += lunch.mealEntrysLunch[index].protein ?? 0
                 }
             for index in (0 ..< dinner.mealEntrysDinner.count){
-                totalProtein += breakfast.mealEntrysDinner[index].protein ?? 0
+                totalProtein += dinner.mealEntrysDinner[index].protein ?? 0
                 }
             return String(totalProtein)
         }

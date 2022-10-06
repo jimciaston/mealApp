@@ -28,13 +28,16 @@ struct CustomFoodHStacks: View {
             }
         let combined = longPressGesture.sequenced(before: releaseGesture)
         HStack{
-            Text(macroName + " " + String(macroAmount) + "g")
-                .frame(width:50, height:50)
-            
+            Group{ Text(macroName) + Text(" " + String(macroAmount) + "g").bold() }
+                .frame(maxWidth: 150, alignment: .leading)
+                .padding(.leading, 20)
+                
+               
             Image(systemName: "plus.circle.fill")
                 .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
+                    .padding(.leading, 5)
                     .foregroundColor(Color("SuccessButtonColor"))
                 .onTapGesture{
                     macroAmount += 1
@@ -44,6 +47,7 @@ struct CustomFoodHStacks: View {
                 .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
+                    .padding(.leading, 5)
                     .foregroundColor(Color("SuccessButtonColor"))
              
                 .onTapGesture{

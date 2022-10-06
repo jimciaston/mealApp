@@ -9,10 +9,17 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct RecipeListView: View {
-    
+    @EnvironmentObject var mealEntryObj: MealEntrys
     //keep as stateOBJ, if observed object - causes weird issue with loading recipes
     @StateObject var rm = RecipeLogic()
+    @State var MealObject = Meal()
+    @State var mealTimingToggle = false
+    @State var sheetMode: SheetMode = .none
     @State var recipeViewToggle = false
+    
+    @State var isViewSearching = true
+    @State var userSearch = false
+    
     @State var triggerRecipeController = false // << show recipe controller toggle
     @EnvironmentObject var emaGlobal: EditModeActive
     init(){
@@ -22,7 +29,6 @@ struct RecipeListView: View {
     @ViewBuilder
     
     var body: some View {
-       
         if rm.recipes.count != 0 {
                    VStack{
                        List{
@@ -37,18 +43,35 @@ struct RecipeListView: View {
                                         .cornerRadius(15)
                                 VStack{
                                     ZStack{
-                                        Text(recipe.recipeTitle)
-                                            .font(.body)
-                                        //temp solution until I can center it
-                                            .padding(.top, 1)
+                                        HStack{
+                                            Text(recipe.recipeTitle)
+                                                .font(.body)
+                                            //temp solution until I can center it
+                                                .padding(.top, 1)
+                                            
+                                            Button(action: {
+                                                MealObject = Meal(id: UUID(), brand: "Custom Recipe", mealName: recipe.recipeTitle,calories: recipe.recipeCaloriesMacro ,quantity: 1, amount: "Default", protein: recipe.recipeProteinMacro, carbs: recipe.recipeCarbMacro, fat: recipe.recipeFatMacro, servingSize: 0.00, servingSizeUnit: "g")
+                                                mealTimingToggle.toggle()
+                                            })
+                                            {
+                                                Image(systemName: "line.3.horizontal")
+                                                    .frame(width:10, height: 10)
+                                                    .padding(.leading, 45)
+                                            }
+                                                .buttonStyle(BorderlessButtonStyle())
+                                         
+                                        }
+                                        
                                         //as a note, sets empty view to hide list arrow
-                                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
+                                        NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro:  recipe.recipeCaloriesMacro , recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
                                             emptyview()
                                             })
                                             .opacity(0.0)
                                             .buttonStyle(PlainButtonStyle())
                                         
                                         HStack{
+                                            Text(String(recipe.recipeCaloriesMacro) + "g")
+                                                .foregroundColor(.gray)
                                             Text(String(recipe.recipeFatMacro) + "g")
                                                 .foregroundColor(.gray)
                                             Text(String(recipe.recipeCarbMacro) + "g")
@@ -61,7 +84,7 @@ struct RecipeListView: View {
                                         .frame(height:90)
                                     }
                                     .padding(.top, -20)
-                
+                                 
                                     }
                                 .padding(EdgeInsets(top: -5, leading: -25, bottom: 0, trailing: 0))
                                 }
@@ -81,14 +104,33 @@ struct RecipeListView: View {
                                    .frame(width:300)
                                    .padding(.top, 20)
                            }
+                        
                     }
+                           
                 }
-               
+                       .windowOverlay(isKeyAndVisible: self.$mealTimingToggle, {
+                           GeometryReader { geometry in {
+                               BottomSheetView(
+                                   isOpen: self.$mealTimingToggle,
+                                   maxHeight: geometry.size.height / 2.0
+                               ) {
+                                   
+                                   MealTimingSelectorView(meal: $MealObject, isViewSearching: .constant(true), userSearch: .constant(false), mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
+                                           .environmentObject(mealEntryObj)
+                                      
+                               }
+                               
+                           }().edgesIgnoringSafeArea(.all)
+                                  
+                           }
+                           
+                       })
             }
             .onAppear{
                 emaGlobal.editMode = false
             }//<<end of VStack
-           
+            //using windowOverlay from swiftUIX to hide TabBar
+          
     
         }
         else{

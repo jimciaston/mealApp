@@ -16,3 +16,12 @@ public func pickerGramCounter() -> [Int]{
     }
     return gramStorage
 }
+public func calorieCounter() -> [Int]{
+    let x = (1...1000)
+    var calStorage = [0]
+    for num in x {
+        
+        calStorage.append(num)
+    }
+    return calStorage
+}

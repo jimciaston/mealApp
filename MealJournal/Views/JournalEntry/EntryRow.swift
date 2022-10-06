@@ -14,8 +14,8 @@ struct EntryRow: View {
     var meal: Meal
    
     var body: some View {
-        let mealCalories = meal.calories
-        let mealCaloriesString = String(mealCalories ?? "Default Value")
+        let mealCalories = meal.calories ?? 0
+        let mealCaloriesString = String(mealCalories)
         
         HStack{
                 VStack(alignment: .leading){

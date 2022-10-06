@@ -25,7 +25,7 @@ struct FoodSearchResultsView: View {
     
     @State var listCounter = 0 //keeps track of list on appear
     @State var resultsDisplayed = 5 //bursts of results added to the screen
-    @Environment(\.dismiss) var dismiss
+    
     @State var mealSelected = false
     @State var addCustomFoodToggle = false
     
@@ -39,23 +39,25 @@ struct FoodSearchResultsView: View {
             VStack{
                 HStack{
                     Button(foodApi.isFoodSearchLoading ? "Searching..." : "Results"){
+                        foodApi.customFoodSearch = false // << not custom searching
                         isResultsShowing = true
                         isCustomItemsShowing = false
                     }
                     .foregroundColor(.black)
                     .padding(10)
-                    .background(!isResultsShowing ? Color.gray : Color.almostClear)
+                    .background(isResultsShowing ? Color.gray : Color.almostClear)
                         .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
                     
                     
                     //Text(foodApi.isFoodSearchLoading ? "Searching..." : "Results")
                     Button("Custom Items"){
+                        foodApi.customFoodSearch = true // << custom searching
                         isResultsShowing = false
                         isCustomItemsShowing = true
                     }
                     .foregroundColor(.black)
                     .padding(10)
-                    .background( isResultsShowing ? Color.gray : Color.almostClear)
+                    .background( !isResultsShowing ? Color.gray : Color.almostClear)
                         .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
                 }
                 //if api loading
@@ -95,7 +97,7 @@ struct FoodSearchResultsView: View {
                                                 Text(meal.brand ?? "Generic")
                                                     .font(.caption)
                                                 
-                                                Text(", " + meal.calories! + " cals")
+                                                Text(", " + String(meal.calories ?? 0) + " cals")
                                                     .font(.caption)
                                                     .padding(.leading, -10) // << moves closer to meal name
                                                 }
@@ -139,7 +141,7 @@ struct FoodSearchResultsView: View {
                                         meal:.constant(meal),
                                         mealName: meal.mealName ?? "Default",
                                         mealBrand: meal.brand ?? "Generic",
-                                        mealCalories: meal.calories ?? "Default",
+                                        mealCalories: meal.calories ?? 0,
                                         mealCarbs: meal.carbs ?? 0,
                                         mealProtein: meal.protein ?? 0,
                                         mealFat: meal.fat ?? 0,
@@ -212,7 +214,7 @@ struct FoodSearchResultsView: View {
                         
                     }
                     else{
-                        Text("View B")
+                        CustomItemsList(isViewSearching: $isViewSearching, userSearch: $userSearch)
                     }
                 }
                 
@@ -229,8 +231,6 @@ struct FoodSearchResultsView: View {
                     }
                    
                 }().edgesIgnoringSafeArea(.all)
-                      
-                       
                        
                 }
             })

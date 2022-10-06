@@ -12,6 +12,7 @@ import FirebaseFirestore
 class RecipeLogic: ObservableObject {
     @Published var recipes = [RecipeItem]()
     @Environment (\.dismiss) var dismiss
+    
     init(){
      grabRecipes()
     }
@@ -130,10 +131,11 @@ class RecipeLogic: ObservableObject {
                     let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
                     let directions = data ["directions"] as? [String] ?? [""]
                     let recipeID = data ["recipeID"] as? String ?? ""
+                    let recipeCaloriesMacro = data ["recipeCaloriesMacro"] as? Int ?? 0
                     let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
                     let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
                     let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
                     
                     return recipe
                     
@@ -142,7 +144,7 @@ class RecipeLogic: ObservableObject {
         }
     
     //save recipeTitle, Cook Time and recipe macros
-    func saveDashHeaders(recipeTitle: String, recipePrepTime: String, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, currentRecipe: String){
+    func saveDashHeaders(recipeTitle: String, recipePrepTime: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, currentRecipe: String){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
@@ -164,6 +166,7 @@ class RecipeLogic: ObservableObject {
                                 .updateData([
                                     "recipeTitle" : recipeTitle,
                                     "recipePrepTime": recipePrepTime,
+                                    "recipeCaloriesMacro": recipeCaloriesMacro,
                                     "recipeFatMacro" : recipeFatMacro,
                                     "recipeCarbMacro": recipeCarbMacro,
                                     "recipeProteinMacro": recipeProteinMacro ]

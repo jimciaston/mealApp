@@ -60,10 +60,11 @@ struct FollowingUsersView: View {
                                         let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
                                         let directions = data ["directions"] as? [String] ?? [""]
                                         let recipeID = data ["recipeID"] as? String ?? ""
+                                        let recipeCaloriesMacro = data ["recipeCaloriesMacro"] as? Int ?? 0
                                         let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
                                         let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
                                         let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                                        let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                                        let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
                                         
                                    //first check if recipe ID exists by filtering by the id
                                         let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
