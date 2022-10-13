@@ -15,6 +15,7 @@ struct userLogin: View {
     @State var success = false //binded with loginUser function
     @State var userAttemptedToLogin = false
     
+    @StateObject var vm = DashboardLogic()
     @ObservedObject var userInformation = FormViewModel()
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @ObservedObject var signUpController: SignUpController
@@ -119,8 +120,10 @@ struct userLogin: View {
                    
                 }){
                     
-                    NavigationLink("", destination: UserDashboardView(signUpController: signUpController)
+                    NavigationLink("", destination: UserDashboardView(vm: vm, signUpController: signUpController)
+                                    
                                    , isActive: $signUpController.userIsLoggedIn)
+                    
                    
                     Text("Login")
                         .font(.title2)

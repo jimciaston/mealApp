@@ -9,13 +9,17 @@ import SwiftUI
 
 struct RecipeFullListView: View {
     @State var recipes: [RecipeItem]
+    @State var showAddButton: Bool // << keep false to not allow users to add recipe to meal journal if not on their profile
+    
     @ObservedObject var rm = RecipeLogic()
     @State private var isActive = false
     @State private var active: Int? = nil
     
     
-    init(recipes: [RecipeItem ]){
+    init(recipes: [RecipeItem ], showAddButton: Bool){
         self.recipes = recipes
+        self.showAddButton = showAddButton
+        
         UITableView.appearance().backgroundColor = .clear
     }
     
@@ -24,7 +28,7 @@ struct RecipeFullListView: View {
             VStack{
                 Text("Recipes").bold()
                     .padding(.bottom, 20)
-                FullListOfRecipes(allRecipes: recipes)
+                FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes)
                 
             }
 

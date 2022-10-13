@@ -7,14 +7,19 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
-class DashboardLogic: ObservableObject, Identifiable {
+class DashboardLogic: ObservableObject {
     @Published var userModel: UserModel?
     @Published var privateUserModel: privateUserModel?
     @Published var isUserDataLoading = true
     @Published var allUsers = [UserModel]() //<< all users appended
-    //grab users
+    
+    var anyCancellable: AnyCancellable? = nil // << detects if userModel changed
+    
     init(){
+      
+           
         self.fetchCurrentUser()
         self.grabAllUsers()
     }
@@ -39,6 +44,7 @@ class DashboardLogic: ObservableObject, Identifiable {
      
     
     func fetchCurrentUser () {
+        
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }
@@ -60,9 +66,14 @@ class DashboardLogic: ObservableObject, Identifiable {
                 print ("no data found for user")
                 return
             }
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [self] in
                     self.userModel = .init(data: data)
                     self.isUserDataLoading = false
+                    
+                    self.anyCancellable = userModel?.objectWillChange.sink { [weak self] _ in
+                       self?.objectWillChange.send()
+                   }
+                    
                 }
                 
         }

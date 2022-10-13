@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 struct UserDashboardView: View {
-    
+    @ObservedObject var vm: DashboardLogic
     @EnvironmentObject var mealEntrys: MealEntrys
     @ObservedObject var signUpController: SignUpController
    
@@ -22,7 +22,7 @@ struct UserDashboardView: View {
    
     var body: some View {
             TabView{
-                UserDashController(signUpController: signUpController)
+                UserDashController(vm: vm, signUpController: signUpController)
                         .tabItem{
                             VStack{
                                 Image(systemName: "house.circle")

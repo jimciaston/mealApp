@@ -8,31 +8,36 @@
 import SwiftUI
 
 struct LandingPage: View {
-    @Environment (\.dismiss) var dismiss
-    @StateObject var signUpController = SignUpController()
     @AppStorage("signedIn") var signedIn = false
+    @Environment (\.dismiss) var dismiss
     
+    @StateObject var signUpController = SignUpController()
+    @StateObject var vm = DashboardLogic()
+    
+    @State private var animateGradient = false
     @State private var test = false
     
     @ViewBuilder
     var body: some View {
         if(signedIn){
-            UserDashboardView(signUpController: signUpController)
+            UserDashboardView(vm: vm, signUpController: signUpController)
         }
         else{
             NavigationView{
                 VStack{
-                    VStack{
-                        Image("bodybuilding-1")
+                        Image("bodybuilding-1") // << main image
                             .resizable()
-                            .renderingMode(.template)
-                            .foregroundColor(.orange)
-                            .frame(width:100, height:100)
+                            .scaledToFit()
+                            //.frame(width:150, height:150)
+                            //.renderingMode(.template)
+                            .foregroundColor(.black)
+                            .padding(.top, 200)
+                    
                         Text("Welcome to Meal Journal")
                             .font(.title)
                             .padding()
-                    }
-                    .offset(y:-25)
+                    
+                    .offset(y:-25) // << adjusts title
                     
                     VStack{
                         NavigationLink(destination:createUserAccount() .navigationBarHidden(true),
@@ -41,6 +46,7 @@ struct LandingPage: View {
                                 .frame(minWidth: 0, maxWidth: 200)
                                 .padding(10)
                                 .foregroundColor(.white)
+                            //draw rectange around buttons
                                 .background(
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(
@@ -49,8 +55,7 @@ struct LandingPage: View {
                                                 startPoint: .topLeading,
                                                 endPoint: .bottomTrailing
                                             )))
-
-                        })
+                                        })
                         
                         NavigationLink(destination: userLogin(signUpController: signUpController).navigationBarHidden(true), label: {
                             Text("Login").fontWeight(.semibold)
@@ -63,9 +68,21 @@ struct LandingPage: View {
                         })
                             .padding()
                     }
-                   
+                    Rectangle()
+                        .frame(height: 0)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea()
                 }
-            
+                //.background(Color.purple)
+                .background(RadialGradient(colors: [.purple, .yellow], center: .center, startRadius: animateGradient ? 400 : 200, endRadius: animateGradient ? 20 : 40))
+                .onAppear {
+                        withAnimation(.linear(duration: 2.0).repeatForever(autoreverses: true)) {
+                            animateGradient.toggle()
+                        }
+                }
+                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                 .ignoresSafeArea()
+                
             }
             
         }

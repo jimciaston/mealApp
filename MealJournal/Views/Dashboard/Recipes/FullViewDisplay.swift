@@ -9,9 +9,13 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FullListOfRecipes: View {
+    @EnvironmentObject var mealEntryObj: MealEntrys
+    @Binding var showAddButton:Bool
     @State var showRecipeModal = false
     var allRecipes: [RecipeItem]
     @State var selectedRecipe: RecipeItem?
+    @State var MealObject = Meal()
+    @State var mealTimingToggle = false
     
     @State private var totalHeight
         //   = CGFloat.zero       // << variant for ScrollView/List
@@ -52,6 +56,7 @@ struct FullListOfRecipes: View {
                         })
                         .alignmentGuide(.top, computeValue: { d in
                             let result = height
+                            
                             if recipe == allRecipes.last! {
                                 height = 0 // last item
                             }
@@ -78,10 +83,22 @@ struct FullListOfRecipes: View {
                     Text(title).bold()
                         .padding(.leading, 20)
                     Spacer()
+                    
+                    if showAddButton{ // << if user is on THEIR profile page
+                        Button(action: {
+                            MealObject = Meal(id: UUID(), brand: "Custom Recipe", mealName: title, calories: recipeCaloriesMacro ,quantity: 1, amount: "Default", protein: recipeProteinMacro, carbs: recipeCarbMacro, fat: recipeFatMacro, servingSize: 0.00, servingSizeUnit: "g")
+                            mealTimingToggle.toggle()
+                        }){
+                            Image(systemName: "plus.app")
+                                .frame(width:25, height: 25)
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                    }
+                  
                 }
             }
                 .frame(width:150)
-                .padding(.bottom, 2)
+                .padding(.bottom,  2)
                 //macros
                 HStack{
                     Text(String(recipeCaloriesMacro) + " Calories")
@@ -96,7 +113,23 @@ struct FullListOfRecipes: View {
                     RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
                 }
             }
-       
+        .windowOverlay(isKeyAndVisible: self.$mealTimingToggle, {
+            GeometryReader { geometry in {
+                BottomSheetView(
+                    isOpen: self.$mealTimingToggle,
+                    maxHeight: geometry.size.height / 2.0
+                ) {
+                    
+                    MealTimingSelectorView(meal: $MealObject, isViewSearching: .constant(true), userSearch: .constant(false), mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
+                            .environmentObject(mealEntryObj)
+                       
+                }
+                
+            }().edgesIgnoringSafeArea(.all)
+                   
+            }
+            
+        })
         
         .padding(.leading, 30) // << center on screen
         
@@ -114,29 +147,29 @@ struct FullListOfRecipes: View {
     }
 }
 
-struct TestTagCloudView : View {
-    var recipes: [RecipeItem]
-    
-    var body: some View {
-        
-        let recipeList = Array(recipes)
-        VStack {
-           // Text("All Recipes").font(.largeTitle)
-            
-            ForEach (recipeList, id: \.self){ recipe in
-                FullListOfRecipes(allRecipes: recipeList)
-            }
-           
-        }
-    }
-}
+//struct TestTagCloudView : View {
+//    var recipes: [RecipeItem]
+//
+//    var body: some View {
+//
+//        let recipeList = Array(recipes)
+//        VStack {
+//           // Text("All Recipes").font(.largeTitle)
+//
+//            ForEach (recipeList, id: \.self){ recipe in
+//                FullListOfRecipes(showAddButton: true, allRecipes: recipeList)
+//            }
+//
+//        }
+//    }
+//}
 
-struct TestRowOne_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        FullListOfRecipes(allRecipes: [RecipeItem(id: "Test", recipeTitle: "Balls", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 3, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Two", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 0, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Three", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 0, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
-                                       RecipeItem(id: "Last", recipeTitle: "Four", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 0, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
-                                 
-                                 ])
-    }
-}
+//struct TestRowOne_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        FullListOfRecipes(showAddButton: Binding.constant(true), allRecipes: [RecipeItem(id: "Test", recipeTitle: "Balls", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 3, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Two", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 0, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),RecipeItem(id: "test", recipeTitle: "Three", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 0, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
+//                                                                              RecipeItem(id: "Last", recipeTitle: "Four", recipePrepTime: "test", recipeImage: "defaultRecipeImage", createdAt: "test", recipeCaloriesMacro: 0, recipeFatMacro: 3, recipeCarbMacro: 3, recipeProteinMacro: 3, directions: ["test"], ingredientItem: ["test":"test"]),
+//
+//                                                                             ])
+//    }
+//}

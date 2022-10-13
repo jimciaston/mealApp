@@ -76,6 +76,14 @@ struct createUserAccount: View {
                            
                         }
                                 Button("Continue"){
+//                                    let newUser = User(context: moc)
+//                                    newUser.id = UUID()
+//                                    newUser.firstName = userInformation.firstname
+//                                    newUser.lastName = userInformation.lastname
+//                                    newUser.email = userInformation.email
+//                                    newUser.password = userInformation.password
+                                    
+                                    //authenticate user email
                                     Auth.auth().createUser(withEmail: userInformation.email, password: userInformation.password ) { user, error in
                                        if let x = error {
                                           let err = x as NSError

@@ -22,15 +22,18 @@ struct MealJournalApp: App {
    
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     init(){
         FirebaseApp.configure()
     }
+    @StateObject var vm = DashboardLogic()
     @StateObject var mealEntrys = MealEntrys()
     @StateObject private var dataController = DataController()
     var body: some Scene {
         //load and ready coredata
         WindowGroup{
             ContentView()
+                .environmentObject(vm)
                 .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, DataController.container.viewContext)
         }

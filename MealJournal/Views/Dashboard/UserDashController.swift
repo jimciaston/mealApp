@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 
 struct UserDashController: View {
-    @ObservedObject var vm = DashboardLogic()
+    @ObservedObject var vm: DashboardLogic
     @ObservedObject var rm = RecipeLogic()
     @ObservedObject var signUpController: SignUpController
     
@@ -21,6 +21,8 @@ struct UserDashController: View {
     @State var followingCount = 0
     @State var followersCount = 0
     
+    
+   
     func fetchFollowingCount(){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             print("no current User")
@@ -39,9 +41,9 @@ struct UserDashController: View {
                
             }
     }
-    
-    
+  
     var body: some View {
+        
         if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
                 VStack{
@@ -59,8 +61,12 @@ struct UserDashController: View {
                     
                     HStack{
                         Text(vm.userModel?.name ?? "" )
+                            
+                            .font(.title3)
                     }
-                        .padding()
+                   
+                    ProfileBio(userBio: .constant(vm.userModel?.userBio ?? ""))
+                        .padding(.top, -25)
                     
                     HStack{
                         HStack{
@@ -87,8 +93,10 @@ struct UserDashController: View {
             
                     RecipeListView()
                 }
+                
                 .onAppear{
                     fetchFollowingCount()
+                    
                 }
                 
                 .toolbar{
@@ -127,8 +135,9 @@ struct UserDashController: View {
                 .padding(.top, -70)
             
             }
+           
             .fullScreenCover(isPresented: $presentSettingsPage){
-                SettingsView()
+                PersonalSettingsView(vm: vm)
             }
             
             .fullScreenCover(isPresented: $presentAddRecipePage){
@@ -145,10 +154,10 @@ struct UserDashController: View {
     } 
 }
     
-
-struct UserDashController_Previews: PreviewProvider {
-    static var previews: some View {
-        UserDashController(signUpController: SignUpController())
-    }
-}
+//
+//struct UserDashController_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserDashController(signUpController: SignUpController())
+//    }
+//}
 

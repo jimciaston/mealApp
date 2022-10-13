@@ -11,6 +11,7 @@ import Firebase
 struct FitnessForm: View {
     
     @StateObject var signUpController = SignUpController()
+    @StateObject var vm = DashboardLogic()
    
     @State private var userSignedIn = false
     @Environment(\.managedObjectContext) var moc
@@ -127,7 +128,7 @@ struct FitnessForm: View {
                     .offset(y:CGFloat(isPickerVisible()))
             }
             .fullScreenCover(isPresented: $userSignedIn){
-               UserDashboardView(signUpController: signUpController)
+                UserDashboardView(vm: vm, signUpController: signUpController)
             }
         }
     

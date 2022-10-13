@@ -8,7 +8,7 @@
 import SwiftUI
 
 class MealEntrys: ObservableObject{
-    static let shared = MealEntrys()
+  //  static let shared = MealEntrys() //<< delete if app still works
     @Published var mealEntrysBreakfast: [Meal] = []
     @Published var mealEntrysLunch: [Meal] = []
     @Published var mealEntrysDinner: [Meal] = []

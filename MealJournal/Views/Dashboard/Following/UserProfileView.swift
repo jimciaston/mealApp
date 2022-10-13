@@ -36,11 +36,11 @@ struct UserProfileView: View {
                     let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
                     let directions = data ["directions"] as? [String] ?? [""]
                     let recipeID = data ["recipeID"] as? String ?? ""
-                    let recipeCalories = data ["recipeCaloriesMacro"] as? Int ?? 0
+                    let recipeCaloriesMacro = data ["recipeCaloriesMacro"] as? Int ?? 0
                     let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
                     let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
                     let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: 0, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
                     
                //first check if recipe ID exists by filtering by the id
                     let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
@@ -171,6 +171,7 @@ struct UserProfileView: View {
                            ForEach(fetchedUserRecipes.prefix(3)){ recipe in
                                    HStack{
                                        WebImage(url: URL(string: recipe.recipeImage))
+                                           .placeholder(Image("defaultRecipeImage-2").resizable())
                                           .aspectRatio(contentMode: .fill)
                                         .frame (width: 70, height:70)
                                         .cornerRadius(15)
@@ -188,6 +189,8 @@ struct UserProfileView: View {
                                             .buttonStyle(PlainButtonStyle())
 
                                         HStack{
+                                            Text(String(recipe.recipeCaloriesMacro) + " Cals")
+                                                .foregroundColor(.gray)
                                             Text(String(recipe.recipeFatMacro) + "g")
                                                 .foregroundColor(.gray)
                                             Text(String(recipe.recipeCarbMacro) + "g")
@@ -207,7 +210,7 @@ struct UserProfileView: View {
                             }
 
                     ZStack{
-                        NavigationLink(destination:RecipeFullListView(recipes: fetchedUserRecipes)) {
+                        NavigationLink(destination:RecipeFullListView(recipes: fetchedUserRecipes, showAddButton: false)) {
                                emptyview()
                            }
 

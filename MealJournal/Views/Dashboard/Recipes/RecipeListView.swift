@@ -22,13 +22,14 @@ struct RecipeListView: View {
     
     @State var triggerRecipeController = false // << show recipe controller toggle
     @EnvironmentObject var emaGlobal: EditModeActive
+   
     init(){
         UITableView.appearance().backgroundColor = .clear
     }
     
     @ViewBuilder
-    
     var body: some View {
+        
         if rm.recipes.count != 0 {
                    VStack{
                        List{
@@ -91,7 +92,7 @@ struct RecipeListView: View {
                             }
                     
                     ZStack{
-                        NavigationLink(destination:RecipeFullListView(recipes: rm.recipes)) {
+                        NavigationLink(destination:RecipeFullListView(recipes: rm.recipes, showAddButton: true)) {
                                emptyview()
                            }
                        
@@ -119,12 +120,13 @@ struct RecipeListView: View {
                                            .environmentObject(mealEntryObj)
                                       
                                }
-                               
+                              
                            }().edgesIgnoringSafeArea(.all)
                                   
                            }
                            
                        })
+                       
             }
             .onAppear{
                 emaGlobal.editMode = false
