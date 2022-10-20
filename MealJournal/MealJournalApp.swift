@@ -32,7 +32,7 @@ struct MealJournalApp: App {
     var body: some Scene {
         //load and ready coredata
         WindowGroup{
-            ContentView()
+             ContentView()
                 .environmentObject(vm)
                 .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, DataController.container.viewContext)

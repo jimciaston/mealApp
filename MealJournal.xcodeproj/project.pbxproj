@@ -104,6 +104,7 @@
 		0AB1126928EF784D0071B3ED /* UserProfileFullRecipeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB1126828EF784C0071B3ED /* UserProfileFullRecipeList.swift */; };
 		0AB1126B28F0A96C0071B3ED /* ProfileBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB1126A28F0A96C0071B3ED /* ProfileBio.swift */; };
 		0AB1126D28F0B6950071B3ED /* UpdatePersonalSettingsHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB1126C28F0B6950071B3ED /* UpdatePersonalSettingsHStack.swift */; };
+		0AB112B029009F290071B3ED /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AB112AF29009F290071B3ED /* PlayfairDisplay-Regular.ttf */; };
 		0AC04221282C38AC00009684 /* FoodItemInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC04220282C38AC00009684 /* FoodItemInputs.swift */; };
 		0AC1B77427D298720070895D /* GetWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1B77327D298720070895D /* GetWeight.swift */; };
 		0AC1B7B527D7F2EB0070895D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1B7B427D7F2EB0070895D /* DataController.swift */; };
@@ -233,6 +234,8 @@
 		0AB1126828EF784C0071B3ED /* UserProfileFullRecipeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileFullRecipeList.swift; sourceTree = "<group>"; };
 		0AB1126A28F0A96C0071B3ED /* ProfileBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBio.swift; sourceTree = "<group>"; };
 		0AB1126C28F0B6950071B3ED /* UpdatePersonalSettingsHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalSettingsHStack.swift; sourceTree = "<group>"; };
+		0AB112AF29009F290071B3ED /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		0AB112B129017C5A0071B3ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0AC04220282C38AC00009684 /* FoodItemInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemInputs.swift; sourceTree = "<group>"; };
 		0AC1B77327D298720070895D /* GetWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeight.swift; sourceTree = "<group>"; };
 		0AC1B7B427D7F2EB0070895D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -456,6 +459,8 @@
 		0A8F98DF27AB09AE008F5584 /* MealJournal */ = {
 			isa = PBXGroup;
 			children = (
+				0AB112B129017C5A0071B3ED /* Info.plist */,
+				0A8F98E027AB09AE008F5584 /* MealJournalApp.swift */,
 				0A3FF73527F2313B00789FD0 /* Network */,
 				0A8F990C27AB0C65008F5584 /* Views */,
 				0A8D957427B6E41400193B84 /* Utilities */,
@@ -498,7 +503,7 @@
 				0A8D957727B7199F00193B84 /* Dashboard */,
 				0AE0DB8C27BC1A81006F1835 /* JournalEntry */,
 				0A70A8BE27FA8B8B00318780 /* FoodItemMain */,
-				0A8F98E027AB09AE008F5584 /* MealJournalApp.swift */,
+				0AB112AD29009ECD0071B3ED /* CustomFonts */,
 				0A07D96128492DA80080A4ED /* Settings */,
 			);
 			path = Views;
@@ -516,6 +521,22 @@
 				0A9F495C28653382002F227E /* RecipeModelTwo.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0AB112AD29009ECD0071B3ED /* CustomFonts */ = {
+			isa = PBXGroup;
+			children = (
+				0AB112AE29009F040071B3ED /* Fonts */,
+			);
+			path = CustomFonts;
+			sourceTree = "<group>";
+		};
+		0AB112AE29009F040071B3ED /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0AB112AF29009F290071B3ED /* PlayfairDisplay-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		0AE0DB8C27BC1A81006F1835 /* JournalEntry */ = {
@@ -686,6 +707,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB112B029009F290071B3ED /* PlayfairDisplay-Regular.ttf in Resources */,
 				0A8F98E827AB09AE008F5584 /* Preview Assets.xcassets in Resources */,
 				0A8F98E527AB09AE008F5584 /* Assets.xcassets in Resources */,
 				0A6A687A283C61700047CFB9 /* GoogleService-Info.plist in Resources */,
@@ -1078,6 +1100,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MealJournal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1107,6 +1130,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MealJournal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
