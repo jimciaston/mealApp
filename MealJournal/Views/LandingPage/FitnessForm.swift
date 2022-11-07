@@ -12,8 +12,8 @@ struct FitnessForm: View {
     
     @StateObject var signUpController = SignUpController()
     @StateObject var vm = DashboardLogic()
-   
-    @State private var userSignedIn = false
+    @AppStorage("signedIn") var signedIn = false
+ 
     @Environment(\.managedObjectContext) var moc
     
     //getting info from previous sign up view
@@ -101,35 +101,49 @@ struct FitnessForm: View {
                         .navigationBarTitle(Text("Fitness Stats"))
                         .frame(height:50)
                     }
-            Button(action: {
-                    if(Auth.auth().currentUser?.email != nil){
-                       //check if user is signed in
-                        userSignedIn = true
-                        print("user  signed in")
+            VStack{
+                Button(action: {
+                    signedIn = true
+                }){
+                    Text("Finish later").bold()
+                        .foregroundColor(.blue)
                         
-                        //save user to Firebase
-                        SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
-                       
-                    }
-                else{
-                    print("user is not signed in")
-                
+                        .padding()
+                        .background(.clear)
+                        .font(.title3)
+                        .background(.clear)
+                        .cornerRadius(5)
+                        .offset(y:CGFloat(isPickerVisible()))
                 }
-            })
-            {
-                Text("Complete")
-                    .frame(width: 200, height:50)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
-                    .font(.title3)
-                    .background(.clear)
-                    .cornerRadius(5)
-                    .offset(y:CGFloat(isPickerVisible()))
+                .padding(.bottom, 25)
+                Button(action: {
+                        if(Auth.auth().currentUser?.email != nil){
+                            vm.fetchCurrentUser() //fetches current user
+                            //save user to Firebase
+                            SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
+                            
+                                signedIn = true //updates app storage container
+                        }
+                    
+                })
+                {
+                    Text("Complete Profile")
+                        .padding([.leading, .trailing], 25)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(.pink)
+                        .font(.title3)
+                        .background(.clear)
+                        .cornerRadius(10)
+                        .offset(y:CGFloat(isPickerVisible()))
+                    
+                }
+                .fullScreenCover(isPresented: $signedIn){
+                    UserDashboardView(vm: vm, signUpController: signUpController)
+                }
             }
-            .fullScreenCover(isPresented: $userSignedIn){
-                UserDashboardView(vm: vm, signUpController: signUpController)
-            }
+            
+          
         }
     
     } .offset(y:20) //moves down form
@@ -141,10 +155,10 @@ struct FitnessForm: View {
 }
 
 
-//
-//struct FitnessForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FitnessForm(userFirstName: .constant("dummy string"))
-//    }
-//}
+
+struct FitnessForm_Previews: PreviewProvider {
+    static var previews: some View {
+        FitnessForm(name: .constant("Bill"), userEmailAddress: .constant("1@aol.com"), userLoginPassword: .constant("Jm"))
+    }
+}
 

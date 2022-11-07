@@ -96,7 +96,7 @@ class SignUpController: ObservableObject  {
                 }
             }
         
-        //save to private
+        //save to private storage in firestore
         FirebaseManager.shared.firestore.collection("users")
             .document(uid).collection("privateUserInfo").document("private").setData(privateUserData)
         

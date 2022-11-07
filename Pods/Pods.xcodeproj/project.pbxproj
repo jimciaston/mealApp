@@ -1,0 +1,1040 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01E6FF9EF68F8F4DF9893A66DFD0FF00 /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 302F670F89C031BB0A64ABC7F107BF4D /* ActionSheetCustomPicker.m */; };
+		01ED7401731A6D64E2EBDB0C9BA10D78 /* ActionSheetMultipleStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C67FB1DED7430A7E1999E90DB64983F /* ActionSheetMultipleStringPicker.m */; };
+		13CC98E28E42424EAAA062445953D89D /* Pods-MealJournalTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B41BE25CF987800E95DCD9643E06A /* Pods-MealJournalTests-dummy.m */; };
+		14F561BF016628D16C6D89E8CE83E4C8 /* ActionSheetPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = E7A82B93633D732052541E15E4EA2E02 /* ActionSheetPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21AD4838427126CEFD7F35F02A5E247E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		2380F86A4ED5E4E3212D05541813E71D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		24EE5FA59DE73CB9F2212C49000FB1FD /* Pods-MealJournal-MealJournalUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FF34EDD2A8D0F6A4361EEB1C943263 /* Pods-MealJournal-MealJournalUITests-dummy.m */; };
+		294871A7129CE743BB3A1A37A5909905 /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8208934135B133C25C64D9CB6FEAE045 /* ActionSheetDatePicker.m */; };
+		2A4972C7ADE3DFAAE219A09318FC3F14 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AED0518BD59EBBD3F2B4BDC956A9B26 /* ActionSheetStringPicker.m */; };
+		41D299C22C18A78D39EB788D3311974A /* ActionSheetDistancePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E594771F2083217DB656128ED49D94E /* ActionSheetDistancePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BB9C836A68DC72EAADB50AC55C99D42 /* ActionSheetCustomPickerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = B8EC8227AC5CBACE1F2B5F6287C6AA5C /* ActionSheetCustomPickerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51204A385DF5C502BAA27ECE86719C7D /* ActionSheetDatePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = F37D2234B5E4743E315B78B23BED4499 /* ActionSheetDatePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		522FB484F79064A183754528ED787059 /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A56791DFF28D80DBE225F7C5B0FE4B21 /* DistancePickerView.m */; };
+		58CF9A606A3CE3F0CC0CA8A42C4C77E6 /* ActionSheetStringPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = D80A0C02BCB1B1BBB57183816C72ACA8 /* ActionSheetStringPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59789CE08DF6F1682B65A0DB845F18BE /* ActionSheetPicker-3.0-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 38311DAA1140BED37E70C143497E9B0F /* ActionSheetPicker-3.0-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E2E7D406AE90AD8C485F9546A12B9E2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */; };
+		7360CEDAB021006D16225352EFE233C3 /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B7A435EC0BD5F47ABEAF0940BF83C9 /* AbstractActionSheetPicker.m */; };
+		801C634F0F633E92BDDD77AEDC52E5AA /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B38108A6CB9E8E54A43B3DBFA6735A /* ActionSheetDistancePicker.m */; };
+		8C0467D6F35F276E1A62D7C28BD95E46 /* DistancePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A068EA0AA4AA6F642BDF9306DB203F3B /* DistancePickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90B6F89879F8B4241403D3ED15BE2C46 /* SWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 87590E06077EFC972AB35896FD42E00C /* SWActionSheet.m */; };
+		98557AF1D001DA623CA464E2CD328334 /* Pods-MealJournal-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A695377EB46019456DDA3E466C907C84 /* Pods-MealJournal-dummy.m */; };
+		9B4BEF754C7006952A92D8231253F920 /* Pods-MealJournal-MealJournalUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E0B38C749A31E678594E6BE0A3FBB57 /* Pods-MealJournal-MealJournalUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A10C64E4402E96AA72E98D92FC06B334 /* ActionSheetLocalePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 57300D241C557D4D04502E10F72B28E1 /* ActionSheetLocalePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1626C63DC98ECE49ADCE50F5C7F74BF /* AbstractActionSheetPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = D004DAB5B77B9D4030D0BD7D04CF7B74 /* AbstractActionSheetPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A233FC9783903408A8F2A620895DB36D /* ActionSheetMultipleStringPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 9252A1BB4560CE3B8B36F889C8FD3AA9 /* ActionSheetMultipleStringPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0E42AF39E24A0E9478EEC0C6970FD18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		B1D990E978069F46B987CBA72440BD2A /* Pods-MealJournalTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 574AB6155A7BC38B1B657F768DA1E611 /* Pods-MealJournalTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD7FB260F9823A15C481A5B35C1636CC /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0B23B2D57B8B239D73CD199065CFC /* ActionSheetLocalePicker.m */; };
+		C31A1EC6B8C14C595A14E46A9C8A34DB /* ActionSheetPicker-3.0-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 649A48F494C9993AD9D4D758096F58B5 /* ActionSheetPicker-3.0-dummy.m */; };
+		C95D091FC52554ECE223F92C4A5BCBF6 /* SWActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = AB60FF1A3DF61EE9F9A233CDBD3F8770 /* SWActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5EEA46FA461EBE1BA796BBECDECCCC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		F9D115E044DBBB405370EE79F0310152 /* Pods-MealJournal-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB203790FAFD02A7D481ABE313CA3DB /* Pods-MealJournal-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC959A2B60814107144EA59FE92D3748 /* ActionSheetCustomPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBF121B1E572B878C843A5AAF178E75 /* ActionSheetCustomPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2BB349CBE2754CDBDDB47FC2BCEB5450 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61AEC9ACAB28E01F453D6CB1463158BF;
+			remoteInfo = "Pods-MealJournal";
+		};
+		37EC51CE8A536F65B37222C0DF6E0EAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A43B25DDF20FCB9228471F8F5135C866;
+			remoteInfo = "ActionSheetPicker-3.0";
+		};
+		6CA7A02760BE5EDD5A0FAD0FF4D55288 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A43B25DDF20FCB9228471F8F5135C866;
+			remoteInfo = "ActionSheetPicker-3.0";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		21BA85F4D23453F9FE7D949D63EB7F3B /* Pods_MealJournal_MealJournalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MealJournal_MealJournalUITests.framework; path = "Pods-MealJournal-MealJournalUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2544C8C95A186FE7462FB7E931229724 /* Pods_MealJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MealJournal.framework; path = "Pods-MealJournal.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		268B41BE25CF987800E95DCD9643E06A /* Pods-MealJournalTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MealJournalTests-dummy.m"; sourceTree = "<group>"; };
+		28D91FE7512DD123DFEC0DD732D39A06 /* Pods-MealJournalTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MealJournalTests-Info.plist"; sourceTree = "<group>"; };
+		302F670F89C031BB0A64ABC7F107BF4D /* ActionSheetCustomPicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ActionSheetCustomPicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetCustomPicker.m; sourceTree = "<group>"; };
+		37B7A435EC0BD5F47ABEAF0940BF83C9 /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractActionSheetPicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		38311DAA1140BED37E70C143497E9B0F /* ActionSheetPicker-3.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ActionSheetPicker-3.0-umbrella.h"; sourceTree = "<group>"; };
+		39DA375448B0D22AACB148AF9A9CD036 /* Pods-MealJournal-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MealJournal-frameworks.sh"; sourceTree = "<group>"; };
+		3AED0518BD59EBBD3F2B4BDC956A9B26 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ActionSheetStringPicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetStringPicker.m; sourceTree = "<group>"; };
+		3DC0B23B2D57B8B239D73CD199065CFC /* ActionSheetLocalePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ActionSheetLocalePicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetLocalePicker.m; sourceTree = "<group>"; };
+		4D1B7622C6934FEACF8BCFDAC95524A6 /* Pods-MealJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MealJournal.release.xcconfig"; sourceTree = "<group>"; };
+		4E0B38C749A31E678594E6BE0A3FBB57 /* Pods-MealJournal-MealJournalUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MealJournal-MealJournalUITests-umbrella.h"; sourceTree = "<group>"; };
+		4EB203790FAFD02A7D481ABE313CA3DB /* Pods-MealJournal-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MealJournal-umbrella.h"; sourceTree = "<group>"; };
+		4FA28612783E34DADEF4BC19933B126A /* Pods-MealJournal-MealJournalUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MealJournal-MealJournalUITests-Info.plist"; sourceTree = "<group>"; };
+		57300D241C557D4D04502E10F72B28E1 /* ActionSheetLocalePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetLocalePicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetLocalePicker.h; sourceTree = "<group>"; };
+		574AB6155A7BC38B1B657F768DA1E611 /* Pods-MealJournalTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MealJournalTests-umbrella.h"; sourceTree = "<group>"; };
+		5E594771F2083217DB656128ED49D94E /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetDistancePicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetDistancePicker.h; sourceTree = "<group>"; };
+		5EBF121B1E572B878C843A5AAF178E75 /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetCustomPicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetCustomPicker.h; sourceTree = "<group>"; };
+		649A48F494C9993AD9D4D758096F58B5 /* ActionSheetPicker-3.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ActionSheetPicker-3.0-dummy.m"; sourceTree = "<group>"; };
+		6763C67977DA6BC7512B1AE3B31747DD /* Pods-MealJournal-MealJournalUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MealJournal-MealJournalUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		67849169567DE03D097D3E903957B708 /* Pods-MealJournal-MealJournalUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MealJournal-MealJournalUITests.release.xcconfig"; sourceTree = "<group>"; };
+		7A771E9EFBE6105543C6B7A43A112760 /* Pods-MealJournalTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MealJournalTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		7C67FB1DED7430A7E1999E90DB64983F /* ActionSheetMultipleStringPicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ActionSheetMultipleStringPicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetMultipleStringPicker.m; sourceTree = "<group>"; };
+		8208934135B133C25C64D9CB6FEAE045 /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ActionSheetDatePicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		82B38108A6CB9E8E54A43B3DBFA6735A /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ActionSheetDistancePicker.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetDistancePicker.m; sourceTree = "<group>"; };
+		87590E06077EFC972AB35896FD42E00C /* SWActionSheet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWActionSheet.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/SWActionSheet.m; sourceTree = "<group>"; };
+		8D3383B7F9EFD9B6670EB67A6B4899E7 /* Pods-MealJournal-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MealJournal-acknowledgements.plist"; sourceTree = "<group>"; };
+		9252A1BB4560CE3B8B36F889C8FD3AA9 /* ActionSheetMultipleStringPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetMultipleStringPicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetMultipleStringPicker.h; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9E5E7CB5F029C41638918718A5B4B468 /* Pods-MealJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MealJournal.debug.xcconfig"; sourceTree = "<group>"; };
+		A068EA0AA4AA6F642BDF9306DB203F3B /* DistancePickerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DistancePickerView.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/DistancePickerView.h; sourceTree = "<group>"; };
+		A0B6053995C7F606D1A365C23DA1A7DF /* Pods-MealJournalTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MealJournalTests.modulemap"; sourceTree = "<group>"; };
+		A32461C630807DB5FAD8C657CC21CE89 /* Pods-MealJournal-MealJournalUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MealJournal-MealJournalUITests-frameworks.sh"; sourceTree = "<group>"; };
+		A36B66F143696E02146E1DD5FE5FBF66 /* ActionSheetPicker-3.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ActionSheetPicker-3.0.modulemap"; sourceTree = "<group>"; };
+		A56791DFF28D80DBE225F7C5B0FE4B21 /* DistancePickerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DistancePickerView.m; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/DistancePickerView.m; sourceTree = "<group>"; };
+		A695377EB46019456DDA3E466C907C84 /* Pods-MealJournal-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MealJournal-dummy.m"; sourceTree = "<group>"; };
+		AB60FF1A3DF61EE9F9A233CDBD3F8770 /* SWActionSheet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWActionSheet.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/SWActionSheet.h; sourceTree = "<group>"; };
+		B1FF34EDD2A8D0F6A4361EEB1C943263 /* Pods-MealJournal-MealJournalUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MealJournal-MealJournalUITests-dummy.m"; sourceTree = "<group>"; };
+		B8C925E1E96F17BE1CAEDA7DDC7981A3 /* ActionSheetPicker-3.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ActionSheetPicker-3.0-prefix.pch"; sourceTree = "<group>"; };
+		B8EC8227AC5CBACE1F2B5F6287C6AA5C /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetCustomPickerDelegate.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
+		B9A49207F237BB8595997B8A1CEF05FF /* Pods-MealJournal-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MealJournal-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BE8C728A7C9F7FAC5BA960BEB173A8D1 /* ActionSheetPicker-3.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ActionSheetPicker-3.0.xcconfig"; sourceTree = "<group>"; };
+		C0B69BE77AC9F21FB385D63852C91B6F /* Pods-MealJournal-MealJournalUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MealJournal-MealJournalUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C7D5FB64B06B8DCC799485F22AF0F8E7 /* Pods-MealJournalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MealJournalTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D004DAB5B77B9D4030D0BD7D04CF7B74 /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractActionSheetPicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		D076D118836889F94B3B66AB8ACDE31A /* Pods-MealJournalTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MealJournalTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D6E470A0C684D4FBC08BDF7A28A2A38B /* ActionSheetPicker_3_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ActionSheetPicker_3_0.framework; path = "ActionSheetPicker-3.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D80A0C02BCB1B1BBB57183816C72ACA8 /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetStringPicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetStringPicker.h; sourceTree = "<group>"; };
+		DAB954DFFF1CC61493D9954324D3D433 /* Pods-MealJournal-MealJournalUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MealJournal-MealJournalUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E0B219FDD83AD09D500574365640399A /* Pods-MealJournal-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MealJournal-Info.plist"; sourceTree = "<group>"; };
+		E40ABFEC37C7436107C20B73972D3EE7 /* Pods-MealJournal.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MealJournal.modulemap"; sourceTree = "<group>"; };
+		E7A82B93633D732052541E15E4EA2E02 /* ActionSheetPicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetPicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetPicker.h; sourceTree = "<group>"; };
+		EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		EC7B03A1D81082F20BB8F2446F614829 /* Pods_MealJournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MealJournalTests.framework; path = "Pods-MealJournalTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1F20E52CE9725F6B27FE1287B6C8744 /* Pods-MealJournal-MealJournalUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MealJournal-MealJournalUITests.modulemap"; sourceTree = "<group>"; };
+		F2C896131A1DBA97FB58908BB9378301 /* Pods-MealJournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MealJournalTests.release.xcconfig"; sourceTree = "<group>"; };
+		F37D2234B5E4743E315B78B23BED4499 /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetDatePicker.h; path = CoreActionSheetPicker/CoreActionSheetPicker/Pickers/ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		FB7653B29CE629BE614B2C607AC01CCE /* ActionSheetPicker-3.0-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ActionSheetPicker-3.0-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5CB46C5BAA16D47CA55D00459B31D084 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5EEA46FA461EBE1BA796BBECDECCCC2 /* Foundation.framework in Frameworks */,
+				5E2E7D406AE90AD8C485F9546A12B9E2 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE11CD27C6A1CAA747CE764D95711A11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21AD4838427126CEFD7F35F02A5E247E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4DFBD8103019BA9CD8A815B2018C422 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2380F86A4ED5E4E3212D05541813E71D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F49D02D981DA19DA3861A494B19E5975 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0E42AF39E24A0E9478EEC0C6970FD18 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1CA8C411CB95B4EBB601BFA5D028D717 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6E470A0C684D4FBC08BDF7A28A2A38B /* ActionSheetPicker_3_0.framework */,
+				2544C8C95A186FE7462FB7E931229724 /* Pods_MealJournal.framework */,
+				21BA85F4D23453F9FE7D949D63EB7F3B /* Pods_MealJournal_MealJournalUITests.framework */,
+				EC7B03A1D81082F20BB8F2446F614829 /* Pods_MealJournalTests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2D6F1F9EBA1C777D66C13784391BEC4B /* Pods-MealJournal-MealJournalUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F1F20E52CE9725F6B27FE1287B6C8744 /* Pods-MealJournal-MealJournalUITests.modulemap */,
+				DAB954DFFF1CC61493D9954324D3D433 /* Pods-MealJournal-MealJournalUITests-acknowledgements.markdown */,
+				6763C67977DA6BC7512B1AE3B31747DD /* Pods-MealJournal-MealJournalUITests-acknowledgements.plist */,
+				B1FF34EDD2A8D0F6A4361EEB1C943263 /* Pods-MealJournal-MealJournalUITests-dummy.m */,
+				A32461C630807DB5FAD8C657CC21CE89 /* Pods-MealJournal-MealJournalUITests-frameworks.sh */,
+				4FA28612783E34DADEF4BC19933B126A /* Pods-MealJournal-MealJournalUITests-Info.plist */,
+				4E0B38C749A31E678594E6BE0A3FBB57 /* Pods-MealJournal-MealJournalUITests-umbrella.h */,
+				C0B69BE77AC9F21FB385D63852C91B6F /* Pods-MealJournal-MealJournalUITests.debug.xcconfig */,
+				67849169567DE03D097D3E903957B708 /* Pods-MealJournal-MealJournalUITests.release.xcconfig */,
+			);
+			name = "Pods-MealJournal-MealJournalUITests";
+			path = "Target Support Files/Pods-MealJournal-MealJournalUITests";
+			sourceTree = "<group>";
+		};
+		59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */,
+				D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		677E4523AE48E9B45B548A8CA27D8455 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BBAB9389DFF7DA9A9411BE188DA3FF15 /* ActionSheetPicker-3.0 */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		88354B69ECCEED54E6D1F5A0EF6D2F2C /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C4720E79410125919D18BBDBED705F17 /* Pods-MealJournal */,
+				2D6F1F9EBA1C777D66C13784391BEC4B /* Pods-MealJournal-MealJournalUITests */,
+				CBB9D4F902B47163FF4F796CF1C750FD /* Pods-MealJournalTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9E92B4C85E9D264CD9C3DE77C64C1388 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A36B66F143696E02146E1DD5FE5FBF66 /* ActionSheetPicker-3.0.modulemap */,
+				BE8C728A7C9F7FAC5BA960BEB173A8D1 /* ActionSheetPicker-3.0.xcconfig */,
+				649A48F494C9993AD9D4D758096F58B5 /* ActionSheetPicker-3.0-dummy.m */,
+				FB7653B29CE629BE614B2C607AC01CCE /* ActionSheetPicker-3.0-Info.plist */,
+				B8C925E1E96F17BE1CAEDA7DDC7981A3 /* ActionSheetPicker-3.0-prefix.pch */,
+				38311DAA1140BED37E70C143497E9B0F /* ActionSheetPicker-3.0-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ActionSheetPicker-3.0";
+			sourceTree = "<group>";
+		};
+		BBAB9389DFF7DA9A9411BE188DA3FF15 /* ActionSheetPicker-3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				D004DAB5B77B9D4030D0BD7D04CF7B74 /* AbstractActionSheetPicker.h */,
+				37B7A435EC0BD5F47ABEAF0940BF83C9 /* AbstractActionSheetPicker.m */,
+				5EBF121B1E572B878C843A5AAF178E75 /* ActionSheetCustomPicker.h */,
+				302F670F89C031BB0A64ABC7F107BF4D /* ActionSheetCustomPicker.m */,
+				B8EC8227AC5CBACE1F2B5F6287C6AA5C /* ActionSheetCustomPickerDelegate.h */,
+				F37D2234B5E4743E315B78B23BED4499 /* ActionSheetDatePicker.h */,
+				8208934135B133C25C64D9CB6FEAE045 /* ActionSheetDatePicker.m */,
+				5E594771F2083217DB656128ED49D94E /* ActionSheetDistancePicker.h */,
+				82B38108A6CB9E8E54A43B3DBFA6735A /* ActionSheetDistancePicker.m */,
+				57300D241C557D4D04502E10F72B28E1 /* ActionSheetLocalePicker.h */,
+				3DC0B23B2D57B8B239D73CD199065CFC /* ActionSheetLocalePicker.m */,
+				9252A1BB4560CE3B8B36F889C8FD3AA9 /* ActionSheetMultipleStringPicker.h */,
+				7C67FB1DED7430A7E1999E90DB64983F /* ActionSheetMultipleStringPicker.m */,
+				E7A82B93633D732052541E15E4EA2E02 /* ActionSheetPicker.h */,
+				D80A0C02BCB1B1BBB57183816C72ACA8 /* ActionSheetStringPicker.h */,
+				3AED0518BD59EBBD3F2B4BDC956A9B26 /* ActionSheetStringPicker.m */,
+				A068EA0AA4AA6F642BDF9306DB203F3B /* DistancePickerView.h */,
+				A56791DFF28D80DBE225F7C5B0FE4B21 /* DistancePickerView.m */,
+				AB60FF1A3DF61EE9F9A233CDBD3F8770 /* SWActionSheet.h */,
+				87590E06077EFC972AB35896FD42E00C /* SWActionSheet.m */,
+				9E92B4C85E9D264CD9C3DE77C64C1388 /* Support Files */,
+			);
+			name = "ActionSheetPicker-3.0";
+			path = "ActionSheetPicker-3.0";
+			sourceTree = "<group>";
+		};
+		C4720E79410125919D18BBDBED705F17 /* Pods-MealJournal */ = {
+			isa = PBXGroup;
+			children = (
+				E40ABFEC37C7436107C20B73972D3EE7 /* Pods-MealJournal.modulemap */,
+				B9A49207F237BB8595997B8A1CEF05FF /* Pods-MealJournal-acknowledgements.markdown */,
+				8D3383B7F9EFD9B6670EB67A6B4899E7 /* Pods-MealJournal-acknowledgements.plist */,
+				A695377EB46019456DDA3E466C907C84 /* Pods-MealJournal-dummy.m */,
+				39DA375448B0D22AACB148AF9A9CD036 /* Pods-MealJournal-frameworks.sh */,
+				E0B219FDD83AD09D500574365640399A /* Pods-MealJournal-Info.plist */,
+				4EB203790FAFD02A7D481ABE313CA3DB /* Pods-MealJournal-umbrella.h */,
+				9E5E7CB5F029C41638918718A5B4B468 /* Pods-MealJournal.debug.xcconfig */,
+				4D1B7622C6934FEACF8BCFDAC95524A6 /* Pods-MealJournal.release.xcconfig */,
+			);
+			name = "Pods-MealJournal";
+			path = "Target Support Files/Pods-MealJournal";
+			sourceTree = "<group>";
+		};
+		CBB9D4F902B47163FF4F796CF1C750FD /* Pods-MealJournalTests */ = {
+			isa = PBXGroup;
+			children = (
+				A0B6053995C7F606D1A365C23DA1A7DF /* Pods-MealJournalTests.modulemap */,
+				D076D118836889F94B3B66AB8ACDE31A /* Pods-MealJournalTests-acknowledgements.markdown */,
+				7A771E9EFBE6105543C6B7A43A112760 /* Pods-MealJournalTests-acknowledgements.plist */,
+				268B41BE25CF987800E95DCD9643E06A /* Pods-MealJournalTests-dummy.m */,
+				28D91FE7512DD123DFEC0DD732D39A06 /* Pods-MealJournalTests-Info.plist */,
+				574AB6155A7BC38B1B657F768DA1E611 /* Pods-MealJournalTests-umbrella.h */,
+				C7D5FB64B06B8DCC799485F22AF0F8E7 /* Pods-MealJournalTests.debug.xcconfig */,
+				F2C896131A1DBA97FB58908BB9378301 /* Pods-MealJournalTests.release.xcconfig */,
+			);
+			name = "Pods-MealJournalTests";
+			path = "Target Support Files/Pods-MealJournalTests";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				677E4523AE48E9B45B548A8CA27D8455 /* Pods */,
+				1CA8C411CB95B4EBB601BFA5D028D717 /* Products */,
+				88354B69ECCEED54E6D1F5A0EF6D2F2C /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1A0170969BB54716A5B92FED97F1E672 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9D115E044DBBB405370EE79F0310152 /* Pods-MealJournal-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD4A433692BEE8D3DB8AB2D1A4F9EB9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1D990E978069F46B987CBA72440BD2A /* Pods-MealJournalTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50B048FAE374E4E2896DDE56D822B2D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B4BEF754C7006952A92D8231253F920 /* Pods-MealJournal-MealJournalUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F797236E9943400DC9B18DA5F8395299 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1626C63DC98ECE49ADCE50F5C7F74BF /* AbstractActionSheetPicker.h in Headers */,
+				FC959A2B60814107144EA59FE92D3748 /* ActionSheetCustomPicker.h in Headers */,
+				4BB9C836A68DC72EAADB50AC55C99D42 /* ActionSheetCustomPickerDelegate.h in Headers */,
+				51204A385DF5C502BAA27ECE86719C7D /* ActionSheetDatePicker.h in Headers */,
+				41D299C22C18A78D39EB788D3311974A /* ActionSheetDistancePicker.h in Headers */,
+				A10C64E4402E96AA72E98D92FC06B334 /* ActionSheetLocalePicker.h in Headers */,
+				A233FC9783903408A8F2A620895DB36D /* ActionSheetMultipleStringPicker.h in Headers */,
+				14F561BF016628D16C6D89E8CE83E4C8 /* ActionSheetPicker.h in Headers */,
+				59789CE08DF6F1682B65A0DB845F18BE /* ActionSheetPicker-3.0-umbrella.h in Headers */,
+				58CF9A606A3CE3F0CC0CA8A42C4C77E6 /* ActionSheetStringPicker.h in Headers */,
+				8C0467D6F35F276E1A62D7C28BD95E46 /* DistancePickerView.h in Headers */,
+				C95D091FC52554ECE223F92C4A5BCBF6 /* SWActionSheet.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		137A7363A0B7326BB6E7C01607462C5D /* Pods-MealJournalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7091BF72DB61C77F0A5A8D5A705D1FB /* Build configuration list for PBXNativeTarget "Pods-MealJournalTests" */;
+			buildPhases = (
+				7DD4A433692BEE8D3DB8AB2D1A4F9EB9 /* Headers */,
+				96ACFF3BED4E64242D5C209D41281E0B /* Sources */,
+				AE11CD27C6A1CAA747CE764D95711A11 /* Frameworks */,
+				900BDA8C4A5E5599D4A2F09533CCC4F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B3D8A7080A669C2EBE6275BB793DB31 /* PBXTargetDependency */,
+			);
+			name = "Pods-MealJournalTests";
+			productName = "Pods-MealJournalTests";
+			productReference = EC7B03A1D81082F20BB8F2446F614829 /* Pods_MealJournalTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		61AEC9ACAB28E01F453D6CB1463158BF /* Pods-MealJournal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98B1322FEC3192A7DF0F35166B925038 /* Build configuration list for PBXNativeTarget "Pods-MealJournal" */;
+			buildPhases = (
+				1A0170969BB54716A5B92FED97F1E672 /* Headers */,
+				CE12BD6B0FED1FB3A3F42F55E9F964AF /* Sources */,
+				F49D02D981DA19DA3861A494B19E5975 /* Frameworks */,
+				B58F207CA2D48EFE417B2D7FC6E78B42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E3475390BD7BB6AB75D87EDC37812A2C /* PBXTargetDependency */,
+			);
+			name = "Pods-MealJournal";
+			productName = "Pods-MealJournal";
+			productReference = 2544C8C95A186FE7462FB7E931229724 /* Pods_MealJournal.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7083FB1AC3B03260B30E071FF1B582C7 /* Pods-MealJournal-MealJournalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2949A832CE40A57C4F750C45DF09942 /* Build configuration list for PBXNativeTarget "Pods-MealJournal-MealJournalUITests" */;
+			buildPhases = (
+				B50B048FAE374E4E2896DDE56D822B2D /* Headers */,
+				BF240D419D7287FAA131FBF59AC3C885 /* Sources */,
+				E4DFBD8103019BA9CD8A815B2018C422 /* Frameworks */,
+				6348424DC64363328F469C90B7E0F045 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08CC72859C6C90CA696E5ABEFD9B56BC /* PBXTargetDependency */,
+			);
+			name = "Pods-MealJournal-MealJournalUITests";
+			productName = "Pods-MealJournal-MealJournalUITests";
+			productReference = 21BA85F4D23453F9FE7D949D63EB7F3B /* Pods_MealJournal_MealJournalUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A43B25DDF20FCB9228471F8F5135C866 /* ActionSheetPicker-3.0 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 543AFABDB667AF073C3569847B1008C0 /* Build configuration list for PBXNativeTarget "ActionSheetPicker-3.0" */;
+			buildPhases = (
+				F797236E9943400DC9B18DA5F8395299 /* Headers */,
+				77D271DFD4264F58AC8B3DA2985D4C12 /* Sources */,
+				5CB46C5BAA16D47CA55D00459B31D084 /* Frameworks */,
+				0B560EB734A24D3FFC20F9A9D2AC0465 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ActionSheetPicker-3.0";
+			productName = "ActionSheetPicker-3.0";
+			productReference = D6E470A0C684D4FBC08BDF7A28A2A38B /* ActionSheetPicker_3_0.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 1CA8C411CB95B4EBB601BFA5D028D717 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A43B25DDF20FCB9228471F8F5135C866 /* ActionSheetPicker-3.0 */,
+				61AEC9ACAB28E01F453D6CB1463158BF /* Pods-MealJournal */,
+				7083FB1AC3B03260B30E071FF1B582C7 /* Pods-MealJournal-MealJournalUITests */,
+				137A7363A0B7326BB6E7C01607462C5D /* Pods-MealJournalTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0B560EB734A24D3FFC20F9A9D2AC0465 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6348424DC64363328F469C90B7E0F045 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		900BDA8C4A5E5599D4A2F09533CCC4F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B58F207CA2D48EFE417B2D7FC6E78B42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77D271DFD4264F58AC8B3DA2985D4C12 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7360CEDAB021006D16225352EFE233C3 /* AbstractActionSheetPicker.m in Sources */,
+				01E6FF9EF68F8F4DF9893A66DFD0FF00 /* ActionSheetCustomPicker.m in Sources */,
+				294871A7129CE743BB3A1A37A5909905 /* ActionSheetDatePicker.m in Sources */,
+				801C634F0F633E92BDDD77AEDC52E5AA /* ActionSheetDistancePicker.m in Sources */,
+				BD7FB260F9823A15C481A5B35C1636CC /* ActionSheetLocalePicker.m in Sources */,
+				01ED7401731A6D64E2EBDB0C9BA10D78 /* ActionSheetMultipleStringPicker.m in Sources */,
+				C31A1EC6B8C14C595A14E46A9C8A34DB /* ActionSheetPicker-3.0-dummy.m in Sources */,
+				2A4972C7ADE3DFAAE219A09318FC3F14 /* ActionSheetStringPicker.m in Sources */,
+				522FB484F79064A183754528ED787059 /* DistancePickerView.m in Sources */,
+				90B6F89879F8B4241403D3ED15BE2C46 /* SWActionSheet.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ACFF3BED4E64242D5C209D41281E0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13CC98E28E42424EAAA062445953D89D /* Pods-MealJournalTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF240D419D7287FAA131FBF59AC3C885 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24EE5FA59DE73CB9F2212C49000FB1FD /* Pods-MealJournal-MealJournalUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE12BD6B0FED1FB3A3F42F55E9F964AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98557AF1D001DA623CA464E2CD328334 /* Pods-MealJournal-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		08CC72859C6C90CA696E5ABEFD9B56BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ActionSheetPicker-3.0";
+			target = A43B25DDF20FCB9228471F8F5135C866 /* ActionSheetPicker-3.0 */;
+			targetProxy = 6CA7A02760BE5EDD5A0FAD0FF4D55288 /* PBXContainerItemProxy */;
+		};
+		1B3D8A7080A669C2EBE6275BB793DB31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-MealJournal";
+			target = 61AEC9ACAB28E01F453D6CB1463158BF /* Pods-MealJournal */;
+			targetProxy = 2BB349CBE2754CDBDDB47FC2BCEB5450 /* PBXContainerItemProxy */;
+		};
+		E3475390BD7BB6AB75D87EDC37812A2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ActionSheetPicker-3.0";
+			target = A43B25DDF20FCB9228471F8F5135C866 /* ActionSheetPicker-3.0 */;
+			targetProxy = 37EC51CE8A536F65B37222C0DF6E0EAC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		018BB11C91B17D00DF3292F95AF05518 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE8C728A7C9F7FAC5BA960BEB173A8D1 /* ActionSheetPicker-3.0.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ActionSheetPicker-3.0/ActionSheetPicker-3.0-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ActionSheetPicker-3.0/ActionSheetPicker-3.0-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ActionSheetPicker-3.0/ActionSheetPicker-3.0.modulemap";
+				PRODUCT_MODULE_NAME = ActionSheetPicker_3_0;
+				PRODUCT_NAME = ActionSheetPicker_3_0;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0EB78948398F70E6E0EEC1B92476859B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		5FCA2B84D4FC50475C38DF6DFAF1AC7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D1B7622C6934FEACF8BCFDAC95524A6 /* Pods-MealJournal.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MealJournal/Pods-MealJournal-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MealJournal/Pods-MealJournal.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7290392BDDDC8699D9F13E731E8A9A4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		7E457C91D753F488F480CE7BD89632AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E5E7CB5F029C41638918718A5B4B468 /* Pods-MealJournal.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MealJournal/Pods-MealJournal-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MealJournal/Pods-MealJournal.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8903589F874BA6A0F5B77CC29B77384E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67849169567DE03D097D3E903957B708 /* Pods-MealJournal-MealJournalUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MealJournal-MealJournalUITests/Pods-MealJournal-MealJournalUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MealJournal-MealJournalUITests/Pods-MealJournal-MealJournalUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		98459665E341C06718886CDA81A1AFC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE8C728A7C9F7FAC5BA960BEB173A8D1 /* ActionSheetPicker-3.0.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ActionSheetPicker-3.0/ActionSheetPicker-3.0-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ActionSheetPicker-3.0/ActionSheetPicker-3.0-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ActionSheetPicker-3.0/ActionSheetPicker-3.0.modulemap";
+				PRODUCT_MODULE_NAME = ActionSheetPicker_3_0;
+				PRODUCT_NAME = ActionSheetPicker_3_0;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BB2CFE3AE93EDD50E3589D943B06DA2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2C896131A1DBA97FB58908BB9378301 /* Pods-MealJournalTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MealJournalTests/Pods-MealJournalTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MealJournalTests/Pods-MealJournalTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D51EDEF9A73294FAC7E9F0FA4F0FAF25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7D5FB64B06B8DCC799485F22AF0F8E7 /* Pods-MealJournalTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MealJournalTests/Pods-MealJournalTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MealJournalTests/Pods-MealJournalTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E24F64FDD86EFF896EB7CB7F9D48833A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0B69BE77AC9F21FB385D63852C91B6F /* Pods-MealJournal-MealJournalUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MealJournal-MealJournalUITests/Pods-MealJournal-MealJournalUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MealJournal-MealJournalUITests/Pods-MealJournal-MealJournalUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7290392BDDDC8699D9F13E731E8A9A4E /* Debug */,
+				0EB78948398F70E6E0EEC1B92476859B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		543AFABDB667AF073C3569847B1008C0 /* Build configuration list for PBXNativeTarget "ActionSheetPicker-3.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				018BB11C91B17D00DF3292F95AF05518 /* Debug */,
+				98459665E341C06718886CDA81A1AFC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98B1322FEC3192A7DF0F35166B925038 /* Build configuration list for PBXNativeTarget "Pods-MealJournal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E457C91D753F488F480CE7BD89632AB /* Debug */,
+				5FCA2B84D4FC50475C38DF6DFAF1AC7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2949A832CE40A57C4F750C45DF09942 /* Build configuration list for PBXNativeTarget "Pods-MealJournal-MealJournalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E24F64FDD86EFF896EB7CB7F9D48833A /* Debug */,
+				8903589F874BA6A0F5B77CC29B77384E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7091BF72DB61C77F0A5A8D5A705D1FB /* Build configuration list for PBXNativeTarget "Pods-MealJournalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D51EDEF9A73294FAC7E9F0FA4F0FAF25 /* Debug */,
+				BB2CFE3AE93EDD50E3589D943B06DA2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

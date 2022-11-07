@@ -169,7 +169,8 @@ struct FoodSearchResultsView: View {
                                     Text("Add Custom Food Item")
                                         .frame(maxWidth: .infinity, alignment: .center)
                                         .onTapGesture{
-                                            addCustomFoodToggle.toggle()
+                                                addCustomFoodToggle.toggle()
+                                            
                                         }
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -234,6 +235,7 @@ struct FoodSearchResultsView: View {
                        
                 }
             })
+          
     }
             if(mealTimingToggle){
                 FlexibleSheet(sheetMode: $sheetMode) {

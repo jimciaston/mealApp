@@ -4,6 +4,12 @@ import UIKit
 import CoreData
 import Firebase
 
+// enum for create account page
+enum CreateAccountViewState {
+    case createAccount // << stay on page
+    case login // << proceed to login page
+}
+
 struct createUserAccount: View {
     //transition for fitness form
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
@@ -16,10 +22,12 @@ struct createUserAccount: View {
    
     
     @State private var showFitnessForm = false
-    @State private var emailAlreadyInUse = false
-    @Environment (\.managedObjectContext) var moc //calls managed Object context (datacore)
+    @State private var emailAlreadyInUse = false // << email in use logic
+    
     @Environment (\.dismiss) var dismiss
-    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
+    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User> // grab all users
+    
+    @State private var viewState: CreateAccountViewState = .createAccount //viewState of page
     
     init(){
         UITableView.appearance().backgroundColor = .clear
@@ -30,12 +38,16 @@ struct createUserAccount: View {
     //for anim
     @State private var offset: CGFloat = 1.0
     var body: some View {
+        
+    switch viewState{
+        case .createAccount:
             ZStack{
                 Form{
                     Section(){
                         TextField("Name", text: $userInformation.name)
+                            .padding(.leading, 20)
                         TextField("Email", text: $userInformation.email)
-                        
+                            .padding(.leading, 20)
                         //email promp letting user know to type valid email
                             if userInformation.emailPrompt != "" {
                                 Text(userInformation.emailPrompt)
@@ -49,18 +61,20 @@ struct createUserAccount: View {
                         HStack{
                             if isPWSecured {
                                 SecureField("Password", text: $userInformation.password)
-                              
+                                    .padding(.leading, 20)
                             }
                             else {
                                 TextField("Password", text: $userInformation.password)
-                               
+                                    .padding(.leading, 20)
                             }
                             Button(action: {
                                 isPWSecured.toggle()
                             }){
                                 Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
                                                     .accentColor(.gray)
+                                                    .padding(.trailing, 10)
                             }
+                            
                         }
                         if userInformation.passwordPrompt != "" {
                            Text(userInformation.passwordPrompt)
@@ -74,16 +88,10 @@ struct createUserAccount: View {
                             .font(.system(size:18))
                             .listStyle(GroupedListStyle())
                            
+                           
                         }
                                 Button("Continue"){
-//                                    let newUser = User(context: moc)
-//                                    newUser.id = UUID()
-//                                    newUser.firstName = userInformation.firstname
-//                                    newUser.lastName = userInformation.lastname
-//                                    newUser.email = userInformation.email
-//                                    newUser.password = userInformation.password
-                                    
-                                    //authenticate user email
+//
                                     Auth.auth().createUser(withEmail: userInformation.email, password: userInformation.password ) { user, error in
                                        if let x = error {
                                           let err = x as NSError
@@ -105,18 +113,19 @@ struct createUserAccount: View {
                                        }
                                     }}
                 
-                                    .frame(width: 150, height: 20)
+                                    .frame(width: 150, height: 30)
+                                    //.padding(.top, 20)
                                     .foregroundColor(.white)
-                                    .padding()
+                                //    .padding()
                                     .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
                                     .font(.title3)
                                     .background(.clear)
                                     .cornerRadius(5)
-                                    .offset(y:30)
+                                    .padding(.top, 150)
                                     .opacity(userInformation.isSignUpComplete ? 1 : 0.5)
                                     .offset(y: keyboardResponder.currentHeight*2)
                                     .disabled(!userInformation.isSignUpComplete)
-                                    .frame(height: 300)
+                                   
                 
                                     .fullScreenCover(isPresented: $showFitnessForm){
                                         FitnessForm(
@@ -130,34 +139,28 @@ struct createUserAccount: View {
                 
                             HStack{
                                 Text("Already a User?").italic().font(.callout)
-                                NavigationLink(destination: userLogin(signUpController: signUpController) .navigationBarHidden(true)){
+                                Button(action: {
+                                    viewState = .login
+                                }){
                                     Text("Login")
                                         .foregroundColor(.pink).font(.callout)
                                 }
                             }
-                .offset(y:80)
+                            
+                .offset(y:120) // << adds separation from continue button
                 .offset(y: keyboardResponder.currentHeight*2)
-               
             }
-        //display fitnessform
-//            .overlay(
-//                VStack{
-//                    .fullScreenCover(isPresented: $test){
-//                        UserDashboardView()
-//                    }
-//                    if showFitnessForm{
-//                        UserDashboardView()
-////                        FitnessForm(
-////                        userFirstName: $userInformation.firstname,
-////                        userLastName: $userInformation.lastname,
-////                        userEmailAddress: $userInformation.email,
-////                        userLoginPassword: $userInformation.password
-////                        )
-//                            .transition(transition)
-//                    }
-//                }
-//                    .animation(Animation.easeInOut(duration: 0.30), value: showFitnessForm)
-//            )
+        case .login:
+            VStack{
+                userLogin(signUpController: signUpController)
+                    .transition(.slide)
+            }
+            .animation(.linear(duration: 0.25), value: viewState)
+      
+           
+        }
+           
+        
     }
 }
 

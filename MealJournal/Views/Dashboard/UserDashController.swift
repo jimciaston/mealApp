@@ -20,8 +20,6 @@ struct UserDashController: View {
     @State private var presentAddRecipePage = false
     @State var followingCount = 0
     @State var followersCount = 0
-    
-    
    
     func fetchFollowingCount(){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -40,10 +38,9 @@ struct UserDashController: View {
                 followersCount = data ["followers"] as? Int ?? 0
                
             }
-    }
+        }
   
     var body: some View {
-        
         if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
                 VStack{
@@ -60,12 +57,11 @@ struct UserDashController: View {
                     ProfilePicture()
                     
                     HStack{
-                        Text(vm.userModel?.name ?? "" )
-                            
-                            .font(.title3)
+                        Text(vm.userModel?.name ?? "Name unavailable" )
+                            .font(.custom("OpenSans-Regular", size: 24))
                     }
                    
-                    ProfileBio(userBio: .constant(vm.userModel?.userBio ?? ""))
+                    ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
                         .padding(.top, -25)
                     
                     HStack{
@@ -149,9 +145,13 @@ struct UserDashController: View {
             }
         }
         else{
-            ActivityIndicator() // << showing loading spinner while loading
+            ActivityIndicator()
+               
+            // << showing loading spinner while loading
         }
-    } 
+        
+    }
+        
 }
     
 //

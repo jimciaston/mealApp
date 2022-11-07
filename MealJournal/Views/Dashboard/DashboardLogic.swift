@@ -18,8 +18,6 @@ class DashboardLogic: ObservableObject {
     var anyCancellable: AnyCancellable? = nil // << detects if userModel changed
     
     init(){
-      
-           
         self.fetchCurrentUser()
         self.grabAllUsers()
     }
@@ -46,6 +44,7 @@ class DashboardLogic: ObservableObject {
     func fetchCurrentUser () {
         
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            print("no user found, user is creating account as we speak")
             return
         }
         guard let email = FirebaseManager.shared.auth.currentUser?.email else {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 extension View {
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
@@ -14,45 +15,15 @@ extension View {
 }
 
 
-struct AnimatableGradientModifier: AnimatableModifier {
-    let fromGradient: Gradient
-    let toGradient: Gradient
-    var progress: CGFloat = 0.0 //keeps track of gradient change
-
-    var animatableData: CGFloat {
-        get { progress }
-        set { progress = newValue }
-    }
-
-    func body(content: Content) -> some View {
-        var gradientColors = [Color]()
-
-        for i in 0..<fromGradient.stops.count {
-            let fromColor = UIColor(fromGradient.stops[i].color)
-            let toColor = UIColor(toGradient.stops[i].color)
-
-            gradientColors.append(colorMixer(fromColor: fromColor, toColor: toColor, progress: progress))
-        }
-
-        return LinearGradient(gradient: Gradient(colors: gradientColors), startPoint: .topLeading, endPoint: .bottomTrailing)
-    }
-
-    func colorMixer(fromColor: UIColor, toColor: UIColor, progress: CGFloat) -> Color {
-        guard let fromColor = fromColor.cgColor.components else { return Color(fromColor) }
-        guard let toColor = toColor.cgColor.components else { return Color(toColor) }
-
-        let red = fromColor[0] + (toColor[0] - fromColor[0]) * progress
-        let green = fromColor[1] + (toColor[1] - fromColor[1]) * progress
-        let blue = fromColor[2] + (toColor[2] - fromColor[2]) * progress
-
-        return Color(red: Double(red), green: Double(green), blue: Double(blue))
-    }
+enum ViewState {
+    case landingPage
+    case createUserAccountView
+    case signUpController
 }
-
-
 
 struct LandingPage: View {
     @AppStorage("signedIn") var signedIn = false
+    @State private var isPressed = false
     @Environment (\.dismiss) var dismiss
    
     @StateObject var signUpController = SignUpController()
@@ -60,11 +31,16 @@ struct LandingPage: View {
     
     @State private var progress: CGFloat = 0
     //colors for background on landing page
-   let gradient1 = Gradient(colors: [.yellow, .orange])
-   let gradient2 = Gradient(colors: [.yellow, .pink])
+   let gradient1 = Gradient(colors: [.pink, .orange])
+   let gradient2 = Gradient(colors: [.orange, .yellow])
     
     @State private var animateGradient = false
-    @State private var test = false
+    @State var scale: CGFloat = 1.0
+    @State var offsetValue: CGFloat = -60 // << image
+    @State var isMealJournalTitleShowing = false
+    
+    @State private var viewState: ViewState = .landingPage
+    
     
     @ViewBuilder
     var body: some View {
@@ -72,42 +48,31 @@ struct LandingPage: View {
             UserDashboardView(vm: vm, signUpController: signUpController)
         }
         else{
-            NavigationView{
-                ZStack{
-                    Rectangle()
-                        .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .ignoresSafeArea()
-                        .onAppear {
-                            DispatchQueue.main.async {
-                                withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                                    self.progress = 1.0
-                               }
-                            }
-                           
-                        }
-                    VStack{
-                            Image("bodybuilding-1") // << main image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width:150, height:150)
-                                //.renderingMode(.template)
-                                .foregroundColor(.black)
-                                .padding(.top, 200)
+            ZStack{
+                Rectangle()
+                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+                               .ignoresSafeArea()
+                VStack{
+                   
+                    switch viewState{
+                    case .landingPage:
                         
-                            Text("Welcome to Meal Journal")
-                                .font(.custom("PlayfairDisplay-Regular", size: 25))
-                                .padding()
-                        
-                        .offset(y:-25) // << adjusts title
                         
                         VStack{
-                            NavigationLink(destination:createUserAccount() .navigationBarHidden(true),
-                           label:{
+                            LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
+                                .padding(.bottom, 60)
+                         
+                            Button(action: {
+                                viewState = .createUserAccountView
+                                offsetValue = -125
+                                scale -= 0.50
+                                isMealJournalTitleShowing = true
+                            }){
                                 Text("Get Started").fontWeight(.bold)
                                     .frame(minWidth: 0, maxWidth: 200)
                                     .padding(10)
                                     .foregroundColor(.white)
+                                    
                                 //draw rectange around buttons
                                     .background(
                                         RoundedRectangle(cornerRadius: 20)
@@ -117,30 +82,68 @@ struct LandingPage: View {
                                                     startPoint: .topLeading,
                                                     endPoint: .bottomTrailing
                                                 )))
-                                            })
-                            
-                            NavigationLink(destination: userLogin(signUpController: signUpController).navigationBarHidden(true), label: {
-                                Text("Login").fontWeight(.semibold)
-                                    .frame(minWidth:0, maxWidth: 200)
-                                    .padding(10)
-                                    .foregroundColor(.black)
-                                    .overlay( RoundedRectangle(cornerRadius: 25)
-                                            .stroke(Color.gray, lineWidth: 3)
-                                        )
-                            })
-                                .padding() //separating buttons
+                                            }
                             
                             
+                               Button(action: {
+                                   viewState = .signUpController
+                                   offsetValue = -125
+                                   scale -= 0.50
+                                   isMealJournalTitleShowing = true
+                               }){
+                                   Text("Login").fontWeight(.bold)
+                                       .frame(minWidth: 0, maxWidth: 200)
+                                       .padding(10)
+                                       .foregroundColor(.white)
+                                       
+                                   //draw rectange around buttons
+                                       .overlay( RoundedRectangle(cornerRadius: 25)
+                                       .stroke(Color.gray, lineWidth: 3)
+                                   )}
+                               .padding(.top, 10) // << button padding from top
+                                
                         }
-                       
+                        .frame(height: 500)
+                        
+                    case .createUserAccountView:
+                        VStack{
+                            LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
+                                .frame(height:10)
+                            createUserAccount()
+                                .transition(.slide)
+                               
+                                
+                        }
+                    case .signUpController:
+                            VStack{
+                                LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
+                                    .frame(height:10)
+                                userLogin(signUpController: signUpController)
+                                    .transition(.slide)
+                            }
                     }
-                    .padding(.top, -50)
+                        
                 }
+                .animation(.linear(duration: 0.25), value: viewState)
+                        .frame(height: 500)
+                        
+            }
+//
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+                                self.progress = 1.0
+                                
+                           }
+                        }
+//
+                    }
+                   
             }
             
         }
     }
-}
+
 
 
    

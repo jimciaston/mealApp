@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum LoginEnum{
+    case loginPage
+    case createAccount // <<will be forgot passwrod once ready to setup
+    case journalEntryMain // switch name createAccoutn when ready
+}
+
+
 struct userLogin: View {
     @State private var userLoginSuccess: Bool = false
     @State var userEmail: String = "";
@@ -20,11 +27,16 @@ struct userLogin: View {
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @ObservedObject var signUpController: SignUpController
    
+    @State private var loginPageViewState: LoginEnum = .loginPage
     
     var body: some View {
+        
+        switch loginPageViewState{
+            
+        case .loginPage:
             VStack{
                 Text("Sign In")
-                    .font(.title)
+                    .font(.custom("PlayfairDisplay-Regular", size: 30))
                     .fontWeight(.medium)
                 HStack{
                     Image(systemName: "mail")
@@ -92,16 +104,24 @@ struct userLogin: View {
                         
                     }
                     HStack{
-                        
-                        NavigationLink(destination: JournalEntryMain() .navigationBarHidden(true)){
-                                Text("Forgot Password?").font(.subheadline).italic()
+                        Button(action: {
+                            loginPageViewState = .createAccount
+                        })
+                        {
+                            Text("Forgot Password?").font(.subheadline).italic()
                         }
+                        
                         .foregroundColor(.gray)
                         .offset(y:20)
                         
-                        NavigationLink(destination: createUserAccount() .navigationBarHidden(true)){
-                                Text("Create account").font(.subheadline).italic()
+                        Button(action: {
+                            loginPageViewState = .createAccount
+                        })
+                        {
+                            Text("Create account").font(.subheadline).italic()
                         }
+                        
+                
                         .foregroundColor(.black)
                         .offset(y:20)
                     }
@@ -144,9 +164,25 @@ struct userLogin: View {
                     print(success)
                 }
             }
+        
             .offset(y:-100)
             .offset(y: keyboardResponder.currentHeight/20)
+            
+        case .createAccount:
+            VStack{
+                createUserAccount() // << will be forgot password
+                    
+            }
+           
+          
+        case .journalEntryMain:
+            JournalEntryMain() // << will be create
+            
         }
+           
+        }
+            
+        
        
     }
     
