@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftUIX
+import Firebase
 
 extension View {
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
@@ -40,11 +41,11 @@ struct LandingPage: View {
     @State var isMealJournalTitleShowing = false
     
     @State private var viewState: ViewState = .landingPage
-    
+    @State var showingPopup = false
     
     @ViewBuilder
     var body: some View {
-        if(signedIn){
+        if(Auth.auth().currentUser?.email != nil && signedIn){
             UserDashboardView(vm: vm, signUpController: signUpController)
         }
         else{
@@ -52,12 +53,13 @@ struct LandingPage: View {
                 Rectangle()
                 .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
                                .ignoresSafeArea()
+                
                 VStack{
-                   
-                    switch viewState{
+                //using switch to control views, so background stays persistent
+                //during signup
+                    
+                switch viewState{
                     case .landingPage:
-                        
-                        
                         VStack{
                             LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
                                 .padding(.bottom, 60)
@@ -128,8 +130,8 @@ struct LandingPage: View {
                         .frame(height: 500)
                         
             }
-//
                     .onAppear {
+                        //animation for background colors
                         DispatchQueue.main.async {
                             withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
                                 self.progress = 1.0

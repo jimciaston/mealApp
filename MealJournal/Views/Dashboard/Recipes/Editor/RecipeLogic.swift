@@ -71,8 +71,6 @@ class RecipeLogic: ObservableObject {
                                 .collection("userRecipes")
                                 .document(document.documentID)
                                 .updateData(["ingredientItem" : ingredientList])
-                                    
-                            print("Updated Recipe")
                         }
                     }
                 }

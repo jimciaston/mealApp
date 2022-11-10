@@ -21,11 +21,14 @@ struct UserDashController: View {
     @State var followingCount = 0
     @State var followersCount = 0
    
+  
+    
     func fetchFollowingCount(){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             print("no current User")
             return
         }
+        
         FirebaseManager.shared.firestore.collection("users")
             .document(uid)
             .getDocument { (snapshot, err) in
@@ -108,14 +111,21 @@ struct UserDashController: View {
                             }){
                                 Text("Settings")
                             }
-                            Button(role: .destructive, action: {
+                            Button(action: {
                                 //logs out user
                                 userSigningOut = true
                                 signUpController.logOutUser()
                             }){
                                 Text("Sign Out")
-                                   
                             }
+                            Button(role: .destructive, action: {
+                                //Delete Account
+                                //variable to show Bottom Sheet
+                                
+                            }){
+                                Text("Delete account")
+                            }
+                            .padding(.top, 25)
                         }
                     label: {
                         Label(
@@ -141,16 +151,21 @@ struct UserDashController: View {
             }
         
             .fullScreenCover(isPresented: $userSigningOut){
-                userLogin(signUpController: signUpController)
+                LandingPage()
             }
         }
         else{
             ActivityIndicator()
+            //activity indicator had bug where it wouldn't leave after initial setup
+                .onAppear{
+                    vm.fetchCurrentUser()
+                }
                
             // << showing loading spinner while loading
         }
         
     }
+        
         
 }
     

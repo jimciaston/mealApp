@@ -50,6 +50,7 @@ struct UserDashboardView: View {
                     TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "magnifyingglass.circle", tabName: "Recipes")
                     TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "magnifyingglass.circle", tabName: "Find Users")
                     
+                    
                  }
                      .frame(width: geometry.size.width, height: geometry.size.height/10)
                      .background(Color(.clear).shadow(radius: 2))

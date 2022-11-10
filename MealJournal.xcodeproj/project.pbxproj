@@ -61,6 +61,8 @@
 		0A70A8BB27F8BC0900318780 /* Search_Food_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70A8BA27F8BC0900318780 /* Search_Food_Model.swift */; };
 		0A70A8BD27FA8B8300318780 /* FoodItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70A8BC27FA8B8300318780 /* FoodItemView.swift */; };
 		0A87DB652913695800A3C1E9 /* AnimatableGradientModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB642913695800A3C1E9 /* AnimatableGradientModifier.swift */; };
+		0A87DB672918A52900A3C1E9 /* GetStartedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB662918A52900A3C1E9 /* GetStartedPopUp.swift */; };
+		0A87DB69291943B900A3C1E9 /* GetStartedPopUpContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB68291943B900A3C1E9 /* GetStartedPopUpContent.swift */; };
 		0A8D8063282573680055021A /* SearchUsersFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D8062282573680055021A /* SearchUsersFeature.swift */; };
 		0A8D80662825D19C0055021A /* FollowingListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D80652825D19C0055021A /* FollowingListRow.swift */; };
 		0A8D80682826CBF60055021A /* RecipeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8D80672826CBF60055021A /* RecipeEditor.swift */; };
@@ -195,6 +197,8 @@
 		0A70A8BA27F8BC0900318780 /* Search_Food_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search_Food_Model.swift; sourceTree = "<group>"; };
 		0A70A8BC27FA8B8300318780 /* FoodItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemView.swift; sourceTree = "<group>"; };
 		0A87DB642913695800A3C1E9 /* AnimatableGradientModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableGradientModifier.swift; sourceTree = "<group>"; };
+		0A87DB662918A52900A3C1E9 /* GetStartedPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedPopUp.swift; sourceTree = "<group>"; };
+		0A87DB68291943B900A3C1E9 /* GetStartedPopUpContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedPopUpContent.swift; sourceTree = "<group>"; };
 		0A8D8062282573680055021A /* SearchUsersFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchUsersFeature.swift; path = MealJournal/Views/Dashboard/Following/SearchUsersFeature.swift; sourceTree = SOURCE_ROOT; };
 		0A8D80652825D19C0055021A /* FollowingListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingListRow.swift; sourceTree = "<group>"; };
 		0A8D80672826CBF60055021A /* RecipeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditor.swift; sourceTree = "<group>"; };
@@ -327,6 +331,7 @@
 				0A8F98E227AB09AE008F5584 /* ContentView.swift */,
 				0A8F990A27AB0B92008F5584 /* CreateAccount.swift */,
 				0A12639527CEC1200076876B /* FitnessForm.swift */,
+				0A87DB68291943B900A3C1E9 /* GetStartedPopUpContent.swift */,
 				0A6A6879283C61700047CFB9 /* GoogleService-Info.plist */,
 			);
 			path = LandingPage;
@@ -381,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				0A87DB642913695800A3C1E9 /* AnimatableGradientModifier.swift */,
+				0A87DB662918A52900A3C1E9 /* GetStartedPopUp.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -888,6 +894,7 @@
 				0A9F495B286532ED002F227E /* RecipeLogic.swift in Sources */,
 				0A3B9B1B280FA94F00EC631A /* FoodData.swift in Sources */,
 				0A3B9B232813550900EC631A /* MealTimingSelectorView.swift in Sources */,
+				0A87DB672918A52900A3C1E9 /* GetStartedPopUp.swift in Sources */,
 				0A12639627CEC1200076876B /* FitnessForm.swift in Sources */,
 				0A6534DA27E0D3F400A50FB8 /* RecipeController.swift in Sources */,
 				0AE0DB9627C21124006F1835 /* MealSearchBar.swift in Sources */,
@@ -957,6 +964,7 @@
 				0AB1126128E4E5770071B3ED /* AllCustomFoodItemsRow.swift in Sources */,
 				0AE0DB9027BD5041006F1835 /* EntryRow.swift in Sources */,
 				0A53020927E430FB00B8D261 /* RecipeListView.swift in Sources */,
+				0A87DB69291943B900A3C1E9 /* GetStartedPopUpContent.swift in Sources */,
 				0A53020F27E8E0F100B8D261 /* RecipeDirections.swift in Sources */,
 				0A6534D827E021C100A50FB8 /* AddToolbar.swift in Sources */,
 				0A53021327E8F01700B8D261 /* RecipeNavigationModals.swift in Sources */,

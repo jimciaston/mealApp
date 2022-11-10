@@ -9,11 +9,11 @@ import SwiftUI
 import Firebase
 
 struct FitnessForm: View {
-    
+    @Environment (\.dismiss) var dismiss
     @StateObject var signUpController = SignUpController()
     @StateObject var vm = DashboardLogic()
     @AppStorage("signedIn") var signedIn = false
- 
+    @State private var userSignedIn = false
     @Environment(\.managedObjectContext) var moc
     
     //getting info from previous sign up view
@@ -21,8 +21,8 @@ struct FitnessForm: View {
     @Binding var userEmailAddress: String
     @Binding var userLoginPassword: String
     
-    public var signUpCompleted = false
     
+    @State var showingGetStartedPopUp = false //tied to continue, show popup on true
     //options for picker
     @State private var selectedGender = ""
     @State private var selectedHeight = ""
@@ -58,99 +58,142 @@ struct FitnessForm: View {
             return 25
         }
     }
-   
+
+    
     var body: some View {
-    NavigationView{
-        ZStack{
-                Form{
-                        Picker(selection: $selectedGender, label: Text("Gender")){
-                            ForEach(genderOptions, id: \.self){ gender in
-                                Text(gender)
+        //only run is user is SignedIn
+        if(!userSignedIn){
+            NavigationView{
+                ZStack{
+                        Form{
+                            Picker(selection: $selectedGender, label: Text("Gender")){
+                                ForEach(genderOptions, id: \.self){ gender in
+                                    Text(gender)
+                                }
                             }
-                        }
-                    
-                    Picker(selection: $selectedHeight, label: Text("Height")){
-                        ForEach(heightOptions, id: \.self){ height in
-                            Text(height)
-                        }
-                    }
-                    HStack{
-                        Text("Weight")
-                             Picker(selection: $selectedWeight,label: Text("")){
-                                 ForEach(weightOptions.weightArray(), id: \.self){weight in
-                                     Text(weight + " Ibs")
-                                 }
-                                 .pickerStyle(WheelPickerStyle())
-                         }
-                    }
-                   
-                    //highlight selection
-                    Text("Why are you eating?") //.listSectionSeparator(.hidden)
-                        .padding()
-                        .frame(width:300, height: 5 )
-                        .multilineTextAlignment(.center)
-                        .listRowSeparator(.hidden)
-                   
-                    Picker("", selection: $agenda){
-                        ForEach(fitnessAgenda, id: \.self) {
-                                Text($0)
-                            }
-                        }
-                        .clipped()
-                        .pickerStyle(.segmented)
-                        .navigationBarTitle(Text("Fitness Stats"))
-                        .frame(height:50)
-                    }
-            VStack{
-                Button(action: {
-                    signedIn = true
-                }){
-                    Text("Finish later").bold()
-                        .foregroundColor(.blue)
-                        
-                        .padding()
-                        .background(.clear)
-                        .font(.title3)
-                        .background(.clear)
-                        .cornerRadius(5)
-                        .offset(y:CGFloat(isPickerVisible()))
-                }
-                .padding(.bottom, 25)
-                Button(action: {
-                        if(Auth.auth().currentUser?.email != nil){
-                            vm.fetchCurrentUser() //fetches current user
-                            //save user to Firebase
-                            SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
                             
-                                signedIn = true //updates app storage container
+                            Picker(selection: $selectedHeight, label: Text("Height")){
+                                ForEach(heightOptions, id: \.self){ height in
+                                    Text(height)
+                                }
+                            }
+                            HStack{
+                                Text("Weight")
+                                     Picker(selection: $selectedWeight,label: Text("")){
+                                         ForEach(weightOptions.weightArray(), id: \.self){weight in
+                                             Text(weight + " Ibs")
+                                         }
+                                         .pickerStyle(WheelPickerStyle())
+                                 }
+                            }
+                           
+                            //highlight selection
+                            Text("Why are you eating?") //.listSectionSeparator(.hidden)
+                                .padding()
+                                .frame(width:300, height: 5 )
+                                .multilineTextAlignment(.center)
+                                .listRowSeparator(.hidden)
+                           
+                            Picker("", selection: $agenda){
+                                ForEach(fitnessAgenda, id: \.self) {
+                                        Text($0)
+                                    }
+                                }
+                                .clipped()
+                                .pickerStyle(.segmented)
+                                .navigationBarTitle(Text("Fitness Stats"))
+                                .frame(height:50)
+                            }
+                       
+                    VStack{
+                        Button(action: {
+                            if(Auth.auth().currentUser?.email != nil){
+                                vm.fetchCurrentUser() //fetches current user
+                               //check if user is signed in
+                                userSignedIn = true
+                              
+                                //save user to Firebase
+                                SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
+                                    signedIn = true //updates storage container
+                                   
+                              
+                            }
+                        }){
+                            Text("Finish later").bold()
+                                .foregroundColor(.blue)
+                                .padding()
+                                .background(.clear)
+                                .font(.title3)
+                                .background(.clear)
+                                .cornerRadius(5)
+                                .offset(y:CGFloat(isPickerVisible()))
                         }
-                    
-                })
-                {
-                    Text("Complete Profile")
-                        .padding([.leading, .trailing], 25)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(.pink)
-                        .font(.title3)
-                        .background(.clear)
-                        .cornerRadius(10)
-                        .offset(y:CGFloat(isPickerVisible()))
-                    
+                        .padding(.bottom, 25)
+                        Button(action: {
+                                if(Auth.auth().currentUser?.email != nil){
+                                    vm.fetchCurrentUser() //fetches current user
+                                   //check if user is signed in
+                                    userSignedIn = true
+                                  
+                                    //save user to Firebase
+                                    SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
+                                        signedIn = true //updates storage container
+                                        
+                                    
+                                }
+                            
+                        })
+                        {
+                            Text("Complete Profile")
+                                .padding([.leading, .trailing], 25)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(.pink)
+                                .font(.title3)
+                                .background(.clear)
+                                .cornerRadius(10)
+                                .offset(y:CGFloat(isPickerVisible()))
+                            
+                        }
+                        .fullScreenCover(isPresented: $userSignedIn){
+                            UserDashboardView(vm: vm, signUpController: signUpController)
+                        }
+                    }
                 }
-                .fullScreenCover(isPresented: $signedIn){
-                    UserDashboardView(vm: vm, signUpController: signUpController)
+              
+               .animation(.easeIn(duration: 2.50), value: showingGetStartedPopUp)
+              
+            }
+           
+            .blur(radius: showingGetStartedPopUp ? 2 : 0) // blur if popUp is Up
+            .offset(y:20) //moves down form
+                //func that delays pop up
+            .popup(isPresented: $showingGetStartedPopUp) { // 3
+                VStack{
+                    ZStack { // 4
+                        Color("GetStartedPopUpBackground")
+                         GetStartedPopUpContent()
+                    }
+                    .frame(width: 325, height: 400)
+                }
+            }
+                
+            .task{
+                do{
+                    // 1 nano = 1 second
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+                    showingGetStartedPopUp = true
                 }
             }
             
-          
+                    
+                     
+        .navigationViewStyle(.stack)
         }
     
-    } .offset(y:20) //moves down form
-        
-.navigationViewStyle(.stack)
        
     }
+       
         
 }
 

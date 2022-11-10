@@ -11,6 +11,7 @@ enum CreateAccountViewState {
 }
 
 struct createUserAccount: View {
+    
     //transition for fitness form
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
     //Stores form info as userInfo, stored in userModel
@@ -71,8 +72,8 @@ struct createUserAccount: View {
                                 isPWSecured.toggle()
                             }){
                                 Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
-                                                    .accentColor(.gray)
-                                                    .padding(.trailing, 10)
+                            .accentColor(.gray)
+                            .padding(.trailing, 10)
                             }
                             
                         }
@@ -88,10 +89,8 @@ struct createUserAccount: View {
                             .font(.system(size:18))
                             .listStyle(GroupedListStyle())
                            
-                           
                         }
                                 Button("Continue"){
-//
                                     Auth.auth().createUser(withEmail: userInformation.email, password: userInformation.password ) { user, error in
                                        if let x = error {
                                           let err = x as NSError
@@ -109,7 +108,8 @@ struct createUserAccount: View {
                                            //return
                                        } else {
                                           //continue to app
-                                           showFitnessForm.toggle()
+                                           dismiss()
+                                           showFitnessForm = true
                                        }
                                     }}
                 
@@ -131,12 +131,12 @@ struct createUserAccount: View {
                                         FitnessForm(
                                            name: $userInformation.name,
                                            userEmailAddress: $userInformation.email,
-                                           userLoginPassword: $userInformation.password
-                                           )  .transition(transition)
+                                           userLoginPassword: $userInformation.password)
+                                            .transition(transition)
                                             
                                     }
                                     .animation(Animation.easeInOut(duration: 0.30), value: showFitnessForm)
-                
+                                    
                             HStack{
                                 Text("Already a User?").italic().font(.callout)
                                 Button(action: {
@@ -148,8 +148,10 @@ struct createUserAccount: View {
                             }
                             
                 .offset(y:120) // << adds separation from continue button
-                .offset(y: keyboardResponder.currentHeight*2)
+                .offset(y: keyboardResponder.currentHeight * 2)
+               
             }
+            
         case .login:
             VStack{
                 userLogin(signUpController: signUpController)
