@@ -42,7 +42,6 @@ class DashboardLogic: ObservableObject {
      
     
     func fetchCurrentUser () {
-        
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return
         }

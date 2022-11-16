@@ -138,8 +138,7 @@ struct FitnessForm: View {
                                     //save user to Firebase
                                     SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda)
                                         signedIn = true //updates storage container
-                                        
-                                    
+                                      
                                 }
                             
                         })
@@ -156,7 +155,7 @@ struct FitnessForm: View {
                             
                         }
                         .fullScreenCover(isPresented: $userSignedIn){
-                            UserDashboardView(vm: vm, signUpController: signUpController)
+                            UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
                         }
                     }
                 }
@@ -171,13 +170,13 @@ struct FitnessForm: View {
             .popup(isPresented: $showingGetStartedPopUp) { // 3
                 VStack{
                     ZStack { // 4
-                        Color("GetStartedPopUpBackground")
+                        Color("LightWhite")
                          GetStartedPopUpContent()
                     }
                     .frame(width: 325, height: 400)
                 }
             }
-                
+                //delay pop up
             .task{
                 do{
                     // 1 nano = 1 second
@@ -185,8 +184,17 @@ struct FitnessForm: View {
                     showingGetStartedPopUp = true
                 }
             }
-            
-                    
+            //Overlay allows to not allow user to click while pop up is up
+            .overlay{
+                    if showingGetStartedPopUp {
+                        Color.white.opacity(0.001)
+                        .ignoresSafeArea()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onTapGesture {
+                            showingGetStartedPopUp = false
+                        }
+                    }
+            }
                      
         .navigationViewStyle(.stack)
         }

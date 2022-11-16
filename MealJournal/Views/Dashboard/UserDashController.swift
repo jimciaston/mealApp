@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Firebase
-
+import SwiftUIX
 struct UserDashController: View {
     @ObservedObject var vm: DashboardLogic
     @ObservedObject var rm = RecipeLogic()
@@ -20,7 +20,7 @@ struct UserDashController: View {
     @State private var presentAddRecipePage = false
     @State var followingCount = 0
     @State var followersCount = 0
-   
+    @State var deleteAccountSheet = false
   
     
     func fetchFollowingCount(){
@@ -44,135 +44,165 @@ struct UserDashController: View {
         }
   
     var body: some View {
-        if !vm.isUserDataLoading { // << if user data loaded
+        //if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
-                VStack{
-                    //Following and Follower button
-                    NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
-                            EmptyView()
-                        }
-                    
-                    NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
-                        EmptyView()
-                    }
-                    
-                    //profile picture
-                    ProfilePicture()
-                    
-                    HStack{
-                        Text(vm.userModel?.name ?? "Name unavailable" )
-                            .font(.custom("OpenSans-Regular", size: 24))
-                    }
-                   
-                    ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
-                        .padding(.top, -25)
-                    
-                    HStack{
-                        HStack{
-                            Text("Following").foregroundColor(.gray)
-                            Text(String(followingCount)).bold()
+                ZStack{
+                    GeometryReader { Geo in
+                        VStack{
+                            //Following and Follower button
+                            NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
+                                    EmptyView()
+                                }
                             
-                        }
-                        .onTapGesture {
-                            //perform some tasks if needed before opening Destination view
-                            self.action = 1
+                            NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
+                                EmptyView()
                             }
-                        
-                        HStack{
+                            
+                            //profile picture
+                            ProfilePicture()
+                            
+                            HStack{
+                                Text(vm.userModel?.name ?? "Name unavailable" )
+                                    .font(.custom("OpenSans-Regular", size: 24))
+                            }
                            
-                            Text("Followers").foregroundColor(.gray)
-                            Text(String(followersCount)).bold()
-                        }
-                        .onTapGesture {
-                            //perform some tasks if needed before opening Destination view
-                            self.action = 2
-                        }
-                    }
-                    .padding(.top, -5)
-            
-                    RecipeListView()
-                }
-                
-                .onAppear{
-                    fetchFollowingCount()
-                    
-                }
-                
-                .toolbar{
-                    ToolbarItem (placement: .navigationBarTrailing){
-                        Menu {
-                            Button(action: {
-                                presentAddRecipePage = true
-                            }){
-                                Text("Add Recipe")
-                            }
-                            Button(action: {
-                                presentSettingsPage = true
-                            }){
-                                Text("Settings")
-                            }
-                            Button(action: {
-                                //logs out user
-                                userSigningOut = true
-                                signUpController.logOutUser()
-                            }){
-                                Text("Sign Out")
-                            }
-                            Button(role: .destructive, action: {
-                                //Delete Account
-                                //variable to show Bottom Sheet
-                                
-                            }){
-                                Text("Delete account")
-                            }
-                            .padding(.top, 25)
-                        }
-                    label: {
-                        Label(
-                            title: { Text("") },
-                            icon: {
-                                Image(systemName: "plus")
+                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
+                                .padding(.top, -25)
+                            
+                            HStack{
+                                HStack{
+                                    Text("Following").foregroundColor(.gray)
+                                    Text(String(followingCount)).bold()
                                     
-                            })
+                                }
+                                .onTapGesture {
+                                    //perform some tasks if needed before opening Destination view
+                                    self.action = 1
+                                    }
+                                
+                                HStack{
+                                   
+                                    Text("Followers").foregroundColor(.gray)
+                                    Text(String(followersCount)).bold()
+                                }
+                                .onTapGesture {
+                                    //perform some tasks if needed before opening Destination view
+                                    self.action = 2
+                                }
+                            }
+                            .padding(.top, -5)
+                    
+                            RecipeListView()
+                        }
+                        .frame(width: Geo.size.width, height: Geo.size.height)
+                        .onAppear{
+                            fetchFollowingCount()
+                            vm.fetchCurrentUser() //view refreshes if new data entered
                         }
                     }
-                }
-              
-                .padding(.top, -70)
-            
-            }
-           
-            .fullScreenCover(isPresented: $presentSettingsPage){
-                PersonalSettingsView(vm: vm)
-            }
-            
-            .fullScreenCover(isPresented: $presentAddRecipePage){
-                RecipeEditor()
-            }
-        
-            .fullScreenCover(isPresented: $userSigningOut){
-                LandingPage()
-            }
-        }
-        else{
-            ActivityIndicator()
-            //activity indicator had bug where it wouldn't leave after initial setup
-                .onAppear{
-                    vm.fetchCurrentUser()
+                    
+                    .toolbar{
+                        ToolbarItem (placement: .navigationBarTrailing){
+                            Menu {
+                                Button(action: {
+                                    presentAddRecipePage = true
+                                }){
+                                    Text("Add Recipe")
+                                }
+                                Button(action: {
+                                    presentSettingsPage = true
+                                }){
+                                    Text("Settings")
+                                }
+                                Button(action: {
+                                    //logs out user
+                                    userSigningOut = true
+                                    signUpController.logOutUser()
+                                }){
+                                    Text("Sign Out")
+                                }
+                                Button(role: .destructive, action: {
+                                    //Delete Account
+                                    //variable to show Bottom Sheet
+                                    deleteAccountSheet = true
+                                    
+                                }){
+                                   Text("Delete Account")
+                                }
+                            
+                                .padding(.top, 25)
+                            }
+                        label: {
+                            Label(
+                                title: { Text("") },
+                                icon: {
+                                    Image(systemName: "plus")
+                                        
+                                })
+                            }
+                        }
+                    }
+                  
+                       .padding(.top, -70)
                 }
                
-            // << showing loading spinner while loading
-        }
+                .fullScreenCover(isPresented: $presentSettingsPage){
+                    PersonalSettingsView(vm: vm)
+                }
+                
+                .fullScreenCover(isPresented: $presentAddRecipePage){
+                    RecipeEditor()
+                }
+            
+                .fullScreenCover(isPresented: $userSigningOut){
+                    LandingPage()
+                }
+                .blur(radius: deleteAccountSheet ? 2 : 0) // blur when bottomsheet open
+               
+                .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
+                    GeometryReader { geometry in {
+                        
+                        BottomSheetView(
+                            isOpen: self.$deleteAccountSheet,
+                            maxHeight: geometry.size.height * 0.5 * 0.7
+                        ) {
+                            DeleteProfileView(deleteSuccess: $deleteAccountSheet)
+                                .onTapGesture{
+                                   
+                                    self.deleteAccountSheet = false
+                                }
+                        }
+                       
+                    }()
+                            .edgesIgnoringSafeArea(.all)
+                           
+                    }
+                    
+                })
+                }
+                
+           
+     //   }
+//
+//        else{
+//            ActivityIndicator()
+//            //activity indicator had bug where it wouldn't leave after initial setup
+//                .onAppear{
+//                    vm.fetchCurrentUser()
+//                }
+//
+//            // << showing loading spinner while loading
+//        }
         
     }
         
         
 }
     
-//
-//struct UserDashController_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserDashController(signUpController: SignUpController())
-//    }
-//}
+
+struct UserDashController_Previews: PreviewProvider {
+    static var previews: some View {
+        UserDashController(vm: DashboardLogic(), signUpController: SignUpController())
+    }
+}
 

@@ -28,7 +28,7 @@ struct FullListOfRecipes: View {
             }
         }
      //   .frame(height: totalHeight + 350 )// << bring stack to the top
-        .frame(maxHeight: totalHeight + 350) // << variant for VStack
+        //.frame(maxHeight: totalHeight + 350) // << variant for VStack
     }
 
     private func generateContent(in g: GeometryProxy) -> some View {

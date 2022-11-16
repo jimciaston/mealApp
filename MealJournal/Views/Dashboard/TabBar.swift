@@ -11,19 +11,25 @@ struct TabBarIcon: View {
     let width, height: CGFloat
     let iconName, tabName: String
     
+    @StateObject var dashboardRouter: DashboardRouter
+    let selectedTab: DashboardTab
+    
     var body: some View {
         VStack {
-                    Image(systemName: iconName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: width, height: height)
-                        .padding(.top, 10)
-                    Text(tabName)
-                        .font(.footnote)
-                    Spacer()
-                }
-                    .padding(.horizontal, -4)
-                   
+                Image(systemName: iconName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: width, height: height)
+                    .padding(.top, 10)
+                Text(tabName)
+                    .font(.footnote)
+                Spacer()
+            }
+                .padding(.horizontal, -4)
+                .foregroundColor(dashboardRouter.currentTab == selectedTab ? Color(.blue) : Color (.black))
+                .onTapGesture {
+                    dashboardRouter.currentTab = selectedTab
+                   }
                     
     }
 }

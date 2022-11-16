@@ -46,7 +46,7 @@ struct LandingPage: View {
     @ViewBuilder
     var body: some View {
         if(Auth.auth().currentUser?.email != nil && signedIn){
-            UserDashboardView(vm: vm, signUpController: signUpController)
+            UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
         }
         else{
             ZStack{

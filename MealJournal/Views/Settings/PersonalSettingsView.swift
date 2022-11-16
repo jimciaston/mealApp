@@ -86,7 +86,6 @@ struct PersonalSettingsView: View {
                     
                     UpdatePersonalSettingsHStack(vm: vm, name: .constant(vm.userModel?.name ?? "Name not found"), bio: .constant(vm.userModel?.userBio ?? "Bio not found"))
                     
-                   
                     
                     HStack{
                         Image("Instagram-Logo-2")

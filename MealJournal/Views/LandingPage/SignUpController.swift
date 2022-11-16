@@ -53,7 +53,6 @@ class SignUpController: ObservableObject  {
     func logOutUser() {
         do {
             try Auth.auth().signOut()
-            print("userSignedOut")
             self.signedIn = false
             UserDefaults.standard.set(false, forKey: "signedIn")
             self.userIsLoggedIn = false

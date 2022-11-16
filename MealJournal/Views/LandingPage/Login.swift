@@ -140,7 +140,7 @@ struct userLogin: View {
                    
                 }){
                     
-                    NavigationLink("", destination: UserDashboardView(vm: vm, signUpController: signUpController)
+                    NavigationLink("", destination: UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
                                     
                                    , isActive: $signUpController.userIsLoggedIn)
                     
