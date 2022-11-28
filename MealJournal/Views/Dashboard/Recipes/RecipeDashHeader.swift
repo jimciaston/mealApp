@@ -27,7 +27,7 @@ struct RecipeDashHeader: View {
         if ema.editMode {
             VStack{
                 TextField(recipeName, text: $recipeName)
-                    .foregroundColor(!ema.editMode ? Color.black : Color.gray)
+                    .foregroundColor(!ema.editMode ? Color.black : Color.red)
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -44,10 +44,8 @@ struct RecipeDashHeader: View {
                        .onChange(of: caloriesPicker, perform: { _ in
                            ema.recipeCaloriesMacro = caloriesPicker
                        })
-                      
-                       .foregroundColor(.gray)
-                       .padding(.leading, 5)
                     }
+                    .accentColor(.red)
                     Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
                        ForEach(pickerGramCounter(), id: \.self) {
                            Text(String($0) + "g Fat")
@@ -55,10 +53,8 @@ struct RecipeDashHeader: View {
                        .onChange(of: fatPicker, perform: { _ in
                            ema.recipeFatMacro = fatPicker
                        })
-                      
-                       .foregroundColor(.gray)
-                       .padding(.leading, 5)
                     }
+                    .accentColor(.red)
                     Picker(selection: $carbPicker, label: Text("").foregroundColor(.red)) {
                        ForEach(pickerGramCounter(), id: \.self) {
                            Text(String($0) + "g Carbs")
@@ -66,21 +62,19 @@ struct RecipeDashHeader: View {
                        .onChange(of: carbPicker, perform: { _ in
                            ema.recipeCarbMacro = carbPicker
                        })
-                     
-                       .foregroundColor(.gray)
-
                     }
-                    Picker(selection: $proteinPicker, label: Text("").foregroundColor(.red)) {
+                    .accentColor(.red)
+                    Picker(selection: $proteinPicker, label: Text("")) {
                         //calls func that counts to 200
                        ForEach(pickerGramCounter(), id: \.self) {
-                           Text(String($0) + "g Protein")
+                           Text(String($0) + "g protein")
                        }
                        .onChange(of: proteinPicker, perform: { _ in
                            ema.recipeProteinMacro = proteinPicker
                        })
-                     
-                       .foregroundColor(.gray)
+                       
                     }
+                    .accentColor(.red)
                     .padding(.leading, 5)
                 }
                 .padding(.top, -20)
@@ -97,6 +91,7 @@ struct RecipeDashHeader: View {
                            ema.recipePrepTime = recipePrepTime
                        })
                     }
+                    .accentColor(.red)
                 }
             }
             .onAppear{

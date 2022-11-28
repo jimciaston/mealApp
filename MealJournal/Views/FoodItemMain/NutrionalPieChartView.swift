@@ -16,7 +16,7 @@ struct NutrionalPieChartView: View {
             (dailyMacrosCounter.getCarbTotals(
                 breakfast: mealEntryObj,
                 lunch: mealEntryObj,
-                dinner: mealEntryObj))
+                dinner: mealEntryObj, snack: mealEntryObj))
         }
     }
     

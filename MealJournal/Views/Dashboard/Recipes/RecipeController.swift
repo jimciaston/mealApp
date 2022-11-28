@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+import SwiftUIX
 struct RecipeController: View {
     @StateObject var rm = RecipeLogic()
     @ObservedObject var ema = EditModeActive()
@@ -25,7 +25,7 @@ struct RecipeController: View {
     @State var recipeFatMacro: Int
     @State var recipeCarbMacro: Int
     @State var recipeProteinMacro: Int
-
+    @State private var showRecipeBottomSheet = false
     /*/
      can add if ingredients != ema.updatedINgredients then run the saveRecipes function
      
@@ -104,12 +104,10 @@ struct RecipeController: View {
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
-                        ema.editMode.toggle()
-                      
-                        //if user is saving when complete is on the button
-                        if !ema.editMode {
+                  
+                        if ema.editMode {
                             //save image to firestore
-                           
+                            showRecipeBottomSheet = false
                             rm.updateRecipeImage(recipeImage: ema.recipeImage, currentRecipe: recipeID)
                             
                             //save dash headers to firestore
@@ -124,19 +122,37 @@ struct RecipeController: View {
                                 }
                             }
                         }
+                        else{
+                            ema.editMode = false
+                            showRecipeBottomSheet = true
+                        }
                     }){
                         HStack{
-                            Image(systemName: !ema.editMode ? "pencil.circle" : "")
-                                    .foregroundColor(.white)
-                                    .font(.title3)
+                            Image(systemName: !ema.editMode ? "plusminus" : "")
+                                    .foregroundColor(.black)
+                                    .font(.title)
                             Text(!ema.editMode ? "Edit" : "Complete")
-                                .foregroundColor(.white) .font(Font.headline.weight(.bold))
+                                .foregroundColor(.black) .font(Font.headline.weight(.bold))
                                 .font(.title3)
                             }
                       
 
                     }
-                   
+                    .windowOverlay(isKeyAndVisible: self.$showRecipeBottomSheet, {
+                        GeometryReader { geometry in {
+                            BottomSheetView(
+                                isOpen: self.$showRecipeBottomSheet,
+                                maxHeight: geometry.size.height * 0.5 * 0.7
+                            ) {
+                                RecipeEditorBottomSheetView(ema: ema, recipeID: $recipeID, showRecipeBottomSheet: $showRecipeBottomSheet)
+                            }
+                           
+                        }()
+                                .edgesIgnoringSafeArea(.all)
+                               
+                        }
+                        
+                    })
                     
                 }
            

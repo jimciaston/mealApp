@@ -4,7 +4,7 @@
 //
 //  Created by Jim Ciaston on 3/17/22.
 //when recipe is clicked assign id to go to page
-
+import UIKit
 import SwiftUI
 import SDWebImageSwiftUI
 
@@ -44,24 +44,14 @@ struct RecipeListView: View {
                                         .cornerRadius(15)
                                 VStack{
                                     ZStack{
-                                        HStack{
+                                      
                                             Text(recipe.recipeTitle)
                                                 .font(.body)
                                             //temp solution until I can center it
                                                 .padding(.top, 1)
                                             
-                                            Button(action: {
-                                                MealObject = Meal(id: UUID(), brand: "Custom Recipe", mealName: recipe.recipeTitle,calories: recipe.recipeCaloriesMacro ,quantity: 1, amount: "Default", protein: recipe.recipeProteinMacro, carbs: recipe.recipeCarbMacro, fat: recipe.recipeFatMacro, servingSize: 0.00, servingSizeUnit: "g")
-                                                mealTimingToggle.toggle()
-                                            })
-                                            {
-                                                Image(systemName: "line.3.horizontal")
-                                                    .frame(width:10, height: 10)
-                                                    .padding(.leading, 45)
-                                            }
-                                                .buttonStyle(BorderlessButtonStyle())
                                          
-                                        }
+                                       
                                         
                                         //as a note, sets empty view to hide list arrow
                                         NavigationLink(destination: {RecipeController(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro:  recipe.recipeCaloriesMacro , recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {

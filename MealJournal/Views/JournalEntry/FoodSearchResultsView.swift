@@ -126,7 +126,7 @@ struct FoodSearchResultsView: View {
                                     }){
                                         Image(systemName: "plus.app")
                                             .font(.largeTitle)
-                                            .foregroundColor(.blue)
+                                            .foregroundColor(Color("ButtonTwo"))
                                             .padding(.trailing, -30) // <<moves plus
                                     }
                                         
@@ -169,7 +169,7 @@ struct FoodSearchResultsView: View {
                                     Text("Add Custom Food Item")
                                         .frame(maxWidth: .infinity, alignment: .center)
                                         .onTapGesture{
-                                                addCustomFoodToggle.toggle()
+                                            addCustomFoodToggle.toggle()
                                             
                                         }
                                 }

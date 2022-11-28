@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DailyMacrosCounter{
   
-    func getCalorieTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String{
+    func getCalorieTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys, snack: MealEntrys) -> String{
         var totalCals = 0
             for index in (0 ..< breakfast.mealEntrysBreakfast.count){
                 totalCals += breakfast.mealEntrysBreakfast[index].calories ?? 0
@@ -20,11 +20,14 @@ struct DailyMacrosCounter{
             for index in (0 ..< dinner.mealEntrysDinner.count){
                 totalCals += dinner.mealEntrysDinner[index].calories ?? 0
                 }
+            for index in (0 ..< dinner.mealEntrysSnack.count){
+                totalCals += dinner.mealEntrysSnack[index].calories ?? 0
+                }
             return String(totalCals)
     }
     
     
-    func getFatTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String {
+    func getFatTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys, snack: MealEntrys) -> String {
         var totalFats = 0
             for index in (0 ..< breakfast.mealEntrysBreakfast.count){
                 totalFats += breakfast.mealEntrysBreakfast[index].fat ?? 0
@@ -35,9 +38,12 @@ struct DailyMacrosCounter{
             for index in (0 ..< dinner.mealEntrysDinner.count){
                 totalFats += dinner.mealEntrysDinner[index].fat ?? 0
                 }
+            for index in (0 ..< snack.mealEntrysSnack.count){
+                totalFats += dinner.mealEntrysSnack[index].fat ?? 0
+                }
             return String(totalFats)
         }
-    func getProteinTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String {
+    func getProteinTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys, snack: MealEntrys) -> String {
         var totalProtein = 0
             for index in (0 ..< breakfast.mealEntrysBreakfast.count){
                 totalProtein += breakfast.mealEntrysBreakfast[index].protein ?? 0
@@ -48,9 +54,12 @@ struct DailyMacrosCounter{
             for index in (0 ..< dinner.mealEntrysDinner.count){
                 totalProtein += dinner.mealEntrysDinner[index].protein ?? 0
                 }
+        for index in (0 ..< snack.mealEntrysSnack.count){
+            totalProtein += snack.mealEntrysSnack[index].protein ?? 0
+            }
             return String(totalProtein)
         }
-    func getCarbTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys) -> String {
+    func getCarbTotals(breakfast: MealEntrys, lunch: MealEntrys, dinner: MealEntrys, snack: MealEntrys) -> String {
         var totalCarbs = 0
             for index in (0 ..< breakfast.mealEntrysBreakfast.count){
                 totalCarbs += breakfast.mealEntrysBreakfast[index].carbs ?? 0
@@ -60,6 +69,9 @@ struct DailyMacrosCounter{
                 }
             for index in (0 ..< dinner.mealEntrysDinner.count){
                 totalCarbs += breakfast.mealEntrysDinner[index].carbs ?? 0
+                }
+            for index in (0 ..< snack.mealEntrysSnack.count){
+                totalCarbs += snack.mealEntrysSnack[index].carbs ?? 0
                 }
             return String(totalCarbs)
         }

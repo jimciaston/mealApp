@@ -18,69 +18,75 @@ struct RecipeEditor: View {
     
     
     var body: some View {
-        VStack{
-            HStack{
-                Button(action: {
-                    SaveRecipeButton.newRecipeCreated = false
-                    dismiss()
-                }){
-                    Image(systemName:"xmark").resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color("ButtonTwo"))
-                    
+        GeometryReader{ geo in
+            VStack{
+                HStack{
+                    Button(action: {
+                        SaveRecipeButton.newRecipeCreated = false
+                        dismiss()
+                    }){
+                        Image(systemName:"xmark").resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color("ButtonTwo"))
+                        
+                    }
+                    .blur(radius: showSuccessMessage ? 15 : 0)
+                    .padding(.leading, 20)
+                   Spacer()
+                    //bottom sheet for meals
+                    Button(action: {
+                        showSaveButton.toggle()
+                        switch sheetMode {
+                            case .none:
+                                sheetMode = .mealTimingSelection
+                            case .mealTimingSelection:
+                                sheetMode = .none
+                            case .quarter:
+                                sheetMode = .none
+                        }
+                    }){
+                        Image(systemName:"checkmark.circle.fill").resizable()
+                            .frame(width: 30, height: 30)
+                          //  .frame(maxWidth: .infinity)
+                            .foregroundColor(Color("ButtonTwo"))
+                            .padding(.trailing, 20)
+                    }
+                    .blur(radius: showSuccessMessage ? 15 : 0)
                 }
-                .blur(radius: showSuccessMessage ? 15 : 0)
-                .padding(.leading, 20)
+               
+                RecipeEditorImage()
+                    .padding(.top,5)
+                    .blur(radius: showSuccessMessage ? 15 : 0)
+               
+                if showSuccessMessage {
+                    RecipeSuccessPopUp(shown: $showSuccessMessage)
+                }
+                RecipeEditorView()
+                    .blur(radius: showSuccessMessage ? 15 : 0)
+                    .padding(.top, 80)
+                
+                RecipeEditModals()
+                    .blur(radius: showSuccessMessage ? 15 : 0)
                 Spacer()
                 
-                Button(action: {
-                    showSaveButton.toggle()
-                    switch sheetMode {
-                        case .none:
-                            sheetMode = .mealTimingSelection
-                        case .mealTimingSelection:
-                            sheetMode = .none
-                        case .quarter:
-                            sheetMode = .none
-                    }
-                }){
-                    Image(systemName:"checkmark.circle.fill").resizable()
-                        .frame(width: 30, height: 30)
-                      //  .frame(maxWidth: .infinity)
-                        .foregroundColor(Color("ButtonTwo"))
-                        .padding(.trailing, 20)
-                }
-                .blur(radius: showSuccessMessage ? 15 : 0)
-            }
-           
-            RecipeEditorImage()
-                .padding(.top,5)
-                .blur(radius: showSuccessMessage ? 15 : 0)
-           
-            if showSuccessMessage {
-                RecipeSuccessPopUp(shown: $showSuccessMessage)
-            }
-            RecipeEditorView()
-                .blur(radius: showSuccessMessage ? 15 : 0)
-                .padding(.top, 80)
-            
-            RecipeEditModals()
-                .blur(radius: showSuccessMessage ? 15 : 0)
-            Spacer()
-            
-            
-            //display save button
-            FlexibleSheet(sheetMode: $sheetMode) {
-                SaveRecipeButton(showSuccessMessage: $showSuccessMessage)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 
-                //sets coordinates of view on dash
-             .offset(y:-200)
+                //display save button
+                FlexibleSheet(sheetMode: $sheetMode) {
+                    SaveRecipeButton(showSuccessMessage: $showSuccessMessage)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+                    
+                    //sets coordinates of view on dash
+                 .offset(y:-200)
+                }
+                
             }
-            
+            //center view 
+            .alignmentGuide(VerticalAlignment.center, computeValue: { $0[.bottom] })
+                    .position(x: geo.size.width / 2, y: geo.size.height / 2)
+            .environmentObject(recipeClass)
         }
-        .environmentObject(recipeClass)
+        
     }
     
 }

@@ -11,7 +11,7 @@ struct TabBarIcon: View {
     let width, height: CGFloat
     let iconName, tabName: String
     
-    @StateObject var dashboardRouter: DashboardRouter
+    @ObservedObject var dashboardRouter: DashboardRouter
     let selectedTab: DashboardTab
     
     var body: some View {
@@ -28,6 +28,7 @@ struct TabBarIcon: View {
                 .padding(.horizontal, -4)
                 .foregroundColor(dashboardRouter.currentTab == selectedTab ? Color(.blue) : Color (.black))
                 .onTapGesture {
+                    dashboardRouter.isPlusMenuOpen = false
                     dashboardRouter.currentTab = selectedTab
                    }
                     

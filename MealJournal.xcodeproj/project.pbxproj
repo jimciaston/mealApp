@@ -37,6 +37,11 @@
 		0A3E03E328E122CF009613CF /* CustomFoodHStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */; };
 		0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */; };
 		0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */; };
+		0A47472D2925910800384B51 /* PlusTabPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47472C2925910800384B51 /* PlusTabPopMenu.swift */; };
+		0A47472F2927B9A100384B51 /* RecipeEditorBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47472E2927B9A100384B51 /* RecipeEditorBottomSheetView.swift */; };
+		0A474731292B9F2300384B51 /* ProfileCardsMainDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A474730292B9F2200384B51 /* ProfileCardsMainDisplay.swift */; };
+		0A474733292E48CA00384B51 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A474732292E48CA00384B51 /* Colors.xcassets */; };
+		0A474735292E496100384B51 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A474734292E496100384B51 /* ColorManager.swift */; };
 		0A53020927E430FB00B8D261 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020827E430FB00B8D261 /* RecipeListView.swift */; };
 		0A53020D27E8005E00B8D261 /* RecipeDashHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */; };
 		0A53020F27E8E0F100B8D261 /* RecipeDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A53020E27E8E0F100B8D261 /* RecipeDirections.swift */; };
@@ -180,6 +185,11 @@
 		0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoodHStacks.swift; sourceTree = "<group>"; };
 		0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCustomFoodItem.swift; sourceTree = "<group>"; };
 		0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSuccessPopUp.swift; sourceTree = "<group>"; };
+		0A47472C2925910800384B51 /* PlusTabPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTabPopMenu.swift; sourceTree = "<group>"; };
+		0A47472E2927B9A100384B51 /* RecipeEditorBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorBottomSheetView.swift; sourceTree = "<group>"; };
+		0A474730292B9F2200384B51 /* ProfileCardsMainDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardsMainDisplay.swift; sourceTree = "<group>"; };
+		0A474732292E48CA00384B51 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		0A474734292E496100384B51 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		0A53020827E430FB00B8D261 /* RecipeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
 		0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDashHeader.swift; sourceTree = "<group>"; };
 		0A53020E27E8E0F100B8D261 /* RecipeDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDirections.swift; sourceTree = "<group>"; };
@@ -361,6 +371,7 @@
 			children = (
 				0A8D80692826CBFC0055021A /* Editor */,
 				0A6534D927E0D3F400A50FB8 /* RecipeController.swift */,
+				0A47472E2927B9A100384B51 /* RecipeEditorBottomSheetView.swift */,
 				0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */,
 				0A6325F12887961F003B3D02 /* DeleteRecipe.swift */,
 				0A53021227E8F01700B8D261 /* RecipeNavigationModals.swift */,
@@ -407,6 +418,7 @@
 				0A8D8062282573680055021A /* SearchUsersFeature.swift */,
 				0A8D80652825D19C0055021A /* FollowingListRow.swift */,
 				0AF5B10328B0132D005533C8 /* UserProfileView.swift */,
+				0A474730292B9F2200384B51 /* ProfileCardsMainDisplay.swift */,
 				0AF5B10528B5B181005533C8 /* UserProfileRecipeView.swift */,
 				0A3E03D028C24758009613CF /* FollowingUsersView.swift */,
 				0A3E03D228C92C7D009613CF /* FollowersUsersView.swift */,
@@ -459,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				0A5B49AA282370CF0051A20B /* UserDashboardView.swift */,
+				0A47472C2925910800384B51 /* PlusTabPopMenu.swift */,
 				0AB112B8290590CD0071B3ED /* TabBar.swift */,
 				0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */,
 				0A6534D527DF8A1A00A50FB8 /* UserDashController.swift */,
@@ -509,6 +522,8 @@
 				0A8D957427B6E41400193B84 /* Utilities */,
 				0A9A055427B3328800CAD66B /* Models */,
 				0A8F98E427AB09AE008F5584 /* Assets.xcassets */,
+				0A474732292E48CA00384B51 /* Colors.xcassets */,
+				0A474734292E496100384B51 /* ColorManager.swift */,
 				0A8F98E627AB09AE008F5584 /* Preview Content */,
 			);
 			path = MealJournal;
@@ -754,6 +769,7 @@
 				0AB112B5290437C10071B3ED /* OpenSans-Regular.ttf in Resources */,
 				0AB112B029009F290071B3ED /* PlayfairDisplay-Regular.ttf in Resources */,
 				0A8F98E827AB09AE008F5584 /* Preview Assets.xcassets in Resources */,
+				0A474733292E48CA00384B51 /* Colors.xcassets in Resources */,
 				0A8F98E527AB09AE008F5584 /* Assets.xcassets in Resources */,
 				0A6A687A283C61700047CFB9 /* GoogleService-Info.plist in Resources */,
 			);
@@ -890,6 +906,7 @@
 				0A07D9592847EA180080A4ED /* FirebaseManager.swift in Sources */,
 				0A8D8073282A15280055021A /* RecipeEditorView.swift in Sources */,
 				0A6325F22887961F003B3D02 /* DeleteRecipe.swift in Sources */,
+				0A474735292E496100384B51 /* ColorManager.swift in Sources */,
 				0A8F98E327AB09AE008F5584 /* ContentView.swift in Sources */,
 				0A07D9652849353A0080A4ED /* PersonalSettingsView.swift in Sources */,
 				0A6534D627DF8A1A00A50FB8 /* UserDashController.swift in Sources */,
@@ -907,7 +924,9 @@
 				0A3B9B1B280FA94F00EC631A /* FoodData.swift in Sources */,
 				0A3B9B232813550900EC631A /* MealTimingSelectorView.swift in Sources */,
 				0A87DB71291EEBC600A3C1E9 /* Improvemnts.swift in Sources */,
+				0A47472F2927B9A100384B51 /* RecipeEditorBottomSheetView.swift in Sources */,
 				0A87DB672918A52900A3C1E9 /* GetStartedPopUp.swift in Sources */,
+				0A474731292B9F2300384B51 /* ProfileCardsMainDisplay.swift in Sources */,
 				0A12639627CEC1200076876B /* FitnessForm.swift in Sources */,
 				0A6534DA27E0D3F400A50FB8 /* RecipeController.swift in Sources */,
 				0A87DB6B291E84DD00A3C1E9 /* DeleteProfileView.swift in Sources */,
@@ -941,6 +960,7 @@
 				0A3B9B0F27FFDC4000EC631A /* MealBelongButtons.swift in Sources */,
 				0A87DB6D291EDFA900A3C1E9 /* DeleteAccountLogic.swift in Sources */,
 				0A3B9B2728162DE800EC631A /* NutrionalPieChartView.swift in Sources */,
+				0A47472D2925910800384B51 /* PlusTabPopMenu.swift in Sources */,
 				0A07D96328492E420080A4ED /* SettingsView.swift in Sources */,
 				0AB112C5290D699B0071B3ED /* LandingPageLogo.swift in Sources */,
 				0A12639327CE5CD10076876B /* MealEntrys.swift in Sources */,

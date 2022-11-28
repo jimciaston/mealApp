@@ -26,8 +26,10 @@ struct CustomItemsList: View {
                 Button(action: {
                     resultsShowing += 5
                 }){
-                    Text("View More")
-                    
+                    //return nothing if no custom items for user
+                    if resultsShowing > 0{
+                        Text("View More")
+                    }
                 }
               
                 .frame(maxWidth: .infinity)
@@ -38,7 +40,10 @@ struct CustomItemsList: View {
                     isViewSearching = false
                     userSearch = false
                 }){
-                    Text("Cancel Search")
+                    if resultsShowing > 0{
+                        Text("Cancel Search")
+                    }
+                    
                 }
                
                 .foregroundColor(.red)

@@ -16,7 +16,7 @@ struct ProfilePicture: View {
     @State private var inputImage: UIImage?
   
     var body: some View {
-        ZStack (alignment: .topTrailing){
+       
             VStack{
                 if let inputImage = inputImage {
                     Image(uiImage: inputImage)
@@ -32,10 +32,12 @@ struct ProfilePicture: View {
                              .aspectRatio(contentMode: .fill)
                              .frame(width:150, height: 150)
                              .clipShape(Circle())
+                             .shadow(color: Color("LightWhite"), radius: 9, x: 0, y: 13)
         
                  }
                     
                 Button(action: {
+                    print("fj")
                     showingImagePicker = true
                 }){
                     Image(systemName:("plus.circle.fill"))
@@ -43,11 +45,12 @@ struct ProfilePicture: View {
                         .aspectRatio(contentMode: .fill)
                         .foregroundColor(Color("ButtonTwo"))
                         .frame(width:30, height:25)
-                        .padding(.top, -20)
-                        .padding(.leading, 50)
+                       
                        
                 }
-               
+                .padding(.top, -20)
+                .padding(.leading, 50)
+                .edgesIgnoringSafeArea(.all)
             //PRESENT PICKER
         }
             
@@ -56,7 +59,7 @@ struct ProfilePicture: View {
                 
             }
             
-    }
+    
         //SAVE IMAGE TO DATABASE (FIREBASE)
         .onChange(of: inputImage, perform: { _ in
             persistImageToStorage() //call to save function

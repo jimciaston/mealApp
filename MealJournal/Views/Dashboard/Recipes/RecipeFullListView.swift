@@ -14,7 +14,7 @@ struct RecipeFullListView: View {
     @ObservedObject var rm = RecipeLogic()
     @State private var isActive = false
     @State private var active: Int? = nil
-    
+    @State var triggerRecipeController = false
     
     init(recipes: [RecipeItem ], showAddButton: Bool){
         self.recipes = recipes
@@ -28,7 +28,28 @@ struct RecipeFullListView: View {
             VStack{
                 Text("Recipes").bold()
                     .padding(.bottom, 20)
-                FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes)
+                if(recipes.count > 0){
+                    FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes)
+                }
+                else{
+                    VStack{
+                        Image(systemName: "plus.rectangle.on.rectangle")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                            .onTapGesture {
+                                triggerRecipeController = true
+                            }
+                        Text("Add a Recipe!")
+                            .font(.title3)
+                            .padding()
+                    }
+                    .padding(.top, 40)
+                    .fullScreenCover(isPresented: $triggerRecipeController){
+                            RecipeEditor()
+                    }
+                    Spacer()
+                }
+                
                 
             }
 

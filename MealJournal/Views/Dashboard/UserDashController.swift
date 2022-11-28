@@ -21,7 +21,7 @@ struct UserDashController: View {
     @State var followingCount = 0
     @State var followersCount = 0
     @State var deleteAccountSheet = false
-  
+   
     
     func fetchFollowingCount(){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -49,6 +49,7 @@ struct UserDashController: View {
                 ZStack{
                     GeometryReader { Geo in
                         VStack{
+                            VStack{
                             //Following and Follower button
                             NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
                                     EmptyView()
@@ -60,40 +61,69 @@ struct UserDashController: View {
                             
                             //profile picture
                             ProfilePicture()
-                            
+                           
                             HStack{
                                 Text(vm.userModel?.name ?? "Name unavailable" )
                                     .font(.custom("OpenSans-Regular", size: 24))
                             }
-                           
-                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
-                                .padding(.top, -25)
-                            
                             HStack{
                                 HStack{
-                                    Text("Following").foregroundColor(.gray)
-                                    Text(String(followingCount)).bold()
-                                    
+                                    VStack{
+                                        Text(String(followingCount))
+                                        Text("Following").foregroundColor(.gray)
+                                    }
+                                    .padding(.trailing, 15)
                                 }
+                                
                                 .onTapGesture {
                                     //perform some tasks if needed before opening Destination view
                                     self.action = 1
                                     }
                                 
                                 HStack{
-                                   
-                                    Text("Followers").foregroundColor(.gray)
-                                    Text(String(followersCount)).bold()
+                                    VStack{
+                                        Text(String(followersCount))
+                                        Text("Followers").foregroundColor(.gray)
+                                    }
+                                    .padding(.leading, 15)
                                 }
+                              
+                                
                                 .onTapGesture {
                                     //perform some tasks if needed before opening Destination view
                                     self.action = 2
                                 }
                             }
-                            .padding(.top, -5)
-                    
-                            RecipeListView()
+                            .padding(.top, 10)
+                            .padding(.bottom, 10)
+                                //custom divider
+                            Rectangle()
+                            .fill(Color("LighterGray"))
+                            .frame(width: abs(Geo.size.width - 125))
+                            .frame(height: 2)
+                                //.edgesIgnoringSafeArea(.horizontal)
+                                .padding(.bottom, 10)
                         }
+                             // .background(Color("LighterGray"))
+                            
+                            Text("About Me")
+                                .font(.title3)
+                                .padding(.bottom, -10)
+                            
+                            //User Bio
+                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
+                                .padding(.top, 10)
+                                .minimumScaleFactor(0.5)
+                                .padding(.bottom, 10)
+                         
+                            .padding(.top, -15)// << bring follow/followers up
+                            
+                            //Display recipes
+                            ProfileCardsMainDisplay()
+                                .padding(.top, -10)
+                            Spacer()
+                        }
+                        
                         .frame(width: Geo.size.width, height: Geo.size.height)
                         .onAppear{
                             fetchFollowingCount()
@@ -104,11 +134,6 @@ struct UserDashController: View {
                     .toolbar{
                         ToolbarItem (placement: .navigationBarTrailing){
                             Menu {
-                                Button(action: {
-                                    presentAddRecipePage = true
-                                }){
-                                    Text("Add Recipe")
-                                }
                                 Button(action: {
                                     presentSettingsPage = true
                                 }){
@@ -180,7 +205,7 @@ struct UserDashController: View {
                     
                 })
                 }
-                
+            //.padding(.top, -25)
            
      //   }
 //

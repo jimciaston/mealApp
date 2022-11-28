@@ -75,7 +75,7 @@ struct FullListOfRecipes: View {
             WebImage(url: URL(string: image))
                 .placeholder(Image("defaultRecipeImage-2").resizable())
                 .resizable()
-                .frame (width: 110, height:130)
+                .frame (width: 150, height:130)
                 .cornerRadius(15)
             
             ZStack{

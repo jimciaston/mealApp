@@ -71,7 +71,18 @@ struct JournalEntryMain: View {
                         .onDelete{offsets in
                             mealEntrys.mealEntrysDinner.remove(atOffsets: offsets)}
                     }
-                   
+                    Section(header: Text(Sectionheader(secHead: "Snacks"))
+                                .foregroundColor(.black))
+                    {
+                        if(mealEntrys.mealEntrysSnack.isEmpty){
+                            Text("")
+                    }
+                        ForEach(mealEntrys.mealEntrysSnack) { meal in
+                                EntryRow(meal: meal)
+                        }
+                        .onDelete { offsets in
+                            mealEntrys.mealEntrysSnack.remove(atOffsets: offsets)}
+                    }
                 }
                 //list stylings
                             .listStyle(GroupedListStyle())

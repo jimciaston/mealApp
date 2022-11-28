@@ -13,10 +13,13 @@ enum DashboardTab{
     case journal
     case recipes
     case searchUsers
+    case addRecipes
+    case addMeal
 }
-
+//Tab Router for Application
 class DashboardRouter: ObservableObject{
     @Published var currentTab: DashboardTab = .home
+    @Published var isPlusMenuOpen = false
     
    
 }

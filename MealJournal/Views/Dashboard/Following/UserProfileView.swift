@@ -79,7 +79,8 @@ struct UserProfileView: View {
                             .clipShape(Circle())
                            
                     HStack{
-                        Text(name ?? "" ) // << username
+                        Text(name ?? "" ).bold()
+                            .font(.title2)
                     }
                     //get user recipes
                     .onAppear{
@@ -95,7 +96,6 @@ struct UserProfileView: View {
                             guard let uid = Auth.auth().currentUser?.uid else { return } // << current user
                            
                             let followingUserUID = userUID // person following
-               
                             
                             FirebaseManager.shared.firestore.collection("users")
                                 .whereField("FollowingUsersList", arrayContains: followingUserUID)
@@ -146,7 +146,7 @@ struct UserProfileView: View {
                                      .frame(width: 85, height: 35)
                                      .border(.white)
                                      .foregroundColor(.white)
-                                     .background(.green)
+                                     .background(Color("ButtonTwo"))
                                      .font(.body)
                             }
                         Link (destination: URL(string: "https://www.instagram.com/carolinafearfest/")!){
@@ -157,98 +157,116 @@ struct UserProfileView: View {
                                 .padding(.leading, -5) // << bring closer to follow button
                         }
                              
-                            }
+                    }
+                    //check if user is followed
                     .onAppear{
                         isCurrentUserfollowingUser()
                     }
                     Spacer()
                    //display user recipes
+                    ProfileCardsMainDisplay()
+                    Spacer()
                 }
-        if fetchedUserRecipes.count != 0 {
-                   VStack{
-                       List{
-                           //prefix = only show 3 recipes at a time
-                           ForEach(fetchedUserRecipes.prefix(3)){ recipe in
-                                   HStack{
-                                       WebImage(url: URL(string: recipe.recipeImage))
-                                           .placeholder(Image("defaultRecipeImage-2").resizable())
-                                          .aspectRatio(contentMode: .fill)
-                                        .frame (width: 70, height:70)
-                                        .cornerRadius(15)
-                                VStack{
-                                    ZStack{
-                                        Text(recipe.recipeTitle)
-                                            .font(.body)
-                                        //temp solution until I can center it
-                                            .padding(.top, 1)
-                                        //as a note, sets empty view to hide list arrow
-                                        NavigationLink(destination: {UserProfileRecipeView(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
-                                            emptyview()
-                                            })
-                                            .opacity(0.0)
-                                            .buttonStyle(PlainButtonStyle())
-
-                                        HStack{
-                                            Text(String(recipe.recipeCaloriesMacro) + " Cals")
-                                                .foregroundColor(.gray)
-                                            Text(String(recipe.recipeFatMacro) + "g")
-                                                .foregroundColor(.gray)
-                                            Text(String(recipe.recipeCarbMacro) + "g")
-                                                .foregroundColor(.gray)
-                                            Text(String(recipe.recipeProteinMacro) + "g")
-                                                .foregroundColor(.gray)
-                                        }
-                                        .padding(.top, 80)
-                                        .padding(.bottom, 10)
-                                        .frame(height:90)
-                                    }
-                                    .padding(.top, -20)
-
-                                    }
-                                .padding(EdgeInsets(top: -5, leading: -25, bottom: 0, trailing: 0))
-                                }
-                            }
-
-                    ZStack{
-                        NavigationLink(destination:RecipeFullListView(recipes: fetchedUserRecipes, showAddButton: false)) {
-                               emptyview()
-                           }
-
-                        .opacity(0.0)
-                        .buttonStyle(PlainButtonStyle())
-
-                           HStack {
-                               Text("View More")
-                                   .font(.body)
-                                   .frame(width:300)
-                                   .padding(.top, 20)
-                           }
-                           
-                    }
-                }
-            }
-        }
-        else{
-            VStack{
-                Image(systemName: "note")
-                    .resizable()
-                    .frame(width: 70, height: 70)
-                    
-                Text("User has yet to upload a recipe")
-                    .font(.title3)
-                    .padding()
-                Spacer()
-            }
-            
-        }
+       
+           
+//        if fetchedUserRecipes.count != 0 {
+//                   VStack{
+//
+//
+//
+//                       Text("Recipes").bold()
+//                           .font(.title3)
+//                           .padding(.bottom, -20)
+//                           .frame(maxWidth:.infinity, alignment: .leading)
+//                           .multilineTextAlignment(.trailing)
+//                           .padding(.leading, 25)
+//
+//
+//                       List{
+//                           //prefix = only show 3 recipes at a time
+//                           ForEach(fetchedUserRecipes.prefix(1)){ recipe in
+//                                   HStack{
+//                                       WebImage(url: URL(string: recipe.recipeImage))
+//                                           .placeholder(Image("defaultRecipeImage-2").resizable())
+//                                          .aspectRatio(contentMode: .fill)
+//                                        .frame (width: 70, height:70)
+//                                        .cornerRadius(15)
+//                                VStack{
+//                                    ZStack{
+//                                        Text(recipe.recipeTitle)
+//                                            .font(.body)
+//                                        //temp solution until I can center it
+//                                            .padding(.top, 1)
+//                                        //as a note, sets empty view to hide list arrow
+//                                        NavigationLink(destination: {UserProfileRecipeView(name: recipe.recipeTitle,prepTime: recipe.recipePrepTime, image: recipe.recipeImage,  ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro)}, label: {
+//                                            emptyview()
+//                                            })
+//                                            .opacity(0.0)
+//                                            .buttonStyle(PlainButtonStyle())
+//
+//                                        HStack{
+//                                            Text(String(recipe.recipeCaloriesMacro) + " Cals")
+//                                                .foregroundColor(.gray)
+//                                            Text(String(recipe.recipeFatMacro) + "g")
+//                                                .foregroundColor(.gray)
+//                                            Text(String(recipe.recipeCarbMacro) + "g")
+//                                                .foregroundColor(.gray)
+//                                            Text(String(recipe.recipeProteinMacro) + "g")
+//                                                .foregroundColor(.gray)
+//                                        }
+//                                        .padding(.top, 80)
+//                                        .padding(.bottom, 10)
+//                                        .frame(height:90)
+//                                    }
+//                                    .padding(.top, -20)
+//
+//
+//                                    }
+//                                .padding(EdgeInsets(top: -5, leading: -25, bottom: 0, trailing: 0))
+//                                }
+//                            }
+//
+//                    ZStack{
+//                        NavigationLink(destination:RecipeFullListView(recipes: fetchedUserRecipes, showAddButton: false)) {
+//                               emptyview()
+//                           }
+//
+//                        .opacity(0.0)
+//                        .buttonStyle(PlainButtonStyle())
+//
+//                    }
+//
+//                }
+//                       Text("Saved Journals").bold()
+//                           .font(.title3)
+//                           .padding(.bottom, -20)
+//                           .frame(maxWidth:.infinity, alignment: .leading)
+//                           .multilineTextAlignment(.trailing)
+//                           .padding(.leading, 25)
+//                     MacroView()
+//            }
+//       }
+//      else{
+//            VStack{
+//                Image(systemName: "note")
+//                    .resizable()
+//                    .frame(width: 70, height: 70)
+//
+//                Text("User has yet to upload a recipe")
+//                    .font(.title3)
+//                    .padding()
+//                Spacer()
+//            }
+//
+//        }
     }
         
         
     
 }
-//
-//struct UserProfileView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserProfileView(name: "Teddy", userProfilePicture: "", userRecipes: ["1 cup": "Water"])
-//    }
-//}
+
+struct UserProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserProfileView(userUID: "223", name: "Teddy", userProfilePicture: "", userRecipes: ["1 cup": "Water"])
+    }
+}

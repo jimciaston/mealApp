@@ -32,8 +32,8 @@ struct LandingPage: View {
     
     @State private var progress: CGFloat = 0
     //colors for background on landing page
-   let gradient1 = Gradient(colors: [.pink, .orange])
-   let gradient2 = Gradient(colors: [.orange, .yellow])
+   let gradient1 = Gradient(colors: [Color("LandingPage1"), Color("LandingPage3")])
+   let gradient2 = Gradient(colors: [.orange, Color("LandingPage2")])
     
     @State private var animateGradient = false
     @State var scale: CGFloat = 1.0
@@ -62,7 +62,7 @@ struct LandingPage: View {
                     case .landingPage:
                         VStack{
                             LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
-                                .padding(.bottom, 60)
+                                .padding(.bottom, 100)
                          
                             Button(action: {
                                 viewState = .createUserAccountView
@@ -79,13 +79,9 @@ struct LandingPage: View {
                                     .background(
                                         RoundedRectangle(cornerRadius: 20)
                                             .fill(
-                                                LinearGradient(
-                                                    colors: [.orange, .yellow],
-                                                    startPoint: .topLeading,
-                                                    endPoint: .bottomTrailing
-                                                )))
-                                            }
-                            
+                                           LinearGradient(gradient: Gradient(colors: [Color("GetStartedBtn"), .orange]), startPoint: .leading, endPoint: .trailing)
+                                       ))
+                                    }
                             
                                Button(action: {
                                    viewState = .signUpController
@@ -100,7 +96,7 @@ struct LandingPage: View {
                                        
                                    //draw rectange around buttons
                                        .overlay( RoundedRectangle(cornerRadius: 25)
-                                       .stroke(Color.gray, lineWidth: 3)
+                                       .stroke(Color("LandingPage_LoginBtn"), lineWidth: 4)
                                    )}
                                .padding(.top, 10) // << button padding from top
                                 
@@ -133,7 +129,7 @@ struct LandingPage: View {
                     .onAppear {
                         //animation for background colors
                         DispatchQueue.main.async {
-                            withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+                            withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: true)) {
                                 self.progress = 1.0
                                 
                            }

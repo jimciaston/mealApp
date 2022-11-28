@@ -103,6 +103,21 @@ struct MealTimingSelectorView: View {
                     }){
                         Text("Dinner")
                     }
+                    Button(action: {
+                        isViewSearching = false
+                        userSearch = false
+                        mealEntryObj.mealEntrysSnack.append(meal)
+                        mealTimingToggle = false
+                        mealSelected = true //user selected a meal
+                        
+                        if(extendedViewOpen){
+                            mealSelected = true
+                            dismiss()
+                        }
+                      
+                    }){
+                        Text("Snack")
+                    }
                         .listRowSeparator(.automatic)
                 }
                 .padding(.top, -25)

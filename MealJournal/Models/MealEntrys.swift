@@ -12,5 +12,5 @@ class MealEntrys: ObservableObject{
     @Published var mealEntrysBreakfast: [Meal] = []
     @Published var mealEntrysLunch: [Meal] = []
     @Published var mealEntrysDinner: [Meal] = []
-    
+    @Published var mealEntrysSnack: [Meal] = []
 }

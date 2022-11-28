@@ -7,9 +7,10 @@
 
 import Foundation
 ///
-///1) In Fitness Form, can click through pop up
+///1) Add delete to custom food items
 ///
-///2) Name not showing up when creating account
+
+/// add character limit  to bio
 ///
 ///
 ///
