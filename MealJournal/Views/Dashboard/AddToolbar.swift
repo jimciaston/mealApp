@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddToolbar: View {
-    
+    @ObservedObject var calendarHelper = CalendarHelper()
     @Binding var showAddOptions: Bool
     @State var showMealView = false
     
@@ -32,7 +32,7 @@ struct AddToolbar: View {
                     .foregroundColor(.black)
                     }
                 }.fullScreenCover(isPresented: $showMealView){
-                    JournalEntryMain()
+                    JournalEntryMain(dayOfWeek: weekdayAsString(date: calendarHelper.currentDay))
                 }
             }
             VStack{

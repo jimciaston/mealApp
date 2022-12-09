@@ -26,8 +26,7 @@ struct createUserAccount: View {
     @State private var emailAlreadyInUse = false // << email in use logic
     
     @Environment (\.dismiss) var dismiss
-    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User> // grab all users
-    
+   
     @State private var viewState: CreateAccountViewState = .createAccount //viewState of page
     
     init(){

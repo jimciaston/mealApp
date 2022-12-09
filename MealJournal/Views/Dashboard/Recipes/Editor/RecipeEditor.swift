@@ -67,7 +67,7 @@ struct RecipeEditor: View {
                 
                 RecipeEditModals()
                     .blur(radius: showSuccessMessage ? 15 : 0)
-                Spacer()
+               // Spacer()
                 
                 
                 //display save button

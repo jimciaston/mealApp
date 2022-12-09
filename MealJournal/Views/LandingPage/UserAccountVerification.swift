@@ -9,9 +9,8 @@ import SwiftUI
 import CoreData
 
 final class FormViewModel: ObservableObject {
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: []) var allUsers: FetchedResults <User>
-    
+   
+   
     @Published var name = ""
     @Published var email = ""
     @Published var gender = ""

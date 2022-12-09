@@ -110,7 +110,6 @@ struct FoodItemView: View {
                     .font(.title2)
                     .frame(maxWidth:.infinity)
                     .multilineTextAlignment(.center)
-                
                 Text(mealBrand)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)

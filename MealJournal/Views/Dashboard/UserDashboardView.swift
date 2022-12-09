@@ -8,6 +8,10 @@
 import SwiftUI
 import Firebase
 struct UserDashboardView: View {
+    //Core Data Variables
+    @Environment(\.managedObjectContext) var managedObjContext
+    
+    @StateObject var calendarHelper = CalendarHelper()
     @ObservedObject var vm: DashboardLogic
     @EnvironmentObject var mealEntrys: MealEntrys
     @ObservedObject var signUpController: SignUpController
@@ -16,7 +20,7 @@ struct UserDashboardView: View {
     @State private var signedOut = false
     //@State private var plusTabIconTapped = false
     @State private var closePlusIconPopUpMenu = false
-   
+    @State var isUserSearching = false
     //    init(){
 //        UITabBar.appearance().backgroundColor = UIColor.white
 //        self._signUpController = signUpController
@@ -27,11 +31,14 @@ struct UserDashboardView: View {
             VStack{
                 switch dashboardRouter.currentTab {
                     case .home:
+                    if !isUserSearching{
                         UserDashController(vm: vm, signUpController: signUpController)
                             .environmentObject(EditModeActive())
+                    }
+                       
                     
                 case .journal:
-                    JournalEntryMain()
+                    JournalEntryMain(dayOfWeek: "Wednesday")
                 case .recipes:
                     RecipeFullListView(recipes: rm.recipes, showAddButton: true)
                 case .searchUsers:
@@ -39,8 +46,7 @@ struct UserDashboardView: View {
                 case .addRecipes:
                     RecipeEditor()
                 case .addMeal:
-                    MealSearchBar(isUserDoneSearching: .constant(false))
-                        
+                    MealSearchBarPopUp(isUserDoneSearching: $isUserSearching)
                 }
            
                 ZStack{
@@ -93,12 +99,7 @@ struct UserDashboardView: View {
                          .background(Color("LighterWhite").shadow(radius: 2))
                         
                 }
-                
-                .onAppear{
-                    print("fjkda")
-                    print(rm.recipes.count)
-                }
-                    
+               
             }
             .edgesIgnoringSafeArea(.bottom)
         }

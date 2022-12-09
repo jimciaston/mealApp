@@ -1,13 +1,13 @@
 //
-//  MealSearchBar.swift
+//  MealSearchBarPopUp.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 2/20/22.
+//  Created by Jim Ciaston on 12/9/22.
 //
 
 import SwiftUI
 
-struct MealSearchBar: View {
+struct MealSearchBarPopUp: View {
     @ObservedObject var logic = CustomFoodLogic()
     //TEXTFIELD
     @State var userFoodInput = ""
@@ -31,7 +31,6 @@ struct MealSearchBar: View {
                     Image(systemName: "magnifyingglass")
                     TextField("Enter Meal", text: $userFoodInput)
                         .onSubmit {
-                            
                             foodApi.searchFood(userItem: userFoodInput, showMoreResults: showMoreResults)
                             didUserSearch = true
                             didtextComplete = true
@@ -40,6 +39,7 @@ struct MealSearchBar: View {
                             foodApi.userSearch = userFoodInput
                             
                             if didtextComplete{
+                               
                                 foodApi.userSearchResults = [] //emptys list
                                 userFoodInput = ""
                         }
@@ -55,10 +55,12 @@ struct MealSearchBar: View {
             .padding(12)
             
         }
+        Spacer()
         //calling food results
         FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
             .environmentObject(foodApi)
-    
+        Spacer()
     }
     
 }
+

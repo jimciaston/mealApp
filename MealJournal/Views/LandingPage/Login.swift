@@ -15,6 +15,7 @@ enum LoginEnum{
 
 
 struct userLogin: View {
+   @StateObject var calendarHelper = CalendarHelper()
     @State private var userLoginSuccess: Bool = false
     @State var userEmail: String = "";
     @State var userPassword: String = "";
@@ -176,7 +177,7 @@ struct userLogin: View {
            
           
         case .journalEntryMain:
-            JournalEntryMain() // << will be create
+            JournalEntryMain(dayOfWeek: weekdayAsString(date: calendarHelper.currentDay)) // << will be create
             
         }
            

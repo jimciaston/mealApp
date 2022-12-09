@@ -19,23 +19,32 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct MealJournalApp: App {
-   
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+    //fetch user journals
+    
+    //firebase connectivity help
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init(){
         FirebaseApp.configure()
+        
+        //check if any journals have expired (TTL)
+        
+        
     }
+    @StateObject var calendarHelper = CalendarHelper()
     @StateObject var vm = DashboardLogic()
     @StateObject var mealEntrys = MealEntrys()
-    @StateObject private var dataController = DataController()
+    @StateObject var userJournalController = UserJournalHelper()
     var body: some Scene {
         //load and ready coredata
         WindowGroup{
              ContentView()
                 .environmentObject(vm)
                 .environmentObject(mealEntrys)
-                .environment(\.managedObjectContext, DataController.container.viewContext)
+                .environment(\.managedObjectContext, userJournalController.container.viewContext)
+               
         }
     }
 }

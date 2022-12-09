@@ -11,7 +11,8 @@ import SwiftUI
 ///more details on jouranlEntry where they see full meal stats
 struct MealTimingSelectorView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
-    
+    @StateObject var userJournalHelper = UserJournalHelper()
+    @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
     @Binding var meal: Meal
     @Binding var isViewSearching: Bool
@@ -55,9 +56,16 @@ struct MealTimingSelectorView: View {
                    
                 }.background(Color("LightWhite"))
                 
-                
+                //breakfast, lunch, dinner selectors
                 List {
                     Button(action: {
+                        //save journal entry
+                        UserJournalHelper().saveJournalEntry(
+                            entryName: meal.mealName ?? "Default",
+                            mealTiming: "breakfast",
+                            dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
+                            context: managedObjContext)
+                        
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysBreakfast.append(meal)
@@ -74,6 +82,13 @@ struct MealTimingSelectorView: View {
                     }
                     
                     Button(action: {
+                        
+                        UserJournalHelper().saveJournalEntry(
+                            entryName: meal.mealName ?? "Default",
+                            mealTiming: "lunch",
+                            dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
+                            context: managedObjContext)
+                        
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysLunch.append(meal)
@@ -90,6 +105,13 @@ struct MealTimingSelectorView: View {
                         .listRowSeparator(.automatic)
                     
                     Button(action: {
+                        
+                        UserJournalHelper().saveJournalEntry(
+                            entryName: meal.mealName ?? "Default",
+                            mealTiming: "dinner",
+                            dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
+                            context: managedObjContext)
+                        
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysDinner.append(meal)
@@ -104,6 +126,13 @@ struct MealTimingSelectorView: View {
                         Text("Dinner")
                     }
                     Button(action: {
+                        
+                        UserJournalHelper().saveJournalEntry(
+                            entryName: meal.mealName ?? "Default",
+                            mealTiming: "snack",
+                            dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
+                            context: managedObjContext)
+                        
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysSnack.append(meal)

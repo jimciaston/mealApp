@@ -10,7 +10,8 @@ import Foundation
 ///1) Add delete to custom food items
 ///
 
-/// add character limit  to bio
+/// 2) able to delete recipes
 ///
-///
-///
+///3) MealJournal  - add tap entry and pop up window
+///4) if you go to navigation view of journal, does not dismiss if you select a meal
+

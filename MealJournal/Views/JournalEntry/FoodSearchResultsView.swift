@@ -181,34 +181,37 @@ struct FoodSearchResultsView: View {
                                 .foregroundColor(.black)
                                 .opacity(mealTimingToggle ? 0.3 : 1)
                             }
+                          
+                                Button(action: {
+                                    foodApi.foodResultsDisplayed = 0
+                                    resultsDisplayed += 5
+                                }){
+                                    Text("View More")
+                                    
+                                }
+                                .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
+                                .frame(maxWidth: .infinity)
+                                .padding([.top, .bottom], 15)
+                                .multilineTextAlignment(.center)
+                                
+                                Button(action: {
+                                    resultsDisplayed = 5
+                                    isViewSearching = false
+                                    userSearch = false
+                                }){
+                                    Text("Cancel Search")
+                                }
+                                .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
+                               
+                                .foregroundColor(.red)
+                                .font(.caption)
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, -10)
+                                .padding(.bottom, 20)
+                                .listRowSeparator(.hidden)
                             
                             //view more results toggle
-                            Button(action: {
-                                foodApi.foodResultsDisplayed = 0
-                                resultsDisplayed += 5
-                            }){
-                                Text("View More")
-                                
-                            }
-                            .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
-                            .frame(maxWidth: .infinity)
-                            .padding([.top, .bottom], 15)
-                            .multilineTextAlignment(.center)
-                            
-                            Button(action: {
-                                resultsDisplayed = 5
-                                isViewSearching = false
-                                userSearch = false
-                            }){
-                                Text("Cancel Search")
-                            }
-                            .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
                            
-                            .foregroundColor(.red)
-                            .font(.caption)
-                            .frame(maxWidth: .infinity)
-                            .padding(.top, -10)
-                            .listRowSeparator(.hidden)
                         }
                         .listStyle(.plain)
                         .listRowSeparator(.hidden)

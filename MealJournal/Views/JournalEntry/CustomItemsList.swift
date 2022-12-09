@@ -20,6 +20,7 @@ struct CustomItemsList: View {
     var body: some View {
         VStack{
             List{
+                
                 ForEach (logic.customFoodItems.prefix(resultsShowing), id: \.self ) { item in
                     CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, item: .constant(item), mealName: item.mealName ?? "Invalid Name")
                 }
@@ -27,9 +28,14 @@ struct CustomItemsList: View {
                     resultsShowing += 5
                 }){
                     //return nothing if no custom items for user
-                    if resultsShowing > 0{
+                    if logic.customFoodItems.count > 0{
                         Text("View More")
                     }
+                    else{
+                        Text("Currently no custom food items")
+                            .font(.title2)
+                    }
+                    
                 }
               
                 .frame(maxWidth: .infinity)
@@ -40,7 +46,7 @@ struct CustomItemsList: View {
                     isViewSearching = false
                     userSearch = false
                 }){
-                    if resultsShowing > 0{
+                    if logic.customFoodItems.count > 0{
                         Text("Cancel Search")
                     }
                     
