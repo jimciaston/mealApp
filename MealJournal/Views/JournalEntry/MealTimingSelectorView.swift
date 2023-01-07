@@ -20,7 +20,7 @@ struct MealTimingSelectorView: View {
     @Binding var mealTimingToggle: Bool
     @Binding var extendedViewOpen: Bool
     @Binding var mealSelected: Bool
-    
+    @ObservedObject var dashboardRouter = DashboardRouter()
     init(meal: Binding<Meal>, isViewSearching: Binding<Bool>, userSearch: Binding<Bool>, mealTimingToggle: Binding<Bool>, extendedViewOpen: Binding<Bool>, mealSelected: Binding<Bool>){
         ///commented the view color out for now, as it was having a weird effect on the journalEntryMain list. 
         UITableView.appearance().backgroundColor = .clear
@@ -59,22 +59,27 @@ struct MealTimingSelectorView: View {
                 //breakfast, lunch, dinner selectors
                 List {
                     Button(action: {
-                        //save journal entry
+                                              //save journal entry
                         UserJournalHelper().saveJournalEntry(
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "breakfast",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
-                            context: managedObjContext)
+                            context: managedObjContext,
+                            entryCalories: Int16(meal.calories ?? 0),
+                            entryProtein: Int16(meal.protein ?? 0 ),
+                            entryFat: Int16(meal.fat ?? 0),
+                            entryCarbs: Int16(meal.carbs ?? 0), totalCalories: "100")
                         
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysBreakfast.append(meal)
                         mealTimingToggle = false
                         mealSelected = true //user selected a meal
-                        
+                      
                         if(extendedViewOpen){
                             mealSelected = true
                             dismiss()
+                           
                         }
                       
                     }){
@@ -87,14 +92,18 @@ struct MealTimingSelectorView: View {
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "lunch",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
-                            context: managedObjContext)
+                            context: managedObjContext,
+                            entryCalories: Int16(meal.calories!),
+                            entryProtein: Int16(meal.protein!),
+                            entryFat: Int16(meal.fat!),
+                            entryCarbs: Int16(meal.carbs!), totalCalories: "100")
                         
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysLunch.append(meal)
                         mealTimingToggle = false
                         mealSelected = true //user selected a meal
-                        
+                      
                         if(extendedViewOpen){
                             mealSelected = true
                             dismiss()
@@ -110,7 +119,11 @@ struct MealTimingSelectorView: View {
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "dinner",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
-                            context: managedObjContext)
+                            context: managedObjContext,
+                            entryCalories: Int16(meal.calories!),
+                            entryProtein: Int16(meal.protein!),
+                            entryFat: Int16(meal.fat!),
+                            entryCarbs: Int16(meal.carbs!), totalCalories: "100")
                         
                         isViewSearching = false
                         userSearch = false
@@ -131,7 +144,11 @@ struct MealTimingSelectorView: View {
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "snack",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
-                            context: managedObjContext)
+                            context: managedObjContext,
+                            entryCalories: Int16(meal.calories!),
+                            entryProtein: Int16(meal.protein!),
+                            entryFat: Int16(meal.fat!),
+                            entryCarbs: Int16(meal.carbs!), totalCalories: "100")
                         
                         isViewSearching = false
                         userSearch = false

@@ -32,10 +32,17 @@ struct NutrionalPieChartView: View {
         let sum = values.reduce(0,+)
         var endDeg: Double = 0
         var tempSlices: [PieSliceData] = []
-        
+        var counter = 0
+       
         for (i, value) in values.enumerated(){
+            if value != 0.0 {
+                      counter += 1
+                  }
+            
             let degrees: Double = value * 360 / sum
-                tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees), text: String(format:"%.0f%%", value * 100 / sum ), color: colors[i]))
+                tempSlices.append(
+                    PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees),
+                           text: String(format:"%.0f%%", value * 100 / sum ), color: colors[i], value: value, counter: counter))
                 endDeg += degrees
         }
         return tempSlices
@@ -50,10 +57,10 @@ struct NutrionalPieChartView: View {
                         NutrionalPieChart(pieSliceData: self.slices[i])    
                     }
                     //adjust size
-                    .frame(width: geometry.size.width - 150, height: 320)
+                    .frame(width: geometry.size.width - 160, height: 155)
                   
                 }
-                .padding(.bottom, -50)
+               
 
                 //rows at bottom of piechart
                     PieChartHelperRows(
@@ -61,7 +68,7 @@ struct NutrionalPieChartView: View {
                         names: self.names,
                         values: self.values.map { String(format: "%.0f", $0) + "g" },
                         percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) })
-                
+                   
                 
                 .background(self.backgroundColor)
                 .foregroundColor(Color.black)
@@ -77,6 +84,6 @@ struct NutrionalPieChartView: View {
 
 struct NutrionalPieChartView_Previews: PreviewProvider {
     static var previews: some View {
-        NutrionalPieChartView(values: [05,5,10], colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
+        NutrionalPieChartView(values: [05,5,10], colors: [Color.PieChart1, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white)
     }
 }

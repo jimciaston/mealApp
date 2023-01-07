@@ -28,6 +28,8 @@ struct RecipeFullListView: View {
             VStack{
                 Text("Recipes").bold()
                     .padding(.bottom, 20)
+                    .padding(.top, 20)
+                    .font(.title2)
                 if(recipes.count > 0){
                     FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes)
                 }

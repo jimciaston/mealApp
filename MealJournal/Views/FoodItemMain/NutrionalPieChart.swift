@@ -36,17 +36,22 @@ struct NutrionalPieChart: View {
                 .fill(pieSliceData.color)
                 
                 //TOUCH GFFLOAT TO UPDATE POSITION OF PERCENTAGES IN CIRCLE
-                if pieSliceData.text == "0%"{ // << if 0%, don't show in piechart
+                if pieSliceData.value == 0.0 { // << if 0, don't show in piechart
                     Text("")
                 }
                 else{
-                    Text(pieSliceData.text).bold() // << text inside piechart
+                    Text("\(String(format: "%.0f", pieSliceData.value))g").bold() // << text inside piechart
+    
                         .position(
-                            x: geometry.size.width * 0.5 * CGFloat(1.0 + 0.60 * cos(self.midRadians)),
-                            y: geometry.size.height * 0.5 * CGFloat(1.0 - 0.60 * sin(self.midRadians))
+                            x: geometry.size.width * 0.5 * CGFloat(1.0 + (pieSliceData.counter > 1 ? 0.70 : 0.50) * cos(self.midRadians)),
+                            y: geometry.size.height * 0.5 * CGFloat(1.0 + (pieSliceData.counter > 1 ? 0.25 : 0.25) * sin(self.midRadians))
                         )
+
                         .foregroundColor(Color.white)
                         .font(.body)
+                        .onAppear{
+                            print(pieSliceData.counter)
+                        }
                 }   
             }
         }
@@ -61,12 +66,14 @@ struct PieSliceData {
     var endAngle: Angle
     var text: String
     var color: Color
+    var value: Double // << grabs grams of food to display in pie chart
+    var counter: Int // << keep track of how many values are present in a Food Item
 }
 
 
 
 struct NutrionalPieChart_Previews: PreviewProvider {
     static var previews: some View {
-        NutrionalPieChart(pieSliceData: PieSliceData(startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 220.0), text: "65%", color: Color.black))
+        NutrionalPieChart(pieSliceData: PieSliceData(startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 220.0), text: "65%", color: Color.black, value: 3.0, counter: 2))
     }
 }

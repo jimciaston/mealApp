@@ -18,7 +18,7 @@ struct CustomItemListRow: View {
     @Binding var item: Meal
     
     @State var mealName: String
-    
+    @Binding var dismissResultsView: Bool
     var body: some View {
                     ZStack{
                         HStack{
@@ -72,7 +72,8 @@ struct CustomItemListRow: View {
                             mealProtein: item.protein ?? 0,
                             mealFat: item.fat ?? 0,
                             mealUnitSize: item.servingSizeUnit ?? "Default",
-                            mealServingSize: item.servingSize ?? 0
+                            mealServingSize: item.servingSize ?? 0,
+                            dismissResultsView: $dismissResultsView
                         )
                         ){
                             emptyview()

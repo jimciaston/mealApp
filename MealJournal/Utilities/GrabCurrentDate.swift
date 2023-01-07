@@ -52,29 +52,35 @@ enum Weekday: String, CaseIterable {
 
 class CalendarHelper: ObservableObject {
     @Published private(set) var currentDay = Date().currentDay - 1
-    
+    var permDate = Date().currentDay
     var currentWeekday: Weekday {
           Weekday.allCases[currentDay]
       }
       
     
     func decrementDate(){
-        if currentDay > 0{
-            currentDay -= 1
+        if permDate != currentDay {
+            if currentDay > 0{
+                currentDay -= 1
+            }
+            else{
+                currentDay = 6 // go back to Saturday
+            }
         }
-        else{
-            currentDay = 6 // go back to Saturday
-        }
+        
     }
-    
+    //lock date so can't go to a future date (no reason for user to do so)
     func incrementDate(){
-        if currentDay < 6 {
-            currentDay += 1
+        if permDate - 1 != currentDay {
+            if currentDay < 6 {
+                currentDay += 1
+            }
+            else{
+                ///if saturday, go back to sunday
+                currentDay = 0
+            }
         }
-        else{
-            ///if saturday, go back to sunday
-            currentDay = 0
-        }
+        
     }
     
     func test(entry1: Date, entry2: String){

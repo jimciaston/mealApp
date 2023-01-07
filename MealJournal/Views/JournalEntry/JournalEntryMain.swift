@@ -17,13 +17,14 @@ struct JournalEntryMain: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: JournalEntry.entity(), sortDescriptors: []) var fetchedJournalEntrys: FetchedResults<JournalEntry>
     
-    
-    
+    @StateObject var fetchEntryTotals = FetchEntryTotals()
+    @State var isDeletable = false // makes sure can't delete previous day entrys
    // @State var currentWeekday = 0
+    //remove journal entry
     func removeJournalEntry(at offsets: IndexSet) {
         mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)
     }
-    
+  
     @EnvironmentObject var mealEntrys: MealEntrys
     //interchangeable, updates when we toggle calendar
     @State var dayOfWeek = ""
@@ -40,20 +41,15 @@ struct JournalEntryMain: View {
     //Calendar help class
     @StateObject var calendarHelper = CalendarHelper()// << User Date information
     @State var overlayShowing = false
-    /*
-     
-     
-     create separate pop up for if day is saved already
-     
-     
-     
-     */
+    //search bar State
+    @State private var showSearchBar = true
+   
     func favoriteJournalEntry(){
         for entry in fetchedJournalEntrys {
             if(entry.dayOfWeekCreated == dayOfWeek  ){
                 if entry.entrySaved == false {
-                    UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: 0, mealCarbs: 0, mealProtein: 0, mealCalories: 0, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!)
-                    
+                    UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: 0, mealCarbs: 0, mealProtein: 0, mealCalories: 0, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!, totalCalories: "100")
+    //save entry
                     entry.entrySaved = true
                     do{
                         try managedObjectContext.save()
@@ -70,124 +66,179 @@ struct JournalEntryMain: View {
             }
         }
     }
-    
+   
     var body: some View {
-    NavigationView{
-        VStack{
-            MacroView()
-                .environmentObject(mealEntrys) //references meal entry
-           
-            //search bar - sets foodname to foodname
-        MealSearchBar(isUserDoneSearching: $isUserSearching)//when user is completed searching
-            HStack(spacing: 0){
-                HStack(spacing: 0){
-                    Button(action: {
-                        calendarHelper.decrementDate()
-                        dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
-                        isUserFavoritingEntry = false
-                        overlayShowing = false // << clear overlay if showing
-                        //takes msg away if not valid
-                        favoriteNotValid = false
-                    }){
-                        Image(systemName: "arrow.left")
-                    }
-                    
-                    Text(weekdayAsString(date: calendarHelper.currentDay)) // << display current day of week
-                    
-                    Button(action: {
-                        calendarHelper.incrementDate()
-                        dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
-                        isUserFavoritingEntry = false
-                        overlayShowing = false // << clear overlay if showing
-                        //if msg showing, takes away on next day
-                        favoriteNotValid = false
-                    }){
-                        Image(systemName: "arrow.right")
-                    }
-                    
-                }
-                .frame(maxWidth: .infinity, alignment: .center) //<< center
-                .opacity(isUserSearching ? 0 : 1.0 )
-                
-                // USER FAVORITING ENTRY
-                Button(action: {
-                    if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
-                        //favorite not valid
-                        withAnimation {
-                            overlayShowing = true
+                VStack{
+                    MacroView(fetchEntryTotals: fetchEntryTotals)
+                        .environmentObject(mealEntrys) //references meal entry
+                    //fetch calorie totals
+                        .onAppear{
+                            fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                            fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                            fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                            fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                         }
+                    //search bar
+                   
+                    if dayOfWeekPermanent == dayOfWeek {
+                            MealSearchBar(isUserDoneSearching: $isUserSearching)
+                            .opacity(showSearchBar ? 1 : 0)
+                            .animation(.easeInOut(duration: 0.25), value: showSearchBar)
+                            //dispaear search bar if not on "today"
+                               
+                               
+                        //sets it automatically to show on appear
+                                .onAppear{
+                                    showSearchBar = true
+                                    isDeletable = true
+                                }
+                            }
                        
-                    }
-                    else{
-                        if !favoriteNotValid {
-                            isUserFavoritingEntry = true
-                            //save logic
-                            favoriteJournalEntry()
-                        }
-                    }
-                  
-                }){
-                    Image(systemName:isUserFavoritingEntry ? "star.fill" : "star")
-                        .resizable()
-                        .frame(width:25, height: 25)
-                        .opacity(isUserSearching ? 0 : 1.0 )
-                        .padding(.trailing, 45)
-                        .foregroundColor(isUserFavoritingEntry ? .yellow : .black)
-                    //pop up if user tries to favorite current day
-                        .overlay(
-                            FavoriteInvalidPopUp(validOrSaved: $favoriteAlreadySaved)
-                                 // Start styling the popup...
-                                .padding(.all, 10)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
-                                .offset(x: -120, y: -40) // Move the view above the button
-                               .opacity(overlayShowing ? 1.0 : 0)
-                                .frame(width: 250, height: 70)
-                                        .padding(.trailing, 20)
-                            )
-                        }
-                ///Keep at 1, no idea why day of week doesn't center without this
-                .frame(width: 1)
-              
-                
-            }
-            
-            if(!isUserSearching){
-                EntryList(dayOfWeek: dayOfWeek)
-                    .onAppear{
-                        dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
-                        dayOfWeekPermanent = weekdayAsString(date: calendarHelper.currentDay)
-                       
-//                                for mealEntry in existingJournalEntrys {
-//                                    if mealEntry.createdDate == "05/12/2022" {
-//                                        UserJournalHelper().deleteJournalEntry(entry: mealEntry, context: managedObjContext)
-//                                    }
-//                                        
-//                                }
+                    HStack(spacing: 0){
+                        HStack(spacing: 0){
+                            Button(action: {
+                           
+                                isDeletable = false
+                                calendarHelper.decrementDate()
+                                dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
+                                isUserFavoritingEntry = false
+                                overlayShowing = false // << clear overlay if showing
+                                //takes msg away if not valid
+                                favoriteNotValid = false
+                                showSearchBar = false
+                                fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                            }){
+                                Image(systemName: "arrow.left")
+                            }
+                            if dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay) {
+                                Text("Today")
+                            }
+                            else{
+                                Text(weekdayAsString(date: calendarHelper.currentDay)) // << display current day of week
+                            }
                             
+                            
+                            Button(action: {
+                                if dayOfWeekPermanent == dayOfWeek {
+                                    showSearchBar = true
+                                    isDeletable = true
+                                }
+                                else{
+                                    isDeletable = false
+                                    showSearchBar = false
+                                    calendarHelper.incrementDate()
+                                    dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
+                                    isUserFavoritingEntry = false
+                                   
+                                    overlayShowing = false // << clear overlay if showing
+                                    //if msg showing, takes away on next day
+                                    favoriteNotValid = false
+                                   // Fetch the entry totals for each
+                                    fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                    fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                    fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                    fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                }
+                                
+                            }){
+                                Image(systemName: "arrow.right")
+                                    .opacity(showSearchBar ? 0 : 1)
+                                   
+                                
+                            }
+                            
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center) //<< center
+                        .opacity(isUserSearching ? 0 : 1.0 )
+                        
+                        // USER FAVORITING ENTRY
+                        Button(action: {
+                            if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
+                                //favorite not valid
+                                withAnimation {
+                                    overlayShowing = true
+                                }
+                               
+                            }
+                            else{
+                                if !favoriteNotValid {
+                                    isUserFavoritingEntry = true
+                                    //save logic
+                                    favoriteJournalEntry()
+                                }
+                            }
+                          
+                        }){
+                            Image(systemName:isUserFavoritingEntry ? "star.fill" : "star")
+                                .resizable()
+                                .frame(width:25, height: 25)
+                                .opacity(isUserSearching ? 0 : 1.0 )
+                                .padding(.trailing, 45)
+                                .foregroundColor(isUserFavoritingEntry ? .yellow : .black)
+                            //pop up if user tries to favorite current day
+                                .overlay(
+                                    FavoriteInvalidPopUp(validOrSaved: $favoriteAlreadySaved)
+                                         // Start styling the popup...
+                                        .padding(.all, 10)
+                                        .background(Color.white)
+                                        .cornerRadius(10)
+                                        .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                        .offset(x: -120, y: -40) // Move the view above the button
+                                    //valid overlay
+                                       .opacity(overlayShowing ? 1.0 : 0)
+                                        .frame(width: 250, height: 70)
+                                                .padding(.trailing, 20)
+                                    )
+                                }
+                        ///Keep at 1, no idea why day of week doesn't center without this
+                        .frame(width: 1)
+                      
+                        
                     }
+                    
+                    if(!isUserSearching){
+                        
+                        EntryList(dayOfWeek: dayOfWeek, fetchEntryTotals: fetchEntryTotals, isDeletable: $isDeletable)
+                          
+                            .deleteDisabled(isDeletable)
+                            .onAppear{
+                               isDeletable = true // << current day is true
+                                
+                               dayOfWeekPermanent = dayOfWeek
+                                   
+                                fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchSavedJournals()
+                                dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
+                                dayOfWeekPermanent = weekdayAsString(date: calendarHelper.currentDay)
+                               //delete if time to live
+                                        for mealEntry in fetchedJournalEntrys {
+                                            // if time to live from cb matches current date (7 days)
+                                            if mealEntry.timeToLive == calendarHelper.currentDate() {
+                                                UserJournalHelper().deleteJournalEntry(entry: mealEntry, context: managedObjectContext)
+                                            }
+
+                                        }
+                                    
+                            }
+                            
+                        }
+                  
                 }
-        
-        }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-        }
-    .environmentObject(mealEntrys) //references meal entry
-        
-        
-        
-            // Grab all entrys for given day
-            
-            // when time strikes midnight, save down
-            
-            //throw on finishing touches animatin
-            
-            //done. you did it.
-        
+                .onAppear{
+                    isDeletable = true // make sure can't delete past entrys
+                }
+            .environmentObject(mealEntrys) //references meal entry
+    
+          
 }
         
- 
+}
 
 
 struct JournalEntryMain_Previews: PreviewProvider {
@@ -195,4 +246,4 @@ struct JournalEntryMain_Previews: PreviewProvider {
         JournalEntryMain(dayOfWeek: "Tuesday").environmentObject(MealEntrys())
     }
 }
-}
+

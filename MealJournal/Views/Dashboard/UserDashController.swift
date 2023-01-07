@@ -186,7 +186,6 @@ struct UserDashController: View {
                
                 .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
                     GeometryReader { geometry in {
-                        
                         BottomSheetView(
                             isOpen: self.$deleteAccountSheet,
                             maxHeight: geometry.size.height * 0.5 * 0.7

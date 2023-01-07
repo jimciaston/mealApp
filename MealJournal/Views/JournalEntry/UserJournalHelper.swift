@@ -34,7 +34,7 @@ class UserJournalHelper: ObservableObject {
         }
     }
     //actual save function
-    func saveJournalEntry (entryName: String, mealTiming: String, dayOfWeekCreated: String ,context: NSManagedObjectContext) {
+    func saveJournalEntry (entryName: String, mealTiming: String, dayOfWeekCreated: String ,context: NSManagedObjectContext, entryCalories: Int16, entryProtein: Int16, entryFat: Int16, entryCarbs: Int16, totalCalories: String) {
         let entry = JournalEntry(context: context)
         entry.date = Date()
         //TTL - time until journal entry is removed (unless saved by user)
@@ -45,6 +45,10 @@ class UserJournalHelper: ObservableObject {
         entry.createdDate = calendarHelper.currentDate()
         entry.dayOfWeekCreated = dayOfWeekCreated
         entry.entrySaved = false
+        entry.mealCalories = Int16(entryCalories)
+        entry.mealProtein = Int16(entryProtein)
+        entry.mealFat = Int16(entryCarbs)
+        entry.mealCarbs = Int16(entryFat)
         
         coreDataSave(context: context)
     }
@@ -71,7 +75,8 @@ class UserJournalHelper: ObservableObject {
         mealServing: Int,
         mealTiming: String,
         dayOfWeek: String,
-        dateCreated: String
+        dateCreated: String,
+        totalCalories: String
     ){
         let dateString = String(dateCreated)
         let dateStringDashesRemoved = dateString.replacingOccurrences(of: "/", with: "", options: NSString.CompareOptions.literal, range: nil)
@@ -94,6 +99,9 @@ class UserJournalHelper: ObservableObject {
             
         ] as [String : Any]
         
+        let additionalEntryInfo = [
+            "totalCalories" : totalCalories
+        ]
 
         FirebaseManager.shared.firestore.collection("users")
             .document(uid)
@@ -107,6 +115,12 @@ class UserJournalHelper: ObservableObject {
                     return
                 }
             }
+        FirebaseManager.shared.firestore.collection("users")
+            .document(uid)
+            .collection("userJournalEntrys")
+            .document(dateStringDashesRemoved)
+            .setData(
+                additionalEntryInfo, merge: true )
         }
         
     

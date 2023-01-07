@@ -16,13 +16,12 @@ struct CustomItemsList: View {
     @Binding var isViewSearching: Bool
     @Binding var userSearch: Bool
     @State var resultsShowing = 5
-    
+    @Binding var hideTitleRows: Bool
     var body: some View {
         VStack{
             List{
-                
                 ForEach (logic.customFoodItems.prefix(resultsShowing), id: \.self ) { item in
-                    CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, item: .constant(item), mealName: item.mealName ?? "Invalid Name")
+                    CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, item: .constant(item), mealName: item.mealName ?? "Invalid Name", dismissResultsView: $hideTitleRows)
                 }
                 Button(action: {
                     resultsShowing += 5

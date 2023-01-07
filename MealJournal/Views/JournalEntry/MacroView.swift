@@ -10,33 +10,26 @@ import Foundation
 
 struct MacroView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
-    
+    @ObservedObject var fetchEntryTotals:  FetchEntryTotals
     var dailyMacrosCounter = DailyMacrosCounter()
     
-  
+    
     var body: some View {
-        let dailyA = Double(dailyMacrosCounter.getCarbTotals(
-            breakfast: mealEntryObj,
-            lunch: mealEntryObj,
-            dinner: mealEntryObj,
-            snack: mealEntryObj))
+       
         VStack{
             Text("Daily Macros")
                 .font(.title2)
             
             HStack{
                 VStack{
-                    Text(dailyMacrosCounter.getCalorieTotals(breakfast: mealEntryObj, lunch: mealEntryObj, dinner: mealEntryObj, snack: mealEntryObj))
+                    Text(String(fetchEntryTotals.totalCalories))
                     Text("Cals")
                         .padding(-5)
                    
                 }
                 .padding(20)
                 VStack{
-                   Text(dailyMacrosCounter.getProteinTotals(
-                    breakfast: mealEntryObj,
-                    lunch: mealEntryObj,
-                    dinner: mealEntryObj, snack: mealEntryObj))
+                   Text(String(fetchEntryTotals.totalProtein))
                        Text("Protein")
                         .padding(-5)
                 }
@@ -44,21 +37,13 @@ struct MacroView: View {
                
                 
                 VStack{
-                    Text(dailyMacrosCounter.getFatTotals(
-                            breakfast: mealEntryObj,
-                            lunch: mealEntryObj,
-                            dinner: mealEntryObj, snack: mealEntryObj)
-                        )
+                    Text(String(fetchEntryTotals.totalFat))
                          Text("Fat")
                         .padding(-5)
                 }
                 .padding(20)
                 VStack{
-                   Text(dailyMacrosCounter.getCarbTotals(
-                    breakfast: mealEntryObj,
-                    lunch: mealEntryObj,
-                    dinner: mealEntryObj, snack: mealEntryObj)
-                        )
+                   Text(String(fetchEntryTotals.totalCarbs))
                     Text("Carbs")
                         .padding(-5)
                    
@@ -68,11 +53,17 @@ struct MacroView: View {
             .padding(.top, -15)
         }
         .foregroundColor(.black)
+//        .onAppear{
+//            fetchEntryTotals.totalCalories
+//            fetchEntryTotals.totalProtein
+//            fetchEntryTotals.totalFat
+//            fetchEntryTotals.totalCarbs
+//        }
     }
 }
 
-struct MacroView_Previews: PreviewProvider {
-    static var previews: some View {
-        MacroView()
-    }
-}
+//struct MacroView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MacroView()
+//    }
+//}

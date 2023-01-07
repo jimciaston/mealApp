@@ -7,11 +7,16 @@
         <attribute name="entryName" optional="YES" attributeType="String"/>
         <attribute name="entrySaved" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="mealCalories" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mealCarbs" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mealFat" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mealProtein" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mealTiming" optional="YES" attributeType="String"/>
         <attribute name="saved" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timeToLive" optional="YES" attributeType="String"/>
+        <attribute name="totalCalories" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="JournalEntry" positionX="-54" positionY="27" width="128" height="164"/>
+        <element name="JournalEntry" positionX="-54" positionY="27" width="128" height="239"/>
     </elements>
 </model>

@@ -7,9 +7,45 @@
 
 import SwiftUI
 
+public func fetchSavedJournals(){
+   
+     guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+     
+     FirebaseManager.shared.firestore.collection("users").document(uid)
+        .collection("userJournalEntrys")
+         .getDocuments{ (querySnapshot, err) in
+             if let err = err {
+                 print("Error getting documents: \(err)")
+             } else {
+                 for document in querySnapshot!.documents {
+                     print("\(document.documentID)") // Get documentID
+                     // Get specific data & type cast it.
+                 }
+             }
+         }
+//                    let recipeTitle = data ["recipeTitle"] as? String ?? ""
+//
+//                    let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
+//                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                 
+            //first check if recipe ID exists by filtering by the id
+               //  let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
+            //if it doens't exist, append recipe
+//                    if recipeExistence.isEmpty == true {
+//                        self.fetchedUserRecipes.append(recipe)
+//                    }
+             }
+         
+     
 struct ProfileCardsMainDisplay: View {
     @ObservedObject var rm = RecipeLogic()
     @State var showAllRecipes = false
+    let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
+    
+   
+    
+    
+    
     var body: some View {
         HStack{
             ZStack{
@@ -34,19 +70,18 @@ struct ProfileCardsMainDisplay: View {
                         Text("Recipes Found")
                             .foregroundColor(.black)
                             .multilineTextAlignment(.center)
-                    }
-                           
                         }
                     }
-                        .frame(width: 150, height: 180)
-                        .background(Color("UserProfileCard2"))
-                        .cornerRadius(25)
-                        .padding(12)
-                        .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
-                        .onTapGesture{
-                            showAllRecipes = true
-                           
-                        }
+                }
+                .frame(width: 150, height: 180)
+                .background(Color("UserProfileCard2"))
+                .cornerRadius(25)
+                .padding(12)
+                .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
+                .onTapGesture{
+                    showAllRecipes = true
+                   
+                }
         ZStack{
             VStack(alignment: .center){
                 Image("recipeCard")
@@ -66,7 +101,12 @@ struct ProfileCardsMainDisplay: View {
                     
                    
             }
-           
+            .sheet(isPresented: $showAllRecipes){
+                RecipeFullListView(recipes: rm.recipes, showAddButton: true)
+                    .transition(transition)
+                    
+            }
+            .animation(Animation.easeInOut(duration: 0.30), value: showAllRecipes)
         }
         .frame(width: 150, height: 180)
         .background(Color("UserProfileCard1"))

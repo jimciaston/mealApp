@@ -66,25 +66,28 @@ struct FoodItemView: View {
             meal.servingSize
         }
     }
-    
+    @Binding var dismissResultsView: Bool
     var body: some View {
-        ScrollView{
+        ScrollView(.vertical){
             VStack(alignment:.leading, spacing: 0){
                 HStack{
                     //dismiss selected food view
                     Button(action: {
                         dismiss() //<< go back
+                        //reappear row titles
+                        
+                       
                     })
                     {
-                        Image(systemName: "xmark").resizable()
+                        Image(systemName: "arrowshape.turn.up.backward.fill").resizable()
                             .frame(width: 20, height: 20)
                             .multilineTextAlignment(.leading)
                             .font(.body)
                     }
                     Spacer()
+                       
                     //add recipe
                     Button(action: {
-                       
                         switch sheetMode {
                             case .none:
                                 sheetMode = .mealTimingSelection
@@ -105,24 +108,17 @@ struct FoodItemView: View {
                         .foregroundColor(.black)
                         .padding()
                 }
-                
+              
                 Text(String(mealName)) .bold()
                     .font(.title2)
                     .frame(maxWidth:.infinity)
                     .multilineTextAlignment(.center)
+                    .padding(.top, -30)
                 Text(mealBrand)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding(.top, 5)
-                    .onAppear{
-                        print(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize))
-                        print("total servings" + mealUnitSize)
-                        print("meal calories" + String(mealCalories))
-                        print("meal protein" + String(mealProtein))
-                        print("meal carbs" + String(mealCarbs))
-                        print("meal fat" + String(mealFat))
-                        print("meal serving size" + String(mealServingSize))
-                    }
+                  
                 
                 FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: Binding.constant(mealServingSize))
                     .frame(maxWidth: .infinity)
@@ -134,18 +130,20 @@ struct FoodItemView: View {
                     Double(mealCarbs),
                     Double(mealFat)
                   ],
-                  colors: [Color.blue, Color.green, Color.orange], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                  colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
                         .opacity(mealTimingToggle ? 0.0 : 1.0)
             }
             .padding(.leading, 15)
+            
         }
+        .frame(minWidth: 400, maxHeight: 600)
         //get rid of that stupid space up top
         .navigationTitle("")
         .navigationBarHidden(true)
        
         if(mealTimingToggle){
             FlexibleSheet(sheetMode: $sheetMode) {
-                MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
+                MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $dismissResultsView)
                 }
             
             ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
@@ -156,13 +154,14 @@ struct FoodItemView: View {
            
             }
            
-            
+           
     }
+       
      
 }
 
-struct FoodItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        FoodItemView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Steak", calories: 0, quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), mealName: "Eggs", mealBrand: "Johns", mealCalories: 0, mealCarbs: 5, mealProtein: 4, mealFat: 4, mealUnitSize: "G", mealServingSize: 10.0)
-    }
-}
+//struct FoodItemView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FoodItemView(meal: .constant(Meal(id: UUID(), brand: "Jim", mealName: "Steak", calories: 0, quantity: 21, amount: "Jim", protein: 21, carbs: 21, fat: 21)), mealName: "Eggs", mealBrand: "Johns", mealCalories: 0, mealCarbs: 5, mealProtein: 4, mealFat: 4, mealUnitSize: "G", mealServingSize: 10.0)
+//    }
+//}

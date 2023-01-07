@@ -38,7 +38,7 @@ struct UserDashboardView: View {
                        
                     
                 case .journal:
-                    JournalEntryMain(dayOfWeek: "Wednesday")
+                    JournalEntryMain(dayOfWeek: "")
                 case .recipes:
                     RecipeFullListView(recipes: rm.recipes, showAddButton: true)
                 case .searchUsers:
@@ -67,6 +67,7 @@ struct UserDashboardView: View {
                                 .foregroundColor(.white)
                                          .shadow(radius: 4)
                              Image(systemName: "plus.circle.fill")
+                            
                                  .resizable()
                                  .aspectRatio(contentMode: .fit)
                                  .frame(width: 50 , height: 50)

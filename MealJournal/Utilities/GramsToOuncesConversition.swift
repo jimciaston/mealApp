@@ -19,13 +19,25 @@ import Foundation
 //convert macros in accordance to serving size
 //food api only gives at 100 gram does, not serving size (so stupid)
 
-func convertMacros(macro: Double, servingSize: Double) -> Double{
-    let servingSizePercentage = servingSize / 100 // << divide by default grams value
+func convertMacros(macro: Double, servingSize: Double, unitSizing: String?) -> Double{
+    /*
+     noting food api is tricky with their calculations
+     If dividing by 100, we are converting because api returned calories as grams (odd)
+     */
+    
+    
+    let servingSizePercentage: Double // << will hold calories
+    //if generic brand, just return total calories
+    if unitSizing == nil {
+        servingSizePercentage = servingSize // << returning calories
+    } else {
+        // if we have to calculate from api
+        servingSizePercentage = servingSize / 100 // << divide by default grams value
+    }
     let macroConversion = macro * servingSizePercentage
     let macroConverted = round(macroConversion)
     return macroConverted
 }
-
 
 func OuncesConversion(gramsMeasurement: Double, measurementUnit: String) -> String{
     if measurementUnit == "g"{ // << only run conversion for gram serving units

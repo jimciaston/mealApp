@@ -39,7 +39,6 @@ struct PlusTabPopMenu: View {
                   .frame(width: widthAndHeight, height: widthAndHeight)
                   .foregroundColor(Color("ButtonTwo"))
                   .onTapGesture{
-                     
                       dashboardRouter.isPlusMenuOpen = false
                       dashboardRouter.currentTab = .addRecipes
                   }

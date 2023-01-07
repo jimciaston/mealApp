@@ -13,7 +13,7 @@ import SwiftUI
 struct EntryRow: View {
   //  var meal: Meal
     var mealEntry: JournalEntry
-   
+    @Binding var isDeletable: Bool
     var body: some View {
         //   let mealCalories = meal.calories ?? 0
        // let mealCaloriesString = String(mealCalories)
@@ -26,12 +26,11 @@ struct EntryRow: View {
                             .foregroundColor(.gray)
                            
                     }
-                    Spacer()
-                    Text("0")
-                }
-        .onTapGesture {
-            print(mealEntry.entrySaved)
+                Spacer()
             
+            Text(String(mealEntry.mealCalories!))
+            }
+        
+        .deleteDisabled(!isDeletable)
+          }
         }
-       }
-    }

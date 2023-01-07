@@ -22,6 +22,8 @@ struct MealSearchBar: View {
     
     @State var showMoreResults = false
     
+    
+    
     var body: some View {
         VStack{
             ZStack{
