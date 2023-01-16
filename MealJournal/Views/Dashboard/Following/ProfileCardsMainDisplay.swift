@@ -39,12 +39,10 @@ public func fetchSavedJournals(){
      
 struct ProfileCardsMainDisplay: View {
     @ObservedObject var rm = RecipeLogic()
+    @ObservedObject var jm = JournalDashLogic()
     @State var showAllRecipes = false
+    @State var showAllJournals = false
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
-    
-   
-    
-    
     
     var body: some View {
         HStack{
@@ -61,7 +59,7 @@ struct ProfileCardsMainDisplay: View {
                         .font(.title2)
                         .padding(.top, 20)
                         .padding(.bottom,2)
-                    if (rm.recipes.count < 2){
+                    if (rm.recipes.count == 1){
                         Text("Recipe Found")
                             .foregroundColor(.black)
                             .multilineTextAlignment(.center)
@@ -73,6 +71,7 @@ struct ProfileCardsMainDisplay: View {
                         }
                     }
                 }
+          
                 .frame(width: 150, height: 180)
                 .background(Color("UserProfileCard2"))
                 .cornerRadius(25)
@@ -82,36 +81,66 @@ struct ProfileCardsMainDisplay: View {
                     showAllRecipes = true
                    
                 }
+                .sheet(isPresented: $showAllRecipes){
+                    RecipeFullListView(recipes: rm.recipes, showAddButton: true)
+                        .transition(transition)
+                        
+                }
         ZStack{
             VStack(alignment: .center){
-                Image("recipeCard")
+                Image("837043")
                     .resizable()
                     .renderingMode(.original)
-                    .frame(width: 50, height: 50)
+                    .frame(width: 60, height: 50)
                     .foregroundColor(Color(.systemPink))
                     .padding(.top, 15)
                 
-                Text("2").bold()
+                Text(String(jm.userJournalCount)).bold()
                     .font(.title2)
                     .padding(.top, 20)
                     .padding(.bottom,2)
-                        Text("Journals Found")
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                    
-                   
+                if jm.userJournalCount == 1 {
+                    Text("Journal Found")
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.center)
+                }
+                else{
+                    Text("Journals Found")
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.center)
+                }
+                        
             }
-            .sheet(isPresented: $showAllRecipes){
-                RecipeFullListView(recipes: rm.recipes, showAddButton: true)
+            .sheet(isPresented: $showAllJournals){
+                SavedJournalsList(savedJournalIDs: jm.userJournalIDs, savedJournals: jm.userJournals)
                     .transition(transition)
+                   
                     
             }
             .animation(Animation.easeInOut(duration: 0.30), value: showAllRecipes)
+            
         }
         .frame(width: 150, height: 180)
         .background(Color("UserProfileCard1"))
         .cornerRadius(25)
         .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
+        }
+        .onTapGesture {
+            showAllJournals = true
+            var datesString = "05012022"
+            let day = datesString.prefix(2)
+            print(day)
+           
+            let monthStart = datesString.index(datesString.startIndex, offsetBy: 2)
+            let monthEnd = datesString.index(monthStart, offsetBy: 2)
+            let month = datesString[monthStart..<monthEnd]
+            print(month)
+            let yearStart = datesString.index(datesString.startIndex, offsetBy: 4)
+            let yearEnd = datesString.index(yearStart, offsetBy: 4)
+            let year = datesString[yearStart..<yearEnd]
+            print(year)
+            let fireStoreDocName = month + day + year
+            print(fireStoreDocName)
         }
     }
 }

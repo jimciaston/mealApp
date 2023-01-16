@@ -81,48 +81,49 @@ struct FollowingUsersView: View {
     }
     
     var body: some View {
-        
-        if userUID == ""{
-            Text("You currently aren't following any users")
-        }
-        else{
-            HStack{
-                NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
-                    WebImage(url: URL(string: userProfilePicture))
-                        .placeholder(Image("profileDefaultPicture"))
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width:60, height: 60)
-                        .clipShape(Circle())
-                        .padding(.trailing, 45)
-                        
-                }
-                .multilineTextAlignment(.center)
+        VStack{
+            if userUID == ""{
+                Text("You currently aren't following any users")
+            }
             
-           VStack{
-               Text(name)
-                   .font(.title)
-               
-               NavigationLink(destination:  UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
-                   Text("View Profile")
-                   .font(.caption)
-                   .foregroundColor(.black)
-                   .padding(3) //general padding
-                   .padding([.leading, .trailing], 15) // << side padding
-                   .border(.black)
-                   .padding(.top, -5) // <<bring up button
-               }
+            else{
+                HStack{
+                    NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
+                        WebImage(url: URL(string: userProfilePicture))
+                            .placeholder(Image("profileDefaultPicture"))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width:60, height: 60)
+                            .clipShape(Circle())
+                            .padding(.trailing, 45)
+                            
+                    }
+                    .multilineTextAlignment(.center)
+                
+               VStack{
+                   Text(name)
+                       .font(.title)
+                   
+                   NavigationLink(destination:  UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
+                       Text("View Profile")
+                       .font(.caption)
+                       .foregroundColor(.black)
+                       .padding(3) //general padding
+                       .padding([.leading, .trailing], 15) // << side padding
+                       .border(.black)
+                       .padding(.top, -5) // <<bring up button
+                   }
 
-           }
-               
+               }
+                   
+            }
+               Spacer()
+                    
+            }
         }
-           Spacer()
-                .onAppear(){
-                    fetchFollowingList()
-                }
+        .onAppear(){
+            fetchFollowingList()
         }
-        
-       
     }
 }
 

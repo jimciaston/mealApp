@@ -44,11 +44,33 @@ struct JournalEntryMain: View {
     //search bar State
     @State private var showSearchBar = true
    
+    //animation variables for Star icon
+    private let animationDuration: Double = 0.1
+    private var animateStarScale: CGFloat {
+        isUserFavoritingEntry ? 0.9: 1.3
+    }
+    @State private var animateStar = false
+    
+    
     func favoriteJournalEntry(){
+        var totalCals = 0
+        var totalProtein = 0
+        var totalCarbs = 0
+        var totalFat = 0
         for entry in fetchedJournalEntrys {
             if(entry.dayOfWeekCreated == dayOfWeek  ){
                 if entry.entrySaved == false {
-                    UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: 0, mealCarbs: 0, mealProtein: 0, mealCalories: 0, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!, totalCalories: "100")
+                    totalCals += Int(entry.mealCalories ?? 0)
+                    totalProtein += Int(entry.mealProtein ?? 0)
+                    totalCarbs += Int(entry.mealCarbs ?? 0)
+                    totalFat  += Int(entry.mealFat ?? 0)
+                    
+                   UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: entry.mealFat!, mealCarbs: entry.mealCarbs!, mealProtein: entry.mealProtein!, mealCalories: entry.mealCalories!, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!,
+                      totalCalories: String(totalCals),
+                      totalProtein: String(totalProtein),
+                      totalCarbs: String(totalCarbs),
+                      totalFat: String(totalFat)
+                   )
     //save entry
                     entry.entrySaved = true
                     do{
@@ -154,7 +176,8 @@ struct JournalEntryMain: View {
                         .frame(maxWidth: .infinity, alignment: .center) //<< center
                         .opacity(isUserSearching ? 0 : 1.0 )
                         
-                        // USER FAVORITING ENTRY
+                        // USER FAVORITING ENTRY, Star feature
+                        
                         Button(action: {
                             if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
                                 //favorite not valid
@@ -165,9 +188,14 @@ struct JournalEntryMain: View {
                             }
                             else{
                                 if !favoriteNotValid {
-                                    isUserFavoritingEntry = true
+                                    self.animateStar = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
+                                        isUserFavoritingEntry = true
+                                        self.animateStar = false
+                                    })
+                                   
                                     //save logic
-                                    favoriteJournalEntry()
+                                   favoriteJournalEntry()
                                 }
                             }
                           
@@ -176,8 +204,13 @@ struct JournalEntryMain: View {
                                 .resizable()
                                 .frame(width:25, height: 25)
                                 .opacity(isUserSearching ? 0 : 1.0 )
-                                .padding(.trailing, 45)
+                                .padding(.trailing, 65)
                                 .foregroundColor(isUserFavoritingEntry ? .yellow : .black)
+                            //animate shadow separately
+                                .shadow(color: .yellow.opacity(animateStar ? 0 : 1) , radius: isUserFavoritingEntry ? 1 : 0)
+                                .scaleEffect(animateStar ? animateStarScale : 1)
+                                .animation(.easeInOut(duration: animationDuration))
+                            
                             //pop up if user tries to favorite current day
                                 .overlay(
                                     FavoriteInvalidPopUp(validOrSaved: $favoriteAlreadySaved)
@@ -200,9 +233,7 @@ struct JournalEntryMain: View {
                     }
                     
                     if(!isUserSearching){
-                        
                         EntryList(dayOfWeek: dayOfWeek, fetchEntryTotals: fetchEntryTotals, isDeletable: $isDeletable)
-                          
                             .deleteDisabled(isDeletable)
                             .onAppear{
                                isDeletable = true // << current day is true
@@ -223,8 +254,7 @@ struct JournalEntryMain: View {
                                                 UserJournalHelper().deleteJournalEntry(entry: mealEntry, context: managedObjectContext)
                                             }
 
-                                        }
-                                    
+                                        }   
                             }
                             
                         }

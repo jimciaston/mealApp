@@ -16,13 +16,6 @@ struct RecipeFullListView: View {
     @State private var active: Int? = nil
     @State var triggerRecipeController = false
     
-    init(recipes: [RecipeItem ], showAddButton: Bool){
-        self.recipes = recipes
-        self.showAddButton = showAddButton
-        
-        UITableView.appearance().backgroundColor = .clear
-    }
-    
     var body: some View {
         ZStack{
             VStack{

@@ -45,10 +45,10 @@ class UserJournalHelper: ObservableObject {
         entry.createdDate = calendarHelper.currentDate()
         entry.dayOfWeekCreated = dayOfWeekCreated
         entry.entrySaved = false
-        entry.mealCalories = Int16(entryCalories)
-        entry.mealProtein = Int16(entryProtein)
-        entry.mealFat = Int16(entryCarbs)
-        entry.mealCarbs = Int16(entryFat)
+        entry.mealCalories = entryCalories
+        entry.mealProtein = entryProtein
+        entry.mealFat = entryFat
+        entry.mealCarbs = entryCarbs
         
         coreDataSave(context: context)
     }
@@ -67,30 +67,49 @@ class UserJournalHelper: ObservableObject {
    
     static func saveEntryToFirestore(
         mealName:   String,
-        mealFat:    Int,
-        mealCarbs:  Int,
-        mealProtein: Int,
-        mealCalories: Int,
+        mealFat:    Int16,
+        mealCarbs:  Int16,
+        mealProtein: Int16,
+        mealCalories: Int16,
         mealSaved: Bool,
         mealServing: Int,
         mealTiming: String,
         dayOfWeek: String,
         dateCreated: String,
-        totalCalories: String
+        totalCalories: String,
+        totalProtein: String,
+        totalCarbs: String,
+        totalFat: String
     ){
+        //core data date returns format month -- day -- year with hashes like so
+        //05-01-2022
+        //firestore doesn't accept these hyphens, removing them here
         let dateString = String(dateCreated)
         let dateStringDashesRemoved = dateString.replacingOccurrences(of: "/", with: "", options: NSString.CompareOptions.literal, range: nil)
+        //Need to now reverse day and month dates
+        let day = dateStringDashesRemoved.prefix(2)
+        
+        let monthStart = dateStringDashesRemoved.index(dateStringDashesRemoved.startIndex, offsetBy: 2)
+        let monthEnd = dateStringDashesRemoved.index(monthStart, offsetBy: 2)
+        let month = dateStringDashesRemoved[monthStart..<monthEnd]
+       
+        let yearStart = dateStringDashesRemoved.index(dateStringDashesRemoved.startIndex, offsetBy: 4)
+        let yearEnd = dateStringDashesRemoved.index(yearStart, offsetBy: 4)
+        let year = dateStringDashesRemoved[yearStart..<yearEnd]
+       //after all individually grabbed, flip date
+        let fireStoreDocName = String(month + day + year)
+        
        
         //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
 
         let journalEntryInfo = [
             "mealName" : mealName,
-            "mealFat" : mealFat,
-            "mealCarbs" : mealCarbs,
-            "mealProtein" : mealProtein,
-            "mealCalories" : mealCalories,
-            "timeCreated" : mealCarbs,
+            "mealFat" : Int(mealFat),
+            "mealCarbs" : Int(mealCarbs),
+            "mealProtein" : Int(mealProtein),
+            "mealCalories" : Int(mealCalories),
+            "timeCreated" : 0,
             "saved" : mealSaved,
             "mealTiming": mealTiming,
             "mealServings" : mealServing,
@@ -100,13 +119,16 @@ class UserJournalHelper: ObservableObject {
         ] as [String : Any]
         
         let additionalEntryInfo = [
-            "totalCalories" : totalCalories
+            "totalCalories" : totalCalories,
+            "totalProtein" : totalProtein,
+            "totalCarbs" : totalCarbs,
+            "totalFat" : totalFat
         ]
 
         FirebaseManager.shared.firestore.collection("users")
             .document(uid)
             .collection("userJournalEntrys")
-            .document(dateStringDashesRemoved)
+            .document(fireStoreDocName)
             .collection("items")
             .document(UUID().uuidString)
             .setData(journalEntryInfo, merge: true) { err in
@@ -118,7 +140,7 @@ class UserJournalHelper: ObservableObject {
         FirebaseManager.shared.firestore.collection("users")
             .document(uid)
             .collection("userJournalEntrys")
-            .document(dateStringDashesRemoved)
+            .document(fireStoreDocName)
             .setData(
                 additionalEntryInfo, merge: true )
         }
@@ -147,9 +169,9 @@ class UserJournalHelper: ObservableObject {
                                     "mealName" : mealName,
                                     "mealFat" : mealFat,
                                     "mealCarbs" : mealCarbs,
-                                    "mealProtein" : mealCarbs,
-                                    "mealCalories" : mealCarbs,
-                                    "timeCreated" : mealCarbs,
+                                    "mealProtein" : mealProtein,
+                                    "mealCalories" : mealCalories,
+                                    "timeCreated" : timeCreated,
                                     "saved" : entrySaved,
                                     "mealServings" : mealServing,
                                 ]

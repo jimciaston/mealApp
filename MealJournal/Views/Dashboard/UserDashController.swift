@@ -112,7 +112,7 @@ struct UserDashController: View {
                             
                             //User Bio
                             ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
-                                .padding(.top, 10)
+                                .padding(.top, -5)
                                 .minimumScaleFactor(0.5)
                                 .padding(.bottom, 10)
                          
@@ -192,7 +192,6 @@ struct UserDashController: View {
                         ) {
                             DeleteProfileView(deleteSuccess: $deleteAccountSheet)
                                 .onTapGesture{
-                                   
                                     self.deleteAccountSheet = false
                                 }
                         }

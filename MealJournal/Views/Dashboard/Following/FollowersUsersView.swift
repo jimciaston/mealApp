@@ -16,7 +16,7 @@ struct FollowersUsersView: View {
     @State var userRecipes: [String:String] = [:]
     @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
-    
+  //move below function to another view, shouldn't be in view
     func fetchFollowersList(){
         
        // var fetchedFollowingList = [String:String]()
@@ -36,6 +36,7 @@ struct FollowersUsersView: View {
                         .document(user)
                         .getDocument {(snap, error) in
                             guard let userData = snap?.data() else { return }
+                            print(userData)
                             userUID = userData["uid"] as? String ?? ""
                             name = userData ["name"] as? String ?? "Name Unavailable"
                             userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
@@ -75,53 +76,54 @@ struct FollowersUsersView: View {
             }
         
     }
-    
-    
-    
     var body: some View {
-        if userUID == "" {
-            Text("You currently don't have any followers")
-        }
-        else{
-            HStack{
-                NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
-                    WebImage(url: URL(string: userProfilePicture))
-                        .placeholder(Image("profileDefaultPicture"))
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width:60, height: 60)
-                        .clipShape(Circle())
-                        .padding(.trailing, 45)
-                        
-                }
-                .multilineTextAlignment(.center)
-            
-               VStack{
-                   Text(name)
-                       .font(.title)
-                   
-                   NavigationLink(destination:  UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
-                       Text("View Profile")
-                       .font(.caption)
-                       .foregroundColor(.black)
-                       .padding(3) //general padding
-                       .padding([.leading, .trailing], 15) // << side padding
-                       .border(.black)
-                       .padding(.top, -5) // <<bring up button
-                   }
+        VStack{
+            if userUID == "" {
+                Text("You currently don't have any followers")
+            }
+            else{
+                HStack{
+                    NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
+                        WebImage(url: URL(string: userProfilePicture))
+                            .placeholder(Image("profileDefaultPicture"))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width:60, height: 60)
+                            .clipShape(Circle())
+                            .padding(.trailing, 45)
+                            
+                    }
+                    .multilineTextAlignment(.center)
+                
+                   VStack{
+                       Text(name)
+                           .font(.title)
+                       
+                       NavigationLink(destination:  UserProfileView(userUID: userUID, name: name, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
+                           Text("View Profile")
+                           .font(.caption)
+                           .foregroundColor(.black)
+                           .padding(3) //general padding
+                           .padding([.leading, .trailing], 15) // << side padding
+                           .border(.black)
+                           .padding(.top, -5) // <<bring up button
+                       }
 
-               }
-                   
-            }
-               Spacer()
-                .onAppear(){
-                    fetchFollowersList()
+                   }
+                       
                 }
-            }
+                   Spacer()
+                  
+                }
+        }
+        
+        .onAppear(){
+            fetchFollowersList()
+        }
         }
        
     }
-
+    
 
 struct FollowersUsersView_Previews: PreviewProvider {
     static var previews: some View {

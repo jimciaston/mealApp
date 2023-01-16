@@ -164,7 +164,7 @@ struct UserProfileView: View {
                     }
                     Spacer()
                    //display user recipes
-                    ProfileCardsMainDisplay()
+                 //   ProfileCardsMainDisplay
                     Spacer()
                 }
        

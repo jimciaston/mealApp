@@ -68,7 +68,7 @@ struct MealTimingSelectorView: View {
                             entryCalories: Int16(meal.calories ?? 0),
                             entryProtein: Int16(meal.protein ?? 0 ),
                             entryFat: Int16(meal.fat ?? 0),
-                            entryCarbs: Int16(meal.carbs ?? 0), totalCalories: "100")
+                            entryCarbs: Int16(meal.carbs ?? 0), totalCalories: "testing")
                         
                         isViewSearching = false
                         userSearch = false
@@ -96,8 +96,8 @@ struct MealTimingSelectorView: View {
                             entryCalories: Int16(meal.calories!),
                             entryProtein: Int16(meal.protein!),
                             entryFat: Int16(meal.fat!),
-                            entryCarbs: Int16(meal.carbs!), totalCalories: "100")
-                        
+                            entryCarbs: Int16(meal.carbs!), totalCalories: "testing")
+                        print(Int16(meal.calories!))
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysLunch.append(meal)
@@ -123,7 +123,7 @@ struct MealTimingSelectorView: View {
                             entryCalories: Int16(meal.calories!),
                             entryProtein: Int16(meal.protein!),
                             entryFat: Int16(meal.fat!),
-                            entryCarbs: Int16(meal.carbs!), totalCalories: "100")
+                            entryCarbs: Int16(meal.carbs!), totalCalories: "testing")
                         
                         isViewSearching = false
                         userSearch = false
@@ -148,7 +148,7 @@ struct MealTimingSelectorView: View {
                             entryCalories: Int16(meal.calories!),
                             entryProtein: Int16(meal.protein!),
                             entryFat: Int16(meal.fat!),
-                            entryCarbs: Int16(meal.carbs!), totalCalories: "100")
+                            entryCarbs: Int16(meal.carbs!), totalCalories: "testing")
                         
                         isViewSearching = false
                         userSearch = false
