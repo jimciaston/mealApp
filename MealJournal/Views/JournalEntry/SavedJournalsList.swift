@@ -10,7 +10,8 @@ import SwiftUI
 struct SavedJournalsList: View {
     var savedJournalIDs: [String]
     var savedJournals: [UserJournalEntry]
-    @State var entryID = ""
+ 
+  
     @ObservedObject var jm = JournalDashLogic()
  
     var body: some View {
@@ -25,7 +26,7 @@ struct SavedJournalsList: View {
                         ZStack{
                             VStack (alignment: .leading){
                                 HStack{
-                                    Text(entry.id ?? "Unavailable").bold()
+                                    Text(formatJournalID(journalID: entry.id) ?? "Unavailable").bold()
                                     Text("Total Calories: \(entry.totalCalories ?? "Not Available")")
                                 .padding(.leading, 15)
                                 }
@@ -56,7 +57,7 @@ struct SavedJournalsList: View {
                                     .padding(.bottom, 15)
                                     
 
-                            NavigationLink(destination: SavedJournalDashboard(id: entry.id!), label: {
+                            NavigationLink(destination: SavedJournalDashboard(id: entry.id!, totalCalories: entry.totalCalories ?? "n/a", totalCarbs: entry.totalCarbs ?? "n/a", totalFat: entry.totalFat ?? "n/a", totalProtein: entry.totalProtein ?? "n/a"), label: {
                                     emptyview()
                                 })
                                
@@ -75,6 +76,11 @@ struct SavedJournalsList: View {
             .background( Color("ListBackgroundColor")) // << background for saved Journals Title
             }
            
+        }
+    func formatJournalID(journalID: String?) -> String {
+            guard let journalID = journalID else { return "Unavailable" }
+        //slice up journal ID to have hyphens ex: 05-01-2022
+            return journalID.prefix(2) + "-" + journalID.suffix(6).prefix(2) + "-" + journalID.suffix(4)
         }
     }
        

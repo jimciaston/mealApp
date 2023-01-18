@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct FollowingListRow: View {
     @State var userUID: String
     @State var userName: String
+    @State var userBio: String
     @State var userProfileImage: String
     @State var userRecipes: [String: String]
     
@@ -22,7 +23,7 @@ struct FollowingListRow: View {
         
         
         HStack{
-            NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userProfilePicture: userProfileImage, userRecipes: userRecipes)){
+            NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, userRecipes: userRecipes)){
                 WebImage(url: URL(string: userProfileImage))
                     .placeholder(Image("profileDefaultPicture"))
                     .resizable()
@@ -38,7 +39,7 @@ struct FollowingListRow: View {
                 Text(userName)
                     .font(.title)
                 
-                NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userProfilePicture: userProfileImage, userRecipes: userRecipes)){
+                NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, userRecipes: userRecipes)){
                     Text("View Profile")
                     .font(.caption)
                     .foregroundColor(.black)

@@ -20,7 +20,7 @@ struct SearchUsersFeature: View {
                     ScrollView{
                         ForEach ((vm.allUsers), id:\.id ) { user in
                             if user.name.contains(userSearch){
-                                FollowingListRow(userUID: user.uid ,userName: user.name, userProfileImage: user.profilePictureURL, userRecipes: ["fjkd;": "FJ"])
+                                FollowingListRow(userUID: user.uid ,userName: user.name,userBio: user.userBio ,userProfileImage: user.profilePictureURL, userRecipes: ["fjkd;": "FJ"])
                             }
                         }
                     }

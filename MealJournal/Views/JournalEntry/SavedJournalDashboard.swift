@@ -13,59 +13,52 @@ struct SavedJournalDashboard: View {
     @ObservedObject var jm = JournalDashLogic()
     
     var id: String // << journal id
-    
-    
+    var totalCalories: String
+    var totalCarbs: String
+    var totalFat: String
+    var totalProtein: String
+    //Adding hyphens to date, ex: 01-14-2022
     func journalIDToDate(journalID: String) -> String {
+        
+        
         let dateString = journalID
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMddyyyy"
-        let date = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        let dateInWords = dateFormatter.string(from: date!)
         
-        return dateInWords
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            let dateInWords = dateFormatter.string(from: date)
+            return dateInWords
+        } else {
+            // Handle the case where date is nil
+            return "Invalid date"
+        }
     }
-    
-   
-    
     
     var body: some View {
         VStack{
-//            MacroView(fetchEntryTotals: fetchEntryTotals)
-//                .environmentObject(mealEntrys) //references meal entry
-//            //fetch calorie totals
-//                .onAppear{
-//                    fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-//                    fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-//                    fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-//                    fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-//                }
-            //search bar
-
-
+            
+            Button(action: {
+                print("deleting....")
+                jm.deleteJournalEntry(journalID: id)
+                dismiss()
+            }){
+                Image(systemName: "trash")
+                    .resizable()
+                    .frame(width:20, height: 25)
+                    .padding(.leading, 280)
+                    .padding(.bottom, 10)
+                    .foregroundColor(.red)
                
-            HStack(spacing: 0){
-
-
-
-                // USER FAVORITING ENTRY, Star feature
-
-                Button(action: {
-                    print("deleting....")
-                    jm.deleteJournalEntry(journalID: id)
-                    dismiss()
-                }){
-                    Image(systemName: "trash")
-                        .resizable()
-                        .frame(width:25, height: 30)
-                        .padding(.leading, 280)
-                        .padding(.bottom, 10)
-                        .foregroundColor(.red)
-                   
-                        }
                     }
+            .padding(.top, -25) // << bring up a little
+            Spacer()
+           MacroViewSavedJournals(totalCalories: totalCalories, totalProtein: totalProtein, totalCarbs: totalCarbs, totalFat: totalFat)
+                .padding(.bottom, 10)
+           //date of creation (ie. 01-18-2023)
             Text(journalIDToDate(journalID: id))
                 .bold()
+                .padding(.bottom, 5)
             List {
                 Section(header: Text("breakfast")
                         ){
@@ -145,11 +138,12 @@ struct SavedJournalDashboard: View {
                     jm.grabUserJournals(journalID: id)
             }
         }
+       
     }
 }
 
 struct SavedJournalDashboard_Previews: PreviewProvider {
     static var previews: some View {
-        SavedJournalDashboard(id: "2")
+        SavedJournalDashboard(id: "2", totalCalories: "2", totalCarbs: "2", totalFat: "2", totalProtein: "2")
     }
 }

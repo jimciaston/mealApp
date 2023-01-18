@@ -104,9 +104,7 @@ struct UserDashboardView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
         }
-        
-       
-        
+         
     }
       
 }
