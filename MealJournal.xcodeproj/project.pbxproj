@@ -28,6 +28,8 @@
 		0A2D8961297658B6001EDF01 /* MacroViewSavedJournals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D8960297658B6001EDF01 /* MacroViewSavedJournals.swift */; };
 		0A2D896329772946001EDF01 /* RecipeLogicNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896229772945001EDF01 /* RecipeLogicNonUser.swift */; };
 		0A2D896529774382001EDF01 /* ProfileCardNonUserDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896429774381001EDF01 /* ProfileCardNonUserDisplay.swift */; };
+		0A2D89672978251F001EDF01 /* JournalDashLogicNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D89662978251F001EDF01 /* JournalDashLogicNonUser.swift */; };
+		0A2D896929782930001EDF01 /* SavedJournalListNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */; };
 		0A3B9B0F27FFDC4000EC631A /* MealBelongButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */; };
 		0A3B9B132808AD2B00EC631A /* emptyview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B122808AD2B00EC631A /* emptyview.swift */; };
 		0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B142808DD6300EC631A /* RemoveZeroFromDouble.swift */; };
@@ -193,6 +195,8 @@
 		0A2D8960297658B6001EDF01 /* MacroViewSavedJournals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroViewSavedJournals.swift; sourceTree = "<group>"; };
 		0A2D896229772945001EDF01 /* RecipeLogicNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeLogicNonUser.swift; sourceTree = "<group>"; };
 		0A2D896429774381001EDF01 /* ProfileCardNonUserDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardNonUserDisplay.swift; sourceTree = "<group>"; };
+		0A2D89662978251F001EDF01 /* JournalDashLogicNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDashLogicNonUser.swift; sourceTree = "<group>"; };
+		0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalListNonUser.swift; sourceTree = "<group>"; };
 		0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealBelongButtons.swift; sourceTree = "<group>"; };
 		0A3B9B122808AD2B00EC631A /* emptyview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emptyview.swift; sourceTree = "<group>"; };
 		0A3B9B142808DD6300EC631A /* RemoveZeroFromDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveZeroFromDouble.swift; sourceTree = "<group>"; };
@@ -639,6 +643,7 @@
 			children = (
 				0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */,
 				0A2D895A296B97F6001EDF01 /* JournalDashLogic.swift */,
+				0A2D89662978251F001EDF01 /* JournalDashLogicNonUser.swift */,
 				0A474738293795AB00384B51 /* UserJournalHelper.swift */,
 				0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */,
 				0A2D8960297658B6001EDF01 /* MacroViewSavedJournals.swift */,
@@ -661,6 +666,7 @@
 				0A14956E29412D6300E6258F /* EntryList.swift */,
 				0A8C89242947845C008C549A /* FetchEntryTotals.swift */,
 				0A8C89222946AA7F008C549A /* SavedJournalsList.swift */,
+				0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */,
 				0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */,
 				0A1495702942474100E6258F /* FavoriteInvalidPopUp.swift */,
 				0A8D9319294367870046D49C /* FavoriteAlreadySavedPopUp.swift */,
@@ -1011,12 +1017,14 @@
 				0A8F990E27AB0F01008F5584 /* LandingPage.swift in Sources */,
 				0A3B9B0F27FFDC4000EC631A /* MealBelongButtons.swift in Sources */,
 				0A87DB6D291EDFA900A3C1E9 /* DeleteAccountLogic.swift in Sources */,
+				0A2D896929782930001EDF01 /* SavedJournalListNonUser.swift in Sources */,
 				0A3B9B2728162DE800EC631A /* NutrionalPieChartView.swift in Sources */,
 				0A14956C294103B800E6258F /* JournalEntry+CoreDataClass.swift in Sources */,
 				0A47472D2925910800384B51 /* PlusTabPopMenu.swift in Sources */,
 				0A07D96328492E420080A4ED /* SettingsView.swift in Sources */,
 				0AB112C5290D699B0071B3ED /* LandingPageLogo.swift in Sources */,
 				0A12639327CE5CD10076876B /* MealEntrys.swift in Sources */,
+				0A2D89672978251F001EDF01 /* JournalDashLogicNonUser.swift in Sources */,
 				0A87DBB52923278E00A3C1E9 /* DashboardRouter.swift in Sources */,
 				0A8D958527BAB24700193B84 /* FollowUserButton.swift in Sources */,
 				0A14956D294103B800E6258F /* JournalEntry+CoreDataProperties.swift in Sources */,

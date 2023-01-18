@@ -6,29 +6,10 @@
 //
 
 import SwiftUI
-
-func fetchNonUserSavedJournals(){
-   
-     guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-     
-     FirebaseManager.shared.firestore.collection("users").document(uid)
-        .collection("userJournalEntrys")
-         .getDocuments{ (querySnapshot, err) in
-             if let err = err {
-                 print("Error getting documents: \(err)")
-             } else {
-                 for document in querySnapshot!.documents {
-                     print("\(document.documentID)") // Get documentID
-                     // Get specific data & type cast it.
-                 }
-             }
-         }
-     }
-         
-     
+  
 struct ProfileCardsNonUserDisplay: View {
     @ObservedObject var rm = RecipeLogicNonUser()
-    @ObservedObject var jm = JournalDashLogic()
+    @ObservedObject var jm = JournalDashLogicNonUser()
     var userUID: String
     @State var showAllRecipes = false
     @State var showAllJournals = false
@@ -84,11 +65,11 @@ struct ProfileCardsNonUserDisplay: View {
                     .foregroundColor(Color(.systemPink))
                     .padding(.top, 15)
                 
-                Text(String(jm.userJournalCount)).bold()
+                Text(String(jm.userJournalCountNonUser)).bold()
                     .font(.title2)
                     .padding(.top, 20)
                     .padding(.bottom,2)
-                if jm.userJournalCount == 1 {
+                if jm.userJournalCountNonUser == 1 {
                     Text("Journal Found")
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
@@ -101,7 +82,7 @@ struct ProfileCardsNonUserDisplay: View {
                         
             }
             .sheet(isPresented: $showAllJournals){
-                SavedJournalsList(savedJournalIDs: jm.userJournalIDs, savedJournals: jm.userJournals)
+                SavedJournalsListNonUser(savedJournalIDs: jm.userJournalIDsNonUser, savedJournals: jm.userJournalsNonUser)
                     .transition(transition)
                    
                     
@@ -116,6 +97,7 @@ struct ProfileCardsNonUserDisplay: View {
         }
         .onAppear {
             rm.grabRecipes(userUID: userUID)
+            jm.grabUserJournalCount(userID: userUID)
         }
         .onTapGesture {
             showAllJournals = true
