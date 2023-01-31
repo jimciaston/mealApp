@@ -138,20 +138,20 @@ struct FoodSearchResultsView: View {
         
          
             //using windowOverlay from swiftUIX to hide TabBar
-            .windowOverlay(isKeyAndVisible: self.$addCustomFoodToggle, {
-                GeometryReader { geometry in {
-                    BottomSheetView(
-                        isOpen: self.$addCustomFoodToggle,
-                        maxHeight: geometry.size.height / 1.0
-                    ) {
-                        CustomFoodItemView(showing: $addCustomFoodToggle, isViewSearching: $isViewSearching, userSearch: $userSearch)
-                            .environmentObject(mealEntryObj)
-                    }
-                   
-                }().edgesIgnoringSafeArea(.all)
-                       
-                }
-            })
+//            .windowOverlay(isKeyAndVisible: self.$addCustomFoodToggle, {
+//                GeometryReader { geometry in {
+//                    BottomSheetView(
+//                        isOpen: self.$addCustomFoodToggle,
+//                        maxHeight: geometry.size.height / 1.0
+//                    ) {
+//                        CustomFoodItemView(showing: $addCustomFoodToggle, isViewSearching: $isViewSearching, userSearch: $userSearch)
+//                            .environmentObject(mealEntryObj)
+//                    }
+//                   
+//                }().edgesIgnoringSafeArea(.all)
+//                       
+//                }
+//            })
           
     }
           

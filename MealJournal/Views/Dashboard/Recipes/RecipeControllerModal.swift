@@ -8,12 +8,13 @@
 import SwiftUI
 
 import SwiftUI
+import FirebaseFirestore
 import SDWebImageSwiftUI
 
 struct RecipeControllerModal: View {
     @Environment(\.dismiss) var dismiss // << dismiss view
     
-    @StateObject var rm = RecipeLogic()
+    @ObservedObject var rm = RecipeLogic()
     @ObservedObject var ema = EditModeActive()
     //displays image picker
     @State var showingImagePicker = false
@@ -59,9 +60,7 @@ struct RecipeControllerModal: View {
                     //save
                     image = url.absoluteString
                     ema.recipeImage = url.absoluteString
-                    //recipeLogic Call
                    
-                    
                 }
             }
         }
@@ -96,64 +95,84 @@ struct RecipeControllerModal: View {
         
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
-            .padding(.top, 50)
-           
-        //delete recipe
-        if ema.editMode{
-            DeleteRecipe(currentRecipeID: recipeID)
-        }
-        //offsets toolbar, if text removed, would interrupt toolbar.
-       Text("")
-            
-        //edit recipe button
-        .toolbar{
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                })
-                {
-                    Text("Back")
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing){
+            .padding(.top, 70)
+                
+                
+                     HStack{
+                         Spacer() // << moves to the right
+                         DeleteRecipe(currentRecipeID: recipeID){
+                            dismiss()
+                         }
+                         .alignmentGuide(.trailing) { d in d[.trailing] }
+                         .padding(.trailing, 25)
+                         .padding(.top, 25)
+                     }
+                     .frame(height:40)
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading){
                     Button(action: {
-                        ema.editMode.toggle()
-                      
-                        //if user is saving when complete is on the button
-                        if !ema.editMode {
-                            //save image to firestore
-                           
-                            rm.updateRecipeImage(recipeImage: ema.recipeImage, currentRecipe: recipeID)
-                            
-                            //save dash headers to firestore
-                            rm.saveDashHeaders(recipeTitle: ema.recipeTitle, recipePrepTime: ema.recipePrepTime, recipeCaloriesMacro: ema.recipeCaloriesMacro, recipeFatMacro: ema.recipeFatMacro, recipeCarbMacro: ema.recipeCarbMacro, recipeProteinMacro: ema.recipeProteinMacro, currentRecipe: recipeID)
-                            
-                            if ema.isIngredientsActive{
-                                    rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
-                            }
-                            else{
-                                if ema.isDirectionsActive{
-                                    rm.saveRecipeDirections(directions: ema.updatedDirections, currentRecipe: recipeID)
+                        dismiss()
+                    })
+                    {
+                        Text("Back")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing){
+                        Button(action: {
+                            ema.editMode.toggle()
+                          
+                            //if user is saving when complete is on the button
+                            if !ema.editMode {
+                                //save image to firestore
+                               
+                                rm.updateRecipeImage(recipeImage: ema.recipeImage, currentRecipe: recipeID)
+                                
+                                //save dash headers to firestore
+                                rm.saveDashHeaders(recipeTitle: ema.recipeTitle, recipePrepTime: ema.recipePrepTime, recipeCaloriesMacro: ema.recipeCaloriesMacro, recipeFatMacro: ema.recipeFatMacro, recipeCarbMacro: ema.recipeCarbMacro, recipeProteinMacro: ema.recipeProteinMacro, currentRecipe: recipeID)
+                                
+                                if ema.isIngredientsActive{
+                                        rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
+                                }
+                                else{
+                                    if ema.isDirectionsActive{
+                                        rm.saveRecipeDirections(directions: ema.updatedDirections, currentRecipe: recipeID)
+                                    }
                                 }
                             }
-                        }
-                    }){
-                        HStack{
-                            Image(systemName: !ema.editMode ? "pencil.circle" : "")
-                                    .foregroundColor(.white)
+                        }){
+                            HStack{
+                                Image(systemName: !ema.editMode ? "pencil.circle" : "")
+                                        .foregroundColor(.black)
+                                        .font(.title3)
+                                Text(!ema.editMode ? "Edit" : "Complete")
+                                    .foregroundColor(.black) .font(Font.headline.weight(.bold))
                                     .font(.title3)
-                            Text(!ema.editMode ? "Edit" : "Complete")
-                                .foregroundColor(.white) .font(Font.headline.weight(.bold))
-                                .font(.title3)
-                            }
-                      
-
+                                }
+                        }
                     }
-                   
-
                 }
+        //delete recipe
+           
+//                HStack{
+//                    Spacer() // << moves to the right
+//                    DeleteRecipe(currentRecipeID: recipeID){
+//                       dismiss()
+//                    }
+//                    .alignmentGuide(.trailing) { d in d[.trailing] }
+//                    .padding(.trailing, 25)
+//                }
+//               // .padding(.top, -50)
+//              //  .padding(.bottom, 100)
+//                .frame(height:40)
+//
+        
+        //offsets toolbar, if text removed, would interrupt toolbar.
+       //Text("")
+                  
+        //edit recipe button
+
             }
-            }
+            
         }
                
        

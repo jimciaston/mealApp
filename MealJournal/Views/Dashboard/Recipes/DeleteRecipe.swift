@@ -13,13 +13,15 @@ struct DeleteRecipe: View {
     @ObservedObject var ema = EditModeActive()
     @State var currentRecipeID: String
     @State private var showAlert = false
+    @Environment (\.dismiss) var dismiss
     
+    var onDelete: (() -> Void)?
     var body: some View {
         
-        Text("delete")
-            .multilineTextAlignment(.trailing)
+        Text("Delete Recipe")
+           
             .foregroundColor(.red)
-            .padding(.bottom, 20)
+           
         //delete recipe
             .onTapGesture{
                 showAlert = true
@@ -33,9 +35,11 @@ struct DeleteRecipe: View {
                       secondaryButton: Alert.Button.destructive(Text("Yes, I'm Sure"), action: {
                     //delete recipe
                     rm.deleteRecipe(selectedRecipeID: currentRecipeID)
+                    onDelete?() // << closure that "closes" alert when user clicks yes
                  })
              )
            }
+            
     }
 }
 //

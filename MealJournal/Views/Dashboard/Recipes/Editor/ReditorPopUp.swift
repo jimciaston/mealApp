@@ -21,18 +21,19 @@ struct ReditorPopUp: View {
                 VStack (alignment: .leading, spacing: 20){
                     HStack(spacing:12){
                         Image(systemName: "pencil")
+                            .foregroundColor(.black)
                             .font(.title2)
                         Button(action:{
                             showEditRecipe.toggle()
                                
                         }){
                             Text("Edit")
-                                .foregroundColor(.black)
+                            .foregroundColor(.black)
                         } .buttonStyle(BorderlessButtonStyle())
                         
                         //present editor
                             .fullScreenCover(isPresented: $showEditRecipe){
-                                    RecipeEditor()
+                                RecipeEditor()
                                 }
                             
                     }

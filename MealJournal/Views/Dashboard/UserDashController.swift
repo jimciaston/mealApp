@@ -184,25 +184,25 @@ struct UserDashController: View {
                 }
                 .blur(radius: deleteAccountSheet ? 2 : 0) // blur when bottomsheet open
                
-                .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
-                    GeometryReader { geometry in {
-                        BottomSheetView(
-                            isOpen: self.$deleteAccountSheet,
-                            maxHeight: geometry.size.height * 0.5 * 0.7
-                        ) {
-                            DeleteProfileView(deleteSuccess: $deleteAccountSheet)
-                                .onTapGesture{
-                                    self.deleteAccountSheet = false
-                                }
-                        }
-                       
-                    }()
-                            .edgesIgnoringSafeArea(.all)
-                           
-                    }
-                    
-                })
-                }
+//                .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
+//                    GeometryReader { geometry in {
+//                        BottomSheetView(
+//                            isOpen: self.$deleteAccountSheet,
+//                            maxHeight: geometry.size.height * 0.5 * 0.7
+//                        ) {
+//                            DeleteProfileView(deleteSuccess: $deleteAccountSheet)
+//                                .onTapGesture{
+//                                    self.deleteAccountSheet = false
+//                                }
+//                        }
+//                       
+//                    }()
+//                            .edgesIgnoringSafeArea(.all)
+//                           
+//                    }
+//                    
+//                })
+            }
             //.padding(.top, -25)
            
      //   }

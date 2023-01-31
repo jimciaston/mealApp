@@ -26,6 +26,7 @@ struct RecipeDashHeader: View {
     var body: some View {
         if ema.editMode {
             VStack{
+                
                 TextField(recipeName, text: $recipeName)
                     .foregroundColor(!ema.editMode ? Color.black : Color.red)
                     .font(.title2)
@@ -35,17 +36,36 @@ struct RecipeDashHeader: View {
                 .onChange(of: recipeName, perform: { _ in
                     ema.recipeTitle = recipeName
                 })
+                
+                //prep time
+                HStack{
+                        Image(systemName:("clock"))
+                            .foregroundColor(Color("completeGreen"))
+                        //select amount of time prepping/cooking
+                        Picker(selection: $recipePrepTime, label: Text("")) {
+                           ForEach(cookingTime, id: \.self) {
+                               Text($0).foregroundColor(.black)
+                           }
+                           .onChange(of: recipePrepTime, perform: { _ in
+                               ema.recipePrepTime = recipePrepTime
+                           })
+                        }
+                        .accentColor(.red)
+                    }
+                
+                Picker(selection: $caloriesPicker, label: Text("").foregroundColor(.red)) {
+                   ForEach(calorieCounter(), id: \.self) {
+                       Text(String($0) + " Calories")
+                   }
+                   .onChange(of: caloriesPicker, perform: { _ in
+                       ema.recipeCaloriesMacro = caloriesPicker
+                   })
+                }
+                .accentColor(.red)
                 HStack{
                     //macro pickers for recipe
-                    Picker(selection: $caloriesPicker, label: Text("").foregroundColor(.red)) {
-                       ForEach(calorieCounter(), id: \.self) {
-                           Text(String($0))
-                       }
-                       .onChange(of: caloriesPicker, perform: { _ in
-                           ema.recipeCaloriesMacro = caloriesPicker
-                       })
-                    }
-                    .accentColor(.red)
+                  
+                  
                     Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
                        ForEach(pickerGramCounter(), id: \.self) {
                            Text(String($0) + "g Fat")
@@ -77,22 +97,8 @@ struct RecipeDashHeader: View {
                     .accentColor(.red)
                     .padding(.leading, 5)
                 }
-                .padding(.top, -20)
-            //prep time
-            HStack{
-                    Image(systemName:("clock"))
-                        .foregroundColor(Color("completeGreen"))
-                    //select amount of time prepping/cooking
-                    Picker(selection: $recipePrepTime, label: Text("")) {
-                       ForEach(cookingTime, id: \.self) {
-                           Text($0).foregroundColor(.black)
-                       }
-                       .onChange(of: recipePrepTime, perform: { _ in
-                           ema.recipePrepTime = recipePrepTime
-                       })
-                    }
-                    .accentColor(.red)
-                }
+                .padding(.top, 10)
+          
             }
             .onAppear{
                 ema.recipeFatMacro = fatPicker
@@ -103,7 +109,7 @@ struct RecipeDashHeader: View {
                 ema.recipeTitle = recipeName
                 ema.recipePrepTime = recipePrepTime
             }
-        .frame(width:280, height:125)
+       // .frame(width:280, height:125)
         .background(Color.white)
         .cornerRadius(15)
         }
@@ -120,13 +126,14 @@ struct RecipeDashHeader: View {
                     Text(recipePrepTime)
                 }
                 .padding(.top, -10)
-                //recipe macros
+                
+                Text(String(caloriesPicker) + " calories").bold()
+                    .font(.body)
+                    .foregroundColor(.black)
+                    .font(.body)
+                    .padding(.top, 15)
+             
                 HStack{
-                    Text(String(caloriesPicker) + " calories")
-                        .font(.body)
-                        .foregroundColor(.black)
-                        .font(.body)
-                    //fat
                     Text(String(fatPicker) + "g fat")
                         .font(.body)
                         .foregroundColor(.black)
@@ -140,11 +147,13 @@ struct RecipeDashHeader: View {
                         .foregroundColor(.black)
                 }
                 .padding(.top, 10)
+               
               
             }
-            .frame(width:280, height:125)
+            .frame(width:280, height:200)
             .background(Color.white)
             .cornerRadius(15)
+          
            
         }
        

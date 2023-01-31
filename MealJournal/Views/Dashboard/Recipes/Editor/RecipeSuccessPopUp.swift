@@ -9,7 +9,10 @@ import SwiftUI
 
 struct RecipeSuccessPopUp: View {
     @Binding var shown:  Bool
+    @ObservedObject var recipeClass: Recipe
     @Environment(\.dismiss) var dismiss
+    var onDismiss: (() -> Void)?
+    @Binding var showSuccessMessage:  Bool
     var body: some View {
         VStack {
             Image(systemName:"sun.dust").resizable()
@@ -23,6 +26,9 @@ struct RecipeSuccessPopUp: View {
             
             HStack {
                 Button("Ok") {
+                    showSuccessMessage = false
+                    shown = false
+                    onDismiss?()
                     dismiss()
                 }
                 .font(.title2)
@@ -37,9 +43,9 @@ struct RecipeSuccessPopUp: View {
             .clipped()
     }
 }
-
-struct RecipeSuccessPopUp_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeSuccessPopUp(shown: Binding.constant(true))
-    }
-}
+//
+//struct RecipeSuccessPopUp_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeSuccessPopUp(shown: Binding.constant(true))
+//    }
+//}

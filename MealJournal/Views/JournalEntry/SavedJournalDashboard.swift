@@ -47,12 +47,9 @@ struct SavedJournalDashboard: View {
                     .resizable()
                     .frame(width:20, height: 25)
                     .padding(.leading, 280)
-                    .padding(.bottom, 10)
                     .foregroundColor(.red)
-               
                     }
-            .padding(.top, -25) // << bring up a little
-            Spacer()
+
            MacroViewSavedJournals(totalCalories: totalCalories, totalProtein: totalProtein, totalCarbs: totalCarbs, totalFat: totalFat)
                 .padding(.bottom, 10)
            //date of creation (ie. 01-18-2023)

@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct RecipeListView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
     //keep as stateOBJ, if observed object - causes weird issue with loading recipes
-    @StateObject var rm = RecipeLogic()
+    @ObservedObject var rm = RecipeLogic()
     @State var MealObject = Meal()
     @State var mealTimingToggle = false
     @State var sheetMode: SheetMode = .none
@@ -24,12 +24,12 @@ struct RecipeListView: View {
     @EnvironmentObject var emaGlobal: EditModeActive
    
     init(){
+       
         UITableView.appearance().backgroundColor = .clear
     }
     
     @ViewBuilder
     var body: some View {
-        
         if rm.recipes.count != 0 {
                    VStack{
                        List{
@@ -82,7 +82,7 @@ struct RecipeListView: View {
                             }
                     
                     ZStack{
-                        NavigationLink(destination:RecipeFullListView(recipes: rm.recipes, showAddButton: true)) {
+                        NavigationLink(destination:RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false))) {
                                emptyview()
                            }
                        
@@ -99,23 +99,23 @@ struct RecipeListView: View {
                     }
                            
                 }
-                       .windowOverlay(isKeyAndVisible: self.$mealTimingToggle, {
-                           GeometryReader { geometry in {
-                               BottomSheetView(
-                                   isOpen: self.$mealTimingToggle,
-                                   maxHeight: geometry.size.height / 2.0
-                               ) {
-                                   
-                                   MealTimingSelectorView(meal: $MealObject, isViewSearching: .constant(true), userSearch: .constant(false), mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
-                                           .environmentObject(mealEntryObj)
-                                      
-                               }
-                              
-                           }().edgesIgnoringSafeArea(.all)
-                                  
-                           }
-                           
-                       })
+//                       .windowOverlay(isKeyAndVisible: self.$mealTimingToggle, {
+//                           GeometryReader { geometry in {
+//                               BottomSheetView(
+//                                   isOpen: self.$mealTimingToggle,
+//                                   maxHeight: geometry.size.height / 2.0
+//                               ) {
+//                                   
+//                                   MealTimingSelectorView(meal: $MealObject, isViewSearching: .constant(true), userSearch: .constant(false), mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
+//                                           .environmentObject(mealEntryObj)
+//                                      
+//                               }
+//                              
+//                           }().edgesIgnoringSafeArea(.all)
+//                                  
+//                           }
+//                           
+//                       })
                        
             }
             .onAppear{

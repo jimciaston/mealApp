@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlusTabPopMenu: View {
     let widthAndHeight: CGFloat
-    @StateObject var dashboardRouter: DashboardRouter
+    @ObservedObject var dashboardRouter: DashboardRouter
     @Binding var closePlusIconPopUpMenu: Bool
     var body: some View {
         HStack(spacing: 20) {
@@ -23,6 +23,7 @@ struct PlusTabPopMenu: View {
                   .padding(15)
                   .frame(width: widthAndHeight, height: widthAndHeight)
                   .foregroundColor(Color("ButtonTwo"))
+                  
                   .onTapGesture{
                       dashboardRouter.isPlusMenuOpen = false
                       dashboardRouter.currentTab = .addMeal
@@ -32,6 +33,7 @@ struct PlusTabPopMenu: View {
                 Circle()
                   .foregroundColor(Color("DarkPurple"))
                   .frame(width: widthAndHeight, height: widthAndHeight)
+                  //add recipe tab
                 Image(systemName: "folder")
                   .resizable()
                   .aspectRatio(contentMode: .fit)

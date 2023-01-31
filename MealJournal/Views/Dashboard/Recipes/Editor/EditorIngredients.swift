@@ -18,7 +18,7 @@ struct EditorIngredients: View {
 
    
     var body: some View {
-        ZStack{
+       
             VStack{
                 HStack{
                     TextField("ex. 1 cup", text: $sizing)
@@ -51,6 +51,7 @@ struct EditorIngredients: View {
                     }
                        .padding(.top, -10)
                        .padding(.bottom, 10)
+                
                 List{
                     ForEach(recipeClass.ingredients){ recipe in
                         HStack{
@@ -65,20 +66,23 @@ struct EditorIngredients: View {
                                 //.padding(.trailing, 20)
                         }
                     }
+                    .onDelete(perform: { indexSet in
+                        recipeClass.ingredients.remove(atOffsets: indexSet)
+                    })
                 }
-                .frame(height: 200) //list size
-                .padding(.top, -25)
+                .listStyle(PlainListStyle())
+                .frame(height: 120) //list size
+                
                
             }
-            .padding(.top, 150) //moves down from instruction/directins modal
-            }
-        .padding(.top, -50)
+            .padding(.top, 25)
+         
         }
     }
 
 
 struct EditorIngredients_Previews: PreviewProvider {
     static var previews: some View {
-        EditorIngredients()
+        EditorIngredients().environmentObject(Recipe())
     }
 }

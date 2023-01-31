@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
-
+import SwiftUIX
+import FirebaseFirestore
+import Firebase
 struct CustomItemsList: View {
+    @EnvironmentObject var mealEntryObj: MealEntrys
     @StateObject private var foodApi = FoodApiSearch()
     @ObservedObject var logic = CustomFoodLogic()
     @State var mealTimingToggle = false
@@ -16,23 +19,56 @@ struct CustomItemsList: View {
     @Binding var isViewSearching: Bool
     @Binding var userSearch: Bool
     @State var resultsShowing = 5
+    @State var addCustomFoodToggle = false
     @Binding var hideTitleRows: Bool
+    @State var showDeleteItemView = false
+    var screensize = UIScreen.main.bounds.height
     var body: some View {
         VStack{
             List{
                 ForEach (logic.customFoodItems.prefix(resultsShowing), id: \.self ) { item in
-                    CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, item: .constant(item), mealName: item.mealName ?? "Invalid Name", dismissResultsView: $hideTitleRows)
+                    CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, item: .constant(item), mealName: item.mealName ?? "Invalid Name", customMealID: item.id, dismissResultsView: $hideTitleRows)
                 }
+           
+                
                 Button(action: {
                     resultsShowing += 5
                 }){
                     //return nothing if no custom items for user
                     if logic.customFoodItems.count > 0{
+                        
+                             Text("Add Custom Food Item")
+                                 .frame(maxWidth: .infinity, alignment: .center)
+                                 .onTapGesture{
+                                     addCustomFoodToggle.toggle()
+                                     
+                                 }
+                             
+                             .frame(maxWidth: .infinity, alignment: .leading)
+                             .padding([.top, .bottom], 15)
+                             .background(RoundedRectangle(
+                                 cornerRadius:20).fill(Color("AddItemColor")))
+                             .foregroundColor(.black)
+                           //  .opacity(mealTimingToggle ? 0.3 : 1)
+                         
+                        
                         Text("View More")
+                            .padding(.top, 10)
                     }
                     else{
-                        Text("Currently no custom food items")
-                            .font(.title2)
+                        VStack{
+                            Text("Currently no custom food items")
+                                .font(.title2)
+                            
+                            Button(action: {
+                                addCustomFoodToggle.toggle()
+                            }){
+                                Image(systemName:"plus")
+                                    .resizable()
+                                    .frame(width:30, height: 30)
+                            }
+                        }
+                       
                     }
                     
                 }
@@ -40,6 +76,7 @@ struct CustomItemsList: View {
                 .frame(maxWidth: .infinity)
                 .padding([.top, .bottom], 15)
                 .multilineTextAlignment(.center)
+                
                 
                 Button(action: {
                     isViewSearching = false
@@ -57,9 +94,28 @@ struct CustomItemsList: View {
                 .padding(.top, -10)
                 .listRowSeparator(.hidden)
             
-                
+                //using windowOverlay from swiftUIX to hide TabBar
+                .windowOverlay(isKeyAndVisible: self.$addCustomFoodToggle, {
+                    GeometryReader { geometry in {
+                        BottomSheetView(
+                            isOpen: self.$addCustomFoodToggle,
+                            maxHeight: screensize - 300, minHeight: 200
+                        ) {
+                            CustomFoodItemView(showing: $addCustomFoodToggle, isViewSearching: $isViewSearching, userSearch: $userSearch)
+                                .environmentObject(mealEntryObj)
+                                .animation(.easeInOut)
+                        }
+                       
+                    }().edgesIgnoringSafeArea(.all)
+                           
+                    }
+                })
+           
            
         }
+            
+                
+            
        
         if(mealTimingToggle){
             FlexibleSheet(sheetMode: $sheetMode) {
@@ -71,6 +127,7 @@ struct CustomItemsList: View {
             }
         
         }
+        
     }
 }
 

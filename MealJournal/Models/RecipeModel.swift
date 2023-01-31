@@ -21,6 +21,8 @@ class Recipe: ObservableObject, Identifiable {
     @Published var recipeFatMacro:    Int = 0
     @Published var recipeCarbMacro:    Int = 0
     @Published var recipeProteinMacro:  Int = 0
+    
+    
 }
 
 class Ingredients: Identifiable {

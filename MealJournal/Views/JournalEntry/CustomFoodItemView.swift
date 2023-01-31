@@ -39,8 +39,6 @@ struct CustomFoodItemView: View {
     }
     
     var body: some View {
-        
-        VStack{
             VStack{
                 //make sure to add alert if no name has been entered
                 Text("Enter Food Name")
@@ -56,53 +54,59 @@ struct CustomFoodItemView: View {
                 CustomFoodHStacks(macroAmount: $proteinAmount , macroName: "Protein")
                 CustomFoodHStacks(macroAmount: $carbAmount, macroName: "Carbohydrates")
                 CustomFoodHStacks(macroAmount: $fatAmount, macroName: "Fat")
-            }
-            
-            
-            // breakfast, lunch or dinner
-            Picker("Meal Selection", selection: $mealTimingSelection){
-                ForEach(mealTimingOptions.allCases){ selection in
-                    Text(selection.rawValue.capitalized)
-                        .tag(selection)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-           
-            Button("Add Item"){
-                let foodItemID = UUID()
-                if foodName != ""{
-                    saveItem.saveFoodItem(foodName: foodName, calories: caloriesAmount, protein: proteinAmount, fat: carbAmount, carbs: fatAmount, foodItemID: foodItemID)
-                    showing = false
-                    isViewSearching = false
-                    userSearch = false
-                    let meal = Meal(id: foodItemID, brand: "Custom", mealName: foodName, calories: caloriesAmount, quantity: 1, amount: "g", protein: proteinAmount, carbs: carbAmount, fat: fatAmount, servingSize: 1.0, servingSizeUnit: "1tsb")
-                    switch self.mealTimingSelection {
-                        case .breakfast:  mealEntryObj.mealEntrysBreakfast.append(meal)
-                        case .lunch: mealEntryObj.mealEntrysLunch.append(meal)
-                        case .dinner: mealEntryObj.mealEntrysDinner.append(meal)
-                    }
-                }
-                else{
-                    isFoodNameValid = false
-                }
-               
                 
-            }
-            .foregroundColor(.white)
-            .font(.title2)
+                // breakfast, lunch or dinner
+//                Picker("Meal Selection", selection: $mealTimingSelection){
+//                    ForEach(mealTimingOptions.allCases){ selection in
+//                        Text(selection.rawValue.capitalized)
+//                            .tag(selection)
+//                    }
+//                }
+                
+              //  .pickerStyle(SegmentedPickerStyle())
+                //BUTTON NOT WORKING BELOW
+               
+                   Text("Add Item")
+                    .onTapGesture{
+                        let foodItemID = UUID()
+                        
+                        if foodName != "" {
+                          
+                            saveItem.saveFoodItem(foodName: foodName, calories: caloriesAmount, protein: proteinAmount, fat: fatAmount, carbs: carbAmount)
+                            showing = false
+                          /*
+                          KEEPING below code hidden for now. Don't think user should be able to add meal from this view, as what if they just want to add item without appending
+                           
+                           
+                           */
+                            //create meal to add
+//                            let meal = Meal(id: foodItemID, brand: "Custom", mealName: foodName, calories: caloriesAmount, quantity: 1, amount: "g", protein: proteinAmount, carbs: carbAmount, fat: fatAmount, servingSize: 1.0, servingSizeUnit: "1tsb")
+//                            //attach to meal timing selection
+//
+//                            switch self.mealTimingSelection {
+//                                case .breakfast:  mealEntryObj.mealEntrysBreakfast.append(meal)
+//                                case .lunch: mealEntryObj.mealEntrysLunch.append(meal)
+//                                case .dinner: mealEntryObj.mealEntrysDinner.append(meal)
+//                                    }
+                                }
+                            else{
+                                isFoodNameValid = false
+                            }
+                        
+                    }
+                    .frame(width:200, height:30)
+                    .background(
+                      RoundedRectangle(cornerRadius: 20)
+                          .fill(
+                              Color.blue))
+                 
+                .padding(.top, 15)
+                
+              
+                    }
             
-            .frame(width:200, height:30)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(
-                        Color.blue))
-            .padding(.top, 15)
-        }
-        Spacer()
-        .frame(maxWidth:.infinity, maxHeight: .infinity)
-       
-    }
-}
+                }
+            }
 
 //struct CustomFoodItemView_Previews: PreviewProvider {
 //    static var previews: some View {

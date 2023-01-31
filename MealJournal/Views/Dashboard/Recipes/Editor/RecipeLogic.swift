@@ -16,7 +16,7 @@ class RecipeLogic: ObservableObject {
     init(){
      grabRecipes()
     }
-    
+   
     //delete recipe functionality
     func deleteRecipe(selectedRecipeID: String){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -48,6 +48,7 @@ class RecipeLogic: ObservableObject {
                                 }
                             }
                         }
+        
                     }
     
     //save recipes when edited

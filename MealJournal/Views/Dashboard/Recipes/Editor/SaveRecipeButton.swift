@@ -18,7 +18,7 @@ struct SaveRecipeButton: View {
 
     @Binding var showSuccessMessage: Bool
     //stores recipe
-    @EnvironmentObject var recipeClass: Recipe
+    @ObservedObject var recipeClass: Recipe
    
     @State var isNewRecipeValid = false
     static var newRecipeCreated = false
@@ -65,12 +65,20 @@ struct SaveRecipeButton: View {
                 .document(recipeClass.id)
                 .setData(newRecipeInfo, merge:true)
             
+            recipeClass.recipeTitle = ""
+            recipeClass.recipePrepTime = "5 Mins"
+            recipeClass.recipeFatMacro = 0
+            recipeClass.recipeCarbMacro = 0
+            recipeClass.recipeProteinMacro = 0
+            recipeClass.recipeCaloriesMacro = 0
+            recipeClass.ingredients = []
+            recipeClass.directions = [] 
             }
             catch let error {
                 print("Error writing recipe to Firestore: \(error)")
             }
     }
-    
+  
     var body: some View {
         Button(action: {
             //action
@@ -81,16 +89,21 @@ struct SaveRecipeButton: View {
                     .foregroundColor(.white)
                 
                 Button(action: {
+                    //rules to save recipe
                     if (recipeClass.recipeTitle != "" &&
-                        recipeClass.recipePrepTime != "" &&
                         recipeClass.ingredients.isEmpty == false &&
                         recipeClass.directions.isEmpty == false
                     ){
+                        print("grabbing old value" + recipeClass.recipePrepTime)
                         isNewRecipeValid = true
-                        showSuccessMessage.toggle()
+                        showSuccessMessage = true
                         saveRecipe()
+                        print("grabbing new value" + recipeClass.recipePrepTime)
+                       
+                       
                     }
                     else{
+                        showSuccessMessage = false
                         isNewRecipeValid = false
                     }
                  
@@ -101,7 +114,7 @@ struct SaveRecipeButton: View {
                         .foregroundColor(.white)
                 }
             }
-          
+            
             .padding(EdgeInsets(top: 12, leading: 100, bottom: 12, trailing: 100))
             .background(
                 RoundedRectangle(cornerRadius: 10)
@@ -111,6 +124,7 @@ struct SaveRecipeButton: View {
         }
         .transition(.sideSlide)
         .animation(.easeInOut(duration: 0.25))
+        
     }
     
      

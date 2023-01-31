@@ -23,7 +23,7 @@ struct EditorDirections: View {
        }
     
     var body: some View {
-        NavigationView{
+      
             VStack{
                 TextField("ex. Pour the flour", text: $userDirection)
                     .font(.body)
@@ -70,21 +70,12 @@ struct EditorDirections: View {
                         recipeClass.directions.remove(atOffsets: indexSet)
                     })
                 }
+                .listStyle(PlainListStyle())
                 .padding(.top, -20)
-               
-                .navigationBarHidden(true)
-                .navigationBarTitle("")
-              
-            }
-//                .toolbar {
-//                    ToolbarItem(placement:.bottomBar){
-//                        EditButton()
-//                            .foregroundColor(.black)
-//                    }
-//                }
-              
             
             }
+              
+            
         }
         
     }

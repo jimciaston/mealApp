@@ -1,38 +1,27 @@
 //
-//  RecipeEditor.swift
+//  RecipeEditorHomeMenu.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 5/7/22.
+//  Created by Jim Ciaston on 1/18/23.
 //
 
 import SwiftUI
 
-struct RecipeEditor: View {
+struct RecipeEditorHomeMenu: View {
     @Environment(\.dismiss) var dismiss
-    
-    
-    @ObservedObject var recipeClass = Recipe()
-    
+    @State var recipeAddedSuccess = false
     @State private var showSaveButton = false
     @State var showSuccessMessage = false
     @State private var sheetMode: SheetMode = .none
+    @State var shown = false
+    @StateObject var recipeClass = Recipe()
     var onDismiss: (() -> Void)?
-   
+    var resetPickerTime: (() -> Void)?
     var body: some View {
+        
         GeometryReader{ geo in
             VStack{
                 HStack{
-                    Button(action: {
-                        SaveRecipeButton.newRecipeCreated = false
-                        dismiss()
-                    }){
-                        Image(systemName:"xmark").resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color("ButtonTwo"))
-                        
-                    }
-                    .blur(radius: showSuccessMessage ? 15 : 0)
-                    .padding(.leading, 20)
                    Spacer()
                     //bottom sheet for meals
                     Button(action: {
@@ -60,29 +49,39 @@ struct RecipeEditor: View {
                     .blur(radius: showSuccessMessage ? 15 : 0)
                
                 if showSuccessMessage {
-                    RecipeSuccessPopUp(shown: $showSuccessMessage, recipeClass: recipeClass, onDismiss: onDismiss, showSuccessMessage: $showSuccessMessage)
+                    //oringllay shown: #showsuccess button don't know how to incorporation
+                    RecipeSuccessPopUp(shown: $showSuccessMessage, recipeClass: recipeClass , onDismiss: onDismiss, showSuccessMessage: $showSaveButton)
                 }
-                RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
+                RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $shown)
                     .blur(radius: showSuccessMessage ? 15 : 0)
                     .padding(.top, 80)
-                
+                    
                 RecipeEditModals()
                     .blur(radius: showSuccessMessage ? 15 : 0)
                // Spacer()
                 
                 
                 //display save button
-                FlexibleSheet(sheetMode: $sheetMode) {
-                    SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
-                    
-                    //sets coordinates of view on dash
-                 .offset(y:-200)
+                if showSaveButton{
+                    FlexibleSheet(sheetMode: $sheetMode) {
+                        SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+                        
+                        //sets coordinates of view on dash
+                     .offset(y:-200)
+                    }
                 }
+               
+                
+             
                 
             }
-            //center view 
+            .onAppear{
+               
+                recipeAddedSuccess = false
+            }
+            //center view
             .alignmentGuide(VerticalAlignment.center, computeValue: { $0[.bottom] })
                     .position(x: geo.size.width / 2, y: geo.size.height / 2)
             .environmentObject(recipeClass)
@@ -91,8 +90,8 @@ struct RecipeEditor: View {
     }
     
 }
-struct RecipeEditor_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeEditor()
-    }
-}
+//struct RecipeEditorHomeMenu_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeEditorHomeMenu()
+//    }
+//}

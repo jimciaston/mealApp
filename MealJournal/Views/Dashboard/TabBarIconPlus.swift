@@ -13,19 +13,17 @@ struct TabBarIconPlus: View {
     
     var body: some View {
         VStack {
-                    Image(systemName: iconName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: width, height: height)
-                        .padding(.top, 10)
-                   
-                    Spacer()
-                }
-                    .padding(.horizontal, -4)
-                   
-                    
+            Image(systemName: iconName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: width, height: height)
+                .padding(.top, 10)
+           
+            Spacer()
+        }
+            .padding(.horizontal, -4)
+        }
     }
-}
 
 
 //struct TabBarIconPlus_Previews: PreviewProvider {

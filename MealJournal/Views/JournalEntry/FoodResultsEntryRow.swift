@@ -114,24 +114,7 @@ struct FoodResultsEntryRow: View {
                 .opacity(mealTimingToggle ? 0.3 : 1)
                 
                 }
-              //add custom food search icon
-                if (!foodApi.isFoodSearchLoading){
-                    HStack {
-                        Text("Add Custom Food Item")
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .onTapGesture{
-                                addCustomFoodToggle.toggle()
-                                
-                            }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                   // .padding([.leading, .trailing], 60)
-                    .padding([.top, .bottom], 10)
-                    .background(RoundedRectangle(
-                        cornerRadius:20).fill(Color("AddItemColor")))
-                    .foregroundColor(.black)
-                    .opacity(mealTimingToggle ? 0.3 : 1)
-                }
+             
               
                     Button(action: {
                         foodApi.foodResultsDisplayed = 0

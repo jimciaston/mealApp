@@ -14,7 +14,7 @@ struct ProfileCardsNonUserDisplay: View {
     @State var showAllRecipes = false
     @State var showAllJournals = false
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
-    
+   
     var body: some View {
         HStack{
             ZStack{
@@ -52,7 +52,7 @@ struct ProfileCardsNonUserDisplay: View {
                     showAllRecipes = true
                 }
                 .sheet(isPresented: $showAllRecipes){
-                    RecipeFullListView(recipes: rm.recipesNonUser, showAddButton: true)
+                    RecipeFullListView(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true))
                         .transition(transition)
                         
                 }

@@ -21,7 +21,7 @@ struct BottomSheetView<Content: View>: View {
     let maxHeight: CGFloat
     let minHeight: CGFloat
     let content: Content
-
+   
     @GestureState private var translation: CGFloat = 0
 
     private var offset: CGFloat {
@@ -40,8 +40,8 @@ struct BottomSheetView<Content: View>: View {
         }
     }
 
-    init(isOpen: Binding<Bool>, maxHeight: CGFloat, @ViewBuilder content: () -> Content) {
-        self.minHeight = maxHeight * Constants.minHeightRatio
+    init(isOpen: Binding<Bool>, maxHeight: CGFloat, minHeight: CGFloat, @ViewBuilder content: () -> Content) {
+        self.minHeight = minHeight
         self.maxHeight = maxHeight
         self.content = content()
         self._isOpen = isOpen
@@ -58,6 +58,7 @@ struct BottomSheetView<Content: View>: View {
             .cornerRadius(Constants.radius)
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: max(self.offset + self.translation, 0))
+            
             .animation(.interactiveSpring())
             .gesture(
                 DragGesture().updating(self.$translation) { value, state, _ in
@@ -76,7 +77,7 @@ struct BottomSheetView<Content: View>: View {
 
 struct BottomSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomSheetView(isOpen: .constant(false), maxHeight: 600) {
+        BottomSheetView(isOpen: .constant(false), maxHeight: 600, minHeight: 300) {
             Text("b3alls")
            
         }.edgesIgnoringSafeArea(.all)

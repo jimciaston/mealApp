@@ -14,10 +14,11 @@ struct CustomItemListRow: View {
     @Binding var isViewSearching: Bool
     @Binding var userSearch: Bool
     @Binding var resultsShowing: Int
-   
+    @State var showDeleteItemView = false
     @Binding var item: Meal
     
     @State var mealName: String
+    @State var customMealID: UUID
     @Binding var dismissResultsView: Bool
     var body: some View {
                     ZStack{
@@ -33,8 +34,8 @@ struct CustomItemListRow: View {
                                     .frame(maxWidth: .infinity, alignment: .leading) //<<aligns to left of frame
                                 }
                            
-                            .frame(width:200)
-                            .padding(.leading, -50)
+                            .frame(width:170)
+                            .padding(.leading, -10)
                             
                             .foregroundColor(.black)
                           
@@ -56,12 +57,22 @@ struct CustomItemListRow: View {
                             Image(systemName: "plus.app")
                                 .font(.largeTitle)
                                 .foregroundColor(.blue)
-                                .padding(.trailing, -30) // <<moves plus
+                               
                         }
-                        
+                       
                             //allows button to be separely clicked //in view
                         .buttonStyle(BorderlessButtonStyle())
                             
+                            Button(action: {
+                                showDeleteItemView.toggle()
+                            }){
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                            .padding(.leading, 20)
+                          
+                         
+                            .buttonStyle(BorderlessButtonStyle())
                 }
                         NavigationLink(destination: FoodItemView(
                             meal:.constant(item),
@@ -83,13 +94,32 @@ struct CustomItemListRow: View {
                    
             }
               
-                .padding([.leading, .trailing], 60)
+                .padding([.leading, .trailing], 30)
                 .padding([.top, .bottom], 10)
                 .background(RoundedRectangle(
                     cornerRadius:20).fill(Color("LightWhite")))
                 .foregroundColor(.black)
                 .opacity(mealTimingToggle ? 0.3 : 1)
+               
                 
+        
+        .windowOverlay(isKeyAndVisible: self.$showDeleteItemView, {
+            GeometryReader { geometry in {
+              
+                BottomSheetView(isOpen: $showDeleteItemView, maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: 300, content: {
+                    DeleteCustomItemView(customItemID: customMealID)
+                     
+                        .onTapGesture{
+                            self.showDeleteItemView = false
+                        }
+                })
+               
+            }()
+                    .edgesIgnoringSafeArea(.all)
+                   
+            }
+            
+        })
         
                
            

@@ -40,11 +40,11 @@ struct UserDashboardView: View {
                 case .journal:
                     JournalEntryMain(dayOfWeek: "")
                 case .recipes:
-                    RecipeFullListView(recipes: rm.recipes, showAddButton: true)
+                    RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false))
                 case .searchUsers:
                     SearchUsersFeature()
                 case .addRecipes:
-                    RecipeEditor()
+                    RecipeEditorHomeMenu()
                 case .addMeal:
                     MealSearchBarPopUp(isUserDoneSearching: $isUserSearching)
                 }

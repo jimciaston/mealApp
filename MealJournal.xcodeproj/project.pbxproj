@@ -30,6 +30,9 @@
 		0A2D896529774382001EDF01 /* ProfileCardNonUserDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896429774381001EDF01 /* ProfileCardNonUserDisplay.swift */; };
 		0A2D89672978251F001EDF01 /* JournalDashLogicNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D89662978251F001EDF01 /* JournalDashLogicNonUser.swift */; };
 		0A2D896929782930001EDF01 /* SavedJournalListNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */; };
+		0A2D896B29788D44001EDF01 /* RecipeEditorHomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */; };
+		0A2D896D297F01EB001EDF01 /* DeleteCustomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896C297F01EB001EDF01 /* DeleteCustomItemView.swift */; };
+		0A2D896F298030F3001EDF01 /* RecipeControllerNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */; };
 		0A3B9B0F27FFDC4000EC631A /* MealBelongButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */; };
 		0A3B9B132808AD2B00EC631A /* emptyview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B122808AD2B00EC631A /* emptyview.swift */; };
 		0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B142808DD6300EC631A /* RemoveZeroFromDouble.swift */; };
@@ -197,6 +200,9 @@
 		0A2D896429774381001EDF01 /* ProfileCardNonUserDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardNonUserDisplay.swift; sourceTree = "<group>"; };
 		0A2D89662978251F001EDF01 /* JournalDashLogicNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDashLogicNonUser.swift; sourceTree = "<group>"; };
 		0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalListNonUser.swift; sourceTree = "<group>"; };
+		0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorHomeMenu.swift; sourceTree = "<group>"; };
+		0A2D896C297F01EB001EDF01 /* DeleteCustomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCustomItemView.swift; sourceTree = "<group>"; };
+		0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeControllerNonUser.swift; sourceTree = "<group>"; };
 		0A3B9B0E27FFDC4000EC631A /* MealBelongButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealBelongButtons.swift; sourceTree = "<group>"; };
 		0A3B9B122808AD2B00EC631A /* emptyview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emptyview.swift; sourceTree = "<group>"; };
 		0A3B9B142808DD6300EC631A /* RemoveZeroFromDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveZeroFromDouble.swift; sourceTree = "<group>"; };
@@ -410,6 +416,7 @@
 				0A2D896229772945001EDF01 /* RecipeLogicNonUser.swift */,
 				0A47472E2927B9A100384B51 /* RecipeEditorBottomSheetView.swift */,
 				0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */,
+				0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */,
 				0A6325F12887961F003B3D02 /* DeleteRecipe.swift */,
 				0A53021227E8F01700B8D261 /* RecipeNavigationModals.swift */,
 				0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */,
@@ -469,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				0A8D80672826CBF60055021A /* RecipeEditor.swift */,
+				0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */,
 				0A8D8072282A15280055021A /* RecipeEditorView.swift */,
 				0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */,
 				0A8D8076282A2AEE0055021A /* IngredientsPicker.swift */,
@@ -654,6 +662,7 @@
 				0A8C892629533BA4008C549A /* FoodResultsEntryRow.swift */,
 				0AB1126428E518DD0071B3ED /* CustomItemsList.swift */,
 				0AB1126628EC60D40071B3ED /* CustomItemListRow.swift */,
+				0A2D896C297F01EB001EDF01 /* DeleteCustomItemView.swift */,
 				0A3E03DE28DCD639009613CF /* CustomFoodItemView.swift */,
 				0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */,
 				0AB1126028E4E5770071B3ED /* AllCustomFoodItemsRow.swift */,
@@ -976,6 +985,7 @@
 				0A8D957B27B7216400193B84 /* keyboardResponder.swift in Sources */,
 				0A9F495B286532ED002F227E /* RecipeLogic.swift in Sources */,
 				0A3B9B1B280FA94F00EC631A /* FoodData.swift in Sources */,
+				0A2D896B29788D44001EDF01 /* RecipeEditorHomeMenu.swift in Sources */,
 				0A3B9B232813550900EC631A /* MealTimingSelectorView.swift in Sources */,
 				0A87DB71291EEBC600A3C1E9 /* Improvemnts.swift in Sources */,
 				0A47472F2927B9A100384B51 /* RecipeEditorBottomSheetView.swift in Sources */,
@@ -1029,6 +1039,7 @@
 				0A8D958527BAB24700193B84 /* FollowUserButton.swift in Sources */,
 				0A14956D294103B800E6258F /* JournalEntry+CoreDataProperties.swift in Sources */,
 				0AB1126B28F0A96C0071B3ED /* ProfileBio.swift in Sources */,
+				0A2D896D297F01EB001EDF01 /* DeleteCustomItemView.swift in Sources */,
 				0A8D806D28296AA90055021A /* RecipeFullListRow.swift in Sources */,
 				0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */,
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
@@ -1079,6 +1090,7 @@
 				0A3E03D128C24758009613CF /* FollowingUsersView.swift in Sources */,
 				0A3B9B172808DFAE00EC631A /* CapitalFirstLetter.swift in Sources */,
 				0A9F495D28653382002F227E /* RecipeModelTwo.swift in Sources */,
+				0A2D896F298030F3001EDF01 /* RecipeControllerNonUser.swift in Sources */,
 				0AB112BB29079F020071B3ED /* TabBarIconPlus.swift in Sources */,
 				0A8D8071282998700055021A /* RecipeImagePicker.swift in Sources */,
 				0A3B9B132808AD2B00EC631A /* emptyview.swift in Sources */,

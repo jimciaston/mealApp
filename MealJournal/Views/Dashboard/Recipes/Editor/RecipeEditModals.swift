@@ -37,9 +37,6 @@ struct RecipeEditModals: View {
                                 .foregroundColor(isIngredientsActive ? .gray : .black)
                                 .font(.title2)
                         }
-                    
-                        
-                      
                             .padding(.bottom, 0.9)
                       
                     
@@ -91,10 +88,6 @@ struct RecipeEditModals: View {
                     //sets coordinates of view on dash
                     .padding(.top, -525)
                 }
-                
-                
-      
-                
         }
             
         Spacer()

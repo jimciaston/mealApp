@@ -89,8 +89,7 @@ struct RecipeIngredients: View {
                            Spacer()
                               
                     }
-                       .padding(.top, -10)
-                       .padding(.bottom, 10)
+                      
                 }
                 List{
                     self.listContent(for: Array(turnIntoOrderedDictionary(regularDictionary: ingredients).keys))

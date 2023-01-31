@@ -8,11 +8,30 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+/*
+ -- count indexes for each swipe
+ 
+ 
+ 
+ 
+ */
+
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
+    }
+}
+
 struct FullListOfRecipes: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
+    
+    @ObservedObject var rm = RecipeLogic()
+
     @Binding var showAddButton:Bool
     @State var showRecipeModal = false
-    var allRecipes: [RecipeItem]
+    @State var allRecipes: [RecipeItem]
     @State var selectedRecipe: RecipeItem?
     @State var MealObject = Meal()
     @State var mealTimingToggle = false
@@ -20,57 +39,77 @@ struct FullListOfRecipes: View {
     @State private var totalHeight
         //   = CGFloat.zero       // << variant for ScrollView/List
       = CGFloat.infinity   // << variant for VStack
-
+    @State private var currentPage = 0
+    
     var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                self.generateContent(in: geometry)
-            }
+        if rm.recipes.count >= 1 { // << Fatal error, index out of range if removed
+            TabView {
+                   ForEach(Array(rm.recipes.chunked(into: 4)), id: \.self) { recipesChunk in
+                       GeometryReader { geometry in
+                           self.generateContent(in: geometry, recipes: recipesChunk)
+                       }
+                   }
+              
+               }
+            .border(.red)
+            //   .frame(height: totalHeight + 350 )// << keep if HStack in future
+               // If frame is removed, issue occurs when deleting items
+               //if deleting items after 6, stack does not go up.
+               .frame(maxHeight: totalHeight + 350)
+           .tabViewStyle(.page)
+           .gesture(
+               DragGesture()
+                  .onEnded { value in
+                      if value.translation.width < 0 {
+                          self.currentPage = min(self.currentPage + 1, rm.recipes.count / 4)
+                  } else if value.translation.width > 0 {
+                      self.currentPage = max(self.currentPage - 1, 0)
+                  }
+              }
+            )
         }
-     //   .frame(height: totalHeight + 350 )// << bring stack to the top
-        //.frame(maxHeight: totalHeight + 350) // << variant for VStack
+        
     }
 
-    private func generateContent(in g: GeometryProxy) -> some View {
-        var width = CGFloat.zero
-        var height = CGFloat.zero
-       // var arrOfRecipes: [RecipeItem] = Array(arrayLiteral: self.tags)
-        return ZStack (alignment: .topLeading) {
-            ForEach(allRecipes, id: \.self) { recipe in
-               
-                self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
-                    .padding([.horizontal, .vertical], 4)
-                    .alignmentGuide(.leading, computeValue: { d in
-                            if (abs(width - d.width) > g.size.width){
-                                width = 0
-                                height -= d.height + 30 // <<height between rows
-                            }
-                            let result = width
-                        
-                        if recipe == allRecipes.last! {
-                                width = 0 //last item
-                            } else {
-                                width -= d.width - 20 // << padding to rows
-                            }
-                            return result
-                        })
-                        .alignmentGuide(.top, computeValue: { d in
-                            let result = height
-                            
-                            if recipe == allRecipes.last! {
-                                height = 0 // last item
-                            }
-                            return result
-                        })
-                        .onTapGesture{
-                            selectedRecipe = recipe
-                        }
-            }
-        }
-        .background(viewHeightReader($totalHeight))
+    private func generateContent(in g: GeometryProxy, recipes: [RecipeItem]) -> some View {
+           var width = CGFloat.zero
+           var height = CGFloat.zero
+           return ZStack(alignment: .topLeading) {
+               ForEach(recipes, id: \.id) { recipe in
+                   self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
+                   .padding([.horizontal, .vertical], 5)
+                   .alignmentGuide(.leading, computeValue: { d in
+                       if (abs(width - d.width) > g.size.width){
+                           width = 0
+                           height -= d.height - 20
+                       }
+                       let result = width
+                       if recipe == allRecipes.last! {
+                           width = 0
+                       } else {
+                           width -= d.width - 20
+                       }
+                       return result
+                   })
+                   .alignmentGuide(.top, computeValue: { d in
+                       let result = height
+                       if recipe == allRecipes.last! {
+                           height = 0
+                       }
+                       return result
+                   })
+                   .onTapGesture {
+                       selectedRecipe = recipe
+                   }
+               }
+           }
+          // .background(viewHeightReader($totalHeight))
+        
     }
+    
 //individual item
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
+        
         VStack{
             WebImage(url: URL(string: image))
                 .placeholder(Image("defaultRecipeImage-2").resizable())
@@ -83,18 +122,6 @@ struct FullListOfRecipes: View {
                     Text(title).bold()
                         .padding(.leading, 20)
                     Spacer()
-                    
-                    if showAddButton{ // << if user is on THEIR profile page
-                        Button(action: {
-                            MealObject = Meal(id: UUID(), brand: "Custom Recipe", mealName: title, calories: recipeCaloriesMacro ,quantity: 1, amount: "Default", protein: recipeProteinMacro, carbs: recipeCarbMacro, fat: recipeFatMacro, servingSize: 0.00, servingSizeUnit: "g")
-                            mealTimingToggle.toggle()
-                        }){
-                            Image(systemName: "plus.app")
-                                .frame(width:25, height: 25)
-                        }
-                        .buttonStyle(BorderlessButtonStyle())
-                    }
-                  
                 }
             }
                 .frame(width:150)
@@ -111,40 +138,23 @@ struct FullListOfRecipes: View {
 
                 .fullScreenCover(item: $selectedRecipe){
                     RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
-                }
-            }
-        .windowOverlay(isKeyAndVisible: self.$mealTimingToggle, {
-            GeometryReader { geometry in {
-                BottomSheetView(
-                    isOpen: self.$mealTimingToggle,
-                    maxHeight: geometry.size.height / 2.0
-                ) {
-                    
-                    MealTimingSelectorView(meal: $MealObject, isViewSearching: .constant(true), userSearch: .constant(false), mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
-                            .environmentObject(mealEntryObj)
                        
                 }
-                
-            }().edgesIgnoringSafeArea(.all)
-                   
             }
-            
-        })
-        
         .padding(.leading, 30) // << center on screen
         
     }
        
- 
-    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
-        return GeometryReader { geometry -> Color in
-            let rect = geometry.frame(in: .local)
-            DispatchQueue.main.async {
-                binding.wrappedValue = rect.size.height
-            }
-            return .clear
-        }
-    }
+//
+//    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
+//        return GeometryReader { geometry -> Color in
+//            let rect = geometry.frame(in: .local)
+//            DispatchQueue.main.async {
+//                binding.wrappedValue = rect.size.height
+//            }
+//            return .clear
+//        }
+//    }
 }
 
 //struct TestTagCloudView : View {

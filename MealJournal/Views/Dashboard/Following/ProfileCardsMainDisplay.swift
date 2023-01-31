@@ -82,9 +82,9 @@ struct ProfileCardsMainDisplay: View {
                    
                 }
                 .sheet(isPresented: $showAllRecipes){
-                    RecipeFullListView(recipes: rm.recipes, showAddButton: true)
+                    RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false))
                         .transition(transition)
-                        
+                       
                 }
         ZStack{
             VStack(alignment: .center){
