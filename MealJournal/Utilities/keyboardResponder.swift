@@ -38,8 +38,10 @@ class KeyboardResponder: ObservableObject {
 
     //5.2 Update the currentHeight variable when the keyboards collapses
     @objc func keyBoardWillHide(notification: Notification) {
-        withAnimation {
-           currentHeight = 0
+        DispatchQueue.main.async {
+            withAnimation {
+                self.currentHeight = 0
+            }
         }
     }
 }

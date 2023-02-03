@@ -31,10 +31,10 @@ struct UserDashboardView: View {
             VStack{
                 switch dashboardRouter.currentTab {
                     case .home:
-                    if !isUserSearching{
-                        UserDashController(vm: vm, signUpController: signUpController)
-                            .environmentObject(EditModeActive())
-                    }
+                        if !isUserSearching{
+                            UserDashController(vm: vm, signUpController: signUpController)
+                                .environmentObject(EditModeActive())
+                        }
                        
                     
                 case .journal:
@@ -74,7 +74,7 @@ struct UserDashboardView: View {
                                  .foregroundColor(Color("ButtonTwo"))
                                  .shadow(color: dashboardRouter.isPlusMenuOpen ?  Color("spaceGray") : Color("LightWhite"), radius: 1.2, x: 2, y: 5)
                                  .scaleEffect(dashboardRouter.isPlusMenuOpen ? 0.9 : 1)
-                                 .animation(Animation.easeOut(duration: 0.3), value: dashboardRouter.isPlusMenuOpen)
+//
                          }
                         //animation for pop up menu
                         .onTapGesture{
@@ -97,7 +97,7 @@ struct UserDashboardView: View {
                     .frame(height:75)
                     
                     .frame(maxWidth: .infinity)
-                         .background(Color("LighterWhite").shadow(radius: 2))
+                 .background(Color("LighterWhite").shadow(radius: 2))
                         
                 }
                

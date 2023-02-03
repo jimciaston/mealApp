@@ -13,10 +13,10 @@ struct FoodItemView: View {
     @StateObject var mealEntrys = MealEntrys()
     
     
-    @Binding var meal: Meal
-    @State private var mealTimingToggle = false
+    @State var meal: Meal
+    @Binding var mealTimingToggle: Bool
     @State private var sheetMode: SheetMode = .none
-    @State var MealObject = Meal()
+    //@State var MealObject = Meal()
     @State var userSearch = false
     //when false, api results will not display
     @State var isViewSearching = false//sending to searchbar
@@ -98,7 +98,8 @@ struct FoodItemView: View {
                         case .quarter:
                             sheetMode = .none
                         }
-                        MealObject = meal
+                       
+                    
                     }, label: {
                       Image(systemName: "checkmark").resizable()
                           .frame(width: 20, height: 20)
@@ -140,19 +141,6 @@ struct FoodItemView: View {
         //get rid of that stupid space up top
         .navigationTitle("")
         .navigationBarHidden(true)
-       
-        if(mealTimingToggle){
-            FlexibleSheet(sheetMode: $sheetMode) {
-                MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $dismissResultsView)
-                }
-            
-            ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
-            .frame(height:240)
-            .foregroundColor(.black)
-           
-            //.animation(.easeInOut)
-           
-            }
            
            
     }

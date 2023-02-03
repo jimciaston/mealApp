@@ -68,7 +68,8 @@ struct FoodResultsEntryRow: View {
                           
                             //communicates with mealtimingselectionview
                             MealObject = meal
-                           
+                               
+                                
                         }){
                             Image(systemName: "plus.app")
                                 .font(.largeTitle)
@@ -85,10 +86,12 @@ struct FoodResultsEntryRow: View {
                 }
                         
                         NavigationLink(destination: FoodItemView(
-                            meal:.constant(meal),
+                            meal: meal,
+                            mealTimingToggle: $mealTimingToggle,
                             mealName: meal.mealName ?? "Default",
                             mealBrand: meal.brand ?? "Generic",
                             mealCalories: meal.calories ?? 0,
+                           
                             mealCarbs: meal.carbs ?? 0,
                             mealProtein: meal.protein ?? 0,
                             mealFat: meal.fat ?? 0,
@@ -96,7 +99,7 @@ struct FoodResultsEntryRow: View {
                             mealServingSize: meal.servingSize ?? 0, dismissResultsView: $dismissResultsView
                            
                         )
-                      
+                            
                         ){
                             emptyview()
                             

@@ -44,7 +44,7 @@ struct UserDashController: View {
         }
   
     var body: some View {
-        //if !vm.isUserDataLoading { // << if user data loaded
+        if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
                 ZStack{
                     GeometryReader { Geo in
@@ -61,7 +61,7 @@ struct UserDashController: View {
                             
                             //profile picture
                             ProfilePicture()
-                           
+                                    .padding(.top, 50) // << bring down profile picture on view
                             HStack{
                                 Text(vm.userModel?.name ?? "Name unavailable" )
                                     .font(.custom("OpenSans-Regular", size: 24))
@@ -184,38 +184,38 @@ struct UserDashController: View {
                 }
                 .blur(radius: deleteAccountSheet ? 2 : 0) // blur when bottomsheet open
                
-//                .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
-//                    GeometryReader { geometry in {
-//                        BottomSheetView(
-//                            isOpen: self.$deleteAccountSheet,
-//                            maxHeight: geometry.size.height * 0.5 * 0.7
-//                        ) {
-//                            DeleteProfileView(deleteSuccess: $deleteAccountSheet)
-//                                .onTapGesture{
-//                                    self.deleteAccountSheet = false
-//                                }
-//                        }
-//                       
-//                    }()
-//                            .edgesIgnoringSafeArea(.all)
-//                           
-//                    }
-//                    
-//                })
+                .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
+                    GeometryReader { geometry in {
+                        BottomSheetView(
+                            isOpen: self.$deleteAccountSheet,
+                            maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: geometry.size.height * 0.5 * 0.7
+                        ) {
+                            DeleteProfileView(deleteSuccess: $deleteAccountSheet)
+                                .onTapGesture{
+                                    self.deleteAccountSheet = false
+                                }
+                        }
+
+                    }()
+                            .edgesIgnoringSafeArea(.all)
+
+                    }
+
+                })
             }
-            //.padding(.top, -25)
            
-     //   }
-//
-//        else{
-//            ActivityIndicator()
-//            //activity indicator had bug where it wouldn't leave after initial setup
-//                .onAppear{
-//                    vm.fetchCurrentUser()
-//                }
-//
-//            // << showing loading spinner while loading
-//        }
+           
+        }
+
+        else{
+            ActivityIndicator()
+            //activity indicator had bug where it wouldn't leave after initial setup
+                .onAppear{
+                    vm.fetchCurrentUser()
+                }
+
+            // << showing loading spinner while loading
+        }
         
     }
         

@@ -174,7 +174,9 @@ struct RecipeControllerModal: View {
             }
             
         }
-               
+        .onAppear{
+            print(recipeCaloriesMacro)
+        }
        
       }
     }

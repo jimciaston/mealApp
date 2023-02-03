@@ -93,11 +93,10 @@ struct MealTimingSelectorView: View {
                             mealTiming: "lunch",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
                             context: managedObjContext,
-                            entryCalories: Int16(meal.calories!),
-                            entryProtein: Int16(meal.protein!),
-                            entryFat: Int16(meal.fat!),
-                            entryCarbs: Int16(meal.carbs!), totalCalories: "testing")
-                        print(Int16(meal.calories!))
+                            entryCalories: Int16(meal.calories ?? 0),
+                            entryProtein: Int16(meal.protein ?? 0 ),
+                            entryFat: Int16(meal.fat ?? 0),
+                            entryCarbs: Int16(meal.carbs ?? 0), totalCalories: "testing")
                         isViewSearching = false
                         userSearch = false
                         mealEntryObj.mealEntrysLunch.append(meal)
@@ -120,10 +119,10 @@ struct MealTimingSelectorView: View {
                             mealTiming: "dinner",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
                             context: managedObjContext,
-                            entryCalories: Int16(meal.calories!),
-                            entryProtein: Int16(meal.protein!),
-                            entryFat: Int16(meal.fat!),
-                            entryCarbs: Int16(meal.carbs!), totalCalories: "testing")
+                            entryCalories: Int16(meal.calories ?? 0),
+                            entryProtein: Int16(meal.protein ?? 0 ),
+                            entryFat: Int16(meal.fat ?? 0),
+                            entryCarbs: Int16(meal.carbs ?? 0), totalCalories: "testing")
                         
                         isViewSearching = false
                         userSearch = false
@@ -145,10 +144,10 @@ struct MealTimingSelectorView: View {
                             mealTiming: "snack",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
                             context: managedObjContext,
-                            entryCalories: Int16(meal.calories!),
-                            entryProtein: Int16(meal.protein!),
-                            entryFat: Int16(meal.fat!),
-                            entryCarbs: Int16(meal.carbs!), totalCalories: "testing")
+                            entryCalories: Int16(meal.calories ?? 0),
+                            entryProtein: Int16(meal.protein ?? 0 ),
+                            entryFat: Int16(meal.fat ?? 0),
+                            entryCarbs: Int16(meal.carbs ?? 0), totalCalories: "testing")
                         
                         isViewSearching = false
                         userSearch = false

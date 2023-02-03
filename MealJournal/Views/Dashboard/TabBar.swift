@@ -29,11 +29,15 @@ struct TabBarIcon: View {
                 .foregroundColor(dashboardRouter.currentTab == selectedTab ? Color(.blue) : Color (.black))
                 .onTapGesture {
                     dashboardRouter.isPlusMenuOpen = false
-                    dashboardRouter.currentTab = selectedTab
-                   }
                     
-    }
-}
+                    // don't allow view to be clicked again if selected tab is already present
+                    if dashboardRouter.currentTab != selectedTab {
+                        dashboardRouter.currentTab = selectedTab
+                          
+                    }
+               }
+            }
+        }
 
 //struct TabBar_Previews: PreviewProvider {
 //    static var previews: some View {

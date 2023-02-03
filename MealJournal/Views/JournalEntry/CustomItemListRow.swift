@@ -75,8 +75,8 @@ struct CustomItemListRow: View {
                             .buttonStyle(BorderlessButtonStyle())
                 }
                         NavigationLink(destination: FoodItemView(
-                            meal:.constant(item),
-                            mealName: mealName ?? "Default",
+                            meal: item,
+                            mealTimingToggle: $mealTimingToggle, mealName: mealName ?? "Default",
                             mealBrand: item.brand ?? "Generic",
                             mealCalories: item.calories ?? 0,
                             mealCarbs: item.carbs ?? 0,

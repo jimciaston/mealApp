@@ -18,3 +18,9 @@ import Foundation
 ///4) following users not working (adds negative to following counrt
 
 
+//TODO: App closes when user adds meal from menu (tested on breakfast)
+//TODO: Scale images using kingfisher in bookmarks, set to one size
+// delete account popup and save meal journal pop up do not show up in ios
+//keyboard does not set move items when opening on recipe builder
+//fix white background on get started
+//keyboard on get started page            

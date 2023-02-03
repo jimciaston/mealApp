@@ -19,14 +19,13 @@ struct RecipeFullListView: View {
     var body: some View {
         ZStack{
             VStack{
-                Text("Recipess").bold()
+                Text("Saved Recipes").bold()
                     .padding(.bottom, 20)
                     .padding(.top, 20)
                     .font(.title2)
                    
                 if(recipes.count > 0){
-                    FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes )
-                       
+                    FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes )   
                 }
                 else{
                     if !notCurrentUserProfile{ // << if user is visiting another users profile

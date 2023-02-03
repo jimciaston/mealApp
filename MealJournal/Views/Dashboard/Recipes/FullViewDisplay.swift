@@ -8,14 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-/*
- -- count indexes for each swipe
- 
- 
- 
- 
- */
-
+//break down Array into "chunks" of 4
 extension Array {
     func chunked(into size: Int) -> [[Element]] {
         return stride(from: 0, to: count, by: size).map {
@@ -25,10 +18,11 @@ extension Array {
 }
 
 struct FullListOfRecipes: View {
+    
+    
     @EnvironmentObject var mealEntryObj: MealEntrys
     
     @ObservedObject var rm = RecipeLogic()
-
     @Binding var showAddButton:Bool
     @State var showRecipeModal = false
     @State var allRecipes: [RecipeItem]
@@ -36,26 +30,27 @@ struct FullListOfRecipes: View {
     @State var MealObject = Meal()
     @State var mealTimingToggle = false
     
-    @State private var totalHeight
-        //   = CGFloat.zero       // << variant for ScrollView/List
-      = CGFloat.infinity   // << variant for VStack
     @State private var currentPage = 0
-    
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
-        if rm.recipes.count >= 1 { // << Fatal error, index out of range if removed
+        if allRecipes.count >= 1 {
+            // << Fatal error, index out of range if removed
+            
             TabView {
-                   ForEach(Array(rm.recipes.chunked(into: 4)), id: \.self) { recipesChunk in
-                       GeometryReader { geometry in
-                           self.generateContent(in: geometry, recipes: recipesChunk)
-                       }
-                   }
-              
+                   ForEach(Array(allRecipes.chunked(into: 6)), id: \.self) { recipesChunk in
+                       LazyVGrid(columns: columns) {
+                          ForEach(recipesChunk, id: \.id) { recipe in
+                             
+                              self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
+                                 
+                              .onTapGesture {
+                                selectedRecipe = recipe
+                            }
+                          }
+                       }.frame(maxHeight: .infinity, alignment: .top)                   }
                }
-            .border(.red)
-            //   .frame(height: totalHeight + 350 )// << keep if HStack in future
-               // If frame is removed, issue occurs when deleting items
-               //if deleting items after 6, stack does not go up.
-               .frame(maxHeight: totalHeight + 350)
+          
+               
            .tabViewStyle(.page)
            .gesture(
                DragGesture()
@@ -68,44 +63,13 @@ struct FullListOfRecipes: View {
               }
             )
         }
-        
+        else{
+            Text("No Recipes Saved")
+                .frame(maxHeight: .infinity, alignment: .top)
+        }
     }
 
-    private func generateContent(in g: GeometryProxy, recipes: [RecipeItem]) -> some View {
-           var width = CGFloat.zero
-           var height = CGFloat.zero
-           return ZStack(alignment: .topLeading) {
-               ForEach(recipes, id: \.id) { recipe in
-                   self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
-                   .padding([.horizontal, .vertical], 5)
-                   .alignmentGuide(.leading, computeValue: { d in
-                       if (abs(width - d.width) > g.size.width){
-                           width = 0
-                           height -= d.height - 20
-                       }
-                       let result = width
-                       if recipe == allRecipes.last! {
-                           width = 0
-                       } else {
-                           width -= d.width - 20
-                       }
-                       return result
-                   })
-                   .alignmentGuide(.top, computeValue: { d in
-                       let result = height
-                       if recipe == allRecipes.last! {
-                           height = 0
-                       }
-                       return result
-                   })
-                   .onTapGesture {
-                       selectedRecipe = recipe
-                   }
-               }
-           }
-          // .background(viewHeightReader($totalHeight))
-        
-    }
+
     
 //individual item
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
@@ -137,24 +101,13 @@ struct FullListOfRecipes: View {
                 .frame(width:150)
 
                 .fullScreenCover(item: $selectedRecipe){
-                    RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
-                       
+                    RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
+                        
                 }
+               
             }
-        .padding(.leading, 30) // << center on screen
-        
     }
-       
-//
-//    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
-//        return GeometryReader { geometry -> Color in
-//            let rect = geometry.frame(in: .local)
-//            DispatchQueue.main.async {
-//                binding.wrappedValue = rect.size.height
-//            }
-//            return .clear
-//        }
-//    }
+
 }
 
 //struct TestTagCloudView : View {

@@ -27,61 +27,105 @@ struct RecipeEditorView: View {
                 .foregroundColor(Color.black)
                 .font(.title3)
                 .multilineTextAlignment(.center)
-            //macro selectors
-            HStack{
-                //macro pickers for recipe
+            
+            //macro pickers for recipe
+            
+            //ios16 new update shows arrows in pickers, hides it with ZStack here
+            ZStack {
+               // Custom picker label
+                Text("\(recipeClass.recipeCaloriesMacro) Calories")
+                   .font(.title)
+                   .foregroundColor(.black)
+               // Invisible picker
                 Picker(selection: $recipeClass.recipeCaloriesMacro, label: Text("")) {
                    ForEach(calorieCounter(), id: \.self) {
                        Text(String($0) + " Calories")
                           
                    }
-                   
-                  
-                  
                 }
+                .opacity(0.025) // << show picker
                 .accentColor(.gray)
-                
-                Picker(selection: $recipeClass.recipeFatMacro, label: Text("")) {
-                   ForEach(pickerGramCounter(), id: \.self) {
-                       Text(String($0) + "g Fat")
-                          
-                   }
-                 
-                
-                  
+                .pickerStyle(.menu)
+            }
+   
+         
+            //macro selectors
+            HStack{
+                ZStack {
+                   // Custom picker label
+                    Text("\(recipeClass.recipeFatMacro)g Fat")
+                       .font(.title)
+                       .foregroundColor(.black)
+                   // Invisible picker
+                    Picker(selection: $recipeClass.recipeFatMacro, label: Text("")) {
+                       ForEach(calorieCounter(), id: \.self) {
+                           Text(String($0) + "g Fat")
+                              
+                       }
+                    }
+                    .opacity(0.025) // << show picker
+                    .accentColor(.gray)
+                    .pickerStyle(.menu)
                 }
-                .accentColor(.gray)
                 
-                Picker(selection: $recipeClass.recipeCarbMacro, label: Text("")) {
-                   ForEach(pickerGramCounter(), id: \.self) {
-                       Text(String($0) + "g Carbs")
-                   }
-                  
+                ZStack {
+                   // Custom picker label
+                    Text("\(recipeClass.recipeCarbMacro)g Carbs")
+                       .font(.title)
+                       .foregroundColor(.black)
+                   // Invisible picker
+                    Picker(selection: $recipeClass.recipeCarbMacro, label: Text("")) {
+                       ForEach(calorieCounter(), id: \.self) {
+                           Text(String($0) + "g Carbs")
+                              
+                       }
+                    }
+                    .opacity(0.025) // << show picker
+                    .accentColor(.gray)
+                    .pickerStyle(.menu)
                 }
-                .accentColor(.gray)
+             
+                ZStack {
+                   // Custom picker label
+                    Text("\(recipeClass.recipeProteinMacro)g Protein")
+                       .font(.title)
+                       .foregroundColor(.black)
+                   // Invisible picker
+                    Picker(selection: $recipeClass.recipeProteinMacro, label: Text("")) {
+                       ForEach(calorieCounter(), id: \.self) {
+                           Text(String($0) + "g Protein")
+                              
+                       }
+                    }
+                    .opacity(0.025) // << show picker
+                    .accentColor(.gray)
+                    .pickerStyle(.menu)
+                }
                 
-                Picker(selection: $recipeClass.recipeProteinMacro, label: Text("")) {
-                    //calls func that counts to 200
-                   ForEach(pickerGramCounter(), id: \.self) {
-                       Text(String($0) + "g Protein")
-                   }
-                   
-                }
-                .accentColor(.gray)
             }
             HStack(spacing: 0){
                 ZStack{
                     Image(systemName:("clock"))
                         .padding(.leading, 150)
                         .foregroundColor(Color("completeGreen"))
-                    Picker(selection: $recipeClass.recipePrepTime, label: Text("")) {
-                       ForEach(cookingTime, id: \.self) {
-                           Text($0)
-                       }
-                    }
                     
-                   
-                    .accentColor(.gray)
+                    
+                    ZStack {
+                       // Custom picker label
+                        Text("\(recipeClass.recipePrepTime)")
+                           .font(.title)
+                           .foregroundColor(.black)
+                       // Invisible picker
+                        Picker(selection: $recipeClass.recipePrepTime, label: Text("")) {
+                           ForEach(cookingTime, id: \.self) {
+                               Text($0)
+                                  
+                           }
+                        }
+                        .opacity(0.025) // << show picker
+                        .accentColor(.gray)
+                        .pickerStyle(.menu)
+                    }
                 }
                 .multilineTextAlignment(.center)
             }
