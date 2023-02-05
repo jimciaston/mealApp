@@ -26,20 +26,14 @@ struct ProfileCardsNonUserDisplay: View {
                         .foregroundColor(Color(.systemPink))
                         .padding(.top, 15)
                     
-                    Text(String(rm.recipesNonUser.count)).bold()
+                    Text(String(rm.grabRecipes(userUID: userUID))).bold() // << calling function directly in view
                         .font(.title2)
                         .padding(.top, 20)
                         .padding(.bottom,2)
-                    if (rm.recipesNonUser.count == 1){
-                        Text("Recipe Found")
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                    }
-                    else{
-                        Text("Recipes Found")
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                        }
+                    Text(rm.recipesNonUser.count == 1 ? "Recipe Found" : "Recipes Found")
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.center)
+                   
                     }
                 }
           
@@ -50,9 +44,10 @@ struct ProfileCardsNonUserDisplay: View {
                 .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
                 .onTapGesture{
                     showAllRecipes = true
+                 
                 }
                 .sheet(isPresented: $showAllRecipes){
-                    RecipeFullListView(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true))
+                    RecipeFullListView_nonUser(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true))
                         .transition(transition)
                         
                 }
@@ -65,10 +60,13 @@ struct ProfileCardsNonUserDisplay: View {
                     .foregroundColor(Color(.systemPink))
                     .padding(.top, 15)
                 
-                Text(String(jm.userJournalCountNonUser)).bold()
+                Text(String(jm.grabUserJournalCount(userID: userUID))).bold()
                     .font(.title2)
                     .padding(.top, 20)
                     .padding(.bottom,2)
+                
+                
+                
                 if jm.userJournalCountNonUser == 1 {
                     Text("Journal Found")
                         .foregroundColor(.black)
@@ -82,7 +80,7 @@ struct ProfileCardsNonUserDisplay: View {
                         
             }
             .sheet(isPresented: $showAllJournals){
-                SavedJournalsListNonUser(savedJournalIDs: jm.userJournalIDsNonUser, savedJournals: jm.userJournalsNonUser)
+                SavedJournalsListNonUser(savedJournalIDs: jm.userJournalIDsNonUser, savedJournals: jm.userJournalsHalfNonUser, userUID: userUID)
                     .transition(transition)
                    
                     
@@ -95,13 +93,10 @@ struct ProfileCardsNonUserDisplay: View {
         .cornerRadius(25)
         .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
         }
-        .onAppear {
-            rm.grabRecipes(userUID: userUID)
-            jm.grabUserJournalCount(userID: userUID)
-        }
+      
         .onTapGesture {
             showAllJournals = true
-          
+           
         }
     }
 }

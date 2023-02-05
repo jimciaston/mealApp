@@ -53,7 +53,7 @@ struct RecipeControllerNonUser: View {
                 .edgesIgnoringSafeArea(.all)
                 .frame(width:300, height: 40)
         //show image picker
-              
+              Text("Star Icon")
     
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()

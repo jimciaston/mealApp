@@ -13,18 +13,14 @@ class JournalDashLogicNonUser: ObservableObject {
     @Published var userJournalCountNonUser: Int = 0
     @Published var userJournalIDsNonUser = [String]()
     @Published var userJournalsHalfNonUser = [UserJournalEntryHalf]()
-    @State var uidNonUser: String
+  
+   
     
-    init(){
-        self.uidNonUser = ""
-        grabUserJournalCount(userID: uidNonUser)
-    }
-    
-    func grabUserJournalCount(userID: String){
+    func grabUserJournalCount(userID: String) -> Int{
         if userID == "" {
-            return
+            return 0
         }
-        let docID = "" // << store in journalHalfStruct
+      
         //grab current user
         
          FirebaseManager.shared.firestore
@@ -42,17 +38,17 @@ class JournalDashLogicNonUser: ObservableObject {
                  }
                  //grab information half
                  self.userJournalsHalfNonUser = documents.map { document in
-                     
                      let journalID = document.documentID
                      let totalCalories = document.get("totalCalories") as? String
                      let totalProtein = document.get("totalProtein") as? String
                      let totalCarbs = document.get("totalCarbs") as? String
                      let totalFat = document.get("totalFat") as? String
+                     
                      return UserJournalEntryHalf(id: journalID, totalCalories: totalCalories, totalProtein: totalProtein, totalCarbs: totalCarbs,totalFat: totalFat)
                  }
                  
              }
-       
+            return userJournalsHalfNonUser.count
          }
    
     func grabUserJournalsHalf(journalID: String, userID: String){

@@ -10,10 +10,10 @@ import SwiftUI
 
 struct SavedJournalsListNonUser: View {
     var savedJournalIDs: [String]
-    var savedJournals: [UserJournalEntry]
- 
+    @State var savedJournals: [UserJournalEntryHalf]
+    var userUID: String
   
-    @ObservedObject var jm = JournalDashLogicNonUser()
+    @StateObject var jm = JournalDashLogicNonUser()
  
     var body: some View {
         NavigationView{
@@ -23,7 +23,7 @@ struct SavedJournalsListNonUser: View {
                     .multilineTextAlignment(.center)
                     .font(.title2)
                 List{
-                    ForEach(jm.userJournalsHalfNonUser , id: \.id) { entry in
+                    ForEach(savedJournals , id: \.id) { entry in
                         ZStack{
                             VStack (alignment: .leading){
                                 HStack{
@@ -58,20 +58,21 @@ struct SavedJournalsListNonUser: View {
                                     .padding(.bottom, 15)
                                     
 
-                            NavigationLink(destination: SavedJournalDashboard(id: entry.id!, totalCalories: entry.totalCalories ?? "n/a", totalCarbs: entry.totalCarbs ?? "n/a", totalFat: entry.totalFat ?? "n/a", totalProtein: entry.totalProtein ?? "n/a"), label: {
+                            NavigationLink(destination: SavedJournalDashboard_NonUser(jm: jm, id: entry.id!, totalCalories: entry.totalCalories ?? "n/a", totalCarbs: entry.totalCarbs ?? "n/a", totalFat: entry.totalFat ?? "n/a", totalProtein: entry.totalProtein ?? "n/a", userUID: userUID), label: {
                                     emptyview()
                                 })
                                
                                 .opacity(0.0)
                                 .buttonStyle(PlainButtonStyle())
                                 }
+                       
                             }
                     
-                     .listRowSeparator(.hidden)
-                      .listRowBackground( Color("ListBackgroundColor"))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground( Color("ListBackgroundColor"))
                     
                     }
-               
+                
                 }
            
             .background( Color("ListBackgroundColor")) // << background for saved Journals Title

@@ -7,14 +7,57 @@
 
 import SwiftUI
 
-struct UserProfileFullRecipeList: View {
+struct RecipeFullListView_nonUser: View {
+    @State var recipes: [RecipeItem]
+    @State var showAddButton: Bool // << keep false to not allow users to add recipe to meal journal if not on their profile
+    
+   
+    @State private var isActive = false
+    @State private var active: Int? = nil
+    @State var triggerRecipeController = false
+    @Binding var notCurrentUserProfile: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            VStack{
+                Text("Saved Recipes").bold()
+                    .padding(.bottom, 20)
+                    .padding(.top, 20)
+                    .font(.title2)
+                   
+                if(recipes.count > 0){
+                    FullListOfRecipes_nonUser(showAddButton: $showAddButton, allRecipes: recipes )
+                }
+                else{
+                    if !notCurrentUserProfile{ // << if user is visiting another users profile
+                        // if they are, don't show below
+                        VStack{
+                            Image(systemName: "plus.rectangle.on.rectangle")
+                                .resizable()
+                                .frame(width: 70, height: 70)
+                                .onTapGesture {
+                                    triggerRecipeController = true
+                                }
+                            Text("Add a Recipe!")
+                                .font(.title3)
+                                .padding()
+                        }
+                        .padding(.top, 40)
+                        .fullScreenCover(isPresented: $triggerRecipeController){
+                                RecipeEditor()
+                        }
+                        Spacer()
+                    }
+                    else{
+                        Text("User has no current recipes")
+                            .font(.title3)
+                            .padding()
+                    }
+                }
+                
+                
+            }
+            
+        }
     }
 }
 
-struct UserProfileFullRecipeList_Previews: PreviewProvider {
-    static var previews: some View {
-        UserProfileFullRecipeList()
-    }
-}

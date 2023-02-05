@@ -10,14 +10,9 @@ import SwiftUI
 
 class RecipeLogicNonUser: ObservableObject {
     @Published var recipesNonUser = [RecipeItem]()
-    @State var uidNonUser: String
-    @State var blankString = ""
-    @Environment (\.dismiss) var dismiss
     
-    init(){
-        self.uidNonUser = ""
-        grabRecipes(userUID: uidNonUser)
-    }
+    @Environment (\.dismiss) var dismiss
+   
     
     //delete recipe functionality
 //    func deleteRecipe(selectedRecipeID: String){
@@ -50,10 +45,10 @@ class RecipeLogicNonUser: ObservableObject {
 //                    }
     
     //fetch recipes
-    func grabRecipes(userUID: String){
+    func grabRecipes(userUID: String) -> Int{
        //grab current user
-        if userUID == "" {
-            return
+        if userUID == ""{
+            return 0
         }
         FirebaseManager.shared.firestore
             .collection("users")
@@ -84,6 +79,7 @@ class RecipeLogicNonUser: ObservableObject {
 
                 }
             }
+        return recipesNonUser.count
         }
     
     //save recipeTitle, Cook Time and recipe macros

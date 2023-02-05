@@ -145,6 +145,9 @@
 		0AB112B9290590CD0071B3ED /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112B8290590CD0071B3ED /* TabBar.swift */; };
 		0AB112BB29079F020071B3ED /* TabBarIconPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */; };
 		0AB112C5290D699B0071B3ED /* LandingPageLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112C4290D699A0071B3ED /* LandingPageLogo.swift */; };
+		0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */; };
+		0ABE3C64298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */; };
+		0ABE3C66298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */; };
 		0AC04221282C38AC00009684 /* FoodItemInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC04220282C38AC00009684 /* FoodItemInputs.swift */; };
 		0AC1B77427D298720070895D /* GetWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1B77327D298720070895D /* GetWeight.swift */; };
 		0AE0DB8B27BC1823006F1835 /* JournalEntryMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */; };
@@ -314,6 +317,9 @@
 		0AB112B8290590CD0071B3ED /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarIconPlus.swift; sourceTree = "<group>"; };
 		0AB112C4290D699A0071B3ED /* LandingPageLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageLogo.swift; sourceTree = "<group>"; };
+		0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay_NonUser.swift; sourceTree = "<group>"; };
+		0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditor_NonUser.swift; sourceTree = "<group>"; };
+		0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalDashboard_NonUser.swift; sourceTree = "<group>"; };
 		0AC04220282C38AC00009684 /* FoodItemInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemInputs.swift; sourceTree = "<group>"; };
 		0AC1B77327D298720070895D /* GetWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeight.swift; sourceTree = "<group>"; };
 		0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryMain.swift; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 				0A6534DE27E1230600A50FB8 /* Recipe Ingredients.swift */,
 				0A53020E27E8E0F100B8D261 /* RecipeDirections.swift */,
 				0A6325F5288F0D9A003B3D02 /* FullViewDisplay.swift */,
+				0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -476,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				0A8D80672826CBF60055021A /* RecipeEditor.swift */,
+				0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */,
 				0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */,
 				0A8D8072282A15280055021A /* RecipeEditorView.swift */,
 				0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */,
@@ -677,6 +685,7 @@
 				0A8C89222946AA7F008C549A /* SavedJournalsList.swift */,
 				0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */,
 				0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */,
+				0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */,
 				0A1495702942474100E6258F /* FavoriteInvalidPopUp.swift */,
 				0A8D9319294367870046D49C /* FavoriteAlreadySavedPopUp.swift */,
 			);
@@ -983,6 +992,7 @@
 				0A3E03D328C92C7D009613CF /* FollowersUsersView.swift in Sources */,
 				0AB112B3290309910071B3ED /* LandingButtonPress.swift in Sources */,
 				0A8D957B27B7216400193B84 /* keyboardResponder.swift in Sources */,
+				0ABE3C64298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift in Sources */,
 				0A9F495B286532ED002F227E /* RecipeLogic.swift in Sources */,
 				0A3B9B1B280FA94F00EC631A /* FoodData.swift in Sources */,
 				0A2D896B29788D44001EDF01 /* RecipeEditorHomeMenu.swift in Sources */,
@@ -1026,6 +1036,7 @@
 				0A474739293795AC00384B51 /* UserJournalHelper.swift in Sources */,
 				0A8F990E27AB0F01008F5584 /* LandingPage.swift in Sources */,
 				0A3B9B0F27FFDC4000EC631A /* MealBelongButtons.swift in Sources */,
+				0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */,
 				0A87DB6D291EDFA900A3C1E9 /* DeleteAccountLogic.swift in Sources */,
 				0A2D896929782930001EDF01 /* SavedJournalListNonUser.swift in Sources */,
 				0A3B9B2728162DE800EC631A /* NutrionalPieChartView.swift in Sources */,
@@ -1053,6 +1064,7 @@
 				0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */,
 				0AF5B10628B5B182005533C8 /* UserProfileRecipeView.swift in Sources */,
 				0AAE15B3282DA3E400B9B85A /* EditorDirections.swift in Sources */,
+				0ABE3C66298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift in Sources */,
 				0A8D931A294367870046D49C /* FavoriteAlreadySavedPopUp.swift in Sources */,
 				0AF5B1022899B0FA005533C8 /* ActivityIndicator.swift in Sources */,
 				0A2D895B296B97F6001EDF01 /* JournalDashLogic.swift in Sources */,

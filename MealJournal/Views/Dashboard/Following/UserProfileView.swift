@@ -19,45 +19,11 @@ struct UserProfileView: View {
     @State var name: String
     @State var userBio: String
     @State var userProfilePicture: String
-    @State var userRecipes: [String:String]
     @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
     //get user recipes from database
-   
-    
-    func getUserRecipes(uid: String){
-        FirebaseManager.shared.firestore.collection("users").document(uid).collection("userRecipes")
-            .getDocuments{ recipeDocumentSnapshot, error in
-                if let error = error {
-                    print("Errors retreiving recipes")
-                    return
-                }
-                recipeDocumentSnapshot?.documents.forEach({ recipeSnapshot in
-                    let data = recipeSnapshot.data()
-                 
-                    let recipeTitle = data ["recipeTitle"] as? String ?? ""
-                    let recipePrepTime = data ["recipePrepTime"] as? String ?? ""
-                    let recipeImage = data ["recipeImage"] as? String ?? ""
-                    let createdAt = data ["createdAt"] as? String ?? ""
-                    let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
-                    let directions = data ["directions"] as? [String] ?? [""]
-                    let recipeID = data ["recipeID"] as? String ?? ""
-                    let recipeCaloriesMacro = data ["recipeCaloriesMacro"] as? Int ?? 0
-                    let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
-                    let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
-                    let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                    let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
-                    
-               //first check if recipe ID exists by filtering by the id
-                    let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
-               //if it doens't exist, append recipe
-                    if recipeExistence.isEmpty == true {
-                        self.fetchedUserRecipes.append(recipe)
-                    }
-                })
-            }
-        }
-    
+   @ObservedObject var rm = RecipeLogicNonUser()
+
     //check if user is being followed or not
     func isCurrentUserfollowingUser() -> Bool{
         FirebaseManager.shared.firestore.collection("users")
@@ -88,10 +54,7 @@ struct UserProfileView: View {
                         Text(name ?? "" ).bold()
                             .font(.title2)
                     }
-                    //get user recipes
-                    .onAppear{
-                        getUserRecipes(uid: userUID)
-                    }
+                   
                         .padding()
                     
                     HStack{
@@ -164,15 +127,10 @@ struct UserProfileView: View {
                         }
                              
                     }
-                    //check if user is followed
-                    .onAppear{
-                        isCurrentUserfollowingUser()
-                    }
+                    
                     Spacer()
                    //display user recipes
-                 //   ProfileCardsMainDisplay
-                    Spacer()
-                    
+                
                     Text("About Me")
                         .font(.title3)
                         .padding(.bottom, -10)
@@ -188,18 +146,18 @@ struct UserProfileView: View {
                     //Display recipes
                     ProfileCardsNonUserDisplay(userUID: userUID)
                         .padding(.top, -10)
+                       
                     Spacer()
                     
                 }
-       
+//                .onAppear {
+//                    print(userUID)
+//                    rm.grabRecipes(userUID: userUID)
+//                    print(rm.recipesNonUser.count)
+//                   // jm.grabUserJournalCount(userID: userUID)
+//                }
     }
         
         
     
-}
-
-struct UserProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserProfileView(userUID: "223", name: "Teddy", userBio: "This thing on?", userProfilePicture: "", userRecipes: ["1 cup": "Water"])
-    }
 }

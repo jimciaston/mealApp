@@ -89,7 +89,7 @@ struct FollowingUsersView: View {
             
             else{
                 HStack{
-                    NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
+                    NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture)){
                         WebImage(url: URL(string: userProfilePicture))
                             .placeholder(Image("profileDefaultPicture"))
                             .resizable()
@@ -105,7 +105,7 @@ struct FollowingUsersView: View {
                    Text(name)
                        .font(.title)
                    
-                   NavigationLink(destination:  UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, userRecipes: userRecipes)){
+                   NavigationLink(destination:  UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture)){
                        Text("View Profile")
                        .font(.caption)
                        .foregroundColor(.black)
