@@ -11,6 +11,7 @@ struct ProfileCardsNonUserDisplay: View {
     @ObservedObject var rm = RecipeLogicNonUser()
     @ObservedObject var jm = JournalDashLogicNonUser()
     var userUID: String
+    var userName: String
     @State var showAllRecipes = false
     @State var showAllJournals = false
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
@@ -47,7 +48,7 @@ struct ProfileCardsNonUserDisplay: View {
                  
                 }
                 .sheet(isPresented: $showAllRecipes){
-                    RecipeFullListView_nonUser(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true))
+                    RecipeFullListView_nonUser(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true), userName: userName)
                         .transition(transition)
                         
                 }

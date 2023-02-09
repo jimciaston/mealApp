@@ -75,13 +75,7 @@ struct PersonalSettingsView: View {
                                    message: Text(""), dismissButton:
                                         .default(Text("Got it")))
                         })
-                 //PASSWORD WILL WORK ON LATER, WHEN I CAN AUTH WITH EMAIL
-                        HStack{
-                            Image(systemName: "key")
-                                .foregroundColor(Color("ButtonTwo"))
-                                .frame(width: 20, height: 20)
-                            TextField(vm.userModel?.name ?? "User Password", text: $password)
-                        }
+                
                     
                     
                     UpdatePersonalSettingsHStack(vm: vm, name: .constant(vm.userModel?.name ?? "Name not found"), bio: .constant(vm.userModel?.userBio ?? "Bio not found"))

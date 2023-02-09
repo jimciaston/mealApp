@@ -25,13 +25,12 @@ struct GetStartedPopUpContent: View {
             }
           
             Text("") //just creates line separation
-            Text("We ask these questions to allow users to search users of the same weight, height and gender. Dieting can be tough, but seeing others of similiar circumstance help.\n\n If you don't feel comfortable, please feel free to skip this step and continue to your profile ")
+            Text("Please be aware we ask about weight, height, and gender because this information enables us to connect users who have similar characteristics and offer support to each other during the dieting journey. \n\n If you prefer not to provide this information, please feel free to skip this step and proceed to your profile (you may add this information later on)")
                 .padding(.top, 25)
                 .padding([.leading, .trailing], 25)
                 .lineSpacing(15)
             Spacer()
                 .font(.body)
-               
         }
             
     }

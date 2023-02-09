@@ -15,7 +15,7 @@ enum LoginEnum{
 
 
 struct userLogin: View {
-   @StateObject var calendarHelper = CalendarHelper()
+    @StateObject var calendarHelper = CalendarHelper()
     @State private var userLoginSuccess: Bool = false
     @State var userEmail: String = "";
     @State var userPassword: String = "";
@@ -32,8 +32,7 @@ struct userLogin: View {
     
     var body: some View {
         
-        switch loginPageViewState{
-            
+    switch loginPageViewState{
         case .loginPage:
             VStack{
                 Text("Sign In")
@@ -160,32 +159,25 @@ struct userLogin: View {
                   
                 }
                 .offset(y:50)
-                
-                .onAppear{
-                    print(success)
-                }
+              
             }
         
             .offset(y:-100)
             .offset(y: keyboardResponder.currentHeight/20)
             
         case .createAccount:
-            VStack{
                 createUserAccount() // << will be forgot password
-                    
-            }
            
-          
         case .journalEntryMain:
             JournalEntryMain(dayOfWeek: weekdayAsString(date: calendarHelper.currentDay)) // << will be create
             
         }
            
-        }
+    }
             
         
        
-    }
+}
     
 
 

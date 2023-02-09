@@ -17,6 +17,7 @@ struct UserDashboardView: View {
     @ObservedObject var signUpController: SignUpController
     @StateObject var dashboardRouter: DashboardRouter
     @StateObject var rm = RecipeLogic()
+    @StateObject var rm_nonUser = RecipeLogicNonUser()
     @State private var signedOut = false
     //@State private var plusTabIconTapped = false
     @State private var closePlusIconPopUpMenu = false
@@ -40,7 +41,7 @@ struct UserDashboardView: View {
                 case .journal:
                     JournalEntryMain(dayOfWeek: "")
                 case .recipes:
-                    RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false))
+                    RecipeFullListView_MainTab(recipes: rm_nonUser.savedRecipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(false), navigatingFromProfileCards: .constant(false))
                 case .searchUsers:
                     SearchUsersFeature()
                 case .addRecipes:
@@ -100,7 +101,9 @@ struct UserDashboardView: View {
                  .background(Color("LighterWhite").shadow(radius: 2))
                         
                 }
-               
+                .onAppear{
+                    rm_nonUser.grabSavedUserRecipes()
+                }
             }
             .edgesIgnoringSafeArea(.bottom)
         }

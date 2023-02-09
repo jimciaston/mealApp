@@ -22,7 +22,7 @@ struct UserDashController: View {
     @State var followersCount = 0
     @State var deleteAccountSheet = false
    
-    
+    @ObservedObject var rm_nonUser = RecipeLogicNonUser()
     func fetchFollowingCount(){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             print("no current User")
@@ -128,6 +128,7 @@ struct UserDashController: View {
                         .onAppear{
                             fetchFollowingCount()
                             vm.fetchCurrentUser() //view refreshes if new data entered
+                           // rm_nonUser.grabSavedUserRecipes()
                         }
                     }
                     

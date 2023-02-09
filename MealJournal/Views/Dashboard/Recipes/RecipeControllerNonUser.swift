@@ -13,13 +13,10 @@ import SDWebImageSwiftUI
 
 struct RecipeControllerNonUser: View {
     @Environment(\.dismiss) var dismiss // << dismiss view
-    
-    @StateObject var rm = RecipeLogic()
     @ObservedObject var ema = EditModeActive()
     //displays image picker
-    @State var showingImagePicker = false
-    @State private var inputImage: UIImage?
     
+    @ObservedObject var rm = RecipeLogicNonUser()
     @State var name: String
     @State var prepTime: String
     @State var image: String
@@ -30,6 +27,7 @@ struct RecipeControllerNonUser: View {
     @State var recipeFatMacro: Int
     @State var recipeCarbMacro: Int
     @State var recipeProteinMacro: Int
+    @State var userName: String
 
     /*/
      can add if ingredients != ema.updatedINgredients then run the saveRecipes function
@@ -40,20 +38,54 @@ struct RecipeControllerNonUser: View {
   
     
     var body: some View {
-        NavigationView{
+       
             VStack{
+                
                 VStack{
+                  ZStack(alignment: .topLeading) {
                     WebImage(url: URL(string: image))
-                        .placeholder(Image("defaultRecipeImage-2").resizable())
-                        .resizable()
-                        .frame(width:500, height: 250)
-                        .aspectRatio(contentMode: .fill)
-                    }
+                      .placeholder(Image("defaultRecipeImage-2").resizable())
+                      .resizable()
+                      .frame(width:500, height: 250)
+                      .aspectRatio(contentMode: .fill)
+                      HStack{
+                          Button(action: {
+                            dismiss()
+                          }){
+                              Image(systemName: "xmark")
+                                  .resizable()
+                                  .frame(width: 40, height:40)
+                              .foregroundColor(.blue)
+                              .font(.title)
+                              .padding(.leading, 70)
+                              .padding(.top, 60)
+                          }
+                          HStack{
+                              Button(action: {
+                                  rm.saveUserRecipe(userName: "Leave for now", recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date(), ingredientItem: ingredients, directions: directions)
+                                print("Saved Recipe")
+                              }){
+                                  Image(systemName: "star")
+                                      .resizable()
+                                      .frame(width: 50, height:50)
+                                  .foregroundColor(.yellow)
+                                  .font(.title)
+                                  .padding(.leading, 240)
+                                  .padding(.top, 60)
+                              }
+                          }
+                         
+                      }
+                  
+                  }
+                    
+                  .edgesIgnoringSafeArea(.all)
+                  .frame(width:300, height: 120)
+                }
                
-                .edgesIgnoringSafeArea(.all)
-                .frame(width:300, height: 40)
+                
         //show image picker
-              Text("Star Icon")
+               
     
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()
@@ -68,8 +100,15 @@ struct RecipeControllerNonUser: View {
         //edit recipe button
        
             }
-        }
-               
        
-      }
     }
+
+}
+       
+      
+    
+struct RecipeControllerNonUser_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeControllerNonUser(name: "Test Recipe", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 0, recipeFatMacro: 0, recipeCarbMacro: 0, recipeProteinMacro: 0, userName: "leave for nowf")
+    }
+}

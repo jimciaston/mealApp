@@ -32,8 +32,8 @@ struct LandingPage: View {
     
     @State private var progress: CGFloat = 0
     //colors for background on landing page
-   let gradient1 = Gradient(colors: [Color("LandingPage1"), Color("LandingPage3")])
-   let gradient2 = Gradient(colors: [.orange, Color("LandingPage2")])
+    let gradient1 = Gradient(colors: [Color("LandingPage1"), Color("LandingPage3")])
+    let gradient2 = Gradient(colors: [.orange, Color("LandingPage2")])
     
     @State private var animateGradient = false
     @State var scale: CGFloat = 1.0
@@ -110,7 +110,6 @@ struct LandingPage: View {
                             createUserAccount()
                                 .transition(.slide)
                                
-                                
                         }
                     case .signUpController:
                             VStack{

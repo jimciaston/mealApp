@@ -1,14 +1,14 @@
 //
-//  RecipeFullListView.swift
+//  RecipeFull.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 3/25/22.
+//  Created by Jim Ciaston on 2/9/23.
 //
 
 import SwiftUI
 
-struct RecipeFullListView: View {
-    var recipes: [RecipeItem]
+struct RecipeFullListView_MainTab: View {
+    var recipes: [SavedRecipeItem]
     @State var showAddButton: Bool // << keep false to not allow users to add recipe to meal journal if not on their profile
     
     @State private var isActive = false
@@ -25,7 +25,7 @@ struct RecipeFullListView: View {
                     .font(.title2)
                    
                 if(recipes.count > 0){
-                    FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes )
+                    FullViewDisplay_MainTab(showAddButton: $showAddButton, allRecipes: recipes )
                 }
                 else{
                     if navigatingFromProfileCards{
@@ -57,11 +57,9 @@ struct RecipeFullListView: View {
         }
     }
 }
-       
 
-//
-//struct RecipeFullListView_Previews: PreviewProvider {
+//struct RecipeFull_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RecipeFullListView()
+//        RecipeFull()
 //    }
 //}

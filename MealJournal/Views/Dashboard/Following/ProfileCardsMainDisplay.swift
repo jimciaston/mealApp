@@ -82,7 +82,7 @@ struct ProfileCardsMainDisplay: View {
                    
                 }
                 .sheet(isPresented: $showAllRecipes){
-                    RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false))
+                    RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false), navigatingFromProfileCards: .constant(true))
                         .transition(transition)
                        
                 }

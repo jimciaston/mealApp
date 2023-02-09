@@ -144,7 +144,7 @@ struct UserProfileView: View {
                     .padding(.top, -15)// << bring follow/followers up
                     
                     //Display recipes
-                    ProfileCardsNonUserDisplay(userUID: userUID)
+                    ProfileCardsNonUserDisplay(userUID: userUID, userName: name)
                         .padding(.top, -10)
                        
                     Spacer()

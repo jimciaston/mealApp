@@ -33,8 +33,8 @@ struct RecipeEditorView: View {
             //ios16 new update shows arrows in pickers, hides it with ZStack here
             ZStack {
                // Custom picker label
-                Text("\(recipeClass.recipeCaloriesMacro) Calories")
-                   .font(.title)
+                Text("\(recipeClass.recipeCaloriesMacro) Calories").bold()
+                   .font(.body)
                    .foregroundColor(.black)
                // Invisible picker
                 Picker(selection: $recipeClass.recipeCaloriesMacro, label: Text("")) {
@@ -54,7 +54,7 @@ struct RecipeEditorView: View {
                 ZStack {
                    // Custom picker label
                     Text("\(recipeClass.recipeFatMacro)g Fat")
-                       .font(.title)
+                        .font(.body)
                        .foregroundColor(.black)
                    // Invisible picker
                     Picker(selection: $recipeClass.recipeFatMacro, label: Text("")) {
@@ -71,7 +71,7 @@ struct RecipeEditorView: View {
                 ZStack {
                    // Custom picker label
                     Text("\(recipeClass.recipeCarbMacro)g Carbs")
-                       .font(.title)
+                        .font(.body)
                        .foregroundColor(.black)
                    // Invisible picker
                     Picker(selection: $recipeClass.recipeCarbMacro, label: Text("")) {
@@ -88,7 +88,7 @@ struct RecipeEditorView: View {
                 ZStack {
                    // Custom picker label
                     Text("\(recipeClass.recipeProteinMacro)g Protein")
-                       .font(.title)
+                        .font(.body)
                        .foregroundColor(.black)
                    // Invisible picker
                     Picker(selection: $recipeClass.recipeProteinMacro, label: Text("")) {
@@ -113,7 +113,7 @@ struct RecipeEditorView: View {
                     ZStack {
                        // Custom picker label
                         Text("\(recipeClass.recipePrepTime)")
-                           .font(.title)
+                            .font(.body)
                            .foregroundColor(.black)
                        // Invisible picker
                         Picker(selection: $recipeClass.recipePrepTime, label: Text("")) {

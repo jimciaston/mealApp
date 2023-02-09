@@ -70,7 +70,8 @@ class SignUpController: ObservableObject  {
         height:         String,
         weight:         String,
         gender:         String,
-        agenda:         String
+        agenda:         String,
+        dateJoined:     String
     ){
         //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
@@ -81,7 +82,9 @@ class SignUpController: ObservableObject  {
             "height":           height,
             "weight":           weight,
             "gender":           gender,
-            "agenda" :          agenda ] as [String : Any]
+            "agenda" :          agenda ,
+            "dateJoined":       dateJoined ] as [String : Any]
+            
         
         let privateUserData = [
             "email" : email ] as [String: Any]

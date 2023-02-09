@@ -82,7 +82,7 @@ struct RecipeListView: View {
                             }
                     
                     ZStack{
-                        NavigationLink(destination:RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false))) {
+                        NavigationLink(destination:RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false), navigatingFromProfileCards: .constant(false))) {
                                emptyview()
                            }
                        

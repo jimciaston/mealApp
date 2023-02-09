@@ -1,31 +1,29 @@
 //
-//  SwiftUIView.swift
+//  FullViewDisplay_MainTab.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 2/3/23.
+//  Created by Jim Ciaston on 2/9/23.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct FullListOfRecipes_nonUser: View {
-    
+struct FullViewDisplay_MainTab: View {
     
     @EnvironmentObject var mealEntryObj: MealEntrys
-    
     @ObservedObject var rm = RecipeLogic()
     @Binding var showAddButton:Bool
     @State var showRecipeModal = false
-    @State var allRecipes: [RecipeItem]
-    @State var selectedRecipe: RecipeItem?
+    @State var allRecipes: [SavedRecipeItem]
+    @State var selectedRecipe: SavedRecipeItem?
     @State var MealObject = Meal()
     @State var mealTimingToggle = false
-    var userName: String
+   
     @State private var currentPage = 0
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         if allRecipes.count >= 1 {
-           
+            // << Fatal error, index out of range if removed
             
             TabView {
                    ForEach(Array(allRecipes.chunked(into: 6)), id: \.self) { recipesChunk in
@@ -92,7 +90,7 @@ struct FullListOfRecipes_nonUser: View {
                 .frame(width:150)
 
                 .fullScreenCover(item: $selectedRecipe){
-                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName:  userName)
+                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: "Leave as is for now")
                         
                 }
                
@@ -101,3 +99,8 @@ struct FullListOfRecipes_nonUser: View {
 
 }
 
+//struct FullViewDisplay_MainTab_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FullViewDisplay_MainTab()
+//    }
+//}
