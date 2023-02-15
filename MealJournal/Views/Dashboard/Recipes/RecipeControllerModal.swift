@@ -15,11 +15,11 @@ struct RecipeControllerModal: View {
     @Environment(\.dismiss) var dismiss // << dismiss view
     
     @ObservedObject var rm = RecipeLogic()
-    @ObservedObject var ema = EditModeActive()
+    @StateObject var ema = EditModeActive()
     //displays image picker
     @State var showingImagePicker = false
     @State private var inputImage: UIImage?
-    
+    @ObservedObject var keyboardResponder = KeyboardResponder()
     @State var name: String
     @State var prepTime: String
     @State var image: String
@@ -89,7 +89,7 @@ struct RecipeControllerModal: View {
                 .sheet(isPresented: $showingImagePicker){
                     EditorImagePicker(image: $inputImage)
                 }
-    
+                
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()
         
@@ -121,15 +121,15 @@ struct RecipeControllerModal: View {
                         Button(action: {
                             ema.editMode.toggle()
                           
-                            //if user is saving when complete is on the button
+                          //  if user is saving when complete is on the button
                             if !ema.editMode {
                                 //save image to firestore
-                               
+
                                 rm.updateRecipeImage(recipeImage: ema.recipeImage, currentRecipe: recipeID)
-                                
+
                                 //save dash headers to firestore
                                 rm.saveDashHeaders(recipeTitle: ema.recipeTitle, recipePrepTime: ema.recipePrepTime, recipeCaloriesMacro: ema.recipeCaloriesMacro, recipeFatMacro: ema.recipeFatMacro, recipeCarbMacro: ema.recipeCarbMacro, recipeProteinMacro: ema.recipeProteinMacro, currentRecipe: recipeID)
-                                
+
                                 if ema.isIngredientsActive{
                                         rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
                                 }
@@ -172,11 +172,9 @@ struct RecipeControllerModal: View {
         //edit recipe button
 
             }
-            
+           
         }
-        .onAppear{
-            print(recipeCaloriesMacro)
-        }
+       
        
       }
     }

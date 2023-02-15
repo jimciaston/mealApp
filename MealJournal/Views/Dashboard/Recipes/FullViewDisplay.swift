@@ -37,7 +37,7 @@ struct FullListOfRecipes: View {
             // << Fatal error, index out of range if removed
             
             TabView {
-                   ForEach(Array(allRecipes.chunked(into: 6)), id: \.self) { recipesChunk in
+                ForEach(Array(rm.recipes.chunked(into: 6)), id: \.self) { recipesChunk in
                        LazyVGrid(columns: columns) {
                           ForEach(recipesChunk, id: \.id) { recipe in
                              
@@ -47,7 +47,9 @@ struct FullListOfRecipes: View {
                                 selectedRecipe = recipe
                             }
                           }
-                       }.frame(maxHeight: .infinity, alignment: .top)                   }
+                       }.frame(maxHeight: .infinity, alignment: .top)
+                    
+                   }
                }
           
                
@@ -61,7 +63,15 @@ struct FullListOfRecipes: View {
                       self.currentPage = max(self.currentPage - 1, 0)
                   }
               }
+               
             )
+           .fullScreenCover(item: $selectedRecipe, content: { item in
+               RecipeControllerModal(name: item.recipeTitle, prepTime: item.recipePrepTime, image: item.recipeImage, ingredients: item.ingredientItem, directions: item.directions, recipeID: item.id, recipeCaloriesMacro: item.recipeCaloriesMacro, recipeFatMacro: item.recipeFatMacro, recipeCarbMacro: item.recipeCarbMacro, recipeProteinMacro: item.recipeProteinMacro)
+                   })
+//           .fullScreenCover(item: $selectedRecipe,  onDismiss: { print("dismissed!") }){
+//               RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
+            
+    //   }
         }
         else{
             Text("No Recipes Saved")
@@ -69,8 +79,6 @@ struct FullListOfRecipes: View {
         }
     }
 
-
-    
 //individual item
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
         
@@ -99,13 +107,8 @@ struct FullListOfRecipes: View {
                 
                 .padding(.leading, 20)
                 .frame(width:150)
-
-                .fullScreenCover(item: $selectedRecipe){
-                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: "Leave as is for now")
-                        
-                }
-               
-            }
+            
+        }
     }
 
 }

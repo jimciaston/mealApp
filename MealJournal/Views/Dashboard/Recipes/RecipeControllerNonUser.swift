@@ -42,40 +42,16 @@ struct RecipeControllerNonUser: View {
             VStack{
                 
                 VStack{
-                  ZStack(alignment: .topLeading) {
+                  ZStack(alignment: .top) {
                     WebImage(url: URL(string: image))
-                      .placeholder(Image("defaultRecipeImage-2").resizable())
-                      .resizable()
-                      .frame(width:500, height: 250)
+                      .placeholder(Image("recipeImageNew").resizable())
+                      // .border(.red)
+                      .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                      
+                      .frame(width:330, height: 200)
+                      .padding(.top, 65)
                       .aspectRatio(contentMode: .fill)
-                      HStack{
-                          Button(action: {
-                            dismiss()
-                          }){
-                              Image(systemName: "xmark")
-                                  .resizable()
-                                  .frame(width: 40, height:40)
-                              .foregroundColor(.blue)
-                              .font(.title)
-                              .padding(.leading, 70)
-                              .padding(.top, 60)
-                          }
-                          HStack{
-                              Button(action: {
-                                  rm.saveUserRecipe(userName: "Leave for now", recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date(), ingredientItem: ingredients, directions: directions)
-                                print("Saved Recipe")
-                              }){
-                                  Image(systemName: "star")
-                                      .resizable()
-                                      .frame(width: 50, height:50)
-                                  .foregroundColor(.yellow)
-                                  .font(.title)
-                                  .padding(.leading, 240)
-                                  .padding(.top, 60)
-                              }
-                          }
-                         
-                      }
+                     
                   
                   }
                     
@@ -89,6 +65,9 @@ struct RecipeControllerNonUser: View {
     
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()
+                    .padding(.top, 15)
+                    .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
+                    .cornerRadius(25)
         
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
@@ -109,6 +88,6 @@ struct RecipeControllerNonUser: View {
     
 struct RecipeControllerNonUser_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeControllerNonUser(name: "Test Recipe", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 0, recipeFatMacro: 0, recipeCarbMacro: 0, recipeProteinMacro: 0, userName: "leave for nowf")
+        RecipeControllerNonUser(name: "Jumbalaya", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 220, recipeFatMacro: 12, recipeCarbMacro: 40, recipeProteinMacro: 20, userName: "leave for nowf")
     }
 }

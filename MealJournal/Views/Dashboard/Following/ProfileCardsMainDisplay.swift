@@ -38,7 +38,7 @@ public func fetchSavedJournals(){
          
      
 struct ProfileCardsMainDisplay: View {
-    @ObservedObject var rm = RecipeLogic()
+    @StateObject var rm = RecipeLogic()
     @ObservedObject var jm = JournalDashLogic()
     @State var showAllRecipes = false
     @State var showAllJournals = false

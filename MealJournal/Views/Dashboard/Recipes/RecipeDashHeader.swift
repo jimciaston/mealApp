@@ -7,6 +7,9 @@
 
 import SwiftUI
 import UIKit
+
+
+
 struct RecipeDashHeader: View {
     @State var recipeName = ""
     @State var recipePrepTime = ""
@@ -20,46 +23,66 @@ struct RecipeDashHeader: View {
     @ObservedObject var ema: EditModeActive
     
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]
+   // @State var cookingTimesInMinutes = [5, 10, 15, 20, 25, 30, 45, 60, 120, 240, 480]
     @State private var pickerTime: String = ""
-  
+    //@State private var selectedCookingTime = 0
+    
+    
+    
     @ViewBuilder
     var body: some View {
         if ema.editMode {
             VStack{
+               // HStack{
+//                    Button(action: {
+//                        rm.saveUserRecipe(userName: "Leave for now", recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date(), ingredientItem: ingredients, directions: directions)
+//                      print("Saved Recipe")
+//                    }){
+//                        Image(systemName: "star")
+//                            .resizable()
+//                            .frame(width: 30, height:30)
+//                        .foregroundColor(.yellow)
+//                        .font(.title)
+//                        .padding(.leading, 260)
+//                        .padding(.top, 100)
+//                    }
+//                    Spacer()
+                    TextField(ema.recipeTitle, text: $ema.recipeTitle)
+                        .foregroundColor(!ema.editMode ? Color.black : Color.red)
+                        .font(.title2)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        
+                        .onChange(of: ema.recipeTitle, perform: { _ in
+                            recipeName = ema.recipeTitle
+                        })
                 
-                TextField(recipeName, text: $recipeName)
-                    .foregroundColor(!ema.editMode ? Color.black : Color.red)
-                    .font(.title2)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                
-                .onChange(of: recipeName, perform: { _ in
-                    ema.recipeTitle = recipeName
-                })
+                //}
+               
                 
                 //prep time
                 HStack{
                         Image(systemName:("clock"))
                             .foregroundColor(Color("completeGreen"))
                         //select amount of time prepping/cooking
-                        Picker(selection: $recipePrepTime, label: Text("")) {
-                           ForEach(cookingTime, id: \.self) {
-                               Text($0).foregroundColor(.black)
-                           }
-                           .onChange(of: recipePrepTime, perform: { _ in
-                               ema.recipePrepTime = recipePrepTime
-                           })
-                        }
+                
+                    Picker(selection: $recipePrepTime, label: Text("")) {
+                       ForEach(cookingTime, id: \.self) {
+                           Text($0).foregroundColor(.black)
+                       }
+                       .onChange(of: recipePrepTime, perform: { _ in
+                           ema.recipePrepTime = recipePrepTime
+                       })
+                    }
                         .accentColor(.red)
                     }
                 
                 Picker(selection: $caloriesPicker, label: Text("").foregroundColor(.red)) {
-                   ForEach(calorieCounter(), id: \.self) {
-                       Text(String($0) + " Calories")
-                   }
-                   .onChange(of: caloriesPicker, perform: { _ in
-                       ema.recipeCaloriesMacro = caloriesPicker
-                   })
+                    ForEach(0 ..< calorieCounter().count, id: \.self) {
+                        Text(String(calorieCounter()[$0]) + " Calories")
+                    }
+                }.onChange(of: caloriesPicker) { value in
+                    ema.recipeCaloriesMacro = calorieCounter()[value]
                 }
                 .accentColor(.red)
                 HStack{
@@ -67,32 +90,27 @@ struct RecipeDashHeader: View {
                   
                   
                     Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
-                       ForEach(pickerGramCounter(), id: \.self) {
-                           Text(String($0) + "g Fat")
-                       }
-                       .onChange(of: fatPicker, perform: { _ in
-                           ema.recipeFatMacro = fatPicker
-                       })
+                        ForEach(0 ..< pickerGramCounter().count, id: \.self) {
+                            Text(String(pickerGramCounter()[$0]) + "g Fat")
+                        }
+                    }.onChange(of: fatPicker) { value in
+                        ema.recipeFatMacro = pickerGramCounter()[value]
                     }
                     .accentColor(.red)
                     Picker(selection: $carbPicker, label: Text("").foregroundColor(.red)) {
-                       ForEach(pickerGramCounter(), id: \.self) {
-                           Text(String($0) + "g Carbs")
-                       }
-                       .onChange(of: carbPicker, perform: { _ in
-                           ema.recipeCarbMacro = carbPicker
-                       })
+                        ForEach(0 ..< pickerGramCounter().count, id: \.self) {
+                            Text(String(pickerGramCounter()[$0]) + "g Carbs")
+                        }
+                    }.onChange(of: carbPicker) { value in
+                        ema.recipeCarbMacro = pickerGramCounter()[value]
                     }
                     .accentColor(.red)
                     Picker(selection: $proteinPicker, label: Text("")) {
-                        //calls func that counts to 200
-                       ForEach(pickerGramCounter(), id: \.self) {
-                           Text(String($0) + "g protein")
-                       }
-                       .onChange(of: proteinPicker, perform: { _ in
-                           ema.recipeProteinMacro = proteinPicker
-                       })
-                       
+                        ForEach(0 ..< pickerGramCounter().count, id: \.self) {
+                            Text(String(pickerGramCounter()[$0]) + "g protein")
+                        }
+                    }.onChange(of: proteinPicker) { value in
+                        ema.recipeProteinMacro = pickerGramCounter()[value]
                     }
                     .accentColor(.red)
                     .padding(.leading, 5)
@@ -102,14 +120,14 @@ struct RecipeDashHeader: View {
             }
             .onAppear{
                 ema.recipeFatMacro = fatPicker
-                ema.recipePrepTime = pickerTime
                 ema.recipeCaloriesMacro = caloriesPicker
                 ema.recipeCarbMacro = carbPicker
                 ema.recipeProteinMacro = proteinPicker
                 ema.recipeTitle = recipeName
                 ema.recipePrepTime = recipePrepTime
+                
             }
-       // .frame(width:280, height:125)
+       
         .background(Color.white)
         .cornerRadius(15)
         }

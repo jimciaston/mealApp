@@ -171,7 +171,7 @@ class RecipeLogic: ObservableObject {
                                     "recipeProteinMacro": recipeProteinMacro ]
                                 )
                                     
-                            print("Updated macros Recipe")
+                            print("Updaeeddfdsfted macros Recipe")
                         }
                     }
                 }

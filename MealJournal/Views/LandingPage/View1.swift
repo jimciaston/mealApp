@@ -7,57 +7,28 @@
 
 import SwiftUI
 
-enum CreateAccountViewState_Test {
-    case createAccount_TEST // << stay on page
-    case login_TEST // << proceed to login page
+class Ema: ObservableObject {
+    @Published var recipeName = ""
 }
-enum LoginEnum_Test{
-    case loginPage
-    case createAccount // <<will be forgot passwrod once ready to setup
-}
+
+
 struct View1: View {
-    @State private var viewState: CreateAccountViewState_Test = .createAccount_TEST //viewState of page
-    @State var name = ""
+   @State var recipeName = ""
+    @ObservedObject var ema = Ema()
+    @State var EditMode = false
     var body: some View {
-        switch viewState{
-        case .createAccount_TEST:
-            Section(){
-                TextField("Name", text: $name)
-                    .padding(.leading, 50)
-                
-            }
-            Button(action: {
-                viewState = .login_TEST
-            }){
-                Text("Login")
-                    .foregroundColor(.pink).font(.callout)
-            }
-        case .login_TEST:
-            VStack{
-                View2()
-                    .transition(.slide)
-            }
-            .animation(.linear(duration: 0.25), value: viewState)
-            
-        }
+        TextField(recipeName, text: $recipeName)
+            .foregroundColor(!EditMode ? Color.black : Color.red)
+            .font(.title2)
+            .multilineTextAlignment(.center)
+            .padding()
+        
+        .onChange(of: recipeName, perform: { _ in
+            ema.recipeName = recipeName
+        })
     }
 }
-struct View2: View {
-    @State private var loginPageViewState: LoginEnum_Test = .loginPage
-    var body: some View {
-        switch loginPageViewState {
-        case .loginPage:
-            Text("Hello")
-            Button(action: {
-                loginPageViewState = .createAccount
-            }){
-                Text("click me to go back")
-            }
-        case .createAccount:
-            View1()
-        }
-    }
-}
+
 
 struct View1_Previews: PreviewProvider {
     static var previews: some View {
