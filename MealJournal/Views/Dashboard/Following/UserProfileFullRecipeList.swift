@@ -16,6 +16,7 @@ struct RecipeFullListView_nonUser: View {
     @State private var active: Int? = nil
     @State var triggerRecipeController = false
     @Binding var notCurrentUserProfile: Bool
+    @State var userUID: String
     var userName: String
     var body: some View {
         ZStack{
@@ -26,7 +27,7 @@ struct RecipeFullListView_nonUser: View {
                     .font(.title2)
                    
                 if(recipes.count > 0){
-                    FullListOfRecipes_nonUser(showAddButton: $showAddButton, allRecipes: recipes, userName: userName )
+                    FullListOfRecipes_nonUser(showAddButton: $showAddButton, allRecipes: recipes, userName: userName, userUID: userUID)
                 }
                 else{
                     if !notCurrentUserProfile{ // << if user is visiting another users profile

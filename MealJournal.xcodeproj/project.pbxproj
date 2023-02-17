@@ -90,6 +90,8 @@
 		0A87DB6D291EDFA900A3C1E9 /* DeleteAccountLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB6C291EDFA900A3C1E9 /* DeleteAccountLogic.swift */; };
 		0A87DB71291EEBC600A3C1E9 /* Improvemnts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB70291EEBC500A3C1E9 /* Improvemnts.swift */; };
 		0A87DBB52923278E00A3C1E9 /* DashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DBB42923278E00A3C1E9 /* DashboardRouter.swift */; };
+		0A8BC8E0299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC8DF299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift */; };
+		0A8BC8E2299F3362001B0E06 /* BookmarkRecipeRemovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC8E1299F3361001B0E06 /* BookmarkRecipeRemovalView.swift */; };
 		0A8C89232946AA7F008C549A /* SavedJournalsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C89222946AA7F008C549A /* SavedJournalsList.swift */; };
 		0A8C89252947845C008C549A /* FetchEntryTotals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C89242947845C008C549A /* FetchEntryTotals.swift */; };
 		0A8C892729533BA5008C549A /* FoodResultsEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C892629533BA4008C549A /* FoodResultsEntryRow.swift */; };
@@ -262,6 +264,8 @@
 		0A87DB6C291EDFA900A3C1E9 /* DeleteAccountLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountLogic.swift; sourceTree = "<group>"; };
 		0A87DB70291EEBC500A3C1E9 /* Improvemnts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Improvemnts.swift; sourceTree = "<group>"; };
 		0A87DBB42923278E00A3C1E9 /* DashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRouter.swift; sourceTree = "<group>"; };
+		0A8BC8DF299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDashHeader_SavedRecipes.swift; sourceTree = "<group>"; };
+		0A8BC8E1299F3361001B0E06 /* BookmarkRecipeRemovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRecipeRemovalView.swift; sourceTree = "<group>"; };
 		0A8C89222946AA7F008C549A /* SavedJournalsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalsList.swift; sourceTree = "<group>"; };
 		0A8C89242947845C008C549A /* FetchEntryTotals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEntryTotals.swift; sourceTree = "<group>"; };
 		0A8C892629533BA4008C549A /* FoodResultsEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodResultsEntryRow.swift; sourceTree = "<group>"; };
@@ -430,9 +434,11 @@
 				0A47472E2927B9A100384B51 /* RecipeEditorBottomSheetView.swift */,
 				0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */,
 				0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */,
+				0A8BC8E1299F3361001B0E06 /* BookmarkRecipeRemovalView.swift */,
 				0A6325F12887961F003B3D02 /* DeleteRecipe.swift */,
 				0A53021227E8F01700B8D261 /* RecipeNavigationModals.swift */,
 				0A53020C27E8005E00B8D261 /* RecipeDashHeader.swift */,
+				0A8BC8DF299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift */,
 				0A53020827E430FB00B8D261 /* RecipeListView.swift */,
 				0A3B9B122808AD2B00EC631A /* emptyview.swift */,
 				0A0C631627EE10170093692D /* RecipeFullListView.swift */,
@@ -989,6 +995,7 @@
 				0A6325F22887961F003B3D02 /* DeleteRecipe.swift in Sources */,
 				0A474735292E496100384B51 /* ColorManager.swift in Sources */,
 				0A2D896329772946001EDF01 /* RecipeLogicNonUser.swift in Sources */,
+				0A8BC8E2299F3362001B0E06 /* BookmarkRecipeRemovalView.swift in Sources */,
 				0A8F98E327AB09AE008F5584 /* ContentView.swift in Sources */,
 				0A07D9652849353A0080A4ED /* PersonalSettingsView.swift in Sources */,
 				0A6534D627DF8A1A00A50FB8 /* UserDashController.swift in Sources */,
@@ -1116,6 +1123,7 @@
 				0A9F495D28653382002F227E /* RecipeModelTwo.swift in Sources */,
 				0A2D896F298030F3001EDF01 /* RecipeControllerNonUser.swift in Sources */,
 				0AB112BB29079F020071B3ED /* TabBarIconPlus.swift in Sources */,
+				0A8BC8E0299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift in Sources */,
 				0A8D8071282998700055021A /* RecipeImagePicker.swift in Sources */,
 				0A3B9B132808AD2B00EC631A /* emptyview.swift in Sources */,
 				0A53020D27E8005E00B8D261 /* RecipeDashHeader.swift in Sources */,

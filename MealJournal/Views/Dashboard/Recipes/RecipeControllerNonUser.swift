@@ -28,7 +28,38 @@ struct RecipeControllerNonUser: View {
     @State var recipeCarbMacro: Int
     @State var recipeProteinMacro: Int
     @State var userName: String
-
+    @State var userUID: String
+    @State var isRecipeSaved = false
+    
+  
+    @State private var sheetMode: SheetMode = .none
+    
+    //check if recipeID is saved by user
+    func checkIfRecipeExists(recipeID: String) {
+        // grab current user
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("savedUserRecipesNonUser")
+            .whereField("recipeID", isEqualTo: recipeID)
+            .getDocuments { (snapshot, err) in
+                guard let recipeList = snapshot else { return }
+                //recipe exists
+                    if recipeList.count > 0 {
+                        print("recipe already saved")
+                        isRecipeSaved = true
+                    }
+                //no saved recipes from user
+                    else {
+                        isRecipeSaved = false
+                    }
+              
+            }
+       
+    }
     /*/
      can add if ingredients != ema.updatedINgredients then run the saveRecipes function
      
@@ -38,40 +69,69 @@ struct RecipeControllerNonUser: View {
   
     
     var body: some View {
-       
             VStack{
-                
-                VStack{
-                  ZStack(alignment: .top) {
-                    WebImage(url: URL(string: image))
-                      .placeholder(Image("recipeImageNew").resizable())
-                      // .border(.red)
-                      .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                      
-                      .frame(width:330, height: 200)
-                      .padding(.top, 65)
-                      .aspectRatio(contentMode: .fill)
-                     
-                  
-                  }
+               
+                ZStack(alignment: .topTrailing) {
                     
-                  .edgesIgnoringSafeArea(.all)
-                  .frame(width:300, height: 120)
-                }
+                          WebImage(url: URL(string: image))
+                              .placeholder(Image("recipeImageNew").resizable())
+                              .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                              .frame(width:350, height: 200)
+                              .aspectRatio(contentMode: .fill)
+                          Image(systemName: "bookmark.square.fill")
+                              .font(.largeTitle)
+                    //styling for colors of icon if saved / not saved
+                              .foregroundStyle(
+                                  isRecipeSaved ? Color.white : Color.white,
+                                  isRecipeSaved ? Color.yellow : Color.gray
+                              )
+                              .padding(.top, 25)
+                              .padding(.leading, -60)
+                              .onTapGesture{
+                                  if isRecipeSaved{
+                                      switch sheetMode {
+                                          case .none:
+                                              sheetMode = .mealTimingSelection
+                                          case .mealTimingSelection:
+                                              sheetMode = .none
+                                          case .quarter:
+                                              sheetMode = .none
+                                      }
+                                     // rm.deleteRecipe(selectedRecipeID: recipeID)
+                                     // dismiss()
+                                  }
+                                  else{
+                                      rm.saveUserRecipe(userName: userName, recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date.now, ingredientItem: ingredients, directions: directions, recipeID: recipeID)
+                                     
+                                  }
+                                  
+                              }
+                              .onAppear{
+                                 //check if recipe is saved or not
+                                checkIfRecipeExists(recipeID: recipeID)
+                                  rm.grabSavedUserRecipes()
+                                 print(recipeID)
+                              }
+                  }
+               
+                .padding(.top, 65)
+                .frame(width:300, height: 120)
+                
                
                 
         //show image picker
                
     
-                RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
+                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID)
                     .padding()
                     .padding(.top, 15)
                     .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
                     .cornerRadius(25)
-        
+                    
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
             .padding(.top, 70)
+           
     
         //offsets toolbar, if text removed, would interrupt toolbar.
       
@@ -79,15 +139,64 @@ struct RecipeControllerNonUser: View {
         //edit recipe button
        
             }
-       
+            .opacity(sheetMode == .none ? 1 : 0.3)
+            .blur(radius: sheetMode == .none ? 0 : 3)
+        FlexibleSheet(sheetMode: $sheetMode) {
+            VStack {
+              Text("Remove Recipe Bookmark?")
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .padding()
+                HStack{
+                    Button(action: {
+                        sheetMode = .none
+                    })
+                    {
+                        Text("No")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
+                    //button styling
+                    .frame(width: 80, height: 50)
+                    .background(Color.red)
+                    .cornerRadius(10)
+                    .padding()
+                    //yes button
+                    Button(action: {
+                        rm.deleteRecipe(selectedRecipeID: recipeID)
+                        dismiss()
+                    }) {
+                      Text("Yes")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                    }
+                    //button styling
+                    .frame(width: 80, height: 50)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .padding()
+                    .shadow(radius: 5)
+                }
+            
+            }
+            .background(Color.white)
+            .cornerRadius(10)
+            .padding()
+            .shadow(radius: 10)
+            .frame(width:355, height: 100)
+            //sets coordinates of view on dash
+         .offset(y:-500)
+        }
+        .frame(height: sheetMode == .none ? 0 : 100)
     }
-
+ 
 }
        
       
     
 struct RecipeControllerNonUser_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeControllerNonUser(name: "Jumbalaya", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 220, recipeFatMacro: 12, recipeCarbMacro: 40, recipeProteinMacro: 20, userName: "leave for nowf")
+        RecipeControllerNonUser(name: "Jumbalaya", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 220, recipeFatMacro: 12, recipeCarbMacro: 40, recipeProteinMacro: 20, userName: "leave for nowf", userUID: "0")
     }
 }

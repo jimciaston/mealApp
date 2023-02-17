@@ -13,36 +13,40 @@ class RecipeLogicNonUser: ObservableObject {
     @Published var savedRecipesNonUser = [SavedRecipeItem]()
     @Environment (\.dismiss) var dismiss
    
+
     
-    //delete recipe functionality
-//    func deleteRecipe(selectedRecipeID: String){
-//        FirebaseManager.shared.firestore
-//            .collection("users")
-//            .document(self.uidNonUser)
-//            .collection("userRecipes")
-//            .whereField("recipeID", isEqualTo: selectedRecipeID)
-//            .getDocuments(){ snapshot, err in
-//                if let err = err{
-//                    print(err.localizedDescription)
-//                }
-//                else{
-//                    for doc in snapshot!.documents {
-//                            FirebaseManager.shared.firestore
-//                                .collection("users")
-//                                .document(self.uidNonUser)
-//                                .collection("userRecipes")
-//                                .document(doc.documentID).delete() { err in
-//                                    if let err = err {
-//                                            print("Error removing document: \(err)")
-//                                        } else {
-//                                            self.dismiss()
-//                                            print("Document successfully removed!")
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
+  //  delete recipe functionality
+    func deleteRecipe(selectedRecipeID: String){
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("savedUserRecipesNonUser")
+            .whereField("recipeID", isEqualTo: selectedRecipeID)
+            .getDocuments(){ snapshot, err in
+                if let err = err{
+                    print(err.localizedDescription)
+                }
+                else{
+                    for doc in snapshot!.documents {
+                            FirebaseManager.shared.firestore
+                                .collection("users")
+                                .document(uid)
+                                .collection("savedUserRecipesNonUser")
+                                .document(doc.documentID).delete() { err in
+                                    if let err = err {
+                                            print("Error removing document: \(err)")
+                                        } else {
+                                            self.dismiss()
+                                            print("Document successfully removed!")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
     
     //fetch recipes
     func grabRecipes(userUID: String) -> Int{
@@ -82,8 +86,8 @@ class RecipeLogicNonUser: ObservableObject {
         return recipesNonUser.count
         }
     //saving non user recipe
-    func saveUserRecipe(userName: String, recipeImage: String, recipeTitle: String,recipePrepTime: String,recipeCaloriesMacro: Int, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, createdAt: Date?, ingredientItem: [String: String], directions: [String] ){
-        let recipeIDCreator = UUID().uuidString
+    func saveUserRecipe(userName: String, recipeImage: String, recipeTitle: String,recipePrepTime: String,recipeCaloriesMacro: Int, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, createdAt: Date?, ingredientItem: [String: String], directions: [String], recipeID: String){
+       // let recipeIDCreator = UUID().uuidString
         //saves from object in RecipeModel to arrays
         var ingredientArr:[String:String] = [:]
         var directionArr: [String] = []
@@ -92,7 +96,7 @@ class RecipeLogicNonUser: ObservableObject {
       
         //sets up firebase w/ recipe as subcollection
         let newRecipeInfo: [String: Any] = [
-                    "recipeID": recipeIDCreator,
+                    "recipeID": recipeID,
                     "userName": userName,
                     "recipeImage": recipeImage,
                     "recipeTitle": recipeTitle,
@@ -104,6 +108,7 @@ class RecipeLogicNonUser: ObservableObject {
                     "createdAt": Date.now,
                     "ingredientItem": ingredientItem,
                     "directions": directions
+                    
                 ]
        
             
@@ -118,13 +123,17 @@ class RecipeLogicNonUser: ObservableObject {
                 .collection("users")
                 .document(uid)
                 .collection("savedUserRecipesNonUser")
-                .document(recipeIDCreator)
+                .document(recipeID)
                 .setData(newRecipeInfo, merge:true)
             }
             catch let error {
                 print("Error writing recipe to Firestore: \(error)")
             }
     }
+    
+  
+    
+    
     
     func grabSavedUserRecipes(){
        //grab current user

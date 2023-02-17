@@ -48,7 +48,7 @@ struct ProfileCardsNonUserDisplay: View {
                  
                 }
                 .sheet(isPresented: $showAllRecipes){
-                    RecipeFullListView_nonUser(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true), userName: userName)
+                    RecipeFullListView_nonUser(recipes: rm.recipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(true), userUID: userUID, userName: userName)
                         .transition(transition)
                         
                 }
