@@ -49,7 +49,6 @@ struct RecipeControllerNonUser: View {
                 guard let recipeList = snapshot else { return }
                 //recipe exists
                     if recipeList.count > 0 {
-                        print("recipe already saved")
                         isRecipeSaved = true
                     }
                 //no saved recipes from user
@@ -66,13 +65,11 @@ struct RecipeControllerNonUser: View {
      */
     
     //Save updatedRecipe picture to firestore
-  
+    @State var showSavedMessage = false
     
     var body: some View {
-            VStack{
-               
-                ZStack(alignment: .topTrailing) {
-                    
+                    VStack{
+                        ZStack(alignment: .topTrailing) {
                           WebImage(url: URL(string: image))
                               .placeholder(Image("recipeImageNew").resizable())
                               .clipShape(RoundedRectangle(cornerRadius: 10.0))
@@ -85,9 +82,12 @@ struct RecipeControllerNonUser: View {
                                   isRecipeSaved ? Color.white : Color.white,
                                   isRecipeSaved ? Color.yellow : Color.gray
                               )
+                             // .animation(Animation.easeInOut(duration: 0.3))
                               .padding(.top, 25)
                               .padding(.leading, -60)
+                          
                               .onTapGesture{
+                                 
                                   if isRecipeSaved{
                                       switch sheetMode {
                                           case .none:
@@ -102,17 +102,49 @@ struct RecipeControllerNonUser: View {
                                   }
                                   else{
                                       rm.saveUserRecipe(userName: userName, recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date.now, ingredientItem: ingredients, directions: directions, recipeID: recipeID)
-                                     
+                                      
+                                     isRecipeSaved = true
+                                      showSavedMessage = true
+                                      //keep here until I test
+                                      let generator = UINotificationFeedbackGenerator()
+                                          generator.notificationOccurred(.success)
+                                          
+                                      DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                          showSavedMessage = false
+                                      }
                                   }
-                                  
+                     
                               }
                               .onAppear{
                                  //check if recipe is saved or not
                                 checkIfRecipeExists(recipeID: recipeID)
-                                  rm.grabSavedUserRecipes()
-                                 print(recipeID)
+                                rm.grabSavedUserRecipes() // refresh list
+                                
                               }
-                  }
+                            
+                            if showSavedMessage {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(.white)
+                                        .frame(width: 200, height: 80)
+                                        .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
+                                    
+                                    VStack {
+                                        Text("Recipe Saved!")
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+                                            .padding(.top, 16)
+                                        
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .font(.largeTitle)
+                                            .foregroundColor(.green)
+                                            .padding(.bottom, 16)
+                                    }
+                                }
+                                            .offset(x: -30, y: 65)
+                                            .transition(.opacity.animation(.easeInOut(duration: 1)))
+                                        }
+                        }
                
                 .padding(.top, 65)
                 .frame(width:300, height: 120)
@@ -141,6 +173,7 @@ struct RecipeControllerNonUser: View {
             }
             .opacity(sheetMode == .none ? 1 : 0.3)
             .blur(radius: sheetMode == .none ? 0 : 3)
+        //yes/no dialog box
         FlexibleSheet(sheetMode: $sheetMode) {
             VStack {
               Text("Remove Recipe Bookmark?")

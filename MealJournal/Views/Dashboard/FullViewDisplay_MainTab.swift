@@ -12,9 +12,10 @@ struct FullViewDisplay_MainTab: View {
     
     @EnvironmentObject var mealEntryObj: MealEntrys
     @ObservedObject var rm = RecipeLogic()
+    @ObservedObject var rm2 = RecipeLogicNonUser()
     @Binding var showAddButton:Bool
     @State var showRecipeModal = false
-    @State var allRecipes: [SavedRecipeItem]
+    var allRecipes: [SavedRecipeItem]
     @State var selectedRecipe: SavedRecipeItem?
     @State var MealObject = Meal()
     @State var mealTimingToggle = false
@@ -37,9 +38,10 @@ struct FullViewDisplay_MainTab: View {
                                 selectedRecipe = recipe
                             }
                           }
-                       }.frame(maxHeight: .infinity, alignment: .top)                   }
+                       }.frame(maxHeight: .infinity, alignment: .top)
+                   }
                }
-          
+           
                
            .tabViewStyle(.page)
            .gesture(
@@ -92,7 +94,7 @@ struct FullViewDisplay_MainTab: View {
 
                 .sheet(item: $selectedRecipe){
                     RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: $0.userName, userUID: userUID)
-                        
+                      
                 }
                
             }

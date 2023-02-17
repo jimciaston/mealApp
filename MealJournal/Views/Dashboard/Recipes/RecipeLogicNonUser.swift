@@ -39,7 +39,7 @@ class RecipeLogicNonUser: ObservableObject {
                                     if let err = err {
                                             print("Error removing document: \(err)")
                                         } else {
-                                            self.dismiss()
+                                         //   self.dismiss()
                                             print("Document successfully removed!")
                                         }
                                     }
@@ -87,7 +87,7 @@ class RecipeLogicNonUser: ObservableObject {
         }
     //saving non user recipe
     func saveUserRecipe(userName: String, recipeImage: String, recipeTitle: String,recipePrepTime: String,recipeCaloriesMacro: Int, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, createdAt: Date?, ingredientItem: [String: String], directions: [String], recipeID: String){
-       // let recipeIDCreator = UUID().uuidString
+      
         //saves from object in RecipeModel to arrays
         var ingredientArr:[String:String] = [:]
         var directionArr: [String] = []

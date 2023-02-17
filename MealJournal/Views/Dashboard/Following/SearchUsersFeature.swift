@@ -30,6 +30,7 @@ struct SearchUsersFeature: View {
                
             //SEARCH
                 .searchable(text: $userSearch,placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for Users") // << always display search bar
+                .disableAutocorrection(true) // << disable autocorrect
         }
 
         
