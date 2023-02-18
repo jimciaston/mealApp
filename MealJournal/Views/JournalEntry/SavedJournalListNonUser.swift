@@ -13,7 +13,7 @@ struct SavedJournalsListNonUser: View {
     @State var savedJournals: [UserJournalEntryHalf]
     var userUID: String
   
-    @StateObject var jm = JournalDashLogicNonUser()
+    @ObservedObject var jm = JournalDashLogicNonUser()
  
     var body: some View {
         NavigationView{

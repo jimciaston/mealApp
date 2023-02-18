@@ -31,7 +31,6 @@ struct MealJournalApp: App {
         
         //check if any journals have expired (TTL)
         
-        
     }
     @StateObject var calendarHelper = CalendarHelper()
     @StateObject var vm = DashboardLogic()

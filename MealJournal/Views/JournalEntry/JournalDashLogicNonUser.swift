@@ -16,9 +16,9 @@ class JournalDashLogicNonUser: ObservableObject {
   
    
     
-    func grabUserJournalCount(userID: String) -> Int{
+    func grabUserJournalCount(userID: String){
         if userID == "" {
-            return 0
+            return
         }
       
         //grab current user
@@ -33,6 +33,7 @@ class JournalDashLogicNonUser: ObservableObject {
                      return
                  }
                  self.userJournalCountNonUser = documents.count
+                 
                  self.userJournalIDsNonUser = documents.map { document in
                      document.documentID
                  }
@@ -48,7 +49,6 @@ class JournalDashLogicNonUser: ObservableObject {
                  }
                  
              }
-            return userJournalsHalfNonUser.count
          }
    
     func grabUserJournalsHalf(journalID: String, userID: String){

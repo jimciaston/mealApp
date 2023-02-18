@@ -30,7 +30,8 @@ struct RecipeControllerNonUser: View {
     @State var userName: String
     @State var userUID: String
     @State var isRecipeSaved = false
-    
+    @State var showSavedMessage = false
+    @State var isUserFollowed = false
   
     @State private var sheetMode: SheetMode = .none
     
@@ -65,7 +66,26 @@ struct RecipeControllerNonUser: View {
      */
     
     //Save updatedRecipe picture to firestore
-    @State var showSavedMessage = false
+   
+    
+    //check if user is followed
+    func isCurrentUserfollowingUser(userUID: String) -> Bool{
+        FirebaseManager.shared.firestore.collection("users")
+            .whereField("FollowingUsersList", arrayContains: userUID)
+            .getDocuments { (snapshot, err) in
+                guard let followingList = snapshot else { return }
+                if followingList.count > 0 {
+                    isUserFollowed = true
+                }
+                else {
+                    isUserFollowed = false
+                }
+            }
+       
+        return isUserFollowed
+    }
+    
+    
     
     var body: some View {
                     VStack{
@@ -101,25 +121,30 @@ struct RecipeControllerNonUser: View {
                                      // dismiss()
                                   }
                                   else{
-                                      rm.saveUserRecipe(userName: userName, recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date.now, ingredientItem: ingredients, directions: directions, recipeID: recipeID)
-                                      
-                                     isRecipeSaved = true
-                                      showSavedMessage = true
-                                      //keep here until I test
-                                      let generator = UINotificationFeedbackGenerator()
-                                          generator.notificationOccurred(.success)
+                                    
+                                      if isUserFollowed { // << don't allow if user is not followed
+                                          rm.saveUserRecipe(userName: userName, recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date.now, ingredientItem: ingredients, directions: directions, recipeID: recipeID)
                                           
-                                      DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                          showSavedMessage = false
+                                         isRecipeSaved = true
+                                          showSavedMessage = true
+                                          //keep here until I test
+                                          let generator = UINotificationFeedbackGenerator()
+                                              generator.notificationOccurred(.success)
+                                              
+                                          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                              showSavedMessage = false
+                                          }
                                       }
+                                     
                                   }
                      
                               }
                               .onAppear{
                                  //check if recipe is saved or not
+                                 print("redraw")
                                 checkIfRecipeExists(recipeID: recipeID)
                                 rm.grabSavedUserRecipes() // refresh list
-                                
+                                  isCurrentUserfollowingUser(userUID: userUID) // << check if user is followed (allow to save re
                               }
                             
                             if showSavedMessage {

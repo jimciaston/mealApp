@@ -13,8 +13,8 @@ struct FollowingListRow: View {
     @State var userName: String
     @State var userBio: String
     @State var userProfileImage: String
-   
-    
+    @StateObject var jm = JournalDashLogicNonUser()
+    @StateObject var rm = RecipeLogicNonUser()
     var body: some View {
         
         /*
@@ -23,7 +23,7 @@ struct FollowingListRow: View {
         
         
         HStack{
-            NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage)){
+            NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm)){
                 WebImage(url: URL(string: userProfileImage))
                     .placeholder(Image("profileDefaultPicture"))
                     .resizable()
@@ -39,7 +39,10 @@ struct FollowingListRow: View {
                 Text(userName)
                     .font(.title)
                 
-                NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage)){
+                NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+                    jm.grabUserJournalCount(userID: userUID)
+                    rm.grabRecipes(userUID: userUID)
+                }){
                     Text("View Profile")
                     .font(.caption)
                     .foregroundColor(.black)

@@ -8,10 +8,11 @@
 import SwiftUI
   
 struct ProfileCardsNonUserDisplay: View {
-    @ObservedObject var rm = RecipeLogicNonUser()
-    @ObservedObject var jm = JournalDashLogicNonUser()
+    @ObservedObject var rm: RecipeLogicNonUser
+    @ObservedObject var jm: JournalDashLogicNonUser
     var userUID: String
     var userName: String
+    var journalCount: Int
     @State var showAllRecipes = false
     @State var showAllJournals = false
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
@@ -26,8 +27,8 @@ struct ProfileCardsNonUserDisplay: View {
                         .frame(width: 50, height: 50)
                         .foregroundColor(Color(.systemPink))
                         .padding(.top, 15)
-                    
-                    Text(String(rm.grabRecipes(userUID: userUID))).bold() // << calling function directly in view
+                   
+                    Text(String(rm.recipesNonUser.count)).bold() // << calling function directly in view
                         .font(.title2)
                         .padding(.top, 20)
                         .padding(.bottom,2)
@@ -61,12 +62,12 @@ struct ProfileCardsNonUserDisplay: View {
                     .foregroundColor(Color(.systemPink))
                     .padding(.top, 15)
                 
-                Text(String(jm.grabUserJournalCount(userID: userUID))).bold()
+              //  Text(String(jm.grabUserJournalCount(userID: userUID))).bold()
+                    
+                Text(String(journalCount))
                     .font(.title2)
                     .padding(.top, 20)
                     .padding(.bottom,2)
-                
-                
                 
                 if jm.userJournalCountNonUser == 1 {
                     Text("Journal Found")

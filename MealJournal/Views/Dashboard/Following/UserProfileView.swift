@@ -19,11 +19,12 @@ struct UserProfileView: View {
     @State var name: String
     @State var userBio: String
     @State var userProfilePicture: String
+    var journalCount: Int
     @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
     //get user recipes from database
-   @ObservedObject var rm = RecipeLogicNonUser()
-
+    @ObservedObject var rm: RecipeLogicNonUser
+    @ObservedObject var jm: JournalDashLogicNonUser
     //check if user is being followed or not
     func isCurrentUserfollowingUser() -> Bool{
         FirebaseManager.shared.firestore.collection("users")
@@ -144,18 +145,19 @@ struct UserProfileView: View {
                     .padding(.top, -15)// << bring follow/followers up
                     
                     //Display recipes
-                    ProfileCardsNonUserDisplay(userUID: userUID, userName: name)
+                    ProfileCardsNonUserDisplay(rm: rm, jm: jm, userUID: userUID, userName: name, journalCount: journalCount)
                         .padding(.top, -10)
                        
                     Spacer()
                     
                 }
-//                .onAppear {
-//                    print(userUID)
-//                    rm.grabRecipes(userUID: userUID)
-//                    print(rm.recipesNonUser.count)
-//                   // jm.grabUserJournalCount(userID: userUID)
-//                }
+                .onAppear {
+                   
+                   // rm.grabRecipes(userUID: userUID)
+                    print(jm.userJournalCountNonUser)
+                   // print(jm.userJournalCountNonUser)
+                  // jm.grabUserJournals(journalID: <#T##String#>, userID: <#T##String#>)
+                }
     }
         
         

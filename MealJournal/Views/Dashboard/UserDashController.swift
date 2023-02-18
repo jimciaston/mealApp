@@ -51,13 +51,13 @@ struct UserDashController: View {
                         VStack{
                             VStack{
                             //Following and Follower button
-                            NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
-                                    EmptyView()
-                                }
-                            
-                            NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
-                                EmptyView()
-                            }
+//                            NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
+//                                    EmptyView()
+//                                }
+//                            
+//                            NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
+//                                EmptyView()
+//                            }
                             
                             //profile picture
                             ProfilePicture()
