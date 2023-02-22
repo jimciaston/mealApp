@@ -151,13 +151,7 @@ struct UserProfileView: View {
                     Spacer()
                     
                 }
-                .onAppear {
-                   
-                   // rm.grabRecipes(userUID: userUID)
-                    print(jm.userJournalCountNonUser)
-                   // print(jm.userJournalCountNonUser)
-                  // jm.grabUserJournals(journalID: <#T##String#>, userID: <#T##String#>)
-                }
+                
     }
         
         

@@ -15,7 +15,7 @@ struct RecipeControllerNonUser: View {
     @Environment(\.dismiss) var dismiss // << dismiss view
     @ObservedObject var ema = EditModeActive()
     //displays image picker
-    
+   
     @ObservedObject var rm = RecipeLogicNonUser()
     @State var name: String
     @State var prepTime: String
@@ -35,6 +35,8 @@ struct RecipeControllerNonUser: View {
   
     @State private var sheetMode: SheetMode = .none
     
+    @Binding var notCurrentUserProfile: Bool
+    var userModel: UserModel
     //check if recipeID is saved by user
     func checkIfRecipeExists(recipeID: String) {
         // grab current user
@@ -88,116 +90,119 @@ struct RecipeControllerNonUser: View {
     
     
     var body: some View {
-                    VStack{
-                        ZStack(alignment: .topTrailing) {
-                          WebImage(url: URL(string: image))
-                              .placeholder(Image("recipeImageNew").resizable())
-                              .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                              .frame(width:350, height: 200)
-                              .aspectRatio(contentMode: .fill)
-                          Image(systemName: "bookmark.square.fill")
-                              .font(.largeTitle)
-                    //styling for colors of icon if saved / not saved
-                              .foregroundStyle(
-                                  isRecipeSaved ? Color.white : Color.white,
-                                  isRecipeSaved ? Color.yellow : Color.gray
-                              )
-                             // .animation(Animation.easeInOut(duration: 0.3))
-                              .padding(.top, 25)
-                              .padding(.leading, -60)
-                          
-                              .onTapGesture{
-                                 
-                                  if isRecipeSaved{
-                                      switch sheetMode {
-                                          case .none:
-                                              sheetMode = .mealTimingSelection
-                                          case .mealTimingSelection:
-                                              sheetMode = .none
-                                          case .quarter:
-                                              sheetMode = .none
-                                      }
-                                     // rm.deleteRecipe(selectedRecipeID: recipeID)
-                                     // dismiss()
-                                  }
-                                  else{
-                                    
-                                      if isUserFollowed { // << don't allow if user is not followed
-                                          rm.saveUserRecipe(userName: userName, recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date.now, ingredientItem: ingredients, directions: directions, recipeID: recipeID)
-                                          
-                                         isRecipeSaved = true
-                                          showSavedMessage = true
-                                          //keep here until I test
-                                          let generator = UINotificationFeedbackGenerator()
-                                              generator.notificationOccurred(.success)
-                                              
-                                          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                              showSavedMessage = false
-                                          }
-                                      }
-                                     
-                                  }
-                     
+        NavigationView{
+            VStack{
+                ZStack(alignment: .topTrailing) {
+                  WebImage(url: URL(string: image))
+                      .placeholder(Image("recipeImageNew").resizable())
+                      .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                      .frame(width:350, height: 200)
+                      .aspectRatio(contentMode: .fill)
+                  Image(systemName: "bookmark.square.fill")
+                      .font(.largeTitle)
+            //styling for colors of icon if saved / not saved
+                      .foregroundStyle(
+                          isRecipeSaved ? Color.white : Color.white,
+                          isRecipeSaved ? Color.yellow : Color.gray
+                      )
+                     // .animation(Animation.easeInOut(duration: 0.3))
+                      .padding(.top, 25)
+                      .padding(.leading, -60)
+                  
+                      .onTapGesture{
+                         
+                          if isRecipeSaved{
+                              switch sheetMode {
+                                  case .none:
+                                      sheetMode = .mealTimingSelection
+                                  case .mealTimingSelection:
+                                      sheetMode = .none
+                                  case .quarter:
+                                      sheetMode = .none
                               }
-                              .onAppear{
-                                 //check if recipe is saved or not
-                                 print("redraw")
-                                checkIfRecipeExists(recipeID: recipeID)
-                                rm.grabSavedUserRecipes() // refresh list
-                                  isCurrentUserfollowingUser(userUID: userUID) // << check if user is followed (allow to save re
+                             // rm.deleteRecipe(selectedRecipeID: recipeID)
+                             // dismiss()
+                          }
+                          else{
+                              if isUserFollowed { // << don't allow if user is not followed
+                                  rm.saveUserRecipe(userName: userName, recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date.now, ingredientItem: ingredients, directions: directions, recipeID: recipeID, userUID: userUID)
+                                  
+                                 isRecipeSaved = true
+                                  showSavedMessage = true
+                                  //keep here until I test
+                                  let generator = UINotificationFeedbackGenerator()
+                                      generator.notificationOccurred(.success)
+                                      
+                                  DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                      showSavedMessage = false
+                                  }
                               }
-                            
-                            if showSavedMessage {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundColor(.white)
-                                        .frame(width: 200, height: 80)
-                                        .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
-                                    
-                                    VStack {
-                                        Text("Recipe Saved!")
-                                            .font(.headline)
-                                            .foregroundColor(.black)
-                                            .padding(.top, 16)
-                                        
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.green)
-                                            .padding(.bottom, 16)
-                                    }
-                                }
-                                            .offset(x: -30, y: 65)
-                                            .transition(.opacity.animation(.easeInOut(duration: 1)))
-                                        }
-                        }
-               
-                .padding(.top, 65)
-                .frame(width:300, height: 120)
-                
-               
-                
-        //show image picker
-               
-    
-                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID)
-                    .padding()
-                    .padding(.top, 15)
-                    .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
-                    .cornerRadius(25)
+                             
+                          }
+             
+                      }
+                      .onAppear{
+                         //check if recipe is saved or not
+                         
+                        checkIfRecipeExists(recipeID: recipeID)
+                        rm.grabSavedUserRecipes() // refresh list
+                          isCurrentUserfollowingUser(userUID: userUID) // << check if user is followed (allow to save re
+                                                                 
+                      }
                     
-                //ingredients or directions selction
-        RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
-            .padding(.top, 70)
-           
-    
-        //offsets toolbar, if text removed, would interrupt toolbar.
-      
-            
-        //edit recipe button
+                    if showSavedMessage {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.white)
+                                .frame(width: 200, height: 80)
+                                .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
+                            
+                            VStack {
+                                Text("Recipe Saved!")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                    .padding(.top, 16)
+                                
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.green)
+                                    .padding(.bottom, 16)
+                            }
+                        }
+                                    .offset(x: -30, y: 65)
+                                    .transition(.opacity.animation(.easeInOut(duration: 1)))
+                                }
+                }
        
-            }
-            .opacity(sheetMode == .none ? 1 : 0.3)
-            .blur(radius: sheetMode == .none ? 0 : 3)
+        .padding(.top, 65)
+        .frame(width:300, height: 120)
+        
+       
+        
+//show image picker
+       
+
+                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, userModel: userModel)
+            .padding()
+            .padding(.top, 15)
+            .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
+            .cornerRadius(25)
+            
+        //ingredients or directions selction
+RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
+    .padding(.top, 70)
+   
+
+//offsets toolbar, if text removed, would interrupt toolbar.
+
+    
+//edit recipe button
+
+    }
+    .opacity(sheetMode == .none ? 1 : 0.3)
+    .blur(radius: sheetMode == .none ? 0 : 3)
+        }
+                   
         //yes/no dialog box
         FlexibleSheet(sheetMode: $sheetMode) {
             VStack {
@@ -252,9 +257,9 @@ struct RecipeControllerNonUser: View {
 }
        
       
-    
-struct RecipeControllerNonUser_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeControllerNonUser(name: "Jumbalaya", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 220, recipeFatMacro: 12, recipeCarbMacro: 40, recipeProteinMacro: 20, userName: "leave for nowf", userUID: "0")
-    }
-}
+//    
+//struct RecipeControllerNonUser_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeControllerNonUser(name: "Jumbalaya", prepTime: "30 min", image: "", ingredients: [:], directions: [], recipeID: "", recipeCaloriesMacro: 220, recipeFatMacro: 12, recipeCarbMacro: 40, recipeProteinMacro: 20, userName: "leave for nowf", userUID: "0")
+//    }
+//}

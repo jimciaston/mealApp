@@ -19,6 +19,17 @@ struct RecipeDashHeader_SavedRecipes: View {
     @State var userName: String
     @ObservedObject var ema: EditModeActive
     @State var userUID: String
+    @State var notCurrentUserProfile: Bool
+    //Recipe Logic for user
+    @State var userRecipeName = ""
+    @State var userBio = ""
+    @State var userProfileImage = ""
+    @State var testSubject = ""
+    @StateObject var rm = RecipeLogicNonUser()
+    @StateObject var jm = JournalDashLogicNonUser()
+   @State var uid = ""
+    
+    var userModel: UserModel
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]
    // @State var cookingTimesInMinutes = [5, 10, 15, 20, 25, 30, 45, 60, 120, 240, 480]
     @State private var pickerTime: String = ""
@@ -35,9 +46,27 @@ struct RecipeDashHeader_SavedRecipes: View {
                         .font(.title2)
                         .padding()
                     
-                    if userUID == "current user" {
-                        Text("Created by: \(userName)")
-                            .italic()
+                    if !notCurrentUserProfile { // << if navigating on own user page, don't show
+                        HStack{
+                            Text("Created by: ")
+                                .italic()
+                           
+                                    NavigationLink(
+                                        destination: UserProfileView(userUID: userUID, name: userModel.name, userBio: userModel.userBio, userProfilePicture: userModel.profilePictureURL, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+                                            print("appearing")
+                                            jm.grabUserJournalCount(userID: userUID)
+                                            rm.grabRecipes(userUID: userUID)
+                                        },
+                                        label: {
+                                            Text(userName)
+                                                .italic()
+                                                .foregroundColor(.blue)
+                                                .underline() // or Text("localized string key")
+                                        }
+                                    )
+                                
+                        }
+                       
                     }
                    
                 }
@@ -76,15 +105,12 @@ struct RecipeDashHeader_SavedRecipes: View {
             .background(Color.white)
             .cornerRadius(15)
           
-           
-        
-       
     }
     
 }
-
-struct RecipeDashHeader_savedRecipes_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeDashHeader_SavedRecipes(userName: "Timmy", ema: EditModeActive(), userUID: "0")
-    }
-}
+//
+//struct RecipeDashHeader_savedRecipes_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeDashHeader_SavedRecipes(userName: "Timmy", ema: EditModeActive(), userUID: "33", userRecipesPage: true)
+//    }
+//}

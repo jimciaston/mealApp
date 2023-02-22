@@ -86,7 +86,7 @@ class RecipeLogicNonUser: ObservableObject {
         return recipesNonUser.count
         }
     //saving non user recipe
-    func saveUserRecipe(userName: String, recipeImage: String, recipeTitle: String,recipePrepTime: String,recipeCaloriesMacro: Int, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, createdAt: Date?, ingredientItem: [String: String], directions: [String], recipeID: String){
+    func saveUserRecipe(userName: String, recipeImage: String, recipeTitle: String,recipePrepTime: String,recipeCaloriesMacro: Int, recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, createdAt: Date?, ingredientItem: [String: String], directions: [String], recipeID: String, userUID: String){
       
         //saves from object in RecipeModel to arrays
         var ingredientArr:[String:String] = [:]
@@ -107,8 +107,8 @@ class RecipeLogicNonUser: ObservableObject {
                     "recipeProteinMacro": recipeProteinMacro,
                     "createdAt": Date.now,
                     "ingredientItem": ingredientItem,
-                    "directions": directions
-                    
+                    "directions": directions,
+                    "userUID": userUID
                 ]
        
             
@@ -164,7 +164,8 @@ class RecipeLogicNonUser: ObservableObject {
                     let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
                     let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
                     let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                    let recipe = SavedRecipeItem(id: recipeID, userName: userName, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+                    let userUID = data ["userUID"] as? String ?? ""
+                    let recipe = SavedRecipeItem(id: recipeID, userName: userName, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients, userUID: userUID)
                     
                     return recipe
                     

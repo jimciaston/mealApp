@@ -18,7 +18,7 @@ public func fetchSavedJournals(){
                  print("Error getting documents: \(err)")
              } else {
                  for document in querySnapshot!.documents {
-                     print("\(document.documentID)") // Get documentID
+                    // print("\(document.documentID)") // Get documentID
                      // Get specific data & type cast it.
                  }
              }

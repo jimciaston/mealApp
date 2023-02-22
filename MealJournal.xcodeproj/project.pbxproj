@@ -539,9 +539,9 @@
 			isa = PBXGroup;
 			children = (
 				0A5B49AA282370CF0051A20B /* UserDashboardView.swift */,
+				0A6534D527DF8A1A00A50FB8 /* UserDashController.swift */,
 				0ABE3C6929952C5E00AF3B15 /* RecipeFullListView_MainTab.swift */,
 				0ABE3C6B29952DC200AF3B15 /* FullViewDisplay_MainTab.swift */,
-				0A6534D527DF8A1A00A50FB8 /* UserDashController.swift */,
 				0A47472C2925910800384B51 /* PlusTabPopMenu.swift */,
 				0AB112B8290590CD0071B3ED /* TabBar.swift */,
 				0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */,

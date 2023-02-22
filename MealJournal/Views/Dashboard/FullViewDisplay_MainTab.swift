@@ -19,10 +19,11 @@ struct FullViewDisplay_MainTab: View {
     @State var selectedRecipe: SavedRecipeItem?
     @State var MealObject = Meal()
     @State var mealTimingToggle = false
-    
+    @ObservedObject var vm = DashboardLogic()
     @State private var currentPage = 0
-    @State var userUID = "current user" // << will set to currentUser
+   // @State var userUID = "current user" // << will set to currentUser
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State var userModel = UserModel(data: [:])
     var body: some View {
         if allRecipes.count >= 1 {
             // << Fatal error, index out of range if removed
@@ -32,7 +33,7 @@ struct FullViewDisplay_MainTab: View {
                        LazyVGrid(columns: columns) {
                           ForEach(recipesChunk, id: \.id) { recipe in
                              
-                              self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime, userName: recipe.userName)
+                              self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime, userName: recipe.userName, userUID: recipe.userUID)
                                  
                               .onTapGesture {
                                 selectedRecipe = recipe
@@ -64,7 +65,7 @@ struct FullViewDisplay_MainTab: View {
 
     
 //individual item
-    func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String, userName: String) -> some View {
+    func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String, userName: String, userUID: String) -> some View {
         
         VStack{
             WebImage(url: URL(string: image))
@@ -93,8 +94,24 @@ struct FullViewDisplay_MainTab: View {
                 .frame(width:150)
 
                 .sheet(item: $selectedRecipe){
-                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: $0.userName, userUID: userUID)
-                      
+                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: $0.userName, userUID: userUID, notCurrentUserProfile: .constant(false), userModel: userModel)
+                        .onAppear{
+                            for user in vm.allUsers {
+                                if user.uid.contains(userUID){
+                                     userModel = UserModel(data: [
+                                        "uid": user.uid,
+                                        "name": user.name,
+                                        "gender": user.gender,
+                                        "height": user.height,
+                                        "weight": user.weight,
+                                        "userBio": user.userBio,
+                                        "agenda": user.agenda,
+                                        "profilePicture": user.profilePictureURL
+                                    ])
+                                    print(userModel.name)
+                                }
+                            }
+                        }
                 }
                
             }

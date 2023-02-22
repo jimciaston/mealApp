@@ -23,6 +23,7 @@ struct SavedRecipeItem: Identifiable, Hashable{
     var recipeCaloriesMacro, recipeFatMacro, recipeCarbMacro, recipeProteinMacro: Int
     var directions: [String]
     var ingredientItem: [String: String]
+    var userUID: String
 }
 
 struct RecipeModel{

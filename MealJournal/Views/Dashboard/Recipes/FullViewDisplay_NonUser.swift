@@ -24,6 +24,9 @@ struct FullListOfRecipes_nonUser: View {
     @State private var currentPage = 0
     @State var userUID: String
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @Binding var notCurrentUserProfile: Bool
+    let blankUser = UserModel(data: [:]) // << passing in blank User Model sicne we don't need in this view
+   
     var body: some View {
         if allRecipes.count >= 1 {
            
@@ -93,7 +96,7 @@ struct FullListOfRecipes_nonUser: View {
                 .frame(width:150)
 
                 .sheet(item: $selectedRecipe){
-                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: userName, userUID: userUID)
+                    RecipeControllerNonUser(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro, userName: userName, userUID: userUID, notCurrentUserProfile: $notCurrentUserProfile, userModel: blankUser)
                         
                 }
                

@@ -27,7 +27,7 @@ struct RecipeFullListView_nonUser: View {
                     .font(.title2)
                    
                 if(recipes.count > 0){
-                    FullListOfRecipes_nonUser(showAddButton: $showAddButton, allRecipes: recipes, userName: userName, userUID: userUID)
+                    FullListOfRecipes_nonUser(showAddButton: $showAddButton, allRecipes: recipes, userName: userName, userUID: userUID, notCurrentUserProfile: $notCurrentUserProfile)
                 }
                 else{
                     if !notCurrentUserProfile{ // << if user is visiting another users profile
