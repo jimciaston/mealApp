@@ -64,6 +64,7 @@ class FoodApiSearch: ObservableObject{
                             self.timer?.invalidate() // stop network timer
                                 for item in searchResults.foods ?? []{
                                     if foodResultsDisplayed < 50 { // << show six foods on screen
+                                       
                                         // if index out of value solution
                                         if item.foodNutrients!.count <= 0{
                                             isFoodSearchLoading = false
@@ -71,7 +72,7 @@ class FoodApiSearch: ObservableObject{
                                         }
                                         // << if food nutrients is valid
                                             foodResultsDisplayed = 6 // << food to display
-                                           
+                                       
                                         //convert the macros
                                             let proteinConverted = convertMacros(macro: Double(round(item.foodNutrients?[0].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             let carbsConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
@@ -88,7 +89,7 @@ class FoodApiSearch: ObservableObject{
                                                     id: UUID(),
                                                     brand: item.brandOwner?.lowercased().firstCapitalized ?? "Generic",
                                                     //note padding on mealName cuts string off at 18 char, preventing sloppy UI if long meal name
-                                                    mealName: item.lowercaseDescription?.firstCapitalized.padding(toLength: 18, withPad: " ", startingAt: 0) ?? "food invalid",
+                                                    mealName: item.foodDescription?.lowercased().firstCapitalized.padding(toLength: 18, withPad: " ", startingAt: 0) ?? "food invalid",
                                                     calories: Int(caloriesConverted),
                                                     quantity: Int(Double(round(item.servingSize ?? 0.00))),
                                                     amount: item.servingSizeUnit ?? "Invalid Amount",

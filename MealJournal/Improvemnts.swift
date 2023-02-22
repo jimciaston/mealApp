@@ -7,7 +7,6 @@
 
 import Foundation
 ///
-///1) Add delete to custom food items
 ///
 ///on favorite journal, if pop up is open. Disapear it when user clicks anywher on screen
 
