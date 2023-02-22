@@ -20,5 +20,5 @@ import Foundation
 //TODO: Scale images using kingfisher in bookmarks, set to one size
 // delete account popup and save meal journal pop up do not show up in ios
 //keyboard does not set move items when opening on recipe builder
-//search bar, allow if user uses caps in search (tweak it)
+
 //keyboard on get started page

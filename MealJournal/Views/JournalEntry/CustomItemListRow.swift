@@ -107,7 +107,7 @@ struct CustomItemListRow: View {
             GeometryReader { geometry in {
               
                 BottomSheetView(isOpen: $showDeleteItemView, maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: 300, content: {
-                    DeleteCustomItemView(customItemID: customMealID)
+                    DeleteCustomItemView(customItemID: customMealID, showDeleteItemView: $showDeleteItemView)
                      
                         .onTapGesture{
                             self.showDeleteItemView = false

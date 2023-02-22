@@ -19,8 +19,8 @@ struct SearchUsersFeature: View {
                     //DISPLAY USERS
                     ScrollView{
                         ForEach ((vm.allUsers), id:\.id ) { user in
-                            
-                            if user.name.contains(userSearch) || user.gender.contains(userSearch) || user.weight.contains(userSearch) || user.height.contains(userSearch) {
+                                // localizedCaseInsensitiveContains(searchText)
+                            if user.name.localizedCaseInsensitiveContains(userSearch) || user.gender.contains(userSearch) || user.weight.contains(userSearch) || user.height.contains(userSearch) {
                                 FollowingListRow(userUID: user.uid ,userName: user.name,userBio: user.userBio ,userProfileImage: user.profilePictureURL)
                             }
                         }
@@ -30,12 +30,13 @@ struct SearchUsersFeature: View {
                 .navigationBarTitle("Search Users")
                
             //SEARCH
-                .searchable(text: $userSearch,placement: .navigationBarDrawer(displayMode: .always), prompt: "Search by gender, height or weight") // << always display search bar
+                .searchable(text: $userSearch ,placement: .navigationBarDrawer(displayMode: .always), prompt: "Search by gender, height or weight") // << always display search bar
                 .disableAutocorrection(true) // << disable autocorrect
         }
-
+      
         
     }
+        
 }
 struct FollowingListView_Previews: PreviewProvider {
     static var previews: some View {

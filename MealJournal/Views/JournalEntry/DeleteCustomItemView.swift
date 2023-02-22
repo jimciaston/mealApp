@@ -10,6 +10,7 @@ import SwiftUI
 struct DeleteCustomItemView: View {
     @ObservedObject var customFoodLogic = CustomFoodLogic()
     @State var customItemID: UUID
+    @Binding var showDeleteItemView: Bool
     var body: some View {
         VStack{
             Text("Are you sure?")
@@ -30,7 +31,7 @@ struct DeleteCustomItemView: View {
                     .onTapGesture {
                         //delete logic
                          customFoodLogic.deleteCustomFoodItem(customItemID: customItemID)
-                         
+                            showDeleteItemView = false
                     }
             .padding(.top, 25)
         }
