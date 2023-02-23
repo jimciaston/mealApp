@@ -55,6 +55,6 @@ func OuncesConversion(gramsMeasurement: Double, measurementUnit: String) -> Stri
     
     else{
         print("Not a gram unit size")
-        return "error on unit conversion"
+        return "n/a"
     }
 }

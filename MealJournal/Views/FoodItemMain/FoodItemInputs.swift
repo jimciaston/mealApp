@@ -13,13 +13,14 @@ struct FoodItemInputs: View {
     @State var userToggleServings = false
     @State var userToggleNumberServings = false
     @State var sheetOption: SheetMode = .none
-    
+    @State var servingSizeSelection = ["1", "0"]
     var body: some View {
-        VStack{
-            HStack(spacing: 100){
-                Text("Serving Size")
+        
+        VStack {
+            HStack{
+                Text("Serving Size: ")
                     .frame(maxWidth:.infinity)
-                    .multilineTextAlignment(.trailing)
+                    .offset(x: 22)
                 Button(action: {
                     switch sheetOption{
                         case.none:
@@ -28,57 +29,63 @@ struct FoodItemInputs: View {
                             sheetOption = .none
                         case .mealTimingSelection:
                             sheetOption = .quarter
-                        }
+                    }
                     userToggleNumberServings.toggle()
                 }){
-                    Text(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize))
-                        .frame(width:80, height:20)
+                    Text(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize)) .frame(maxWidth: .infinity)
+                        .padding(.trailing, 50)
+                        .padding(.leading, -25)
                 }
-                
             }
-            
-            //NUM SERVINGS
-            HStack(spacing: 100){
-                Text("Serving Size Unit")
+           
+
+
+
+
+
+            HStack {
+                Text("Serving Size Unit: ")
                     .frame(maxWidth:.infinity)
+                   // .padding(.trailing, 25)
                     .multilineTextAlignment(.trailing)
+                  
                 Button(action: {
-                    print(mealServingSize)
                     switch sheetOption{
-                        case.none:
-                            sheetOption = .quarter
-                        case .quarter:
-                            sheetOption = .none
-                        case .mealTimingSelection:
-                            sheetOption = .quarter
-                        }
+                    case.none:
+                        sheetOption = .quarter
+                    case .quarter:
+                        sheetOption = .none
+                    case .mealTimingSelection:
+                        sheetOption = .quarter
+                    }
                     userToggleServings.toggle()
                 }){
-                    Text("oz")
-                        .frame(width:80, height:20)
+                    Text(servingSizeSelection.joined(separator: " ' "))
+                    .padding(.trailing, 50)
+                    .padding(.leading, -25)
                 }
-                
-             
             }
-        }
-       
-        if userToggleServings {
-            FlexibleSheetPicker(SheetOptions: $sheetOption){
-                WholeNFractionPicker()
-                    .border(.red)
+            .padding(.top, 1)
+            if userToggleServings {
+                WholeNFractionPicker(isOpen: $userToggleServings, selection: $servingSizeSelection)
+                    .frame(maxWidth: .infinity)
                     .transition(.move(edge: self.userToggleServings ? .bottom : .top))
+                    .animation(Animation.easeInOut(duration: 0.40))
             }
-            .animation(Animation.easeInOut(duration: 0.40))
-        }
-        
-        if userToggleNumberServings {
-            FlexibleSheetPicker(SheetOptions: $sheetOption){
+            if userToggleNumberServings {
                 ServingUnitPicker()
-                    .border(.red)
                     .transition(.move(edge: self.userToggleNumberServings ? .bottom : .top))
+                    .animation(Animation.easeInOut(duration: 0.40))
             }
-            .animation(Animation.easeInOut(duration: 0.40))
         }
+
+
+
+
+
+
+       
+        
     }
 }
 

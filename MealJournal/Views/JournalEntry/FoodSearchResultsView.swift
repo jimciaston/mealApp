@@ -32,7 +32,7 @@ struct FoodSearchResultsView: View {
     @ObservedObject var dashboardRouter = DashboardRouter()
     @State var mealSelected = false
    
-    @State var dismissResultsView = false
+    @State var dismissResultsView = true
    
     @State var isCustomItemsShowing = false
   
@@ -45,6 +45,7 @@ struct FoodSearchResultsView: View {
        
         if userSearch { // << if user searche food on searchbar
                 VStack{
+                    if dismissResultsView{
                         HStack{
                             Button(foodApi.isFoodSearchLoading ? "Searching..." : "Results"){
                                 foodApi.customFoodSearch = false // << not custom searching
@@ -58,6 +59,7 @@ struct FoodSearchResultsView: View {
                             
                             
                             //Text(foodApi.isFoodSearchLoading ? "Searching..." : "Results")
+                            
                             Button("Custom Items"){
                                 foodApi.customFoodSearch = true // << custom searching
                                 isResultsShowing = false
@@ -69,6 +71,8 @@ struct FoodSearchResultsView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
                         
                     }
+                    }
+
                    
                     //if api loading
                     if(foodApi.isFoodSearchLoading){
@@ -103,14 +107,14 @@ struct FoodSearchResultsView: View {
                                         FoodResultsEntryRow(mealTimingToggle: $mealTimingToggle, resultsDisplayed: $resultsDisplayed, isViewSearching: $isViewSearching, userSearch: $userSearch, MealObject: $MealObject, sheetMode: $sheetMode, dismissResultsView: $dismissResultsView)
                                        
                                             .environmentObject(foodApi)
-                                            
-                                    .onChange(of: dismissResultsView,
-                                         perform:
-                                           ( { newValue in
-                                                userSearch = false
-                                                isViewSearching = false
-                                                dismissResultsView = false
-                                               }))
+//
+//                                    .onChange(of: dismissResultsView,
+//                                         perform:
+//                                           ( { newValue in
+//                                                userSearch = false
+//                                                isViewSearching = false
+//                                                dismissResultsView = false
+//                                               }))
                                 }
                                
                             
@@ -154,7 +158,7 @@ struct FoodSearchResultsView: View {
 //            })
           
     }
-          
+           
             }
        
         }

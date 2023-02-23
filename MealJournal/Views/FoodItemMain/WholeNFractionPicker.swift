@@ -8,53 +8,66 @@
 import SwiftUI
 
 struct MultiPicker: View  {
-
-    
     let data: [ (String, [String]) ]
-  
     @Binding var selection: [String]
-
+    @Binding var isOpen: Bool // << toggle select size button
+    
     var body: some View {
         GeometryReader { geometry in
-            HStack {
-                ForEach(0..<self.data.count) { column in
-                    Picker(self.data[column].0, selection: self.$selection[column]) {
-                        ForEach(0..<self.data[column].1.count) { row in
-                            Text(verbatim: self.data[column].1[row])
-                                .font(.title3)
-                            
-                            .tag(self.data[column].1[row])
+            VStack{
+                HStack {
+                    ForEach(0..<self.data.count) { column in
+                        Picker(self.data[column].0, selection: self.$selection[column]) {
+                            ForEach(0..<self.data[column].1.count) { row in
+                                Text(verbatim: self.data[column].1[row])
+                                    .font(.title3)
+                                    .tag(self.data[column].1[row])
+                            }
                         }
+                        .pickerStyle(WheelPickerStyle())
+                        .clipped()
                     }
-                    .pickerStyle(WheelPickerStyle())
-                    .frame(width: geometry.size.width / CGFloat(self.data.count), height: geometry.size.height-100)
-                    .clipped()
                 }
+                .padding(.top, -45)
+              
+                Spacer()
+                Button(action: {
+                    print(selection)
+                     isOpen = false
+                }){
+                    Text("Select Size")
+                        .foregroundColor(.white)
+                        .font(.title2)
+                }
+                .frame(maxWidth: .infinity)
+                .background(.green)
+                
             }
         }
-      
     }
 }
 
 struct WholeNFractionPicker: View {
-   
+    @Binding var isOpen: Bool
+    @Binding var selection: [String]
     @State var data: [(String, [String])] = [
         ("Whole Number", Array(0...100).map { "\($0)" }),
         ("Fractional Number", ["1/8", "1/4" , "1/3" , "3/8" , "1/2" , "5/8" , "2/3" , "3/4" , "7/8"]), 
         ]
     
-        @State var selection: [String] = ["", ""]
-
     var body: some View {
         VStack(alignment: .center) {
-            MultiPicker(data: data, selection: $selection).frame(height: 300)
-              }  .background(Color("LightWhite"))
+            MultiPicker(data: data, selection: $selection, isOpen: $isOpen)
+                .frame(height: 250)
+          
+              }
+        .background(Color("ListBackgroundColor"))
 
         }
     }
 
-struct Test_Previews: PreviewProvider {
-    static var previews: some View {
-        WholeNFractionPicker()
-    }
-}
+//struct Test_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WholeNFractionPicker(isOpen: .constant(true), selection: ["",""])
+//    }
+//}

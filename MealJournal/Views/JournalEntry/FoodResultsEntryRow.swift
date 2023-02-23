@@ -99,6 +99,9 @@ struct FoodResultsEntryRow: View {
                             mealServingSize: meal.servingSize ?? 0, dismissResultsView: $dismissResultsView
                            
                         )
+                            .onAppear{
+                                dismissResultsView = false
+                            }
                             
                         ){
                             emptyview()

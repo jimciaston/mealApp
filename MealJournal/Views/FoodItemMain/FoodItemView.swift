@@ -73,7 +73,9 @@ struct FoodItemView: View {
                 HStack{
                     //dismiss selected food view
                     Button(action: {
-                        dismiss() //<< go back
+                      
+                       dismissResultsView = true
+                       dismiss() //<< go back
                         //reappear row titles
                         
                        
@@ -127,12 +129,14 @@ struct FoodItemView: View {
                     .padding()
                 
                 NutrionalPieChartView(values: [
+                    Double(mealCalories),
                     Double(mealProtein),
                     Double(mealCarbs),
                     Double(mealFat)
                   ],
-                  colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                                      colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3, Color.red], names: ["Calories","Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
                         .opacity(mealTimingToggle ? 0.0 : 1.0)
+                      
             }
             .padding(.leading, 15)
             
