@@ -8,13 +8,6 @@
 import Foundation
 
 
-/*
- take gram amount etc 28g
- see how long it takes to get to 4 oz ( if meat food category )
- times protein, fat, carb amounts
- 
- 
- */
 
 //convert macros in accordance to serving size
 //food api only gives at 100 gram does, not serving size (so stupid)
@@ -24,14 +17,12 @@ func convertMacros(macro: Double, servingSize: Double, unitSizing: String?) -> D
      noting food api is tricky with their calculations
      If dividing by 100, we are converting because api returned calories as grams (odd)
      */
-    
-    
     let servingSizePercentage: Double // << will hold calories
     //if generic brand, just return total calories
     if unitSizing == nil {
         servingSizePercentage = servingSize // << returning calories
     } else {
-        // if we have to calculate from api
+        // Calculate from api
         servingSizePercentage = servingSize / 100 // << divide by default grams value
     }
     let macroConversion = macro * servingSizePercentage

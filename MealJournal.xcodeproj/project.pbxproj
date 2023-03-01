@@ -92,6 +92,7 @@
 		0A87DBB52923278E00A3C1E9 /* DashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DBB42923278E00A3C1E9 /* DashboardRouter.swift */; };
 		0A8BC8E0299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC8DF299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift */; };
 		0A8BC8E2299F3362001B0E06 /* BookmarkRecipeRemovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC8E1299F3361001B0E06 /* BookmarkRecipeRemovalView.swift */; };
+		0A8BC8E429AE620E001B0E06 /* TabBarIconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC8E329AE620E001B0E06 /* TabBarIconImage.swift */; };
 		0A8C89232946AA7F008C549A /* SavedJournalsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C89222946AA7F008C549A /* SavedJournalsList.swift */; };
 		0A8C89252947845C008C549A /* FetchEntryTotals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C89242947845C008C549A /* FetchEntryTotals.swift */; };
 		0A8C892729533BA5008C549A /* FoodResultsEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C892629533BA4008C549A /* FoodResultsEntryRow.swift */; };
@@ -266,6 +267,7 @@
 		0A87DBB42923278E00A3C1E9 /* DashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRouter.swift; sourceTree = "<group>"; };
 		0A8BC8DF299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDashHeader_SavedRecipes.swift; sourceTree = "<group>"; };
 		0A8BC8E1299F3361001B0E06 /* BookmarkRecipeRemovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRecipeRemovalView.swift; sourceTree = "<group>"; };
+		0A8BC8E329AE620E001B0E06 /* TabBarIconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarIconImage.swift; sourceTree = "<group>"; };
 		0A8C89222946AA7F008C549A /* SavedJournalsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalsList.swift; sourceTree = "<group>"; };
 		0A8C89242947845C008C549A /* FetchEntryTotals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEntryTotals.swift; sourceTree = "<group>"; };
 		0A8C892629533BA4008C549A /* FoodResultsEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodResultsEntryRow.swift; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 				0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */,
 				0A1495702942474100E6258F /* FavoriteInvalidPopUp.swift */,
 				0A8D9319294367870046D49C /* FavoriteAlreadySavedPopUp.swift */,
+				0A8BC8E329AE620E001B0E06 /* TabBarIconImage.swift */,
 			);
 			path = JournalEntry;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				0A8D806B2826CE380055021A /* ReditorPopUp.swift in Sources */,
 				0A8D806F28298E860055021A /* RecipeEditorImage.swift in Sources */,
 				0A9FC9C627DD50ED0008D0CD /* SubscriptionPopOut.swift in Sources */,
+				0A8BC8E429AE620E001B0E06 /* TabBarIconImage.swift in Sources */,
 				0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */,
 				0A3E03E328E122CF009613CF /* CustomFoodHStacks.swift in Sources */,
 				0A8D80662825D19C0055021A /* FollowingListRow.swift in Sources */,

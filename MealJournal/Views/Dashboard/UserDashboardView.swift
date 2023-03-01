@@ -58,8 +58,10 @@ struct UserDashboardView: View {
                                     .offset(y: -geometry.size.height/10)
                            }
                         HStack {
+                            //home tab
                             TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "homekit", tabName: "Home", dashboardRouter: dashboardRouter, selectedTab: .home)
-                            TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "pencil.circle", tabName: "Journal", dashboardRouter: dashboardRouter, selectedTab: .journal)
+                            //journal tab
+                            TabBarIconImage(width: geometry.size.width/5, height: geometry.size.height/30, iconName: "download", tabName: "Journal", dashboardRouter: dashboardRouter, selectedTab: .journal)
                             //PLUS
                             ZStack {
                                  Circle()

@@ -127,7 +127,6 @@ struct FoodSearchResultsView: View {
                                
                                  ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
                                  .frame(height:240)
-                                 .border(.red)
                                  .padding(.top, -1) // << moves snackbar info up in view
                                  .animation(.easeInOut)
                                  }

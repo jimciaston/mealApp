@@ -12,9 +12,8 @@ struct FoodItemView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
     @StateObject var mealEntrys = MealEntrys()
     
-    
+    @State var mealTimingToggle = false
     @State var meal: Meal
-    @Binding var mealTimingToggle: Bool
     @State private var sheetMode: SheetMode = .none
     //@State var MealObject = Meal()
     @State var userSearch = false
@@ -33,7 +32,7 @@ struct FoodItemView: View {
                meal.brand
             }
     }
-    var mealCalories: Int {
+     @State var mealCalories: Int {
         didSet {
                 meal.calories
             }
@@ -61,90 +60,127 @@ struct FoodItemView: View {
         }
     }
    
-    var mealServingSize: Double {
+    @State var mealServingSize: Double {
+        didSet{
+            meal.servingSize
+        }
+    }
+    @State var originalMealServingSize: Double { //<< don't touch, using for calculation of updated values
         didSet{
             meal.servingSize
         }
     }
     @Binding var dismissResultsView: Bool
     var body: some View {
-        ScrollView(.vertical){
-            VStack(alignment:.leading, spacing: 0){
-                HStack{
-                    //dismiss selected food view
-                    Button(action: {
-                      
-                       dismissResultsView = true
-                       dismiss() //<< go back
-                        //reappear row titles
-                        
-                       
-                    })
-                    {
-                        Image(systemName: "arrowshape.turn.up.backward.fill").resizable()
-                            .frame(width: 20, height: 20)
-                            .multilineTextAlignment(.leading)
-                            .font(.body)
-                    }
-                    Spacer()
-                       
-                    //add recipe
-                    Button(action: {
-                        switch sheetMode {
-                            case .none:
-                                sheetMode = .mealTimingSelection
-                            mealTimingToggle = true //meal timing list comes to view
-                            case .mealTimingSelection:
-                                sheetMode = .none
-                            mealTimingToggle = false //list leaves view
-                        case .quarter:
-                            sheetMode = .none
+        VStack{
+            ScrollView(.vertical){
+                VStack(alignment:.leading, spacing: 0){
+                    HStack{
+                        //dismiss selected food view
+                        Button(action: {
+                          
+                           dismissResultsView = true
+                           dismiss() //<< go back
+                            //reappear row titles
+                            
+                           
+                        })
+                        {
+                            Image(systemName: "arrowshape.turn.up.backward.fill").resizable()
+                                .frame(width: 20, height: 20)
+                                .multilineTextAlignment(.leading)
+                                .font(.body)
                         }
-                       
-                    
-                    }, label: {
-                      Image(systemName: "checkmark").resizable()
-                          .frame(width: 20, height: 20)
-                          .multilineTextAlignment(.leading)
-                          .font(.body)
-                    })
-                        .foregroundColor(.black)
-                        .padding()
-                }
-              
-                Text(String(mealName)) .bold()
-                    .font(.title2)
-                    .frame(maxWidth:.infinity)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, -30)
-                Text(mealBrand)
-                    .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 5)
+                        Spacer()
+                           
+                        //add recipe
+                        Button(action: {
+                            let updatedServingSize = mealServingSize / originalMealServingSize
+                            meal = Meal(id: UUID(), brand: meal.brand, mealName: mealName, calories:  Int(Double(mealCalories) * mealServingSize), quantity: 1, amount: "g", protein: Int(Double(mealProtein) * mealServingSize), carbs: Int(Double(mealCarbs) * mealServingSize), fat: Int(Double(mealFat) * mealServingSize), servingSize: mealServingSize, servingSizeUnit: mealUnitSize)
+                            
+                            
+                            
+                            switch sheetMode {
+                                case .none:
+                                    sheetMode = .mealTimingSelection
+                                mealTimingToggle = true //meal timing list comes to view
+                                case .mealTimingSelection:
+                                    sheetMode = .none
+                                mealTimingToggle = false //list leaves view
+                            case .quarter:
+                                sheetMode = .none
+                            }
+                           
+                        
+                        }, label: {
+                          Image(systemName: "checkmark").resizable()
+                              .frame(width: 20, height: 20)
+                              .multilineTextAlignment(.leading)
+                              .font(.body)
+                        })
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                   
-                
-                FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: Binding.constant(mealServingSize))
-                    .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                
-                NutrionalPieChartView(values: [
-                    Double(mealCalories),
-                    Double(mealProtein),
-                    Double(mealCarbs),
-                    Double(mealFat)
-                  ],
-                                      colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3, Color.red], names: ["Calories","Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
-                        .opacity(mealTimingToggle ? 0.0 : 1.0)
+                    Text(String(mealName)) .bold()
+                        .font(.title2)
+                        .frame(maxWidth:.infinity)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, -30)
+                    Text(mealBrand)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 5)
                       
+                    
+                    FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: $mealServingSize, mealCalories: mealCalories, mealCarbs: mealCarbs, mealFat: mealFat, mealProtein: mealProtein)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    /*
+                     -- Meal serving size automatically set to 1.0 on appear
+                     -- when we update picker, we multiply each value of pie chart
+                     
+                     
+                     */
+                    NutrionalPieChartView(values: [
+                        Double(mealCalories) * mealServingSize,
+                        Double(mealProtein)  * mealServingSize,
+                        Double(mealCarbs) * mealServingSize,
+                        Double(mealFat) * mealServingSize
+                      ],
+                                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3, Color.red], names: ["Calories","Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                            .opacity(mealTimingToggle ? 0.0 : 1.0)
+                          
+                   
+                    
+                    
+                }
+           
+                
+                .onAppear{
+                    mealServingSize = 1
+                }
+                
             }
-            .padding(.leading, 15)
-            
+            .frame(minWidth: 400, maxHeight: 600)
+            //get rid of that stupid space up top
+            .navigationTitle("")
+            .navigationBarHidden(true)
+            ZStack {
+                FlexibleSheet(sheetMode: $sheetMode) {
+                    MealTimingSelectorView(meal: $meal, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
+                }
+                .frame(height: 200)
+                .frame(maxWidth: .infinity)
+                .padding(.top, -8) // moves snackbar info up in view
+                .animation(.easeInOut)
+                
+                // other views here
+            }
+
         }
-        .frame(minWidth: 400, maxHeight: 600)
-        //get rid of that stupid space up top
-        .navigationTitle("")
-        .navigationBarHidden(true)
+        
            
            
     }

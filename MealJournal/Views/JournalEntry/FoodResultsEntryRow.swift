@@ -87,7 +87,6 @@ struct FoodResultsEntryRow: View {
                         
                         NavigationLink(destination: FoodItemView(
                             meal: meal,
-                            mealTimingToggle: $mealTimingToggle,
                             mealName: meal.mealName ?? "Default",
                             mealBrand: meal.brand ?? "Generic",
                             mealCalories: meal.calories ?? 0,
@@ -96,7 +95,9 @@ struct FoodResultsEntryRow: View {
                             mealProtein: meal.protein ?? 0,
                             mealFat: meal.fat ?? 0,
                             mealUnitSize: meal.servingSizeUnit ?? "Default",
-                            mealServingSize: meal.servingSize ?? 0, dismissResultsView: $dismissResultsView
+                            mealServingSize: meal.servingSize ?? 0,
+                            originalMealServingSize: meal.servingSize ?? 0,
+                            dismissResultsView: $dismissResultsView
                            
                         )
                             .onAppear{

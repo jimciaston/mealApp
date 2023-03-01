@@ -11,6 +11,49 @@ struct MultiPicker: View  {
     let data: [ (String, [String]) ]
     @Binding var selection: [String]
     @Binding var isOpen: Bool // << toggle select size button
+    @Binding var mealCalories: Int
+    @Binding var mealCarbs: Int
+    @Binding var mealFat: Int
+    @Binding var mealProtein: Int
+    
+    func convertMacrosForSaving(
+                                mealCalories: Binding<Int>,
+                                mealCarbs: Binding<Int>,
+                                mealFat: Binding<Int>,
+                                mealProtein: Binding<Int>) {
+        let caloriesConverted = convertToDouble(selection)! * Double(mealCalories.wrappedValue)
+        let roundedValue_calories = caloriesConverted.rounded(toPlaces: 2)
+        mealCalories.wrappedValue = Int(roundedValue_calories)
+        
+        let carbsConverted = convertToDouble(selection)! * Double(mealCarbs.wrappedValue)
+        let roundedValue_carbs = carbsConverted.rounded(toPlaces: 2)
+        mealCarbs.wrappedValue = Int(roundedValue_carbs)
+        
+        let fatConverted = convertToDouble(selection)! * Double(mealFat.wrappedValue)
+        let roundedValue_fat = fatConverted.rounded(toPlaces: 2)
+        mealFat.wrappedValue = Int(roundedValue_fat)
+        
+        let proteinConverted = convertToDouble(selection)! * Double(mealProtein.wrappedValue)
+        let roundedValue_protein = proteinConverted.rounded(toPlaces: 2)
+        mealProtein.wrappedValue = Int(roundedValue_protein)
+    }
+
+    
+    func convertToDouble(_ parts: [String]) -> Double? {
+        var decimalValue = 0.0
+        for part in parts {
+            let subparts = part.components(separatedBy: "/")
+            if subparts.count == 1, let value = Double(subparts[0]) {
+                decimalValue += value
+            } else if subparts.count == 2, let numerator = Double(subparts[0]), let denominator = Double(subparts[1]) {
+                decimalValue += numerator / denominator
+            } else {
+                return nil
+            }
+        }
+        return decimalValue.rounded(toPlaces: 2)
+    }
+    
     
     var body: some View {
         GeometryReader { geometry in
@@ -31,16 +74,28 @@ struct MultiPicker: View  {
                 .padding(.top, -45)
               
                 Spacer()
-                Button(action: {
-                    print(selection)
-                     isOpen = false
-                }){
-                    Text("Select Size")
-                        .foregroundColor(.white)
-                        .font(.title2)
+                HStack{
+                    Button(action: {
+                        isOpen = false
+                    }){
+                        Text("X")
+                            .foregroundColor(.white)
+                            .font(.title2)
+                    }
+                    .frame(maxWidth: 100)
+                    .background(.red)
+                    Button(action: {
+                        isOpen = false
+                        convertMacrosForSaving(mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
+                    }){
+                        Text("Select Size")
+                            .foregroundColor(.white)
+                            .font(.title2)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(.green)
                 }
-                .frame(maxWidth: .infinity)
-                .background(.green)
+               
                 
             }
         }
@@ -50,14 +105,19 @@ struct MultiPicker: View  {
 struct WholeNFractionPicker: View {
     @Binding var isOpen: Bool
     @Binding var selection: [String]
+    @Binding var mealCalories: Int
+    @Binding var mealCarbs: Int
+    @Binding var mealFat: Int
+    @Binding var mealProtein: Int
+    
     @State var data: [(String, [String])] = [
-        ("Whole Number", Array(0...100).map { "\($0)" }),
-        ("Fractional Number", ["1/8", "1/4" , "1/3" , "3/8" , "1/2" , "5/8" , "2/3" , "3/4" , "7/8"]), 
+        ("Whole Number", Array(1...100).map { "\($0)" }),
+        ("Fractional Number", ["0", "1/8", "1/4" , "1/3" , "3/8" , "1/2" , "5/8" , "2/3" , "3/4" , "7/8"]),
         ]
     
     var body: some View {
         VStack(alignment: .center) {
-            MultiPicker(data: data, selection: $selection, isOpen: $isOpen)
+            MultiPicker(data: data, selection: $selection, isOpen: $isOpen, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein )
                 .frame(height: 250)
           
               }

@@ -28,6 +28,7 @@ class FoodApiSearch: ObservableObject{
     func searchFood(userItem: String, showMoreResults: Bool){
         if !customFoodSearch{
             isFoodSearchLoading = true
+            self.isFoodSearchTimedOut = false
             self.foodResultsDisplayed = 0
             let urlEncoded = userItem.addingPercentEncoding(withAllowedCharacters: .alphanumerics) //accounts for user spacing
                guard let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=bRbzV0uKJyenEtd1GMgJJNh4BzGWtDvDZVOy8cqG&query=\(urlEncoded!)") else {return}
@@ -35,6 +36,7 @@ class FoodApiSearch: ObservableObject{
             self.timer = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false){ timer in
                 //if data does not load in 10 seconds, set foodSearchTimedOut to true
                 self.isFoodSearchTimedOut = true
+                self.isFoodSearchLoading = false // << stop displaying loader
             }
             
                 task = URLSession.shared.dataTask(with: url) { (data, _, error) in
@@ -72,7 +74,7 @@ class FoodApiSearch: ObservableObject{
                                         }
                                         // << if food nutrients is valid
                                             foodResultsDisplayed = 6 // << food to display
-                                       
+                                      
                                         //convert the macros
                                             let proteinConverted = convertMacros(macro: Double(round(item.foodNutrients?[0].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             let carbsConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)

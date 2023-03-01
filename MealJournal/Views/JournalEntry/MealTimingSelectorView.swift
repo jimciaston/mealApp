@@ -170,7 +170,9 @@ struct MealTimingSelectorView: View {
             }
             .frame(height:660)
             .padding(.top, -50)
-            
+            .onAppear{
+                print(meal.calories)
+            }
         }
            
     }

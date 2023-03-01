@@ -29,14 +29,14 @@ struct PieChartRow: View {
             HStack{
                 Text(self.values[index]) // << in grams
                     .alignmentGuide(.leading) { _ in 5}
-                    .border(.red)
+                   
                 Text(self.percents[index]) // << in percentage
                     .foregroundColor(Color.gray)
                     .alignmentGuide(.leading) { d in d[.leading] }
                     //.padding(.leading, 15)
                     .frame(width:60)
                    
-                    .border(.blue)
+                   
             }
            
             .padding(.trailing, 25)

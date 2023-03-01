@@ -76,7 +76,7 @@ struct CustomItemListRow: View {
                 }
                         NavigationLink(destination: FoodItemView(
                             meal: item,
-                            mealTimingToggle: $mealTimingToggle, mealName: mealName ?? "Default",
+                            mealName: mealName ?? "Default",
                             mealBrand: item.brand ?? "Generic",
                             mealCalories: item.calories ?? 0,
                             mealCarbs: item.carbs ?? 0,
@@ -84,6 +84,7 @@ struct CustomItemListRow: View {
                             mealFat: item.fat ?? 0,
                             mealUnitSize: item.servingSizeUnit ?? "Default",
                             mealServingSize: item.servingSize ?? 0,
+                            originalMealServingSize: item.servingSize ?? 0,
                             dismissResultsView: $dismissResultsView
                         )
                         ){
@@ -105,7 +106,6 @@ struct CustomItemListRow: View {
         
         .windowOverlay(isKeyAndVisible: self.$showDeleteItemView, {
             GeometryReader { geometry in {
-              
                 BottomSheetView(isOpen: $showDeleteItemView, maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: 300, content: {
                     DeleteCustomItemView(customItemID: customMealID, showDeleteItemView: $showDeleteItemView)
                      
