@@ -71,6 +71,7 @@ struct FoodItemView: View {
         }
     }
     @Binding var dismissResultsView: Bool
+    var foodCategory: String
     var body: some View {
         VStack{
            
@@ -81,7 +82,7 @@ struct FoodItemView: View {
                            dismissResultsView = true
                            dismiss() //<< go back
                             //reappear row titles
-                            
+                           
                            
                         })
                         {
@@ -133,7 +134,7 @@ struct FoodItemView: View {
                         .padding(.top, 5)
                       
                     
-                    FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: $mealServingSize, mealCalories: mealCalories, mealCarbs: mealCarbs, mealFat: mealFat, mealProtein: mealProtein, originalMealServingSize: originalMealServingSize)
+                    FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: $mealServingSize, mealCalories: mealCalories, mealCarbs: mealCarbs, mealFat: mealFat, mealProtein: mealProtein, originalMealServingSize: originalMealServingSize, foodCategory: foodCategory)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                         .padding()
@@ -158,6 +159,7 @@ struct FoodItemView: View {
                 
                 .onAppear{
                     mealServingSize = 1
+                    print(foodCategory)
                 }
                 
             

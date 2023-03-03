@@ -66,7 +66,7 @@ class FoodApiSearch: ObservableObject{
                             self.timer?.invalidate() // stop network timer
                                 for item in searchResults.foods ?? []{
                                     if foodResultsDisplayed < 50 { // << show six foods on screen
-                                     
+                                       
                                         // if index out of value solution
                                         if item.foodNutrients!.count <= 0{
                                             isFoodSearchLoading = false
@@ -100,7 +100,8 @@ class FoodApiSearch: ObservableObject{
                                                     carbs: Int(carbsConverted),
                                                     fat: Int(fatConverted),
                                                     servingSize: item.servingSize,
-                                                    servingSizeUnit: item.servingSizeUnit
+                                                    servingSizeUnit: item.servingSizeUnit,
+                                                    foodCategory: item.foodCategory
                                                 ))
                                                 foodResultsDisplayed += 1
                                             }

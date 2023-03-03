@@ -97,8 +97,8 @@ struct FoodResultsEntryRow: View {
                             mealUnitSize: meal.servingSizeUnit ?? "Default",
                             mealServingSize: meal.servingSize ?? 0,
                             originalMealServingSize: meal.servingSize ?? 0,
-                            dismissResultsView: $dismissResultsView
-                           
+                            dismissResultsView: $dismissResultsView,
+                            foodCategory: meal.foodCategory ?? "n/a"
                         )
                             .onAppear{
                                 dismissResultsView = false

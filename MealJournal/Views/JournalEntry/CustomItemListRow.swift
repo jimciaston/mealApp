@@ -85,7 +85,8 @@ struct CustomItemListRow: View {
                             mealUnitSize: item.servingSizeUnit ?? "Default",
                             mealServingSize: item.servingSize ?? 0,
                             originalMealServingSize: item.servingSize ?? 0,
-                            dismissResultsView: $dismissResultsView
+                            dismissResultsView: $dismissResultsView,
+                            foodCategory: item.foodCategory ?? "n/a"
                         )
                         ){
                             emptyview()

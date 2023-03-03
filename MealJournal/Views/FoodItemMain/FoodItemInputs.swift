@@ -24,6 +24,7 @@ struct FoodItemInputs: View {
     @State var mealFat: Int
     @State var mealProtein: Int
     var originalMealServingSize: Double
+    var foodCategory: String
     //convert to Double
     func convertToDouble(_ parts: [String]) -> Double? {
         var decimalValue = 0.0
@@ -58,7 +59,9 @@ struct FoodItemInputs: View {
                     }
                     userToggleNumberServings.toggle()
                 }){
-                    Text(OuncesConversion(gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize))
+                    Text(foodCategory.contains("Eggs") ?
+                         "1 egg" :
+                        OuncesConversion(gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize))
                         .frame(width:80, height: 30)
                          .border(.gray)
                          .foregroundColor(.black)
@@ -140,6 +143,6 @@ struct FoodItemInputs: View {
 
 struct FoodItemInputs_Previews: PreviewProvider {
     static var previews: some View {
-        FoodItemInputs(mealUnitSize: .constant("oz"), mealServingSize: .constant(1.0), mealCalories: 100, mealCarbs: 20, mealFat: 10, mealProtein: 5, originalMealServingSize: 63.0)
+        FoodItemInputs(mealUnitSize: .constant("oz"), mealServingSize: .constant(1.0), mealCalories: 100, mealCarbs: 20, mealFat: 10, mealProtein: 5, originalMealServingSize: 63.0, foodCategory: "eggs")
     }
 }

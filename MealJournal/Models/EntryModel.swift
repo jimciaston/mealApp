@@ -21,6 +21,7 @@ struct Meal: Identifiable, Hashable{
     var fat: Int?
     var servingSize: Double?
     var servingSizeUnit: String?
+    var foodCategory: String?
 }
 
 struct CustomItemMealClass: Identifiable, Hashable{

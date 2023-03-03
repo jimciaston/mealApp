@@ -22,3 +22,4 @@ import Foundation
 
 //keyboard on get started page
 // BIG ERROR - if on food item view, and you click plus icon, app crashes...
+//same goes for journal if on food search page and click journal crashes ^^^
