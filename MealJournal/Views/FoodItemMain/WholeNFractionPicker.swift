@@ -21,7 +21,7 @@ struct MultiPicker: View  {
                                 mealCarbs: Binding<Int>,
                                 mealFat: Binding<Int>,
                                 mealProtein: Binding<Int>) {
-        let caloriesConverted = convertToDouble(selection)! * Double(mealCalories.wrappedValue)
+                                    let caloriesConverted = convertToDouble(selection) ?? 0.0 * Double(mealCalories.wrappedValue)
         let roundedValue_calories = caloriesConverted.rounded(toPlaces: 2)
         mealCalories.wrappedValue = Int(roundedValue_calories)
         
@@ -71,19 +71,13 @@ struct MultiPicker: View  {
                         .clipped()
                     }
                 }
-                .padding(.top, -45)
+               .padding(.top, -45)
               
                 Spacer()
+                
+                //buttons for no or select a serving size
                 HStack{
-                    Button(action: {
-                        isOpen = false
-                    }){
-                        Text("X")
-                            .foregroundColor(.white)
-                            .font(.title2)
-                    }
-                    .frame(maxWidth: 100)
-                    .background(.red)
+                  
                     Button(action: {
                         isOpen = false
                         convertMacrosForSaving(mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
@@ -93,9 +87,11 @@ struct MultiPicker: View  {
                             .font(.title2)
                     }
                     .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    
                     .background(.green)
                 }
-               
+                .padding(.top, 50)
                 
             }
         }
@@ -112,13 +108,13 @@ struct WholeNFractionPicker: View {
     
     @State var data: [(String, [String])] = [
         ("Whole Number", Array(1...100).map { "\($0)" }),
-        ("Fractional Number", ["0", "1/8", "1/4" , "1/3" , "3/8" , "1/2" , "5/8" , "2/3" , "3/4" , "7/8"]),
+        ("Fractional Number", ["", "1/8", "1/4" , "1/3" , "3/8" , "1/2" , "5/8" , "2/3" , "3/4" , "7/8"]),
         ]
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack {
             MultiPicker(data: data, selection: $selection, isOpen: $isOpen, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein )
-                .frame(height: 250)
+                .frame(height: 300)
           
               }
         .background(Color("ListBackgroundColor"))
@@ -126,8 +122,14 @@ struct WholeNFractionPicker: View {
         }
     }
 
-//struct Test_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WholeNFractionPicker(isOpen: .constant(true), selection: ["",""])
-//    }
-//}
+struct Test_Previews: PreviewProvider {
+    @State static var selection = ["", ""]
+    @State static var mealCalories = 0
+    @State static var mealCarbs = 0
+    @State static var mealFat = 0
+    @State static var mealProtein = 0
+
+    static var previews: some View {
+        WholeNFractionPicker(isOpen: .constant(true), selection: $selection, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
+    }
+}

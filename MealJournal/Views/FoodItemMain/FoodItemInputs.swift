@@ -23,7 +23,7 @@ struct FoodItemInputs: View {
     @State var mealCarbs: Int
     @State var mealFat: Int
     @State var mealProtein: Int
-    
+    var originalMealServingSize: Double
     //convert to Double
     func convertToDouble(_ parts: [String]) -> Double? {
         var decimalValue = 0.0
@@ -45,9 +45,8 @@ struct FoodItemInputs: View {
         
         VStack {
             HStack{
-                Text("Serving Size: ")
-                    .frame(maxWidth:.infinity)
-                    .offset(x: 22)
+                Text("Measurement:")
+                    .frame(width: 150)
                 Button(action: {
                     switch sheetOption{
                         case.none:
@@ -59,20 +58,18 @@ struct FoodItemInputs: View {
                     }
                     userToggleNumberServings.toggle()
                 }){
-                    Text(OuncesConversion(gramsMeasurement: mealServingSize, measurementUnit: mealUnitSize))
-                        .frame(maxWidth: .infinity)
-                        .padding(.trailing, 50)
-                        .padding(.leading, -25)
+                    Text(OuncesConversion(gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize))
+                        .frame(width:80, height: 30)
+                         .border(.gray)
+                         .foregroundColor(.black)
                 }
+                .padding(.leading, 30)
+               
             }
            
-
             HStack {
-                Text("Serving Size Unit: ")
-                    .frame(maxWidth:.infinity)
-                   // .padding(.trailing, 25)
-                    .multilineTextAlignment(.trailing)
-                  
+                Text("Serving Size:  ")
+                    .frame(width: 150)
                 Button(action: {
                     switch sheetOption{
                     case.none:
@@ -84,35 +81,45 @@ struct FoodItemInputs: View {
                     }
                     userToggleServings.toggle()
                 }){
-                    Text(servingSizeSelection.joined(separator: " ' "))
-                    .padding(.trailing, 50)
-                    .padding(.leading, -25)
-                    
-                }
-             
-            }
-            .padding(.top, 1)
-            if userToggleServings {
-                WholeNFractionPicker(isOpen: $userToggleServings, selection: $servingSizeSelection, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
-                    .frame(maxWidth: .infinity)
-                    .transition(.move(edge: self.userToggleServings ? .bottom : .top))
-                    .animation(Animation.easeInOut(duration: 0.40))
-                
-                    .onChange(of: servingSizeSelection) { newValue in
-                      
-                        //grab value of serving size
-                        let multiPickerValue = newValue
-                        //convert to Double to calculate updated Macro
-                        if let valueConverted = convertToDouble(multiPickerValue) {
-                            mealServingSize = valueConverted
-                            print("New meal serving size: \(mealServingSize)")
-                            print("value converted: \(valueConverted)")
-                         
-                        } else {
-                            print("Invalid string")
+                    HStack{
+                        ZStack{
+                            Text(servingSizeSelection[0])
+                                .frame(width:80, height: 30)
+                            .border(.gray)
+                            .foregroundColor(.black)
+                            Text(servingSizeSelection[1] == "0" ? "" : servingSizeSelection[1])
+                                .font(.caption)
+                                .foregroundColor(.black)
+                                .offset(x: 20, y: -2)
+                                
                         }
                         
                     }
+                    
+                }
+                .padding(.leading, 30)
+            }
+            .padding(.top, 1)
+            if userToggleServings {
+                
+                ZStack{
+                    WholeNFractionPicker(isOpen: $userToggleServings, selection: $servingSizeSelection, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
+                     
+                        .transition(.move(edge: self.userToggleServings ? .bottom : .top))
+                        .animation(Animation.easeInOut(duration: 0.40))
+    //
+                }
+                        .onChange(of: servingSizeSelection) { newValue in
+                            //grab value of serving size
+                            let multiPickerValue = newValue
+                            //convert to Double to calculate updated Macro
+                        if let valueConverted = convertToDouble(multiPickerValue) {
+                            mealServingSize = valueConverted
+                            } else {
+                                print("Invalid string")
+                            }
+
+                        }
             }
 //            if userToggleNumberServings {
 //                ServingUnitPicker()
@@ -131,8 +138,8 @@ struct FoodItemInputs: View {
     }
 }
 
-//struct FoodItemInputs_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FoodItemInputs(mealUnitSize: .constant( "hello "), mealServingSize: Binding.constant(0.00), mealCalories: 90)
-//    }
-//}
+struct FoodItemInputs_Previews: PreviewProvider {
+    static var previews: some View {
+        FoodItemInputs(mealUnitSize: .constant("oz"), mealServingSize: .constant(1.0), mealCalories: 100, mealCarbs: 20, mealFat: 10, mealProtein: 5, originalMealServingSize: 63.0)
+    }
+}

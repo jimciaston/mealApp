@@ -135,10 +135,9 @@ struct FoodSearchResultsView: View {
                             CustomItemsList(isViewSearching: $isViewSearching, userSearch: $userSearch, hideTitleRows: $dismissResultsView)
                         }
                     }
-                    
+                        
             }
-               
-        
+            
          
             //using windowOverlay from swiftUIX to hide TabBar
 //            .windowOverlay(isKeyAndVisible: self.$addCustomFoodToggle, {
@@ -161,7 +160,7 @@ struct FoodSearchResultsView: View {
             }
        
         }
-    
+  
 
    
 

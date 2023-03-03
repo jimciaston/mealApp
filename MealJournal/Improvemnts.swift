@@ -21,3 +21,4 @@ import Foundation
 //keyboard does not set move items when opening on recipe builder
 
 //keyboard on get started page
+// BIG ERROR - if on food item view, and you click plus icon, app crashes...

@@ -32,9 +32,11 @@ func convertMacros(macro: Double, servingSize: Double, unitSizing: String?) -> D
 
 func OuncesConversion(gramsMeasurement: Double, measurementUnit: String) -> String{
     if measurementUnit == "g"{ // << only run conversion for gram serving units
+        
         var gramsConversion = gramsMeasurement / 28.35
         let gramConverted = Int(Double(round(gramsConversion))) // << remove zeros in double
-        return String(gramConverted)
+      //  print(gramConverted)
+        return String("\(gramConverted) oz")
         
     }
     //convert milligrams

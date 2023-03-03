@@ -66,7 +66,7 @@ class FoodApiSearch: ObservableObject{
                             self.timer?.invalidate() // stop network timer
                                 for item in searchResults.foods ?? []{
                                     if foodResultsDisplayed < 50 { // << show six foods on screen
-                                       
+                                     
                                         // if index out of value solution
                                         if item.foodNutrients!.count <= 0{
                                             isFoodSearchLoading = false
@@ -74,16 +74,17 @@ class FoodApiSearch: ObservableObject{
                                         }
                                         // << if food nutrients is valid
                                             foodResultsDisplayed = 6 // << food to display
-                                      
-                                        //convert the macros
-                                            let proteinConverted = convertMacros(macro: Double(round(item.foodNutrients?[0].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
-                                            let carbsConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
+                                        
+                                        //check if we return atleast three nutrients (prevent fatal error)
+                                        if let nutrients = item.foodNutrients, nutrients.count >= 3 {
+                                            let proteinConverted = convertMacros(macro: Double(round(item.foodNutrients?[0].value ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
+                                            let carbsConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             
                                             
-                                            let fatConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
+                                            let fatConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             
                                          
-                                            let caloriesConverted = convertMacros(macro: Double(round(item.foodNutrients?[3].value! ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
+                                            let caloriesConverted = convertMacros(macro: Double(round(item.foodNutrients?[3].value ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             
                                             if caloriesConverted > 5 {
                                                
@@ -103,6 +104,11 @@ class FoodApiSearch: ObservableObject{
                                                 ))
                                                 foodResultsDisplayed += 1
                                             }
+                                        }
+                                        //convert the macros
+                                           
+                                            
+
                                     }
                                 }
                           

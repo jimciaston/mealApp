@@ -73,12 +73,11 @@ struct FoodItemView: View {
     @Binding var dismissResultsView: Bool
     var body: some View {
         VStack{
-            ScrollView(.vertical){
+           
                 VStack(alignment:.leading, spacing: 0){
                     HStack{
                         //dismiss selected food view
                         Button(action: {
-                          
                            dismissResultsView = true
                            dismiss() //<< go back
                             //reappear row titles
@@ -86,10 +85,11 @@ struct FoodItemView: View {
                            
                         })
                         {
-                            Image(systemName: "arrowshape.turn.up.backward.fill").resizable()
+                            Image(systemName: "arrowshape.backward.fill").resizable()
                                 .frame(width: 20, height: 20)
                                 .multilineTextAlignment(.leading)
                                 .font(.body)
+                                .padding(.leading, 25)
                         }
                         Spacer()
                            
@@ -133,7 +133,7 @@ struct FoodItemView: View {
                         .padding(.top, 5)
                       
                     
-                    FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: $mealServingSize, mealCalories: mealCalories, mealCarbs: mealCarbs, mealFat: mealFat, mealProtein: mealProtein)
+                    FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: $mealServingSize, mealCalories: mealCalories, mealCarbs: mealCarbs, mealFat: mealFat, mealProtein: mealProtein, originalMealServingSize: originalMealServingSize)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                         .padding()
@@ -153,8 +153,6 @@ struct FoodItemView: View {
                             .opacity(mealTimingToggle ? 0.0 : 1.0)
                           
                    
-                    
-                    
                 }
            
                 
@@ -162,8 +160,8 @@ struct FoodItemView: View {
                     mealServingSize = 1
                 }
                 
-            }
-            .frame(minWidth: 400, maxHeight: 600)
+            
+            .frame(minWidth: 400, maxHeight: .infinity)
             //get rid of that stupid space up top
             .navigationTitle("")
             .navigationBarHidden(true)
@@ -181,8 +179,6 @@ struct FoodItemView: View {
 
         }
         
-           
-           
     }
        
      
