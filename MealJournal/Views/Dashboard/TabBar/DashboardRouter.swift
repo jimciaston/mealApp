@@ -7,7 +7,9 @@
 
 import Foundation
 import SwiftUI
-
+/*
+ Organizes router 
+ */
 enum DashboardTab{
     case home
     case journal

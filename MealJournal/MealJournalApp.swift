@@ -42,7 +42,7 @@ struct MealJournalApp: App {
              ContentView()
                 .environmentObject(vm)
                 .environmentObject(mealEntrys)
-                .environment(\.managedObjectContext, userJournalController.container.viewContext)
+                .environment(\.managedObjectContext, UserJournalHelper.persistentContainer.viewContext)
                
         }
     }

@@ -11,7 +11,7 @@ import SwiftUIX
 struct UserDashController: View {
     @ObservedObject var vm: DashboardLogic
     @ObservedObject var rm = RecipeLogic()
-    @ObservedObject var signUpController: SignUpController
+    @ObservedObject var signUpController: LandingPageViewModel
     
     @State private var action: Int? = 0
     @State private var userSigningOut = false
@@ -226,7 +226,7 @@ struct UserDashController: View {
 
 struct UserDashController_Previews: PreviewProvider {
     static var previews: some View {
-        UserDashController(vm: DashboardLogic(), signUpController: SignUpController())
+        UserDashController(vm: DashboardLogic(), signUpController: LandingPageViewModel())
     }
 }
 

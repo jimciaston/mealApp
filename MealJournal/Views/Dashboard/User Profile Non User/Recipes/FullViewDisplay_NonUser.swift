@@ -29,8 +29,6 @@ struct FullListOfRecipes_nonUser: View {
    
     var body: some View {
         if allRecipes.count >= 1 {
-           
-            
             TabView {
                    ForEach(Array(allRecipes.chunked(into: 6)), id: \.self) { recipesChunk in
                        LazyVGrid(columns: columns) {

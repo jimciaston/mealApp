@@ -159,7 +159,6 @@ struct FoodItemView: View {
                 
                 .onAppear{
                     mealServingSize = 1
-                    print(foodCategory)
                 }
                 
             

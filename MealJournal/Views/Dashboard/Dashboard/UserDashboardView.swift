@@ -14,7 +14,7 @@ struct UserDashboardView: View {
     @StateObject var calendarHelper = CalendarHelper()
     @ObservedObject var vm: DashboardLogic
     @EnvironmentObject var mealEntrys: MealEntrys
-    @ObservedObject var signUpController: SignUpController
+    @ObservedObject var signUpController: LandingPageViewModel
     @StateObject var dashboardRouter: DashboardRouter
     @StateObject var rm = RecipeLogic()
     @StateObject var rm_nonUser = RecipeLogicNonUser()
@@ -119,7 +119,7 @@ struct UserDashboardView: View {
 }
 struct UserDashboardView_Previews: PreviewProvider {
     static var previews: some View {
-        UserDashboardView(vm: DashboardLogic(), signUpController: SignUpController(), dashboardRouter: DashboardRouter())
+        UserDashboardView(vm: DashboardLogic(), signUpController: LandingPageViewModel(), dashboardRouter: DashboardRouter())
     }
 }
 

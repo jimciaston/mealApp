@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-
+/*
+ Moving Gradient Modifier
+ */
 
 struct AnimatableGradientModifier: AnimatableModifier {
     let fromGradient: Gradient

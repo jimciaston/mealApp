@@ -24,9 +24,9 @@ struct userLogin: View {
     @State var userAttemptedToLogin = false
     
     @StateObject var vm = DashboardLogic()
-    @ObservedObject var userInformation = FormViewModel()
+ 
     @ObservedObject var keyboardResponder = KeyboardResponder()
-    @ObservedObject var signUpController: SignUpController
+    @ObservedObject var signUpController: LandingPageViewModel
    
     @State private var loginPageViewState: LoginEnum = .loginPage
     

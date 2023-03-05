@@ -14,15 +14,17 @@ class UserJournalHelper: ObservableObject {
     
    
     //prepare data model
-    let container = NSPersistentContainer(name: "JournalEntryModel")
-    
-    init() {
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                print( "core data failed to load: \(error.localizedDescription)")
-            }
-        }
-    }
+     static var persistentContainer: NSPersistentContainer = {
+              let container = NSPersistentContainer(name: "JournalEntryModel")
+              container.loadPersistentStores { description, error in
+                  if let error = error {
+                       fatalError("Unable to load persistent stores: \(error)")
+                  }
+              }
+              return container
+          }()
+ 
+   
     //save feature
     func coreDataSave (context: NSManagedObjectContext) {
         do {

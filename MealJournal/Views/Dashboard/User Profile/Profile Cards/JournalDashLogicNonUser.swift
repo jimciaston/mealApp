@@ -114,8 +114,6 @@ class JournalDashLogicNonUser: ObservableObject {
          }
     //delete journal entry logic
     func deleteJournalEntry(journalID: String, userID: String){
-       
-        
         FirebaseManager.shared.firestore
             .collection("users")
             .document(userID)

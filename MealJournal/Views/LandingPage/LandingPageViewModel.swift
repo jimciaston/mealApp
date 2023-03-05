@@ -12,7 +12,7 @@ import FirebaseStorage
 
 import SwiftUI
 
-class SignUpController: ObservableObject  {
+class LandingPageViewModel: ObservableObject  {
     @Published var userIsLoggedIn = false
     @Published var failedMessage = ""
     @AppStorage("signedIn") var signedIn = false
@@ -32,7 +32,6 @@ class SignUpController: ObservableObject  {
     }
     
     //log in user
-    
     func loginUser ( userEmail: String, userPassword: String ) {
         FirebaseManager.shared.auth.signIn(withEmail:userEmail, password: userPassword ){
             result, err in
@@ -44,8 +43,7 @@ class SignUpController: ObservableObject  {
             
             self.userIsLoggedIn = true
             self.signedIn = true
-            self.failedMessage = "" 
-            print(self.userIsLoggedIn)
+            self.failedMessage = ""
         }
     }
     

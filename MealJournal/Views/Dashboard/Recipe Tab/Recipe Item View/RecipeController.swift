@@ -137,21 +137,6 @@ struct RecipeController: View {
                       
 
                     }
-    //                .windowOverlay(isKeyAndVisible: self.$showRecipeBottomSheet, {
-    //                    GeometryReader { geometry in {
-    //                        BottomSheetView(
-    //                            isOpen: self.$showRecipeBottomSheet,
-    //                            maxHeight: geometry.size.height * 0.5 * 0.7
-    //                        ) {
-    //                            RecipeEditorBottomSheetView(ema: ema, recipeID: $recipeID, showRecipeBottomSheet: $showRecipeBottomSheet)
-    //                        }
-    //
-    //                    }()
-    //                            .edgesIgnoringSafeArea(.all)
-    //
-    //                    }
-    //
-    //                })
                     
                 }
            

@@ -27,7 +27,7 @@ struct LandingPage: View {
     @State private var isPressed = false
     @Environment (\.dismiss) var dismiss
    
-    @StateObject var signUpController = SignUpController()
+    @StateObject var signUpController = LandingPageViewModel()
     @StateObject var vm = DashboardLogic()
     
     @State private var progress: CGFloat = 0

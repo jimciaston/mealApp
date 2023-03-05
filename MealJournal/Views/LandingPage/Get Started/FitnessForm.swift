@@ -10,7 +10,7 @@ import Firebase
 
 struct FitnessForm: View {
     @Environment (\.dismiss) var dismiss
-    @StateObject var signUpController = SignUpController()
+    @StateObject var signUpController = LandingPageViewModel()
     @StateObject var vm = DashboardLogic()
     @AppStorage("signedIn") var signedIn = false
     @State private var userSignedIn = false
@@ -116,7 +116,7 @@ struct FitnessForm: View {
                                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                                 let dateString = dateFormatter.string(from: date)
                                 //save user to Firebase
-                                SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
+                                LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
                                     signedIn = true //updates storage container
                                    
                               
@@ -146,7 +146,7 @@ struct FitnessForm: View {
                                     
                                     
                                     //save user to Firebase
-                                    SignUpController.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
+                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
                                         signedIn = true //updates storage container
                                       
                                 }

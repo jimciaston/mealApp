@@ -15,11 +15,11 @@ struct createUserAccount: View {
     //transition for fitness form
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
     //Stores form info as userInfo, stored in userModel
-    @ObservedObject var userInformation = FormViewModel()
+   
     //moves up stuff in view if keyboard is out
     @ObservedObject var keyboardResponder = KeyboardResponder()
     //calls signUpController
-    @StateObject var signUpController = SignUpController()
+    @StateObject var signUpController = LandingPageViewModel()
   
     
     @State private var showFitnessForm = false
@@ -123,9 +123,7 @@ struct createUserAccount: View {
                                .frame(width: 250)
                        }
                     }
-                    .onAppear{
-                        print(isSignUpComplete)
-                    }
+                  
                             .listRowBackground(Color.clear)
                             .padding()
                             .font(.system(size:18))
@@ -154,9 +152,8 @@ struct createUserAccount: View {
                                     }}
                 
                                     .frame(width: 150, height: 30)
-                                    //.padding(.top, 20)
+                                   
                                     .foregroundColor(.white)
-                                //    .padding()
                                     .background(LinearGradient(gradient: Gradient(colors: [.orange, .pink]), startPoint: .leading, endPoint: .bottom))
                                     .font(.title3)
                                     .background(.clear)
@@ -165,7 +162,6 @@ struct createUserAccount: View {
                                     .opacity(isSignUpComplete ? 1 : 0.5)
                                    // .offset(y: keyboardResponder.currentHeight)
                                     .disabled(!isSignUpComplete)
-                                   
                 
                                     .fullScreenCover(isPresented: $showFitnessForm){
                                         FitnessForm(
@@ -190,8 +186,6 @@ struct createUserAccount: View {
                 .offset(y:20) // << adds separation from continue button
               //  .offset(y: keyboardResponder.currentHeight)
                
-            
-           
         case .login:
             VStack{
                 userLogin(signUpController: signUpController)
