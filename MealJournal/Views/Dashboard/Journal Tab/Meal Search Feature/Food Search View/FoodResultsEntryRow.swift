@@ -154,8 +154,8 @@ struct FoodResultsEntryRow: View {
                 //view more results toggle
                
             }
-          //  .fixedSize(horizontal: false, vertical: true)
-            .frame(height:400)
+      
+           
             .listStyle(.plain)
             .listRowSeparator(.hidden)
         }

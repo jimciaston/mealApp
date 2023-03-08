@@ -55,12 +55,13 @@ struct MealSearchBar: View {
             .frame(height:40)
             .cornerRadius(15)
             .padding(12)
-            
+            //calling food results
+            FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
+                
+                .environmentObject(foodApi)
         }
-        //calling food results
-        FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
-            .environmentObject(foodApi)
+
     
     }
-    
+        
 }
