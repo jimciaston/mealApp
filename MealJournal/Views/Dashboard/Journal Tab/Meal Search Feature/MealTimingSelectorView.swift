@@ -78,6 +78,7 @@ struct MealTimingSelectorView: View {
                       
                         if(extendedViewOpen){
                             mealSelected = true
+                            
                             dismiss()
                            
                         }
@@ -170,9 +171,7 @@ struct MealTimingSelectorView: View {
             }
             .frame(height:660)
             .padding(.top, -50)
-            .onAppear{
-                print(meal.calories)
-            }
+           
         }
            
     }

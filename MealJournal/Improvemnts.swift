@@ -21,5 +21,5 @@ import Foundation
 //keyboard does not set move items when opening on recipe builder
 
 //keyboard on get started page
-//when adding meal from foodview, macros don't generate
+
 //user default follower and followers

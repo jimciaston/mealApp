@@ -71,7 +71,7 @@ struct FoodSearchResultsView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
                         
                     }
-                    }
+                }
 
                    
                     //if api loading
@@ -108,13 +108,7 @@ struct FoodSearchResultsView: View {
                                        
                                             .environmentObject(foodApi)
 //
-//                                    .onChange(of: dismissResultsView,
-//                                         perform:
-//                                           ( { newValue in
-//                                                userSearch = false
-//                                                isViewSearching = false
-//                                                dismissResultsView = false
-//                                               }))
+                                
                                 }
                                
                             

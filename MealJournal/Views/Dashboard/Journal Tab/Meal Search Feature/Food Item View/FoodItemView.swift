@@ -73,8 +73,8 @@ struct FoodItemView: View {
     @Binding var dismissResultsView: Bool
     var foodCategory: String
     var body: some View {
+        
         VStack{
-           
                 VStack(alignment:.leading, spacing: 0){
                     HStack{
                         //dismiss selected food view
@@ -155,8 +155,7 @@ struct FoodItemView: View {
                           
                    
                 }
-           
-                
+           //sometimes when loading serving size can be wonky, sets to one for easier calculations
                 .onAppear{
                     mealServingSize = 1
                 }
@@ -174,7 +173,7 @@ struct FoodItemView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.top, -8) // moves snackbar info up in view
                 .animation(.easeInOut)
-                
+               
                 // other views here
             }
 

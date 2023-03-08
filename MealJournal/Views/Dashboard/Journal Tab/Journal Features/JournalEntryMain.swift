@@ -91,15 +91,19 @@ struct JournalEntryMain: View {
    
     var body: some View {
                 VStack{
-                    MacroView(fetchEntryTotals: fetchEntryTotals)
-                        .environmentObject(mealEntrys) //references meal entry
-                    //fetch calorie totals
-                        .onAppear{
-                            fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-                            fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-                            fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-                            fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
-                        }
+                    if !isUserSearching{
+                        MacroView(fetchEntryTotals: fetchEntryTotals)
+                            .environmentObject(mealEntrys) //references meal entry
+                        //fetch calorie totals
+                            .onAppear{
+                                fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                            }
+                            
+                    }
+                   
                     //search bar
                    
                     if dayOfWeekPermanent == dayOfWeek {
