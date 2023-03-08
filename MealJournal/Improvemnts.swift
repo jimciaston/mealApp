@@ -21,5 +21,5 @@ import Foundation
 //keyboard does not set move items when opening on recipe builder
 
 //keyboard on get started page
-// BIG ERROR - if on food item view, and you click plus icon, app crashes...
-//same goes for journal if on food search page and click journal crashes ^^^
+//when adding meal from foodview, macros don't generate
+//user default follower and followers
