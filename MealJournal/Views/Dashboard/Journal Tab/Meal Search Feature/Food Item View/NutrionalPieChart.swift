@@ -49,9 +49,7 @@ struct NutrionalPieChart: View {
 
                         .foregroundColor(Color.white)
                         .font(.body)
-                        .onAppear{
-                            print(pieSliceData.counter)
-                        }
+                       
                 }   
             }
         }

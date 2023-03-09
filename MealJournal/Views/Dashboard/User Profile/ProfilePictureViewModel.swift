@@ -77,7 +77,10 @@ class UrlImageModel: ObservableObject {
 
 class CacheImageManager {
   var cache = NSCache<NSString, UIImage>()
-  
+    init(){
+        cache.countLimit = 100
+       cache.totalCostLimit = 1024 * 1024 * 100
+    }
     func getCache (forKey: String) -> UIImage? {
       //  print("grabbing from cache")
         return cache.object(forKey: NSString(string: forKey ))

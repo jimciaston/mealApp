@@ -152,6 +152,7 @@
 		0ABE3C6C29952DC200AF3B15 /* FullViewDisplay_MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C6B29952DC200AF3B15 /* FullViewDisplay_MainTab.swift */; };
 		0AC04221282C38AC00009684 /* FoodItemInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC04220282C38AC00009684 /* FoodItemInputs.swift */; };
 		0AC1B77427D298720070895D /* GetWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1B77327D298720070895D /* GetWeight.swift */; };
+		0ADDCCA729B977CD0082FB1E /* FoodCategoryTextOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */; };
 		0AE0DB8B27BC1823006F1835 /* JournalEntryMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */; };
 		0AE0DB8E27BC1E03006F1835 /* EntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8D27BC1E02006F1835 /* EntryModel.swift */; };
 		0AE0DB9027BD5041006F1835 /* EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8F27BD5041006F1835 /* EntryRow.swift */; };
@@ -324,6 +325,7 @@
 		0ABE3C6B29952DC200AF3B15 /* FullViewDisplay_MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay_MainTab.swift; sourceTree = "<group>"; };
 		0AC04220282C38AC00009684 /* FoodItemInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemInputs.swift; sourceTree = "<group>"; };
 		0AC1B77327D298720070895D /* GetWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeight.swift; sourceTree = "<group>"; };
+		0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCategoryTextOutput.swift; sourceTree = "<group>"; };
 		0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryMain.swift; sourceTree = "<group>"; };
 		0AE0DB8D27BC1E02006F1835 /* EntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryModel.swift; sourceTree = "<group>"; };
 		0AE0DB8F27BD5041006F1835 /* EntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRow.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 			children = (
 				0A70A8BC27FA8B8300318780 /* FoodItemView.swift */,
 				0AC04220282C38AC00009684 /* FoodItemInputs.swift */,
+				0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */,
 				0AA11758282031400024FECE /* WholeNFractionPicker.swift */,
 				0AA11756281A3ABD0024FECE /* ServingUnitPicker.swift */,
 				0A3B9B242815DAD000EC631A /* NutrionalPieChart.swift */,
@@ -1165,6 +1168,7 @@
 				0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */,
 				0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */,
 				0A8C89252947845C008C549A /* FetchEntryTotals.swift in Sources */,
+				0ADDCCA729B977CD0082FB1E /* FoodCategoryTextOutput.swift in Sources */,
 				0AB112B9290590CD0071B3ED /* TabBar.swift in Sources */,
 				0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */,
 				0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */,

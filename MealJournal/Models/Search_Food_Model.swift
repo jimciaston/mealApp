@@ -66,7 +66,6 @@ class FoodApiSearch: ObservableObject{
                             self.timer?.invalidate() // stop network timer
                                 for item in searchResults.foods ?? []{
                                     if foodResultsDisplayed < 50 { // << show six foods on screen
-                                       
                                         // if index out of value solution
                                         if item.foodNutrients!.count <= 0{
                                             isFoodSearchLoading = false
@@ -92,7 +91,7 @@ class FoodApiSearch: ObservableObject{
                                                     id: UUID(),
                                                     brand: item.brandOwner?.lowercased().firstCapitalized ?? "Generic",
                                                     //note padding on mealName cuts string off at 18 char, preventing sloppy UI if long meal name
-                                                    mealName: item.foodDescription?.lowercased().firstCapitalized.padding(toLength: 18, withPad: " ", startingAt: 0) ?? "food invalid",
+                                                    mealName: item.foodDescription?.lowercased().firstCapitalized ?? "food invalid",
                                                     calories: Int(caloriesConverted),
                                                     quantity: Int(Double(round(item.servingSize ?? 0.00))),
                                                     amount: item.servingSizeUnit ?? "Invalid Amount",

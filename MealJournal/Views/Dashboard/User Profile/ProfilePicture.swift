@@ -11,9 +11,12 @@ import FirebaseFirestore
 import SDWebImageSwiftUI
 import Kingfisher
 
-struct UrlImageView: View {
+struct UrlImageView: View, Equatable {
     @ObservedObject var urlImageModel: UrlImageModel
     
+    static func == (lhs: UrlImageView, rhs: UrlImageView) -> Bool {
+          return lhs.urlImageModel.urlString == rhs.urlImageModel.urlString
+      }
     init(urlString: String?) {
         urlImageModel = UrlImageModel(urlString: urlString)
     }
@@ -77,7 +80,7 @@ struct ProfilePicture: View {
        
             VStack{
                 UrlImageView(urlString: vm.userModel?.profilePictureURL)
-                    
+                    .equatable()
                 Button(action: {
                    
                     showingImagePicker = true

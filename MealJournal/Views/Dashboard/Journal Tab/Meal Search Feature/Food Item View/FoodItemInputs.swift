@@ -59,9 +59,8 @@ struct FoodItemInputs: View {
                     }
                     userToggleNumberServings.toggle()
                 }){
-                    Text(foodCategory.contains("Eggs") ?
-                         "1 egg" :
-                        OuncesConversion(gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize))
+                    FoodCategoryText(foodCategory: foodCategory, gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize)
+                    
                         .frame(width:80, height: 30)
                          .border(.gray)
                          .foregroundColor(.black)

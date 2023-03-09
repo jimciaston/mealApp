@@ -126,8 +126,9 @@ struct FoodItemView: View {
                     Text(String(mealName)) .bold()
                         .font(.title2)
                         .frame(maxWidth:.infinity)
+                        .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.center)
-                        .padding(.top, -30)
+                       
                     Text(mealBrand)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
@@ -145,12 +146,11 @@ struct FoodItemView: View {
                      
                      */
                     NutrionalPieChartView(values: [
-                        Double(mealCalories) * mealServingSize,
                         Double(mealProtein)  * mealServingSize,
                         Double(mealCarbs) * mealServingSize,
                         Double(mealFat) * mealServingSize
                       ],
-                                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3, Color.red], names: ["Calories","Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
                             .opacity(mealTimingToggle ? 0.0 : 1.0)
                           
                    

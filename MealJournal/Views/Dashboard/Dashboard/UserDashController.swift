@@ -8,18 +8,19 @@
 import SwiftUI
 import Firebase
 import SwiftUIX
+
 struct UserDashController: View {
     @ObservedObject var vm: DashboardLogic
     @ObservedObject var rm = RecipeLogic()
     @ObservedObject var signUpController: LandingPageViewModel
-    
+    @AppStorage("followingCount") var followingCount = 0
+    @AppStorage("followersCount") var followersCount = 0
     @State private var action: Int? = 0
     @State private var userSigningOut = false
     @State private var showMenu = false
     @State private var presentSettingsPage = false
     @State private var presentAddRecipePage = false
-    @State var followingCount = 0
-    @State var followersCount = 0
+   // @State var followingCount = 0
     @State var deleteAccountSheet = false
    
     @ObservedObject var rm_nonUser = RecipeLogicNonUser()
@@ -50,14 +51,7 @@ struct UserDashController: View {
                     GeometryReader { Geo in
                         VStack{
                             VStack{
-                            //Following and Follower button
-//                            NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
-//                                    EmptyView()
-//                                }
-//                            
-//                            NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
-//                                EmptyView()
-//                            }
+                        
                             
                             //profile picture
                             ProfilePicture()
@@ -69,6 +63,9 @@ struct UserDashController: View {
                             HStack{
                                 HStack{
                                     VStack{
+                                        NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
+                                                                           EmptyView()
+                                                                       }
                                         Text(String(followingCount))
                                         Text("Following").foregroundColor(.gray)
                                     }
@@ -82,6 +79,9 @@ struct UserDashController: View {
                                 
                                 HStack{
                                     VStack{
+                                        NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
+                                               EmptyView()
+                                           }
                                         Text(String(followersCount))
                                         Text("Followers").foregroundColor(.gray)
                                     }
@@ -128,7 +128,7 @@ struct UserDashController: View {
                         .onAppear{
                             fetchFollowingCount()
                             vm.fetchCurrentUser() //view refreshes if new data entered
-                           // rm_nonUser.grabSavedUserRecipes()
+                         
                         }
                     }
                     

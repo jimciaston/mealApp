@@ -29,12 +29,15 @@ struct FoodResultsEntryRow: View {
                     ZStack{
                         HStack{
                             VStack(alignment:.leading){
-                                Text(meal.mealName ?? "default")
+                                Text(((meal.mealName ?? "default").count > 23) ?
+                                     ((meal.mealName ?? "default").prefix(23) + "...") :
+                                     (meal.mealName ?? "default"))
                                     .bold()
                                     .font(.body)
+                                    
                                    
                                 HStack{
-                                    Text(meal.brand ?? "Generic")
+                                    Text(meal.brand ?? "BrandName Unavailable")
                                         .font(.caption)
                                         
                                     
@@ -122,7 +125,6 @@ struct FoodResultsEntryRow: View {
                 
                 }
              
-              
                     Button(action: {
                         foodApi.foodResultsDisplayed = 0
                         resultsDisplayed += 5
