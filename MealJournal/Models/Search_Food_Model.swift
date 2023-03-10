@@ -76,6 +76,8 @@ class FoodApiSearch: ObservableObject{
                                         
                                         //check if we return atleast three nutrients (prevent fatal error)
                                         if let nutrients = item.foodNutrients, nutrients.count >= 3 {
+                                            
+                                            
                                             let proteinConverted = convertMacros(macro: Double(round(item.foodNutrients?[0].value ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             let carbsConverted = convertMacros(macro: Double(round(item.foodNutrients?[2].value ?? 0.00)), servingSize: item.servingSize ?? 1.00, unitSizing: item.servingSizeUnit)
                                             

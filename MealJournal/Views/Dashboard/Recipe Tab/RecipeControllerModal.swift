@@ -75,6 +75,7 @@ struct RecipeControllerModal: View {
                         .frame(width:500, height: 250)
                         .aspectRatio(contentMode: .fill)
                     }
+              
                 .onChange(of: inputImage, perform: { _ in
                     persistImageToStorage()
                 })

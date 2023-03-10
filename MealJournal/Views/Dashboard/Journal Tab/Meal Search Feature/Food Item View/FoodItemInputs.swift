@@ -59,7 +59,7 @@ struct FoodItemInputs: View {
                     }
                     userToggleNumberServings.toggle()
                 }){
-                    FoodCategoryText(foodCategory: foodCategory, gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize)
+                    FoodCategoryText(foodCategory: foodCategory, gramsMeasurement: originalMealServingSize, measurementUnit: mealUnitSize, calories: mealCalories)
                     
                         .frame(width:80, height: 30)
                          .border(.gray)

@@ -53,7 +53,7 @@ struct FoodItemView: View {
         }
         
     }
-    
+    // or measurement ie. ounces, grams, etc
     var mealUnitSize: String {
         didSet {
             meal.servingSizeUnit
@@ -86,8 +86,8 @@ struct FoodItemView: View {
                            
                         })
                         {
-                            Image(systemName: "arrowshape.backward.fill").resizable()
-                                .frame(width: 20, height: 20)
+                            Image("downloadB").resizable()
+                                .frame(width: 40, height: 40)
                                 .multilineTextAlignment(.leading)
                                 .font(.body)
                                 .padding(.leading, 25)
@@ -150,14 +150,15 @@ struct FoodItemView: View {
                         Double(mealCarbs) * mealServingSize,
                         Double(mealFat) * mealServingSize
                       ],
-                                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
                             .opacity(mealTimingToggle ? 0.0 : 1.0)
-                          
-                   
+                       
+                 
                 }
            //sometimes when loading serving size can be wonky, sets to one for easier calculations
                 .onAppear{
                     mealServingSize = 1
+                   
                 }
                 
             

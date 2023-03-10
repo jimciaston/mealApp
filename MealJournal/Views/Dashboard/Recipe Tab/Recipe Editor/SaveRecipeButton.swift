@@ -15,14 +15,15 @@ extension AnyTransition {
             removal: .move(edge: .top))}
 }
 struct SaveRecipeButton: View {
-
+    @Environment(\.dismiss) var dismiss
     @Binding var showSuccessMessage: Bool
     //stores recipe
     @ObservedObject var recipeClass: Recipe
-   
+  
     @State var isNewRecipeValid = false
     static var newRecipeCreated = false
-    
+ 
+    @Binding var thisTest: Bool
     func saveRecipe (){
         let recipeIDCreator = UUID().uuidString
         //saves from object in RecipeModel to arrays
@@ -90,17 +91,17 @@ struct SaveRecipeButton: View {
                 
                 Button(action: {
                     //rules to save recipe
-                    if (recipeClass.recipeTitle != "" &&
+                    if (recipeClass.recipeTitle != ""
+                        &&
                         recipeClass.ingredients.isEmpty == false &&
                         recipeClass.directions.isEmpty == false
                     ){
-                        print("grabbing old value" + recipeClass.recipePrepTime)
                         isNewRecipeValid = true
-                        showSuccessMessage = true
                         saveRecipe()
-                        print("grabbing new value" + recipeClass.recipePrepTime)
-                       
-                       
+                        showSuccessMessage = true
+                        thisTest = true
+                        
+                      
                     }
                     else{
                         showSuccessMessage = false

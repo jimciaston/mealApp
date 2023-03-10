@@ -170,6 +170,8 @@ struct UserDashController: View {
                     }
                   
                        .padding(.top, -70)
+                    
+                    
                 }
                
                 .fullScreenCover(isPresented: $presentSettingsPage){

@@ -13,7 +13,7 @@ struct UserDashboardView: View {
     
     @StateObject var calendarHelper = CalendarHelper()
     @ObservedObject var vm: DashboardLogic
-    @EnvironmentObject var mealEntrys: MealEntrys
+    @EnvironmentObject var mealEntrys: MealEntrys 
     @ObservedObject var signUpController: LandingPageViewModel
     @StateObject var dashboardRouter: DashboardRouter
     @StateObject var rm = RecipeLogic()
@@ -22,6 +22,8 @@ struct UserDashboardView: View {
     //@State private var plusTabIconTapped = false
     @State private var closePlusIconPopUpMenu = false
     @State var isUserSearching = false
+    @State var recipeSavedMessage = false
+    
     //    init(){
 //        UITabBar.appearance().backgroundColor = UIColor.white
 //        self._signUpController = signUpController
@@ -47,7 +49,7 @@ struct UserDashboardView: View {
                     case .searchUsers:
                         SearchUsersFeature()
                     case .addRecipes:
-                        RecipeEditorHomeMenu()
+                        RecipeEditorHomeMenu(dashboardRouter: dashboardRouter, showSuccessMessage: $recipeSavedMessage)
                     case .addMeal:
                         MealSearchBarPopUp(isUserDoneSearching: $isUserSearching)
                     }
@@ -61,7 +63,7 @@ struct UserDashboardView: View {
                             //home tab
                             TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "homekit", tabName: "Home", dashboardRouter: dashboardRouter, selectedTab: .home)
                             //journal tab
-                            TabBarIconImage(width: geometry.size.width/5, height: geometry.size.height/30, iconName: "download", tabName: "Journal", dashboardRouter: dashboardRouter, selectedTab: .journal)
+                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "journalLogo_Dash", tabName: "Journal", dashboardRouter: dashboardRouter, selectedTab: .journal)
                             //PLUS
                             ZStack {
                                  Circle()
@@ -83,7 +85,9 @@ struct UserDashboardView: View {
                              }
                             //animation for pop up menu
                             .onTapGesture{
+                              
                                 withAnimation {
+                                    recipeSavedMessage = true
                                     dashboardRouter.isPlusMenuOpen.toggle()
                                  }
                             }
@@ -91,8 +95,9 @@ struct UserDashboardView: View {
                            
                             .offset(y: dashboardRouter.isPlusMenuOpen ? -geometry.size.height / 2/15 : -geometry.size.height / 2/10) // << bring up plus button
                             
-                            TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "magnifyingglass.circle", tabName: "Recipes",dashboardRouter: dashboardRouter, selectedTab: .recipes)
-                            TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "magnifyingglass.circle", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
+                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "journalLogo_Dash", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
+                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "searchUsersIcon", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
+                          
                             
                          }
                        
@@ -108,10 +113,26 @@ struct UserDashboardView: View {
                     .onAppear{
                         rm_nonUser.grabSavedUserRecipes()
                     }
+                    
+                    
                 }
                 .edgesIgnoringSafeArea(.bottom)
             }
-            
+            ZStack{
+             if recipeSavedMessage {
+                     //oringllay shown: #showsuccess button don't know how to incorporation
+                     RecipeSuccessPopUp(showSuccessMessage: $recipeSavedMessage)
+                    // allow view to leave after 2 seconds
+                     .frame(width:geometry.size.width, height: geometry.size.height / 2)
+                     .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust the duration here
+                            recipeSavedMessage = false
+                        }
+                    }
+                }
+                    
+             
+            }
         }
          
     }

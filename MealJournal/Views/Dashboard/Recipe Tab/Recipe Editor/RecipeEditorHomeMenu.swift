@@ -11,12 +11,15 @@ struct RecipeEditorHomeMenu: View {
     @Environment(\.dismiss) var dismiss
     @State var recipeAddedSuccess = false
     @State private var showSaveButton = false
-    @State var showSuccessMessage = false
+  
     @State private var sheetMode: SheetMode = .none
     @State var shown = false
     @StateObject var recipeClass = Recipe()
     var onDismiss: (() -> Void)?
     var resetPickerTime: (() -> Void)?
+    @ObservedObject var dashboardRouter: DashboardRouter
+    @State var thisTest = false
+    @Binding var showSuccessMessage: Bool
     var body: some View {
         
         GeometryReader{ geo in
@@ -48,10 +51,6 @@ struct RecipeEditorHomeMenu: View {
                     .padding(.top,5)
                     .blur(radius: showSuccessMessage ? 15 : 0)
                
-                if showSuccessMessage {
-                    //oringllay shown: #showsuccess button don't know how to incorporation
-                    RecipeSuccessPopUp(shown: $showSuccessMessage, recipeClass: recipeClass , onDismiss: onDismiss, showSuccessMessage: $showSaveButton)
-                }
                 RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $shown)
                     .blur(radius: showSuccessMessage ? 15 : 0)
                     .padding(.top, 80)
@@ -63,22 +62,25 @@ struct RecipeEditorHomeMenu: View {
                 
                 //display save button
                 if showSaveButton{
-                    FlexibleSheet(sheetMode: $sheetMode) {
-                        SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
-                        
-                        //sets coordinates of view on dash
-                     .offset(y:-200)
-                    }
-                }
-               
+                       FlexibleSheet(sheetMode: $sheetMode) {
+                           SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, thisTest: $thisTest)
+                           .background(Color.white)
+                           .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
+                           //sets coordinates of view on dash
+                           .offset(y:-200)
+                       }
+                       .onChange(of: thisTest) { value in
+                           if value {
+                               dashboardRouter.currentTab = .home
+                           }
+                       }
+                   }
+                  
                 
              
                 
             }
             .onAppear{
-               
                 recipeAddedSuccess = false
             }
             //center view

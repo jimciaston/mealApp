@@ -40,16 +40,16 @@ struct NutrionalPieChart: View {
                     Text("")
                 }
                 else{
-                    Text("\(String(format: "%.0f", pieSliceData.value))g").bold() // << text inside piechart
-    
-                        .position(
-                            x: geometry.size.width * 0.5 * CGFloat(1.0 + (pieSliceData.counter > 1 ? 0.70 : 0.50) * cos(self.midRadians)),
-                            y: geometry.size.height * 0.5 * CGFloat(1.0 + (pieSliceData.counter > 1 ? 0.25 : 0.25) * sin(self.midRadians))
-                        )
-
-                        .foregroundColor(Color.white)
-                        .font(.body)
-                       
+                    Circle()
+                       .stroke(lineWidth: 4)
+                       .frame(width: 100, height: 100)
+                       .foregroundColor(.white)
+                    Text("Calories: 300")
+                        .font(.title3)
+                        .bold()
+                        .frame(width:170, height: 170)
+                        .background(Circle().fill(Color.white))
+                        
                 }   
             }
         }

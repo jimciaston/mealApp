@@ -12,18 +12,22 @@ struct FoodCategoryText: View {
     let foodCategory: String
     let gramsMeasurement: Double
     let measurementUnit: String
-    
+    let calories: Int
     var body: some View {
         switch true {
             case foodCategory.contains("Pizza"):
-                Text("1 slice")
+                Text("Item")
             
             case foodCategory.contains("Eggs"):
-                Text("1 egg")
+                Text("Egg")
         
+        case foodCategory.contains("Breads"):
+            Text("Slice")
+            
             default:
-            //default conversion to ounces 
+            //default conversion to ounces
                 Text(OuncesConversion(gramsMeasurement: gramsMeasurement, measurementUnit: measurementUnit))
             }
     }
+       
 }

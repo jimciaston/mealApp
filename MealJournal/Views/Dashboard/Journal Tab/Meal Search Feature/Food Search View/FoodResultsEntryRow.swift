@@ -136,22 +136,28 @@ struct FoodResultsEntryRow: View {
                     .frame(maxWidth: .infinity)
                     .padding([.top, .bottom], 15)
                     .multilineTextAlignment(.center)
-                    
+                HStack{
+                  
                     Button(action: {
                         resultsDisplayed = 5
                         isViewSearching = false
                         userSearch = false
                     }){
+                      
                         Text("Cancel Search")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     .opacity(foodApi.isFoodSearchLoading ? 0.0 : 1 )
                    
                     .foregroundColor(.red)
                     .font(.caption)
-                    .frame(maxWidth: .infinity)
+                   
                     .padding(.top, -10)
                     .padding(.bottom, 20)
-                    .listRowSeparator(.hidden)
+                   
+                   
+                }
+                .listRowSeparator(.hidden)
                 
                 //view more results toggle
                

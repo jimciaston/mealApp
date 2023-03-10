@@ -20,10 +20,13 @@ struct TabBarIconImage: View {
                 Image(iconName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+            
                     .frame(width: width, height: height)
                     .padding(.top, 10)
+           
                 Text(tabName)
                     .font(.footnote)
+                    .padding(.top, -5)
                 Spacer()
             }
                 .padding(.horizontal, -4)

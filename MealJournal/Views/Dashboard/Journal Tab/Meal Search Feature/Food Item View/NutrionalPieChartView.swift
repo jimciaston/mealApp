@@ -57,7 +57,7 @@ struct NutrionalPieChartView: View {
                         NutrionalPieChart(pieSliceData: self.slices[i])    
                     }
                     //adjust size
-                    .frame(width: geometry.size.width - 160, height: 155)
+                    .frame(width: geometry.size.width - 70, height: 250)
                   
                 }
                

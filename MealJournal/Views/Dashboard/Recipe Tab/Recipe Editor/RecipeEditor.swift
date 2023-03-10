@@ -58,10 +58,7 @@ struct RecipeEditor: View {
                 RecipeEditorImage()
                     .padding(.top,5)
                     .blur(radius: showSuccessMessage ? 15 : 0)
-               
-                if showSuccessMessage {
-                    RecipeSuccessPopUp(shown: $showSuccessMessage, recipeClass: recipeClass, onDismiss: onDismiss, showSuccessMessage: $showSuccessMessage)
-                }
+              
                 RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
                     .blur(radius: showSuccessMessage ? 15 : 0)
                     .padding(.top, 80)
@@ -72,14 +69,14 @@ struct RecipeEditor: View {
                 
                 
                 //display save button
-                FlexibleSheet(sheetMode: $sheetMode) {
-                    SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
-                    
-                    //sets coordinates of view on dash
-                 .offset(y:-200)
-                }
+//                FlexibleSheet(sheetMode: $sheetMode) {
+//                    SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, onDismiss: dismiss)
+//                    .background(Color.white)
+//                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+//                    
+//                    //sets coordinates of view on dash
+//                 .offset(y:-200)
+//                }
                 
             }
             //center view 

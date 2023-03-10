@@ -43,7 +43,7 @@ func OuncesConversion(gramsMeasurement: Double, measurementUnit: String) -> Stri
     if measurementUnit == "ml"{
         var millConversion = gramsMeasurement / 29.574
         let millConverted = Int(Double(round(millConversion)))
-        return String(millConverted)
+        return String("Bottle")
     }
     
     else{
