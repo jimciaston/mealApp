@@ -23,7 +23,7 @@ struct SaveRecipeButton: View {
     @State var isNewRecipeValid = false
     static var newRecipeCreated = false
  
-    @Binding var thisTest: Bool
+    @Binding var dismissSaveRecipeSheet: Bool
     func saveRecipe (){
         let recipeIDCreator = UUID().uuidString
         //saves from object in RecipeModel to arrays
@@ -99,8 +99,9 @@ struct SaveRecipeButton: View {
                         isNewRecipeValid = true
                         saveRecipe()
                         showSuccessMessage = true
-                        thisTest = true
+                        dismissSaveRecipeSheet = true
                         
+                     
                       
                     }
                     else{

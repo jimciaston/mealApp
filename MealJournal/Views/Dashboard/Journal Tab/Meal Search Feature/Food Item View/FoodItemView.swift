@@ -73,7 +73,6 @@ struct FoodItemView: View {
     @Binding var dismissResultsView: Bool
     var foodCategory: String
     var body: some View {
-        
         VStack{
                 VStack(alignment:.leading, spacing: 0){
                     HStack{
@@ -82,8 +81,6 @@ struct FoodItemView: View {
                            dismissResultsView = true
                            dismiss() //<< go back
                             //reappear row titles
-                           
-                           
                         })
                         {
                             Image("downloadB").resizable()
@@ -179,7 +176,8 @@ struct FoodItemView: View {
             }
 
         }
-        
+        .frame(maxHeight: .infinity)
+        .border(.blue)
     }
        
      

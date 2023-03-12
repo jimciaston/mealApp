@@ -13,34 +13,27 @@ struct RecipeSuccessPopUp: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Image(systemName: "sun.dust")
+            Image("recipeSuccessImage")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80, height: 80)
             
             Text("Recipe Saved!")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color.white)
+                .font(.title2)
+                .padding([.leading, .trailing], 50)
+                .foregroundColor(Color.black)
             
-            Button("OK") {
-                showSuccessMessage = false
-            }
-            .font(.headline)
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity, minHeight: 50)
-            .background(Color("SuccessButtonColor"))
-            .cornerRadius(10)
         }
         .padding(20)
-        .background(Color.blue)
+        .background(Color("LighterWhite"))
         .cornerRadius(20)
-        .shadow(radius: 10)
+        .shadow(radius: 10, y: 10)
+        .frame(width:350, height:100)
     }
 }
-//
-//struct RecipeSuccessPopUp_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeSuccessPopUp(shown: Binding.constant(true))
-//    }
-//}
+
+struct RecipeSuccessPopUp_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeSuccessPopUp(showSuccessMessage: Binding.constant(true))
+    }
+}

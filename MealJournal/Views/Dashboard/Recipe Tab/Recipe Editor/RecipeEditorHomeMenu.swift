@@ -18,7 +18,7 @@ struct RecipeEditorHomeMenu: View {
     var onDismiss: (() -> Void)?
     var resetPickerTime: (() -> Void)?
     @ObservedObject var dashboardRouter: DashboardRouter
-    @State var thisTest = false
+    @State var dismissSaveRecipeSheet = false
     @Binding var showSuccessMessage: Bool
     var body: some View {
         
@@ -63,13 +63,13 @@ struct RecipeEditorHomeMenu: View {
                 //display save button
                 if showSaveButton{
                        FlexibleSheet(sheetMode: $sheetMode) {
-                           SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, thisTest: $thisTest)
+                           SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, dismissSaveRecipeSheet: $dismissSaveRecipeSheet)
                            .background(Color.white)
                            .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
                            //sets coordinates of view on dash
                            .offset(y:-200)
                        }
-                       .onChange(of: thisTest) { value in
+                       .onChange(of: dismissSaveRecipeSheet) { value in
                            if value {
                                dashboardRouter.currentTab = .home
                            }

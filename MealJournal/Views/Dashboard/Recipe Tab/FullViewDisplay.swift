@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+import Kingfisher
 //break down Array into "chunks" of 4
 extension Array {
     func chunked(into size: Int) -> [[Element]] {
@@ -18,8 +18,7 @@ extension Array {
 }
 
 struct FullListOfRecipes: View {
-    
-    
+   
     @EnvironmentObject var mealEntryObj: MealEntrys
     
     @ObservedObject var rm = RecipeLogic()
@@ -31,6 +30,7 @@ struct FullListOfRecipes: View {
     @State var mealTimingToggle = false
    
     @State private var currentPage = 0
+    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         if allRecipes.count >= 1 {
@@ -45,6 +45,7 @@ struct FullListOfRecipes: View {
                                  
                               .onTapGesture {
                                 selectedRecipe = recipe
+                                  
                             }
                           }
                        }.frame(maxHeight: .infinity, alignment: .top)
@@ -52,7 +53,6 @@ struct FullListOfRecipes: View {
                    }
                }
           
-               
            .tabViewStyle(.page)
            .gesture(
                DragGesture()
@@ -68,10 +68,6 @@ struct FullListOfRecipes: View {
            .fullScreenCover(item: $selectedRecipe, content: { item in
                RecipeControllerModal(name: item.recipeTitle, prepTime: item.recipePrepTime, image: item.recipeImage, ingredients: item.ingredientItem, directions: item.directions, recipeID: item.id, recipeCaloriesMacro: item.recipeCaloriesMacro, recipeFatMacro: item.recipeFatMacro, recipeCarbMacro: item.recipeCarbMacro, recipeProteinMacro: item.recipeProteinMacro)
                    })
-//           .fullScreenCover(item: $selectedRecipe,  onDismiss: { print("dismissed!") }){
-//               RecipeControllerModal(name: $0.recipeTitle, prepTime: $0.recipePrepTime, image: $0.recipeImage, ingredients: $0.ingredientItem, directions: $0.directions, recipeID: $0.id, recipeCaloriesMacro: $0.recipeCaloriesMacro, recipeFatMacro: $0.recipeFatMacro, recipeCarbMacro: $0.recipeCarbMacro, recipeProteinMacro: $0.recipeProteinMacro)
-            
-    //   }
         }
         else{
             Text("No Recipes Saved")
@@ -83,11 +79,20 @@ struct FullListOfRecipes: View {
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
         
         VStack{
-            WebImage(url: URL(string: image))
-                .placeholder(Image("defaultRecipeImage-2").resizable())
-                .resizable()
-                .frame (width: 150, height:130)
-                .cornerRadius(15)
+            KFImage(URL(string: image))
+                .placeholder {
+                        Image("defaultRecipeImage")
+                            .resizable()
+                    }
+                        .resizable()
+                        .loadDiskFileSynchronously()
+                         .cacheMemoryOnly()
+                         .onSuccess { result in
+                             
+                            print("successfully cached!!!!")
+                         }
+                        .frame (width: 150, height:130)
+                        .cornerRadius(15)
             
             ZStack{
                 HStack{

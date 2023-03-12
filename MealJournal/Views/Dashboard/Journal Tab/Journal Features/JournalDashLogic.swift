@@ -34,6 +34,9 @@ class JournalDashLogic: ObservableObject {
     @Published var userJournalCount: Int = 0
     @Published var userJournalIDs = [String]()
     @Published var userJournalsHalf = [UserJournalEntryHalf]()
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(entity: JournalEntry.entity(), sortDescriptors: []) var fetchedJournalEntrys: FetchedResults<JournalEntry>
+    
     init(){
         grabUserJournalCount()
       
@@ -151,6 +154,11 @@ class JournalDashLogic: ObservableObject {
                    if let err = err {
                        print("Error removing document: \(err)")
                    } else {
+                       for entry in self.fetchedJournalEntrys {
+                           entry.entrySaved = false
+                           self.managedObjectContext.delete(entry)
+                           try? self.managedObjectContext.save()
+                       }
                        print("Document successfully removed!")
                    }
             }

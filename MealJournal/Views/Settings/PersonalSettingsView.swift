@@ -120,7 +120,7 @@ struct PersonalSettingsView: View {
                                     }),
                                        label: Text("Weight")) {
                                     ForEach(weightOptions.weightArray(), id: \.self ){ weight in
-                                            Text(weight + " ibs")
+                                            Text(weight + " Ibs")
                                     }
                                 }
                             }

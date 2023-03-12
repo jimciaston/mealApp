@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import Foundation
 import Firebase
+import Kingfisher
 
 //must keep for firebase to run
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -19,7 +20,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct MealJournalApp: App {
-    
+    let cache = ImageCache.default
+        let cacheSizeLimit = 200 * 1024 * 1024 // 200MB
+        
     @Environment(\.managedObjectContext) var managedObjectContext
     //fetch user journals
     
@@ -28,8 +31,16 @@ struct MealJournalApp: App {
     
     init(){
         FirebaseApp.configure()
-        
-        //check if any journals have expired (TTL)
+       
+        cache.diskStorage.config.sizeLimit = UInt(UInt64(cacheSizeLimit))
+        cache.calculateDiskStorageSize { result in
+              switch result {
+                  case .success(let size):
+                      print("Current cache size: \(Double(size) / (1024 * 1024)) MB")
+                  case .failure(let error):
+                      print("Error retrieving cache size: \(error.localizedDescription)")
+                  }
+              }
         
     }
     @StateObject var calendarHelper = CalendarHelper()

@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import SDWebImageSwiftUI
-import Kingfisher
+
 
 struct UrlImageView: View, Equatable {
     @ObservedObject var urlImageModel: UrlImageModel

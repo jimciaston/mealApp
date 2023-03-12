@@ -57,7 +57,7 @@ struct MealSearchBar: View {
             .padding(12)
             //calling food results
             FoodSearchResultsView(userSearch: $didUserSearch,isViewSearching: $isUserDoneSearching)
-                
+                .border(.red)
                 .environmentObject(foodApi)
         }
 

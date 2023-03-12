@@ -74,20 +74,18 @@ struct UserDashboardView: View {
                                     .foregroundColor(.white)
                                              .shadow(radius: 4)
                                  Image(systemName: "plus.circle.fill")
-                                
                                      .resizable()
                                      .aspectRatio(contentMode: .fit)
                                      .frame(width: 50 , height: 50)
                                      .foregroundColor(Color("ButtonTwo"))
                                      .shadow(color: dashboardRouter.isPlusMenuOpen ?  Color("spaceGray") : Color("LightWhite"), radius: 1.2, x: 2, y: 5)
                                      .scaleEffect(dashboardRouter.isPlusMenuOpen ? 0.9 : 1)
-    //
+  
                              }
+                            
                             //animation for pop up menu
                             .onTapGesture{
-                              
                                 withAnimation {
-                                    recipeSavedMessage = true
                                     dashboardRouter.isPlusMenuOpen.toggle()
                                  }
                             }
@@ -120,12 +118,13 @@ struct UserDashboardView: View {
             }
             ZStack{
              if recipeSavedMessage {
+                 
                      //oringllay shown: #showsuccess button don't know how to incorporation
                      RecipeSuccessPopUp(showSuccessMessage: $recipeSavedMessage)
                     // allow view to leave after 2 seconds
-                     .frame(width:geometry.size.width, height: geometry.size.height / 2)
+                     .frame(width:geometry.size.width, height: geometry.size.height / 1.2)
                      .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust the duration here
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Adjust the duration here
                             recipeSavedMessage = false
                         }
                     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipeFullListView: View {
     var recipes: [RecipeItem]
     @State var showAddButton: Bool // << keep false to not allow users to add recipe to meal journal if not on their profile
-    
+   
     @State private var isActive = false
     @State private var active: Int? = nil
     @State var triggerRecipeController = false
@@ -25,7 +25,7 @@ struct RecipeFullListView: View {
                     .font(.title2)
                    
                 if(recipes.count > 0){
-                    FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes )
+                    FullListOfRecipes(showAddButton: $showAddButton, allRecipes: recipes)
                 }
                 else{
                     if navigatingFromProfileCards{

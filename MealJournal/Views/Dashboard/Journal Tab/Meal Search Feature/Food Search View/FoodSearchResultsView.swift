@@ -44,6 +44,7 @@ struct FoodSearchResultsView: View {
     var body: some View {
        
         if userSearch { // << if user searche food on searchbar
+            GeometryReader { geo in
                 VStack{
                     if dismissResultsView{
                         HStack{
@@ -128,7 +129,10 @@ struct FoodSearchResultsView: View {
                     }
                         
             }
-         
+                .frame(height: geo.size.height + 50) // manually bring view down to go past tabbar
+            }
+
+               
         }
    
     }

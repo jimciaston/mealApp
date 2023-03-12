@@ -50,7 +50,7 @@ struct JournalEntryMain: View {
         isUserFavoritingEntry ? 0.9: 1.3
     }
     @State private var animateStar = false
-    
+    @State var journalSaved = false
     
     func favoriteJournalEntry(){
         var totalCals = 0
@@ -58,7 +58,7 @@ struct JournalEntryMain: View {
         var totalCarbs = 0
         var totalFat = 0
         for entry in fetchedJournalEntrys {
-            if(entry.dayOfWeekCreated == dayOfWeek  ){
+            if(entry.dayOfWeekCreated == dayOfWeek){
                 if entry.entrySaved == false {
                     totalCals += Int(entry.mealCalories ?? 0)
                     totalProtein += Int(entry.mealProtein ?? 0)
@@ -111,7 +111,7 @@ struct JournalEntryMain: View {
                             .opacity(showSearchBar ? 1 : 0)
                             .animation(.easeInOut(duration: 0.25), value: showSearchBar)
                             //dispaear search bar if not on "today"
-                               
+                            .border(.red)
                                
                         //sets it automatically to show on appear
                                 .onAppear{
@@ -141,9 +141,11 @@ struct JournalEntryMain: View {
                             }
                             if dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay) {
                                 Text("Today")
+                                    .frame(width: 100)
                             }
                             else{
                                 Text(weekdayAsString(date: calendarHelper.currentDay)) // << display current day of week
+                                    .frame(width: 100)
                             }
                             
                             
@@ -173,7 +175,6 @@ struct JournalEntryMain: View {
                                 Image(systemName: "arrow.right")
                                     .opacity(showSearchBar ? 0 : 1)
                                    
-                                
                             }
                             
                         }
@@ -197,9 +198,9 @@ struct JournalEntryMain: View {
                                         isUserFavoritingEntry = true
                                         self.animateStar = false
                                     })
-                                   
                                     //save logic
                                    favoriteJournalEntry()
+                                    journalSaved = true
                                 }
                             }
                           
@@ -217,7 +218,7 @@ struct JournalEntryMain: View {
                             
                             //pop up if user tries to favorite current day
                                 .overlay(
-                                    FavoriteInvalidPopUp(validOrSaved: $favoriteAlreadySaved)
+                                    FavoriteInvalidPopUp(validOrSaved: $favoriteAlreadySaved, journalSaved: $journalSaved)
                                          // Start styling the popup...
                                         .padding(.all, 10)
                                         .background(Color.white)
