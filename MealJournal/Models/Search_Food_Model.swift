@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 extension Collection {
     subscript(safe index: Index) -> Element? {
@@ -23,15 +24,29 @@ class FoodApiSearch: ObservableObject{
     @Published var isFoodSearchTimedOut = false
     var task: URLSessionDataTask? = nil // << handle url session
     var timer: Timer?
+    let apiKey = Bundle.main.object(forInfoDictionaryKey: "USDA_API") as? String
     
+   
+           
+   
     //will search for user Input
     func searchFood(userItem: String, showMoreResults: Bool){
+        guard let key = apiKey, !key.isEmpty else {
+            
+            // 3
+            print("API key does not exist")
+            return
+        }
         if !customFoodSearch{
+            // 2
+           
+            print(apiKey)
+            
             isFoodSearchLoading = true
             self.isFoodSearchTimedOut = false
             self.foodResultsDisplayed = 0
             let urlEncoded = userItem.addingPercentEncoding(withAllowedCharacters: .alphanumerics) //accounts for user spacing
-               guard let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=bRbzV0uKJyenEtd1GMgJJNh4BzGWtDvDZVOy8cqG&query=\(urlEncoded!)") else {return}
+               guard let url = URL(string: "https://api.nal.usda.gov/fdc/v1/foods/search?&api_key=\(key)&query=\(urlEncoded!)") else {return}
             //acting as network timer, if 8 seconds passes, will stop loading
             self.timer = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false){ timer in
                 //if data does not load in 10 seconds, set foodSearchTimedOut to true
