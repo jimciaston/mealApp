@@ -176,8 +176,7 @@ struct FoodItemView: View {
             }
 
         }
-        .frame(maxHeight: .infinity)
-        .border(.blue)
+        
     }
        
      

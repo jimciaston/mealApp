@@ -43,6 +43,7 @@ struct JournalEntryMain: View {
     @State var overlayShowing = false
     //search bar State
     @State private var showSearchBar = true
+    
    
     //animation variables for Star icon
     private let animationDuration: Double = 0.1
@@ -50,43 +51,49 @@ struct JournalEntryMain: View {
         isUserFavoritingEntry ? 0.9: 1.3
     }
     @State private var animateStar = false
-    @State var journalSaved = false
     
+    @State var journalSaved = false
+    @State var attemptedSameDaySave = false
+    @State var journalSavedAlready = false
+    @State var isExistingJournalEntrysEmpty = false
     func favoriteJournalEntry(){
+        
         var totalCals = 0
         var totalProtein = 0
         var totalCarbs = 0
         var totalFat = 0
-        for entry in fetchedJournalEntrys {
-            if(entry.dayOfWeekCreated == dayOfWeek){
-                if entry.entrySaved == false {
-                    totalCals += Int(entry.mealCalories ?? 0)
-                    totalProtein += Int(entry.mealProtein ?? 0)
-                    totalCarbs += Int(entry.mealCarbs ?? 0)
-                    totalFat  += Int(entry.mealFat ?? 0)
+       
+            for entry in fetchedJournalEntrys {
+                if(entry.dayOfWeekCreated == dayOfWeek){
+                        journalSavedAlready = true
+                        totalCals += Int(entry.mealCalories ?? 0)
+                        totalProtein += Int(entry.mealProtein ?? 0)
+                        totalCarbs += Int(entry.mealCarbs ?? 0)
+                        totalFat  += Int(entry.mealFat ?? 0)
+                        
+                       UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: entry.mealFat!, mealCarbs: entry.mealCarbs!, mealProtein: entry.mealProtein!, mealCalories: entry.mealCalories!, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!,
+                          totalCalories: String(totalCals),
+                          totalProtein: String(totalProtein),
+                          totalCarbs: String(totalCarbs),
+                          totalFat: String(totalFat)
+                       )
+        //save entry
                     
-                   UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: entry.mealFat!, mealCarbs: entry.mealCarbs!, mealProtein: entry.mealProtein!, mealCalories: entry.mealCalories!, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!,
-                      totalCalories: String(totalCals),
-                      totalProtein: String(totalProtein),
-                      totalCarbs: String(totalCarbs),
-                      totalFat: String(totalFat)
-                   )
-    //save entry
-                    entry.entrySaved = true
-                    do{
-                        try managedObjectContext.save()
-                    }
-                    catch{
-                        print(error.localizedDescription)
-                    }
-                }
-                else{
-                    isUserFavoritingEntry = false // << so star doesn't fill
-                    overlayShowing = true
-                    favoriteAlreadySaved = true
+                        do{
+                            try managedObjectContext.save()
+                        }
+                        catch{
+                            print(error.localizedDescription)
+                        }
+                    
+                        isUserFavoritingEntry = false // << so star doesn't fill
+                        overlayShowing = true
+                        favoriteAlreadySaved = true
+                    
                 }
             }
-        }
+        
+       
     }
    
     var body: some View {
@@ -96,6 +103,7 @@ struct JournalEntryMain: View {
                             .environmentObject(mealEntrys) //references meal entry
                         //fetch calorie totals
                             .onAppear{
+                                
                                 fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                                 fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                                 fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
@@ -111,7 +119,7 @@ struct JournalEntryMain: View {
                             .opacity(showSearchBar ? 1 : 0)
                             .animation(.easeInOut(duration: 0.25), value: showSearchBar)
                             //dispaear search bar if not on "today"
-                            .border(.red)
+                            
                                
                         //sets it automatically to show on appear
                                 .onAppear{
@@ -123,7 +131,7 @@ struct JournalEntryMain: View {
                     HStack(spacing: 0){
                         HStack(spacing: 0){
                             Button(action: {
-                           
+                               
                                 isDeletable = false
                                 calendarHelper.decrementDate()
                                 dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
@@ -184,41 +192,59 @@ struct JournalEntryMain: View {
                         // USER FAVORITING ENTRY, Star feature
                         
                         Button(action: {
-                            if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
-                                //favorite not valid
-                                withAnimation {
-                                    overlayShowing = true
-                                }
-                               
+                            if isExistingJournalEntrysEmpty{
+                                overlayShowing = true
+                                attemptedSameDaySave = false
+                                journalSavedAlready = false
+                                journalSaved = false
                             }
+                            
                             else{
-                                if !favoriteNotValid {
-                                    self.animateStar = true
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
-                                        isUserFavoritingEntry = true
-                                        self.animateStar = false
-                                    })
-                                    //save logic
-                                   favoriteJournalEntry()
-                                    journalSaved = true
+                                attemptedSameDaySave = false
+                                journalSaved = false
+                                journalSavedAlready = false
+                                if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
+                                 
+                                    attemptedSameDaySave = true
+                                    withAnimation {
+                                        overlayShowing = true
+                                    }
+                                   
+                                }
+                                else{
+                                    
+                                        self.animateStar = true
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
+                                            isUserFavoritingEntry = true
+                                            self.animateStar = false
+                                        })
+                                        //save logic
+                                  
+                                        favoriteJournalEntry()
+                                         journalSaved = true
+                                         overlayShowing = true
+                                    
+                                      
+                                    
                                 }
                             }
+                     
                           
                         }){
-                            Image(systemName:isUserFavoritingEntry ? "star.fill" : "star")
+                            Image(systemName:isUserFavoritingEntry && !journalSavedAlready ? "star.fill" : "star")
                                 .resizable()
                                 .frame(width:25, height: 25)
                                 .opacity(isUserSearching ? 0 : 1.0 )
                                 .padding(.trailing, 65)
-                                .foregroundColor(isUserFavoritingEntry ? .yellow : .black)
+                                .foregroundColor(isUserFavoritingEntry && !journalSaved && journalSavedAlready ? .yellow : .black)
                             //animate shadow separately
-                                .shadow(color: .yellow.opacity(animateStar ? 0 : 1) , radius: isUserFavoritingEntry ? 1 : 0)
-                                .scaleEffect(animateStar ? animateStarScale : 1)
+                              //  .shadow(color: .yellow.opacity(animateStar  && !journalSavedAlready ? 0 : 1) , radius: isUserFavoritingEntry ? 1 : 0)
+                                .scaleEffect(animateStar  && !journalSavedAlready ? animateStarScale : 1)
                                 .animation(.easeInOut(duration: animationDuration))
                             
                             //pop up if user tries to favorite current day
                                 .overlay(
-                                    FavoriteInvalidPopUp(validOrSaved: $favoriteAlreadySaved, journalSaved: $journalSaved)
+                                    FavoriteInvalidPopUp(journalSavedAlready: $journalSavedAlready, attemptedSameDaySave: $attemptedSameDaySave, journalSaved: $journalSaved, isExistingJournalEntrysEmpty: $isExistingJournalEntrysEmpty)
                                          // Start styling the popup...
                                         .padding(.all, 10)
                                         .background(Color.white)
@@ -230,6 +256,7 @@ struct JournalEntryMain: View {
                                         .frame(width: 250, height: 70)
                                                 .padding(.trailing, 20)
                                     )
+                                
                                 }
                         ///Keep at 1, no idea why day of week doesn't center without this
                         .frame(width: 1)
@@ -238,11 +265,12 @@ struct JournalEntryMain: View {
                     }
                     
                     if(!isUserSearching){
-                        EntryList(dayOfWeek: dayOfWeek, fetchEntryTotals: fetchEntryTotals, isDeletable: $isDeletable)
+                        EntryList(dayOfWeek: dayOfWeek, fetchEntryTotals: fetchEntryTotals, isDeletable: $isDeletable, isExistingJournalEntrysEmpty: $isExistingJournalEntrysEmpty)
                             .deleteDisabled(isDeletable)
+                     
                             .onAppear{
                                isDeletable = true // << current day is true
-                                
+                             
                                dayOfWeekPermanent = dayOfWeek
                                    
                                 fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
@@ -257,11 +285,12 @@ struct JournalEntryMain: View {
                                             // if time to live from cb matches current date (7 days)
                                             if mealEntry.timeToLive == calendarHelper.currentDate() {
                                                 UserJournalHelper().deleteJournalEntry(entry: mealEntry, context: managedObjectContext)
+                                               
                                             }
 
                                         }   
                             }
-                            
+                        
                         }
                   
                 }

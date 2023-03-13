@@ -20,12 +20,17 @@ struct EntryList: View {
     @State var totalCarbs = 0
     @State var totalFat = 0
     @Binding var isDeletable: Bool
+    @Binding var isExistingJournalEntrysEmpty: Bool
+ 
     
-    init(dayOfWeek : String, fetchEntryTotals: FetchEntryTotals, isDeletable: Binding<Bool> ){
+    
+    init(dayOfWeek : String, fetchEntryTotals: FetchEntryTotals, isDeletable: Binding<Bool>, isExistingJournalEntrysEmpty: Binding<Bool>){
         _existingJournalEntrys = FetchRequest <JournalEntry> (sortDescriptors: [], predicate: NSPredicate(format: "dayOfWeekCreated BEGINSWITH %@" , dayOfWeek))
         
        self.fetchEntryTotals = fetchEntryTotals
         self._isDeletable = isDeletable
+        self._isExistingJournalEntrysEmpty = isExistingJournalEntrysEmpty
+       
     }
     
     //grab total Calories
@@ -63,7 +68,7 @@ struct EntryList: View {
             Section(header: Text("breakfast")
                     ){
                     ForEach(existingJournalEntrys, id: \.self) { meal in
-                       
+                        
                         if meal.mealTiming == "breakfast"{
                             EntryRow(mealEntry: meal, isDeletable: $isDeletable)
                                 .onTapGesture {
@@ -137,8 +142,12 @@ struct EntryList: View {
                     }
                 }
         }
+        .onChange(of: existingJournalEntrys.map(\.id)) { _ in
+            self.isExistingJournalEntrysEmpty = self.existingJournalEntrys.isEmpty
+            print(isExistingJournalEntrysEmpty)
+        }
         .onAppear{
-          
+           
             //fetch macros
             fetchCalorieTotals()
             fetchProteinTotals()

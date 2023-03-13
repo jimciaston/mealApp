@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct FavoriteInvalidPopUp: View {
-    @Binding var validOrSaved: Bool
+    @Binding var journalSavedAlready: Bool
+    @Binding var attemptedSameDaySave: Bool
     @Binding var journalSaved: Bool
+    @Binding var isExistingJournalEntrysEmpty: Bool
     var body: some View {
-        if(journalSaved){
-            Text("Journal Saved")
-                .font(.body)
+                if attemptedSameDaySave {
+                    Text("Must wait until day completed to save")
                 .foregroundColor(.black)
-        }
-        Text(!validOrSaved ? "Journal can only be saved once day completes" : "Journal has already been saved")
-            .font(.body)
-            .foregroundColor(.black)
+                } else if journalSavedAlready {
+                    Text("You have already saved this journal.") .foregroundColor(.black)
+                } else if journalSaved {
+                    Text("Journal Saved") .foregroundColor(.black)
+                }
+                else if isExistingJournalEntrysEmpty == true {
+                    
+                    Text("Cannot save an empty journal").foregroundColor(.black)
+                }
             
     }
 }

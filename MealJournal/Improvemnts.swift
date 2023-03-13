@@ -22,4 +22,4 @@ import Foundation
 
 //keyboard on get started page
 
-//user default follower and followers
+// work on progress view not showing up on user dash

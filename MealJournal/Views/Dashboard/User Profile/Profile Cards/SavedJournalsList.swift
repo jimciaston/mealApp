@@ -26,6 +26,7 @@ struct SavedJournalsList: View {
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                         .font(.title2)
+                        .padding(.top, 25)
                     List{
                         ForEach(jm.userJournalsHalf , id: \.id) { entry in
                             ZStack{
@@ -57,8 +58,8 @@ struct SavedJournalsList: View {
                                         
                                         .listRowBackground( Color("ListBackgroundColor"))
                                         .background(.white)
-                                        .cornerRadius(25)
-                                        .shadow(color: Color("LighterGray"), radius: 2, x: 0, y: 8)
+                                        .cornerRadius(10)
+                                        .shadow(color: Color("LighterGray"), radius: 2, x: 0, y: 5)
                                         .padding(.bottom, 15)
                                         
 

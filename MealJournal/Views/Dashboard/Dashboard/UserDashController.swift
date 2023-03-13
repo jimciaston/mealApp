@@ -52,7 +52,6 @@ struct UserDashController: View {
                         VStack{
                             VStack{
                         
-                            
                             //profile picture
                             ProfilePicture()
                                     .padding(.top, 50) // << bring down profile picture on view
