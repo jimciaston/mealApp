@@ -56,7 +56,7 @@ struct UserDashboardView: View {
                
                     ZStack{
                         if  dashboardRouter.isPlusMenuOpen {
-                            PlusTabPopMenu(widthAndHeight: geometry.size.width / 6, dashboardRouter: dashboardRouter, closePlusIconPopUpMenu: $closePlusIconPopUpMenu)
+                            PlusTabPopMenu(widthAndHeight: geometry.size.width / 5.5, dashboardRouter: dashboardRouter, closePlusIconPopUpMenu: $closePlusIconPopUpMenu)
                                     .offset(y: -geometry.size.height/10)
                            }
                         HStack {
@@ -77,7 +77,7 @@ struct UserDashboardView: View {
                                      .resizable()
                                      .aspectRatio(contentMode: .fit)
                                      .frame(width: 50 , height: 50)
-                                     .foregroundColor(Color("ButtonTwo"))
+                                     .foregroundColor(Color("ButtonTwo")) 
                                      .shadow(color: dashboardRouter.isPlusMenuOpen ?  Color("spaceGray") : Color("LightWhite"), radius: 1.2, x: 2, y: 5)
                                      .scaleEffect(dashboardRouter.isPlusMenuOpen ? 0.9 : 1)
   
@@ -93,7 +93,7 @@ struct UserDashboardView: View {
                            
                             .offset(y: dashboardRouter.isPlusMenuOpen ? -geometry.size.height / 2/15 : -geometry.size.height / 2/10) // << bring up plus button
                             
-                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "journalLogo_Dash", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
+                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "recipeTabIcon", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
                             TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "searchUsersIcon", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
                           
                             

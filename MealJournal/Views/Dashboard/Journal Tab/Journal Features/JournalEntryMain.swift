@@ -65,7 +65,7 @@ struct JournalEntryMain: View {
        
             for entry in fetchedJournalEntrys {
                 if(entry.dayOfWeekCreated == dayOfWeek){
-                        journalSavedAlready = true
+                    journalSavedAlready = true
                         totalCals += Int(entry.mealCalories ?? 0)
                         totalProtein += Int(entry.mealProtein ?? 0)
                         totalCarbs += Int(entry.mealCarbs ?? 0)
@@ -81,8 +81,10 @@ struct JournalEntryMain: View {
                     
                         do{
                             try managedObjectContext.save()
+                            journalSaved = true
                         }
                         catch{
+                           
                             print(error.localizedDescription)
                         }
                     
@@ -192,42 +194,55 @@ struct JournalEntryMain: View {
                         // USER FAVORITING ENTRY, Star feature
                         
                         Button(action: {
-                            if isExistingJournalEntrysEmpty{
-                                overlayShowing = true
-                                attemptedSameDaySave = false
-                                journalSavedAlready = false
-                                journalSaved = false
+                            // if journal user is attempting to save same day
+                            if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
+                                    attemptedSameDaySave = true
+                                    journalSavedAlready = false
+                                    journalSaved = false
+                                    isExistingJournalEntrysEmpty = false
+                                withAnimation {
+                                    overlayShowing = true
+                                }
+                               
+                            }
+                            else{ // << User attempting to save NOT on same day, which is valid
+                                // if journal is EMPTY, do not allow save
+                                if isExistingJournalEntrysEmpty{
+                                    isExistingJournalEntrysEmpty = true
+                                    overlayShowing = true
+                                    attemptedSameDaySave = false
+                                    journalSavedAlready = false
+                                    journalSaved = false
+                                }
+                                else{ // journal is NOT empty
+                                    favoriteJournalEntry()
+                                 
+                                }
                             }
                             
-                            else{
-                                attemptedSameDaySave = false
-                                journalSaved = false
-                                journalSavedAlready = false
-                                if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
-                                 
-                                    attemptedSameDaySave = true
-                                    withAnimation {
-                                        overlayShowing = true
-                                    }
-                                   
-                                }
-                                else{
-                                    
-                                        self.animateStar = true
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
-                                            isUserFavoritingEntry = true
-                                            self.animateStar = false
-                                        })
-                                        //save logic
-                                  
-                                        favoriteJournalEntry()
-                                         journalSaved = true
-                                         overlayShowing = true
-                                    
-                                      
-                                    
-                                }
-                            }
+                            
+                            
+                            
+                            
+                         
+//
+//                            else{
+//
+//                                journalSaved = false
+//                                journalSavedAlready = false
+//
+//                                else{
+//
+//                                        self.animateStar = true
+//                                        DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
+//                                            isUserFavoritingEntry = true
+//                                            self.animateStar = false
+//                                        })
+//                                        //save logic
+//
+//
+//                                }
+//                            }
                      
                           
                         }){

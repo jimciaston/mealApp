@@ -17,7 +17,7 @@ struct PlusTabPopMenu: View {
                 Circle()
                   .foregroundColor(Color("DarkPurple"))
                   .frame(width: widthAndHeight, height: widthAndHeight)
-                Image(systemName: "record.circle")
+                Image("pullUpMealIcon")
                   .resizable()
                   .aspectRatio(contentMode: .fit)
                   .padding(15)
@@ -34,7 +34,7 @@ struct PlusTabPopMenu: View {
                   .foregroundColor(Color("DarkPurple"))
                   .frame(width: widthAndHeight, height: widthAndHeight)
                   //add recipe tab
-                Image(systemName: "folder")
+                Image("recipeProfileCardIcon")
                   .resizable()
                   .aspectRatio(contentMode: .fit)
                   .padding(15)

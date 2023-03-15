@@ -42,7 +42,8 @@ struct ProfileCardsNonUserDisplay: View {
                 .frame(width: 150, height: 180)
                 .background(Color("UserProfileCard2"))
                 .cornerRadius(25)
-                .padding(12)
+                .padding(.trailing, 6)
+                .padding(.bottom, 15)
                 .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
                 .onTapGesture{
                     showAllRecipes = true
@@ -93,6 +94,8 @@ struct ProfileCardsNonUserDisplay: View {
         .frame(width: 150, height: 180)
         .background(Color("UserProfileCard1"))
         .cornerRadius(25)
+        .padding(.leading, 6)
+        .padding(.bottom, 15)
         .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
         }
       

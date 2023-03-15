@@ -140,7 +140,7 @@ struct PersonalSettingsView: View {
                         }
                            
                     }
-    }
+                }
                 
                
             }

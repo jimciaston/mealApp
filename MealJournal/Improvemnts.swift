@@ -23,3 +23,6 @@ import Foundation
 //keyboard on get started page
 
 // work on progress view not showing up on user dash
+
+//woman searching should only see other woman
+//settings page for lifting?

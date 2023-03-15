@@ -27,7 +27,7 @@ struct SearchUsersFeature: View {
                     }
                 
                 .padding(.top, 15) // << add separation from list and search bar
-                .navigationBarTitle("Search Users")
+                .navigationBarTitle("Search")
                
             //SEARCH
                 .searchable(text: $userSearch ,placement: .navigationBarDrawer(displayMode: .always), prompt: "Search by gender, height or weight") // << always display search bar
