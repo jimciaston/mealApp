@@ -1,14 +1,14 @@
 //
-//  FollowingListView_NonUser.swift
+//  FollowersListView.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 3/14/23.
+//  Created by Jim Ciaston on 3/15/23.
 //
 
 import SwiftUI
-import Firebase
 import SDWebImageSwiftUI
-struct FollowingListView_NonUser: View {
+
+struct FollowersListView_NonUser: View {
     @State var userUID: String
     @State var followingUserUID: String = ""
     @State var name: String = ""
@@ -28,8 +28,9 @@ struct FollowingListView_NonUser: View {
      this works, just need to unwrap snapshot data better.
 
      */
+
     
-    func fetchFollowingList(){
+    func fetchFollowersList(){
         var userName = ""
         userModel = []
        // var fetchedFollowingList = [String:String]()
@@ -42,9 +43,9 @@ struct FollowingListView_NonUser: View {
                         print ("error grabbing users ")
                         return
                     }
-                    let fetchedFollowingList = data ["FollowingUsersList"] as? [String] ?? [""]
+                    let fetchedFollowersList = data ["followers"] as? [String] ?? [""]
                     //GRAB FOLLOWING LIST
-                    for user in fetchedFollowingList {
+                    for user in fetchedFollowersList {
                         print(user)
                         if !user.isEmpty {
                            
@@ -95,13 +96,10 @@ struct FollowingListView_NonUser: View {
                                 }
                            
                         }
-                        
                     }
                 }
             }
         }
-    
-
 
     var body: some View {
         VStack{
@@ -203,8 +201,9 @@ struct FollowingListView_NonUser: View {
             }
         }
         .onAppear(){
-            fetchFollowingList()
+            fetchFollowersList()
         }
     }
 }
+
 

@@ -85,7 +85,7 @@ struct UserProfileView: View {
                     HStack{
                         HStack{
                             VStack{
-                                NavigationLink(destination: FollowingListView_NonUser(userUID: userUID), tag: 1, selection: $action) {
+                                NavigationLink(destination: FollowingListView_NonUser(userUID: userUID, listIsEmptyMessage: "User is not following any users"), tag: 1, selection: $action) {
                                                                    EmptyView()
                                                                }
                                 Text(String(nonUserFollowingCount))
@@ -101,7 +101,7 @@ struct UserProfileView: View {
                         
                         HStack{
                             VStack{
-                                NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
+                                NavigationLink(destination: FollowersListView_NonUser(userUID: userUID, listIsEmptyMessage: "User does not have any followers yet"), tag: 2, selection: $action) {
                                        EmptyView()
                                    }
                                 Text(String(nonUserFollowersCount))

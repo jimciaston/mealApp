@@ -10,44 +10,42 @@ import SwiftUI
 //All exercise selections a user can make
 class ExercisePreferenceForUser {
     let exercises = [
-        "Barre",
         "Bodybuilding",
-        "Bodyweight training",
-        "Bootcamp-style training",
-        "Boxing or kickboxing fitness classes",
+        "Bodyweight",
+        "Boxing",
+        "Brazilian jiu jitsu",
         "Calisthenics",
         "Casual",
         "Circuit training",
         "CrossFit",
         "Cycling",
         "Dance",
-        "Functional fitness training",
+        "Gymnastics",
         "HIIT",
+        "Kickboxing",
         "Martial arts",
         "Olympic weightlifting",
         "Pilates",
         "Plyometrics",
         "Running",
         "Sports Training",
-        "Strength training",
+        "Strength Training",
         "Swimming",
-        "TRX training",
-        "Water aerobics",
+        "Water Aerobics",
+        "Walking",
         "Yoga",
         "Zumba"
  ]
     func exerciseSelectionColor(_ exerciseTypeSelection: String) -> Color {
         switch exerciseTypeSelection {
-            case "Barre":
-                    return .pink
                 case "Bodybuilding":
-                    return .red
-                case "Bodyweight training":
+                    return Color("olympic")
+                case "Bodyweight":
                     return .blue
-                case "Bootcamp-style training":
-                    return .orange
-                case "Boxing or kickboxing fitness classes":
-                    return .purple
+        case "Gymnastics": 
+            return Color("gymnastics")
+                case "Boxing":
+                    return Color("boxing")
                 case "Calisthenics":
                     return .green
                 case "Casual":
@@ -55,13 +53,15 @@ class ExercisePreferenceForUser {
                 case "Circuit training":
                     return .yellow
                 case "CrossFit":
-                    return .red
+                    return Color("crossfit")
                 case "Cycling":
                     return .blue
+                case "Kickboxing":
+                    return Color("boxing")
                 case "Dance":
                     return .purple
                 case "Functional fitness training":
-                    return .green
+                    return Color("running")
                 case "HIIT":
                     return .orange
                 case "Martial arts":
@@ -69,27 +69,26 @@ class ExercisePreferenceForUser {
                 case "Olympic weightlifting":
                     return .yellow
                 case "Pilates":
-                    return .pink
+                    return Color("yoga")
                 case "Plyometrics":
-                    return .red
+                    return Color("running")
                 case "Running":
-                    return .blue
+                    return Color("cardio")
                 case "Sports Training":
-                    return .purple
-                case "Strength training":
-                    return .green
+                    return Color("sports")
+                case "Strength Training":
+                    return Color("olympic")
                 case "Swimming":
-                    return .blue
-                case "TRX training":
-                    return .yellow
-                case "Water aerobics":
-                    return .blue
+                    return Color("water")
+            
+                case "Water Aerobics":
+                    return Color("water")
                 case "Yoga":
-                    return .pink
+                    return Color("yoga")
                 case "Zumba":
                     return .purple
                 default:
-                    return .gray
+                    return Color("defaultColorForExercise")
             
         }
     }

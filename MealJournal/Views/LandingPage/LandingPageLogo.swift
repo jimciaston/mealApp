@@ -17,16 +17,11 @@ struct LandingPageLogo: View {
             Image("bodybuilding-1") // << main image
                 .resizable()
                 .scaledToFit()
-                .frame(width:150, height:150)
+                .frame(width:200, height:200)
                 //.renderingMode(.template)
-                .foregroundColor(.black)
+                .foregroundColor(Color("titleLogo"))
                 .padding(.top, 200)
                 .scaleEffect(scale)
-             Text("Welcome to Meal Journal")
-                .font(.custom("PlayfairDisplay-Regular", size: 25))
-                .padding()
-                .scaleEffect(scale)
-                .opacity(isMealJournalTitleShowing ? 0 : 1.0)
         
         .offset(y:-25)
         }

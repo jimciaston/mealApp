@@ -154,6 +154,8 @@
 		0AC1B77427D298720070895D /* GetWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1B77327D298720070895D /* GetWeight.swift */; };
 		0AC5697E29C10406007ABBC9 /* FollowingListView_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5697D29C10406007ABBC9 /* FollowingListView_NonUser.swift */; };
 		0AC5698029C1587F007ABBC9 /* UserModelFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5697F29C1587F007ABBC9 /* UserModelFirestore.swift */; };
+		0AC5698229C27E07007ABBC9 /* FollowersListView_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5698129C27E07007ABBC9 /* FollowersListView_NonUser.swift */; };
+		0AC5698429C41920007ABBC9 /* FitnessInterestes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5698329C41920007ABBC9 /* FitnessInterestes.swift */; };
 		0ADDCCA729B977CD0082FB1E /* FoodCategoryTextOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */; };
 		0AE0DB8B27BC1823006F1835 /* JournalEntryMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */; };
 		0AE0DB8E27BC1E03006F1835 /* EntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8D27BC1E02006F1835 /* EntryModel.swift */; };
@@ -329,6 +331,8 @@
 		0AC1B77327D298720070895D /* GetWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeight.swift; sourceTree = "<group>"; };
 		0AC5697D29C10406007ABBC9 /* FollowingListView_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingListView_NonUser.swift; sourceTree = "<group>"; };
 		0AC5697F29C1587F007ABBC9 /* UserModelFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelFirestore.swift; sourceTree = "<group>"; };
+		0AC5698129C27E07007ABBC9 /* FollowersListView_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListView_NonUser.swift; sourceTree = "<group>"; };
+		0AC5698329C41920007ABBC9 /* FitnessInterestes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessInterestes.swift; sourceTree = "<group>"; };
 		0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCategoryTextOutput.swift; sourceTree = "<group>"; };
 		0ADDCCA929BF2B0A0082FB1E /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryMain.swift; sourceTree = "<group>"; };
@@ -387,7 +391,6 @@
 		0A07D96128492DA80080A4ED /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				0A07D96228492E420080A4ED /* ExercisePreferenceForUser.swift */,
 				0A07D9642849353A0080A4ED /* PersonalSettingsView.swift */,
 				0AB1126C28F0B6950071B3ED /* UpdatePersonalSettingsHStack.swift */,
 				0A07D968284AA1780080A4ED /* SuccessAlert.swift */,
@@ -472,6 +475,7 @@
 			children = (
 				0A8F990A27AB0B92008F5584 /* CreateAccount.swift */,
 				0A12639527CEC1200076876B /* FitnessForm.swift */,
+				0AC5698329C41920007ABBC9 /* FitnessInterestes.swift */,
 				0A87DB68291943B900A3C1E9 /* GetStartedPopUpContent.swift */,
 			);
 			path = "Get Started";
@@ -553,6 +557,7 @@
 				0A2D89682978292F001EDF01 /* SavedJournalListNonUser.swift */,
 				0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */,
 				0AC5697D29C10406007ABBC9 /* FollowingListView_NonUser.swift */,
+				0AC5698129C27E07007ABBC9 /* FollowersListView_NonUser.swift */,
 				0AC5697F29C1587F007ABBC9 /* UserModelFirestore.swift */,
 			);
 			path = "User Profile Non User";
@@ -771,6 +776,7 @@
 		0A9A055427B3328800CAD66B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A07D96228492E420080A4ED /* ExercisePreferenceForUser.swift */,
 				0A3B9B1A280FA94F00EC631A /* FoodData.swift */,
 				0AE0DB8D27BC1E02006F1835 /* EntryModel.swift */,
 				0A47473D293A1F4A00384B51 /* JournalEntryModel.xcdatamodeld */,
@@ -1136,6 +1142,7 @@
 				0A8D806B2826CE380055021A /* ReditorPopUp.swift in Sources */,
 				0A8D806F28298E860055021A /* RecipeEditorImage.swift in Sources */,
 				0A8BC8E429AE620E001B0E06 /* TabBarIconImage.swift in Sources */,
+				0AC5698229C27E07007ABBC9 /* FollowersListView_NonUser.swift in Sources */,
 				0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */,
 				0A3E03E328E122CF009613CF /* CustomFoodHStacks.swift in Sources */,
 				0A8D80662825D19C0055021A /* FollowingListRow.swift in Sources */,
@@ -1174,6 +1181,7 @@
 				0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */,
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
 				0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */,
+				0AC5698429C41920007ABBC9 /* FitnessInterestes.swift in Sources */,
 				0A6A687C283C84DC0047CFB9 /* LandingPageViewModel.swift in Sources */,
 				0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */,
 				0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */,

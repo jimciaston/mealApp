@@ -12,23 +12,27 @@ struct GetStartedPopUpContent: View {
     var body: some View {
         VStack{
             ZStack{
-                HStack {
-                    Spacer()
-                        Image(systemName: "xmark.circle")
-                        
+                HStack (){
+                 
+                        Image(systemName: "xmark.square")
+                        .padding(.leading, -145)
+                        .padding(.top, 25)
                         .foregroundColor(Color("ButtonTwo"))
                             .font(.system(size: 30)) //size of image
-                            .padding(.trailing, 20)
+                          
                         }
+              
                             Text("Important Notice")
-                                .font(.title3)          
+                                .font(.title3)
+                                .padding(.top, 25)
             }
           
             Text("") //just creates line separation
-            Text("Please be aware we ask about weight, height, and gender because this information enables us to connect users who have similar characteristics and offer support to each other during the dieting journey. \n\n If you prefer not to provide this information, please feel free to skip this step and proceed to your profile (you may add this information later on)")
+            Text("Please note we request information regarding your weight, height, and gender to facilitate the connection of users who share similar nutrition goals. \n\n We understand that this information may be sensitive, you  may choose to skip this step if you prefer. You may add this information to your profile at a later time.")
                 .padding(.top, 25)
                 .padding([.leading, .trailing], 25)
-                .lineSpacing(15)
+                .lineSpacing(10)
+                
             Spacer()
                 .font(.body)
         }

@@ -32,8 +32,8 @@ struct LandingPage: View {
     
     @State private var progress: CGFloat = 0
     //colors for background on landing page
-    let gradient1 = Gradient(colors: [Color("LandingPage1"), Color("LandingPage3")])
-    let gradient2 = Gradient(colors: [.orange, Color("LandingPage2")])
+    let gradient1 = Gradient(colors: [Color("LandingPage1"), Color("LandingPage2")])
+    let gradient2 = Gradient(colors: [.orange, Color("LandingPage3")])
     
     @State private var animateGradient = false
     @State var scale: CGFloat = 1.0
@@ -76,12 +76,11 @@ struct LandingPage: View {
                                     .foregroundColor(.white)
                                     
                                 //draw rectange around buttons
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(
-                                           LinearGradient(gradient: Gradient(colors: [Color("GetStartedBtn"), .orange]), startPoint: .leading, endPoint: .trailing)
-                                       ))
-                                    }
+                                      .overlay( RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color("getStartedButton"), lineWidth: 4)
+                                   )
+                                      .shadow(color: Color("getStartedButton"), radius: 4, x: 0, y: 3)
+                            }
                             
                                Button(action: {
                                    viewState = .signUpController
@@ -89,15 +88,13 @@ struct LandingPage: View {
                                    scale -= 0.50
                                    isMealJournalTitleShowing = true
                                }){
-                                   Text("Login").fontWeight(.bold)
+                                   Text("Login")
                                        .frame(minWidth: 0, maxWidth: 200)
                                        .padding(10)
                                        .foregroundColor(.white)
                                        
                                    //draw rectange around buttons
-                                       .overlay( RoundedRectangle(cornerRadius: 25)
-                                       .stroke(Color("LandingPage_LoginBtn"), lineWidth: 4)
-                                   )}
+                                     }
                                .padding(.top, 10) // << button padding from top
                                 
                         }
@@ -129,7 +126,7 @@ struct LandingPage: View {
                         //animation for background colors
                         DispatchQueue.main.async {
                             withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: true)) {
-                                self.progress = 1.0
+                                self.progress = 1
                                 
                            }
                         }

@@ -11,11 +11,12 @@ import Firebase
 struct FitnessForm: View {
     @Environment (\.dismiss) var dismiss
     @StateObject var signUpController = LandingPageViewModel()
+    var exercisePreferences = ExercisePreferenceForUser()
     @StateObject var vm = DashboardLogic()
     @AppStorage("signedIn") var signedIn = false
     @State private var userSignedIn = false
     @Environment(\.managedObjectContext) var moc
-    
+    @State var selectedExercises: [String] = []
     //getting info from previous sign up view
     @Binding var name: String
     @Binding var userEmailAddress: String
@@ -64,21 +65,21 @@ struct FitnessForm: View {
         //only run is user is SignedIn
         if(!userSignedIn){
             NavigationView{
-                ZStack{
-                        Form{
+                VStack{
+                        Form {
                             Picker(selection: $selectedGender, label: Text("Gender")){
                                 ForEach(genderOptions, id: \.self){ gender in
                                     Text(gender)
                                 }
                             }
                             
-                            Picker(selection: $selectedHeight, label: Text("Height")){
+                            Picker(selection: $selectedHeight, label: Text("Height (optional)")){
                                 ForEach(heightOptions, id: \.self){ height in
                                     Text(height)
                                 }
                             }
                             HStack{
-                                Text("Weight")
+                                Text("Weight (optional)")
                                      Picker(selection: $selectedWeight,label: Text("")){
                                          ForEach(weightOptions.weightArray(), id: \.self){weight in
                                              Text(weight + " Ibs")
@@ -103,97 +104,107 @@ struct FitnessForm: View {
                                 .pickerStyle(.segmented)
                                 .navigationBarTitle(Text("Fitness Stats"))
                                 .frame(height:50)
-                            }
-                       
-                    VStack{
-                        Button(action: {
-                            if(Auth.auth().currentUser?.email != nil){
-                                vm.fetchCurrentUser() //fetches current user
-                               //check if user is signed in
-                                userSignedIn = true
-                                let date = Date()
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                                let dateString = dateFormatter.string(from: date)
-                                //save user to Firebase
-                                LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
-                                    signedIn = true //updates storage container
+                            
+                            FitnessInterests(selectedExercises: $selectedExercises, exercises: exercisePreferences.exercises)
+                                .frame(height: 300)
+                            
+                            Button(action: {
+                                    if(Auth.auth().currentUser?.email != nil){
+                                        vm.fetchCurrentUser() //fetches current user
+                                       //check if user is signed in
+                                        userSignedIn = true
+                                      
+                                        // format date
+                                        let date = Date()
+                                        let dateFormatter = DateFormatter()
+                                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                                        let dateString = dateFormatter.string(from: date)
+                                        
+                                        
+                                        //save user to Firebase
+                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
+                                            signedIn = true //updates storage container
+                                          
+                                    }
+                                
+                            })
+                            {
+                                Text("Complete Profile").bold()
+                                    .padding([.leading, .trailing], 25)
+                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .background(Color("ButtonTwo"))
+                                    .font(.title3)
+                                  .cornerRadius(5)
                                    
-                              
+                                   // .offset(y:CGFloat(isPickerVisible()))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    
                             }
-                        }){
-                            Text("Finish later").bold()
-                                .foregroundColor(.blue)
-                                .padding()
-                                .background(.clear)
-                                .font(.title3)
-                                .background(.clear)
-                                .cornerRadius(5)
-                                .offset(y:CGFloat(isPickerVisible()))
-                        }
-                        .padding(.bottom, 25)
-                        Button(action: {
+                         
+                            .padding(.top, 30)
+                            .listRowSeparator(.hidden)
+                            .fullScreenCover(isPresented: $userSignedIn){
+                                UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
+                            }
+                            Button(action: {
                                 if(Auth.auth().currentUser?.email != nil){
                                     vm.fetchCurrentUser() //fetches current user
                                    //check if user is signed in
                                     userSignedIn = true
-                                  
-                                    // format date
                                     let date = Date()
                                     let dateFormatter = DateFormatter()
                                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                                     let dateString = dateFormatter.string(from: date)
-                                    
-                                    
                                     //save user to Firebase
                                     LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
                                         signedIn = true //updates storage container
-                                      
+                                       
+                                  
                                 }
-                            
-                        })
-                        {
-                            Text("Complete Profile")
-                                .padding([.leading, .trailing], 25)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(.pink)
-                                .font(.title3)
-                                .background(.clear)
-                                .cornerRadius(10)
-                                .offset(y:CGFloat(isPickerVisible()))
-                            
+                            }){
+                                Text("Finish later")
+                                    .foregroundColor(.blue)
+                                    .padding()
+
+                                    .font(.body)
+                                    .padding(.top, -20)
+                                    .padding(.bottom, 20)
+                                    .cornerRadius(5)
+                                    .offset(y:CGFloat(isPickerVisible()))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .fullScreenCover(isPresented: $userSignedIn){
-                            UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
-                        }
-                    }
+                  
                 }
               
                .animation(.easeIn(duration: 2.50), value: showingGetStartedPopUp)
               
             }
-           
+            .ignoresSafeArea(.all)
             .blur(radius: showingGetStartedPopUp ? 2 : 0) // blur if popUp is Up
-            .offset(y:20) //moves down form
-                //func that delays pop up
+            .navigationViewStyle(.stack)
+            
+                //Notice pop up
             .popup(isPresented: $showingGetStartedPopUp) { // 3
                 VStack{
                     ZStack { // 4
-                        Color("LightWhite")
+                        Color("LighterWhite")
                          GetStartedPopUpContent()
                     }
-                    .frame(width: 325, height: 400)
+                    .frame(width: 350, height: 450)
+                    .cornerRadius(25)
+                    .shadow(color: Color("LighterWhite") ,radius: 2, x: 0, y: 4)
                 }
             }
                 //delay pop up
-            .task{
-                do{
-                    // 1 nano = 1 second
-                    try? await Task.sleep(nanoseconds: 1_000_000_000)
-                    showingGetStartedPopUp = true
-                }
-            }
+//            .task{
+//                do{
+//                    // 1 nano = 1 second
+//                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+//                    showingGetStartedPopUp = true
+//                }
+//            }
             //Overlay allows to not allow user to click while pop up is up
             .overlay{
                     if showingGetStartedPopUp {
@@ -206,7 +217,7 @@ struct FitnessForm: View {
                     }
             }
                      
-        .navigationViewStyle(.stack)
+        
         }
     
        
