@@ -14,7 +14,7 @@ class DashboardLogic: ObservableObject {
     @Published var privateUserModel: privateUserModel?
     @Published var isUserDataLoading = true
     @Published var allUsers = [UserModel]() //<< all users appended
-    
+    @AppStorage("signedIn") var signedIn = false
     var anyCancellable: AnyCancellable? = nil // << detects if userModel changed
     
     init(){
@@ -43,6 +43,8 @@ class DashboardLogic: ObservableObject {
     
     func fetchCurrentUser () {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            signedIn = false
+            UserDefaults.standard.set(false, forKey: "signedIn")
             return
         }
         guard let email = FirebaseManager.shared.auth.currentUser?.email else {

@@ -12,6 +12,7 @@ class UserModel: ObservableObject, Identifiable {
     @Published var name: String
     @Published var userBio: String
     var uid, gender, height, weight, agenda, profilePictureURL: String
+    @Published var exercisePreferences: [String]
     
     init(data: [String: Any]){
         self.uid = data["uid"] as? String ?? "Unavailable"
@@ -22,6 +23,7 @@ class UserModel: ObservableObject, Identifiable {
         self.userBio = data["userBio"] as? String ?? "No Bio entered"
         self.agenda = data["agenda"] as? String ?? "Unavailable"
         self.profilePictureURL = data ["profilePicture"] as? String ?? "Unavailable"
+        self.exercisePreferences = data ["exercisePreferences"] as? [String] ?? ["Unavailable"]
     }
 }
 

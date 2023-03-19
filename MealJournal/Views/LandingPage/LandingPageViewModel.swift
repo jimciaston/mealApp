@@ -69,7 +69,8 @@ class LandingPageViewModel: ObservableObject  {
         weight:         String,
         gender:         String,
         agenda:         String,
-        dateJoined:     String
+        dateJoined:     String,
+        exercisePreferences: [String]
     ){
         //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
@@ -81,7 +82,11 @@ class LandingPageViewModel: ObservableObject  {
             "weight":           weight,
             "gender":           gender,
             "agenda" :          agenda ,
-            "dateJoined":       dateJoined ] as [String : Any]
+            "dateJoined":       dateJoined,
+            "exercisePreferences":   exercisePreferences
+            
+        
+        ] as [String : Any]
             
         
         let privateUserData = [

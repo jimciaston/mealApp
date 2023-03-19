@@ -13,7 +13,7 @@ struct ProfileBio: View {
         Text(userBio)
             .font(.custom("OpenSans-Regular", size: 14))
             .multilineTextAlignment(.center)
-            .frame(width: 250, height: 100)
+           // .frame(width: 250, height: 100)
       
     }
 }

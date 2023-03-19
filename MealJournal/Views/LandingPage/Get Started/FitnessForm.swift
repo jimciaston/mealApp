@@ -113,7 +113,7 @@ struct FitnessForm: View {
                                         vm.fetchCurrentUser() //fetches current user
                                        //check if user is signed in
                                         userSignedIn = true
-                                      
+                                        
                                         // format date
                                         let date = Date()
                                         let dateFormatter = DateFormatter()
@@ -122,7 +122,7 @@ struct FitnessForm: View {
                                         
                                         
                                         //save user to Firebase
-                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
+                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises)
                                             signedIn = true //updates storage container
                                           
                                     }
@@ -149,18 +149,18 @@ struct FitnessForm: View {
                             }
                             Button(action: {
                                 if(Auth.auth().currentUser?.email != nil){
+                                    userSignedIn = true
                                     vm.fetchCurrentUser() //fetches current user
                                    //check if user is signed in
-                                    userSignedIn = true
+                                   
                                     let date = Date()
                                     let dateFormatter = DateFormatter()
                                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                                     let dateString = dateFormatter.string(from: date)
                                     //save user to Firebase
-                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString)
+                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises)
                                         signedIn = true //updates storage container
-                                       
-                                  
+                              
                                 }
                             }){
                                 Text("Finish later")

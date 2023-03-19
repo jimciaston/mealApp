@@ -94,11 +94,6 @@ struct TagCloudView: View {
 }
 
 
-
-
-
-
-
 struct FitnessInterests: View {
     var exercisePreferenceForUser = ExercisePreferenceForUser()
     @Binding var selectedExercises: [String]

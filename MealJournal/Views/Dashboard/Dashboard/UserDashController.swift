@@ -45,7 +45,7 @@ struct UserDashController: View {
         }
   
     var body: some View {
-        if !vm.isUserDataLoading { // << if user data loaded
+    //    if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
                 ZStack{
                     GeometryReader { Geo in
@@ -108,12 +108,15 @@ struct UserDashController: View {
                             Text("About Me")
                                 .font(.title3)
                                 .padding(.bottom, -10)
-                            
+                            HomePageExercisePreferencesView(exercisePreferences: vm.userModel?.exercisePreferences ?? ["exercises unavailable"])
+                            .padding(.top,10)
+                            .padding(.bottom, 25)
                             //User Bio
-                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Bio unavailable"))
-                                .padding(.top, -5)
+                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"))
+                                .padding(.top, 10)
                                 .minimumScaleFactor(0.5)
                                 .padding(.bottom, 10)
+                                .frame(width: Geo.size.width / 1.25)
                          
                             .padding(.top, -15)// << bring follow/followers up
                             
@@ -207,17 +210,17 @@ struct UserDashController: View {
             }
            
            
-        }
-
-        else{
-            ActivityIndicator()
-            //activity indicator had bug where it wouldn't leave after initial setup
-                .onAppear{
-                    vm.fetchCurrentUser()
-                }
-
-            // << showing loading spinner while loading
-        }
+   //     }
+//
+//        else{
+//            ActivityIndicator()
+//            //activity indicator had bug where it wouldn't leave after initial setup
+//                .onAppear{
+//                    vm.fetchCurrentUser()
+//                }
+//
+//            // << showing loading spinner while loading
+//        }
         
     }
         

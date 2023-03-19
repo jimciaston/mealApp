@@ -42,14 +42,14 @@ class ExercisePreferenceForUser {
                     return Color("olympic")
                 case "Bodyweight":
                     return .blue
-        case "Gymnastics": 
+        case "Gymnastics":
             return Color("gymnastics")
                 case "Boxing":
                     return Color("boxing")
                 case "Calisthenics":
                     return .green
                 case "Casual":
-                    return .gray
+                    return Color("sports")
                 case "Circuit training":
                     return .yellow
                 case "CrossFit":

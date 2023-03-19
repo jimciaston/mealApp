@@ -21,7 +21,7 @@ struct DeleteProfileView: View {
             Button(action: {
                 deleteProfileLogic.deleteAccount(deleteSuccess: deleteSuccess)
                 deleteSuccess = false
-                
+                UserDefaults.standard.set(false, forKey: "signedIn")
             }){
                 Text("Delete Profile").fontWeight(.bold)
                     .frame(minWidth: 0, maxWidth: 200)

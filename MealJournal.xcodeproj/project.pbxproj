@@ -156,6 +156,7 @@
 		0AC5698029C1587F007ABBC9 /* UserModelFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5697F29C1587F007ABBC9 /* UserModelFirestore.swift */; };
 		0AC5698229C27E07007ABBC9 /* FollowersListView_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5698129C27E07007ABBC9 /* FollowersListView_NonUser.swift */; };
 		0AC5698429C41920007ABBC9 /* FitnessInterestes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5698329C41920007ABBC9 /* FitnessInterestes.swift */; };
+		0AC5698629C75580007ABBC9 /* HomePageExercisePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5698529C75580007ABBC9 /* HomePageExercisePreferencesView.swift */; };
 		0ADDCCA729B977CD0082FB1E /* FoodCategoryTextOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */; };
 		0AE0DB8B27BC1823006F1835 /* JournalEntryMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */; };
 		0AE0DB8E27BC1E03006F1835 /* EntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8D27BC1E02006F1835 /* EntryModel.swift */; };
@@ -333,6 +334,7 @@
 		0AC5697F29C1587F007ABBC9 /* UserModelFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelFirestore.swift; sourceTree = "<group>"; };
 		0AC5698129C27E07007ABBC9 /* FollowersListView_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListView_NonUser.swift; sourceTree = "<group>"; };
 		0AC5698329C41920007ABBC9 /* FitnessInterestes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessInterestes.swift; sourceTree = "<group>"; };
+		0AC5698529C75580007ABBC9 /* HomePageExercisePreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageExercisePreferencesView.swift; sourceTree = "<group>"; };
 		0ADDCCA629B977CD0082FB1E /* FoodCategoryTextOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCategoryTextOutput.swift; sourceTree = "<group>"; };
 		0ADDCCA929BF2B0A0082FB1E /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		0AE0DB8A27BC1823006F1835 /* JournalEntryMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryMain.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				0A8D80642825737E0055021A /* Follow-Follower Section */,
 				0A8BC8EC29B3EE93001B0E06 /* Profile Cards */,
 				0AB1126A28F0A96C0071B3ED /* ProfileBio.swift */,
+				0AC5698529C75580007ABBC9 /* HomePageExercisePreferencesView.swift */,
 				0A8D957E27B9626700193B84 /* ProfilePicture.swift */,
 				0A8BC8F529B4EFC6001B0E06 /* ProfilePictureViewModel.swift */,
 			);
@@ -1141,6 +1144,7 @@
 				0A47473F293A1F4A00384B51 /* JournalEntryModel.xcdatamodeld in Sources */,
 				0A8D806B2826CE380055021A /* ReditorPopUp.swift in Sources */,
 				0A8D806F28298E860055021A /* RecipeEditorImage.swift in Sources */,
+				0AC5698629C75580007ABBC9 /* HomePageExercisePreferencesView.swift in Sources */,
 				0A8BC8E429AE620E001B0E06 /* TabBarIconImage.swift in Sources */,
 				0AC5698229C27E07007ABBC9 /* FollowersListView_NonUser.swift in Sources */,
 				0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */,

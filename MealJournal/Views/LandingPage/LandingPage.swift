@@ -45,8 +45,11 @@ struct LandingPage: View {
     
     @ViewBuilder
     var body: some View {
-        if(Auth.auth().currentUser?.email != nil && signedIn){
+        if(signedIn){
             UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
+                .onAppear{
+                    vm.fetchCurrentUser()
+                }
         }
         else{
             ZStack{
