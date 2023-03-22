@@ -16,6 +16,8 @@ struct FollowingUsersView: View {
     @State var userRecipes: [String:String] = [:]
     @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
+    @State var exercisePreferences: [String] = [""]
+    @State var userSocialLink: String = ""
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
     /*
@@ -44,8 +46,9 @@ struct FollowingUsersView: View {
                             guard let userData = snap?.data() else { return }
                             userUID = userData["uid"] as? String ?? ""
                             name = userData ["name"] as? String ?? "Name Unavailable"
+                            exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
                             userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
-
+                            exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Nothing to return"]
                             FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
                                 .getDocuments{ recipeDocumentSnapshot, error in
                                     if let error = error {
@@ -89,55 +92,69 @@ struct FollowingUsersView: View {
             }
 
             else{
-                HStack{
-                    NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+                NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
+                    jm.grabUserJournalCount(userID: userUID)
+                    rm.grabRecipes(userUID: userUID)
+                }){
+                    VStack{
+                        HStack{
+                            WebImage(url: URL(string: userProfilePicture))
+                                    .placeholder(Image("profileDefaultPicture"))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width:60, height: 60)
+                                    .clipShape(Circle())
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 25)
+                            
+                             
+                            VStack{
+                                HStack{
+                                    Text(name)
+                                        .font(.title)
+                                        
+                                    Spacer()
+                                }
+                              
+                                
+                                HStack {
+                                   HomePageExercisePreferencesView(exercisePreferences: exercisePreferences)
+                                    Spacer()
+                                }
+                                .padding(.top, -5)
+                              
+
+                            }
+                          
+                        }
+                        
+                        .padding(.leading, -20)
+                        .padding()
+                        
                       
-                        jm.grabUserJournalCount(userID: userUID)
-                        rm.grabRecipes(userUID: userUID)
-                    }){
-                        WebImage(url: URL(string: userProfilePicture))
-                            .placeholder(Image("profileDefaultPicture"))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width:60, height: 60)
-                            .clipShape(Circle())
-                            .padding(.trailing, 45)
-
+                        .frame(maxWidth: 360)
                     }
-                    .multilineTextAlignment(.center)
-
-               VStack{
-                   Text(name)
-                       .font(.title)
-
-                   NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
-                       jm.grabUserJournalCount(userID: userUID)
-                       rm.grabRecipes(userUID: userUID)
-                   }){
-                       Text("View Profile")
-                       .font(.caption)
-                       .foregroundColor(.black)
-                       .padding(3) //general padding
-                       .padding([.leading, .trailing], 15) // << side padding
-                       .border(.black)
-                       .padding(.top, -5) // <<bring up button
-                   }
-
-               }
-
-            }
-               Spacer()
+                  
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
+                           
+                    )
+                    }
+                
 
             }
         }
         .onAppear(){
             fetchFollowingList()
         }
+        Spacer()
     }
 }
 
-struct ShowFollowingView_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowingUsersView()
-    }
-}
+//struct ShowFollowingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FollowingUsersView()
+//    }
+//}

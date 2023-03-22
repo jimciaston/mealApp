@@ -10,10 +10,11 @@ import SwiftUI
 //All exercise selections a user can make
 class ExercisePreferenceForUser {
     let exercises = [
+        "Aerobics",
         "Bodybuilding",
         "Bodyweight",
         "Boxing",
-        "Brazilian jiu jitsu",
+        "BJJ",
         "Calisthenics",
         "Casual",
         "Circuit training",
@@ -24,7 +25,7 @@ class ExercisePreferenceForUser {
         "HIIT",
         "Kickboxing",
         "Martial arts",
-        "Olympic weightlifting",
+        "Olympic",
         "Pilates",
         "Plyometrics",
         "Running",
@@ -42,6 +43,10 @@ class ExercisePreferenceForUser {
                     return Color("olympic")
                 case "Bodyweight":
                     return .blue
+        case "Aerobics":
+            return Color("Dance")
+        case "BJJ":
+            return Color("sports")
         case "Gymnastics":
             return Color("gymnastics")
                 case "Boxing":
@@ -66,7 +71,7 @@ class ExercisePreferenceForUser {
                     return .orange
                 case "Martial arts":
                     return .black
-                case "Olympic weightlifting":
+                case "Olympic":
                     return .yellow
                 case "Pilates":
                     return Color("yoga")

@@ -38,8 +38,9 @@ struct UserDashController: View {
                     print ("error grabbing users ")
                     return
                 }
+           
                 followingCount = data ["followingCount"] as? Int ?? 0
-                followersCount = data ["followers"] as? Int ?? 0
+                followersCount = data ["followersCount"] as? Int ?? 0
                
             }
         }
@@ -115,7 +116,7 @@ struct UserDashController: View {
                             ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"))
                                 .padding(.top, 10)
                                 .minimumScaleFactor(0.5)
-                                .padding(.bottom, 10)
+                                .padding(.bottom, 25)
                                 .frame(width: Geo.size.width / 1.25)
                          
                             .padding(.top, -15)// << bring follow/followers up

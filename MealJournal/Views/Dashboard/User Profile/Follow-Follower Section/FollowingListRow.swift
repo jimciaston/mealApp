@@ -13,6 +13,8 @@ struct FollowingListRow: View {
     @State var userName: String
     @State var userBio: String
     @State var userProfileImage: String
+    @State var userExercisePreferences: [String]
+    @State var userSocialLink: String
     @StateObject var jm = JournalDashLogicNonUser()
     @StateObject var rm = RecipeLogicNonUser()
     var body: some View {
@@ -20,9 +22,12 @@ struct FollowingListRow: View {
         /*
          Note the two navigation Links. NOt sure what is happening, but If I remove the NavLink from the Image, the first element in the list does not click. Will figure out in next update..possibly..
          */
-        NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+        NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: userExercisePreferences).padding(.top, -65)
+            
+            .onAppear{
             jm.grabUserJournalCount(userID: userUID)
             rm.grabRecipes(userUID: userUID)
+            
         }){
             VStack{
                 VStack{
@@ -48,38 +53,10 @@ struct FollowingListRow: View {
                           
                             
                             HStack {
-                                ZStack {
-                                    Text("Dancing")
-                                        .padding([.leading, .trailing], 10)
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                        .background(
-                                               RoundedRectangle(cornerRadius: 10)
-                                                   .foregroundColor(Color("PieChart1"))
-                                           )
-                                        }
-                                ZStack {
-                                    Text("PowerLifting")
-                                        .padding([.leading, .trailing], 10)
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                        .background(
-                                               RoundedRectangle(cornerRadius: 10)
-                                                   .foregroundColor(Color("PieChart2"))
-                                           )
-                                        }
-                                ZStack {
-                                    Text("Cardio")
-                                        .padding([.leading, .trailing], 10)
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                        .background(
-                                               RoundedRectangle(cornerRadius: 10)
-                                                   .foregroundColor(Color("PieChart3"))
-                                           )
-                                        }
-                              
+                                HomePageExercisePreferencesView(exercisePreferences: userExercisePreferences)
+                                Spacer()
                             }
+                            
                             .padding(.top, -5)
                           
 
@@ -112,6 +89,6 @@ struct FollowingListRow: View {
 
 struct FollowingListRow_Previews: PreviewProvider {
     static var previews: some View {
-        FollowingListRow(userUID: "", userName: "John Doe", userBio: "", userProfileImage: "")
+        FollowingListRow(userUID: "", userName: "John Doe", userBio: "", userProfileImage: "", userExercisePreferences: ["Bodybuilding"], userSocialLink: "www.google.com")
     }
 }

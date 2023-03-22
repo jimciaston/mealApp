@@ -15,7 +15,7 @@ struct UpdatePersonalSettingsHStack: View {
     @Binding var name: String
     @Binding var bio: String
     @State var showSuccessAlertForName = false
-    @State var names = ""
+    @State var newName = ""
     @State var userBio = ""
     @State var isUserBioValid = true
     var charLimit = 150 // << character limit for user Bio
@@ -33,19 +33,13 @@ struct UpdatePersonalSettingsHStack: View {
             HStack{
                 Image(systemName: "person.crop.rectangle")
                     .foregroundColor(Color("ButtonTwo"))
-                TextField(name ?? "Name unavailable", text: $names).submitLabel(.done)
+                TextField(name ?? "Name unavailable", text: $newName).submitLabel(.done)
                     .onSubmit{
-                        if (vm.userModel?.name != names){
-                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["name": names])
-                            vm.userModel?.name = names
-                            showSuccessAlertForName.toggle()
+                        if (vm.userModel?.name != newName){
+                            vm.userModel?.name = newName
                         }
                     }
-                    .alert(isPresented: $showSuccessAlertForName, content: {
-                        Alert(title: Text("Name Updated"),
-                               message: Text(""), dismissButton:
-                                    .default(Text("Close")))
-                    })
+                 
                     .padding(.trailing, 20)
             }
            
@@ -56,22 +50,13 @@ struct UpdatePersonalSettingsHStack: View {
                 .onSubmit{
                     if(userBio.count < charLimit){
                         isUserBioValid = true
-                        if (vm.userModel?.userBio != userBio){
-                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["userBio": userBio])
-                            vm.userModel?.userBio = userBio
-                            showSuccessAlertForName.toggle()
-                        }
+                        vm.userModel?.userBio = userBio
                     }
                     else {
                        isUserBioValid = false
                     }
                   
                 }
-                .alert(isPresented: $showSuccessAlertForName, content: {
-                    Alert(title: Text("Bio Updated"),
-                           message: Text(""), dismissButton:
-                                .default(Text("Close")))
-                })
                 .padding(.trailing, 20)
            
         }

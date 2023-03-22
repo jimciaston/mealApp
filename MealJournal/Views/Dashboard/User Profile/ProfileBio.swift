@@ -10,8 +10,8 @@ import SwiftUI
 struct ProfileBio: View {
     @Binding var userBio: String
     var body: some View {
-        Text(userBio)
-            .font(.custom("OpenSans-Regular", size: 14))
+        Text(userBio == "" ? "User has not entered a Bio yet": userBio)
+            .font(.custom("OpenSans-Regular", size: 18))
             .multilineTextAlignment(.center)
            // .frame(width: 250, height: 100)
       

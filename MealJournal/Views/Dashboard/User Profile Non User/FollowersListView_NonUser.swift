@@ -18,6 +18,8 @@ struct FollowersListView_NonUser: View {
     @State var userRecipes: [String:String] = [:]
     @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
+    @State var exercisePreferences: [String] = [""]
+    @State var userSocialLink: String = ""
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
    
@@ -58,7 +60,8 @@ struct FollowersListView_NonUser: View {
                                     userBioPulled = userData["userBio"] as? String ?? ""
                                     userName = userData ["name"] as? String ?? "Name Unavailable"
                                     userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
-                                   
+                                    exercisePreferences = userData ["exercisePreferences"] as? [String ] ?? ["Unavailable"]
+                                    userSocialLink = userData["userSocialLink"] as? String ?? "Unavailable"
                                     FirebaseManager.shared.firestore.collection("users").document(followingUserUID).collection("userRecipes")
                                         .getDocuments{ recipeDocumentSnapshot, error in
                                             if let error = error {
@@ -110,11 +113,10 @@ struct FollowersListView_NonUser: View {
             else{
                 VStack{
                 ForEach(userModel, id: \.id) { user in
-                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
                         jm.grabUserJournalCount(userID: user.userID)
                         rm.grabRecipes(userUID: user.userID)
                     }){
-                      
                             VStack{
                                 HStack{
                                     WebImage(url: URL(string: user.profileImage))
@@ -137,37 +139,8 @@ struct FollowersListView_NonUser: View {
                                       
                                         
                                         HStack {
-                                            ZStack {
-                                                Text("Dancing")
-                                                    .padding([.leading, .trailing], 10)
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .background(
-                                                           RoundedRectangle(cornerRadius: 10)
-                                                               .foregroundColor(Color("PieChart1"))
-                                                       )
-                                                    }
-                                            ZStack {
-                                                Text("PowerLifting")
-                                                    .padding([.leading, .trailing], 10)
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .background(
-                                                           RoundedRectangle(cornerRadius: 10)
-                                                               .foregroundColor(Color("PieChart2"))
-                                                       )
-                                                    }
-                                            ZStack {
-                                                Text("Cardio")
-                                                    .padding([.leading, .trailing], 10)
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .background(
-                                                           RoundedRectangle(cornerRadius: 10)
-                                                               .foregroundColor(Color("PieChart3"))
-                                                       )
-                                                    }
-                                          
+                                            HomePageExercisePreferencesView(exercisePreferences: exercisePreferences)
+                                            Spacer()
                                         }
                                         .padding(.top, -5)
                                       
@@ -189,7 +162,7 @@ struct FollowersListView_NonUser: View {
                                     .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
                                    
                             )
-                            
+                       
                         }
                        
                         .padding(.bottom, 0)
@@ -200,6 +173,7 @@ struct FollowersListView_NonUser: View {
 
             }
         }
+        Spacer()
         .onAppear(){
             fetchFollowersList()
         }

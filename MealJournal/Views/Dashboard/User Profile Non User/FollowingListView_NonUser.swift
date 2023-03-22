@@ -17,7 +17,9 @@ struct FollowingListView_NonUser: View {
     @State var userProfilePicture: String = ""
     @State var userRecipes: [String:String] = [:]
     @State var isUserFollowed = false
+    @State var exercisePreferences: [String] = [""]
     @State var fetchedUserRecipes = [RecipeItem]()
+    @State var userSocialLink: String = ""
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
    
@@ -55,9 +57,10 @@ struct FollowingListView_NonUser: View {
                                     print(userData)
                                     followingUserUID = userData["uid"] as? String ?? ""
                                     userBioPulled = userData["userBio"] as? String ?? ""
-                                    userName = userData ["name"] as? String ?? "Name Unavailable"
+                                    name = userData ["name"] as? String ?? "Name Unavailable"
                                     userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
-                                   
+                                    exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
+                                    userSocialLink = userData ["userSocialLink"] as? String ?? "Unavailable"
                                     FirebaseManager.shared.firestore.collection("users").document(followingUserUID).collection("userRecipes")
                                         .getDocuments{ recipeDocumentSnapshot, error in
                                             if let error = error {
@@ -66,7 +69,7 @@ struct FollowingListView_NonUser: View {
                                             }
                                             recipeDocumentSnapshot?.documents.forEach({ recipeSnapshot in
                                                 let data = recipeSnapshot.data()
-
+ 
                                                 let recipeTitle = data ["recipeTitle"] as? String ?? ""
                                                 let recipePrepTime = data ["recipePrepTime"] as? String ?? ""
                                                 let recipeImage = data ["recipeImage"] as? String ?? ""
@@ -112,7 +115,7 @@ struct FollowingListView_NonUser: View {
             else{
                 VStack{
                 ForEach(userModel, id: \.id) { user in
-                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
                         jm.grabUserJournalCount(userID: user.userID)
                         rm.grabRecipes(userUID: user.userID)
                     }){

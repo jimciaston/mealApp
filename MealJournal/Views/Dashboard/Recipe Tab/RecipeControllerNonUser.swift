@@ -182,7 +182,7 @@ struct RecipeControllerNonUser: View {
 //show image picker
        
 
-                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, userModel: userModel)
+                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, exercisePreferences: ["Don't need, this info will not be in view"], userSocialLink: "Don't need this info in view", userModel: userModel)
             .padding()
             .padding(.top, 15)
             .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)

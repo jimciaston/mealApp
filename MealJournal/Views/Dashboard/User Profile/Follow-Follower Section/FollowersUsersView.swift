@@ -15,10 +15,12 @@ struct FollowersUsersView: View {
     @State var userBio: String = ""
     @State var userProfilePicture: String = ""
     @State var userRecipes: [String:String] = [:]
+    @State var exercisePreferences: [String] = [""]
     @State var isUserFollowed = false
     @State var fetchedUserRecipes = [RecipeItem]()
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
+    @State var userSocialLink: String = ""
   //move below function to another view, shouldn't be in view
     func fetchFollowersList(){
        // var fetchedFollowingList = [String:String]()
@@ -33,7 +35,7 @@ struct FollowersUsersView: View {
                         return
                     }
                    
-                    let fetchedFollowersList = data ["FollowersUsersList"] as? [String] ?? [""]
+                    let fetchedFollowersList = data ["followers"] as? [String] ?? [""]
                     //GRAB FOLLOWING LIST
                     for user in fetchedFollowersList {
                         if user != "" { // << if no user exists
@@ -45,7 +47,8 @@ struct FollowersUsersView: View {
                                     userUID = userData["uid"] as? String ?? ""
                                     name = userData ["name"] as? String ?? "Name Unavailable"
                                     userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
-                                    
+                                    exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
+                                    userSocialLink = userData ["userSocialLink"] as? String ?? "Invalid link"
                                     FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
                                         .getDocuments { recipeDocumentSnapshot, error in
                                             if let error = error {
@@ -92,36 +95,61 @@ struct FollowersUsersView: View {
                 Text("You currently don't have any followers")
             }
             else{
-                HStack{
-                    NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
-                        print("appearing")
-                        jm.grabUserJournalCount(userID: userUID)
-                        rm.grabRecipes(userUID: userUID)
-                    }){
-                        WebImage(url: URL(string: userProfilePicture))
-                            .placeholder(Image("profileDefaultPicture"))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width:60, height: 60)
-                            .clipShape(Circle())
-                            .padding(.trailing, 45)
+                NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
+                    jm.grabUserJournalCount(userID: userUID)
+                    rm.grabRecipes(userUID: userUID)
+                }){
+                    VStack{
+                        HStack{
+                            WebImage(url: URL(string: userProfilePicture))
+                                    .placeholder(Image("profileDefaultPicture"))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width:60, height: 60)
+                                    .clipShape(Circle())
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 25)
+                            
+                             
+                            VStack{
+                                HStack{
+                                    Text(name)
+                                        .font(.title)
+                                        
+                                    Spacer()
+                                }
+                              
+                                
+                                HStack {
+                                   HomePageExercisePreferencesView(exercisePreferences: exercisePreferences)
+                                    Spacer()
+                                }
+                                .padding(.top, -5)
+                              
 
+                            }
+                          
+                        }
+                        
+                        .padding(.leading, -20)
+                        .padding()
+                        
+                      
+                        .frame(maxWidth: 360)
                     }
-                    .multilineTextAlignment(.center)
-
-                   VStack{
-                       Text(name)
-                           .font(.title)
-
-
-                   }
-
+                  
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
+                           
+                    )
+                       
                 }
-                   Spacer()
-
+                
                 }
         }
-
+        Spacer()
         .onAppear(){
             fetchFollowersList()
         }

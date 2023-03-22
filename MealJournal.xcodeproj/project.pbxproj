@@ -67,6 +67,8 @@
 		0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */; };
 		0A5E691427C5F97900ACB6A5 /* DailyMacrosCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */; };
 		0A5E691627CC5C1D00ACB6A5 /* MacroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */; };
+		0A630F4E29C87D8E0088A789 /* PillBoxExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */; };
+		0A630F5029C94ECF0088A789 /* ExercisePreferencesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */; };
 		0A6325F22887961F003B3D02 /* DeleteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F12887961F003B3D02 /* DeleteRecipe.swift */; };
 		0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */; };
 		0A6325F6288F0D9A003B3D02 /* FullViewDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F5288F0D9A003B3D02 /* FullViewDisplay.swift */; };
@@ -246,6 +248,8 @@
 		0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearchResultsView.swift; sourceTree = "<group>"; };
 		0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMacrosCounter.swift; sourceTree = "<group>"; };
 		0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroView.swift; sourceTree = "<group>"; };
+		0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillBoxExercise.swift; sourceTree = "<group>"; };
+		0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePreferencesSettings.swift; sourceTree = "<group>"; };
 		0A6325F12887961F003B3D02 /* DeleteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecipe.swift; sourceTree = "<group>"; };
 		0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerOptionsStorage.swift; sourceTree = "<group>"; };
 		0A6325F5288F0D9A003B3D02 /* FullViewDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay.swift; sourceTree = "<group>"; };
@@ -394,6 +398,8 @@
 			isa = PBXGroup;
 			children = (
 				0A07D9642849353A0080A4ED /* PersonalSettingsView.swift */,
+				0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */,
+				0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */,
 				0AB1126C28F0B6950071B3ED /* UpdatePersonalSettingsHStack.swift */,
 				0A07D968284AA1780080A4ED /* SuccessAlert.swift */,
 				0A87DB6A291E84DD00A3C1E9 /* DeleteProfileView.swift */,
@@ -1126,6 +1132,7 @@
 				0A2D896B29788D44001EDF01 /* RecipeEditorHomeMenu.swift in Sources */,
 				0A3B9B232813550900EC631A /* MealTimingSelectorView.swift in Sources */,
 				0A87DB71291EEBC600A3C1E9 /* Improvemnts.swift in Sources */,
+				0A630F4E29C87D8E0088A789 /* PillBoxExercise.swift in Sources */,
 				0A87DB672918A52900A3C1E9 /* GetStartedPopUp.swift in Sources */,
 				0A474731292B9F2300384B51 /* ProfileCardsMainDisplay.swift in Sources */,
 				0A12639627CEC1200076876B /* FitnessForm.swift in Sources */,
@@ -1183,6 +1190,7 @@
 				0A2D896D297F01EB001EDF01 /* DeleteCustomItemView.swift in Sources */,
 				0A8D806D28296AA90055021A /* RecipeFullListRow.swift in Sources */,
 				0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */,
+				0A630F5029C94ECF0088A789 /* ExercisePreferencesSettings.swift in Sources */,
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
 				0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */,
 				0AC5698429C41920007ABBC9 /* FitnessInterestes.swift in Sources */,

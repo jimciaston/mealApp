@@ -28,7 +28,8 @@ struct RecipeDashHeader_SavedRecipes: View {
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
    @State var uid = ""
-    
+    @State var exercisePreferences: [String]
+    @State var userSocialLink: String
     var userModel: UserModel
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]
    // @State var cookingTimesInMinutes = [5, 10, 15, 20, 25, 30, 45, 60, 120, 240, 480]
@@ -52,7 +53,7 @@ struct RecipeDashHeader_SavedRecipes: View {
                                 .italic()
                            
                                     NavigationLink(
-                                        destination: UserProfileView(userUID: userUID, name: userModel.name, userBio: userModel.userBio, userProfilePicture: userModel.profilePictureURL, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm).onAppear{
+                                        destination: UserProfileView(userUID: userUID, name: userModel.name, userBio: userModel.userBio, userProfilePicture: userModel.profilePictureURL, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
                                             print("appearing")
                                             jm.grabUserJournalCount(userID: userUID)
                                             rm.grabRecipes(userUID: userUID)

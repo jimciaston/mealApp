@@ -25,6 +25,8 @@ struct UserProfileView: View {
     //get user recipes from database
     @ObservedObject var rm: RecipeLogicNonUser
     @ObservedObject var jm: JournalDashLogicNonUser
+    @State var userSocialLink: String
+    @State var exercisePreferences: [String]
     @State private var action: Int? = 0
     @State private var nonUserFollowingCount: Int = 0
     @State private var nonUserFollowersCount: Int = 0
@@ -35,13 +37,16 @@ struct UserProfileView: View {
             .getDocuments { (snapshot, err) in
                 guard let followingList = snapshot else { return }
                 if followingList.count > 0 {
-                    isUserFollowed = false
+                    DispatchQueue.main.async {
+                        isUserFollowed = true
+                    }
                 }
                 else {
-                    isUserFollowed = true
+                    DispatchQueue.main.async {
+                        isUserFollowed = false
+                    }
                 }
             }
-       
         return isUserFollowed
     }
     func fetchFollowingCount_NonUser(){
@@ -59,7 +64,7 @@ struct UserProfileView: View {
                     return
                 }
                 nonUserFollowingCount = data ["followingCount"] as? Int ?? 0
-                nonUserFollowersCount = data ["followers"] as? Int ?? 0
+                nonUserFollowersCount = data ["followersCount"] as? Int ?? 0
                
             }
         }
@@ -150,7 +155,7 @@ struct UserProfileView: View {
                                                 "FollowingUsersList" : FieldValue.arrayRemove([followingUserUID]),
                                             ])
                                         isUserFollowed = false
-                                        
+                                        fetchFollowingCount_NonUser()
                                         //Update user who is being followed
                                         FirebaseManager.shared.firestore.collection("users")
                                             .document(followingUserUID)
@@ -158,6 +163,7 @@ struct UserProfileView: View {
                                                 "followers": FieldValue.arrayRemove([uid]),
                                                 "followersCount": FieldValue.increment(Int64(-1))
                                             ])
+                                        fetchFollowingCount_NonUser()
                                     }
                                     else {
                                         isUserFollowed = false
@@ -169,7 +175,7 @@ struct UserProfileView: View {
                                               "FollowingUsersList" : FieldValue.arrayUnion([followingUserUID]), // << add to fire
                                           ])
                                         isUserFollowed = true
-                                        
+                                        fetchFollowingCount_NonUser()
                                         //Updates user being followed
                                         FirebaseManager.shared.firestore.collection("users")
                                             .document(followingUserUID)
@@ -177,23 +183,34 @@ struct UserProfileView: View {
                                                 "followers": FieldValue.arrayUnion([uid]),
                                                 "followersCount": FieldValue.increment(Int64(1))
                                             ])
+                                        fetchFollowingCount_NonUser()
                                     }
                                 }
                             }){
-                                Text(isCurrentUserfollowingUser() ? "Follow" : "Following") // << user followed yay or nay
-                                     .frame(width: 85, height: 35)
-                                    
+                                Text(isCurrentUserfollowingUser() ? "Following" : "Follow") // << user followed yay or nay
+                                     .frame(width: 85, height: 40)
                                      .foregroundColor(.white)
-                                     .background(Color("FollowerButton"))
+                                     .background(Color("UserProfileCard2"))
                                      .font(.body)
-                                     .shadow(color: Color("FollowerButton"), radius: 2, y: 2)
+                                     .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
                             }
-                        Link (destination: URL(string: "https://www.instagram.com/carolinafearfest/")!){
-                            Image("Instagram_Logo_1")
-                                .resizable()
-                                .renderingMode(.original)
-                                .frame(width: 50, height: 50)
-                                .padding(.leading, -5) // << bring closer to follow button
+                        
+                        Link(destination: (URL(string: userSocialLink) ?? URL(string: "www.google.com"))!) {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(.clear)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                                Image("Instagram_Logo_1")
+                                    .resizable()
+                                    .renderingMode(.original)
+                                    .frame(width: 20, height: 20)
+                                   
+                            }
+                            .frame(width:40, height: 40)
+                            .padding(.leading, 5)
                         }
                     }
                     //save following
@@ -209,14 +226,17 @@ struct UserProfileView: View {
                 Text("About Me")
                     .font(.title3)
                     .padding(.bottom, -10)
+                    .padding(.top, 10)
                 
+                HomePageExercisePreferencesView(exercisePreferences: exercisePreferences ?? ["exercises unavailable"])
+                .padding(.top,10)
+                .padding(.bottom, 25)
                 //User Bio
-                ProfileBio(userBio: $userBio )
-                    .padding(.top, -5)
+                ProfileBio(userBio: $userBio)
+                    .padding(.top, 10)
                     .minimumScaleFactor(0.5)
-                    .padding(.bottom, 10)
-             
-                .padding(.top, -15)// << bring follow/followers up
+                    .padding(.bottom, 25)
+                    .frame(width: Geo.size.width / 1.25)
                 
                 //Display recipes
                 ProfileCardsNonUserDisplay(rm: rm, jm: jm, userUID: userUID, userName: name, journalCount: journalCount)
@@ -226,11 +246,27 @@ struct UserProfileView: View {
                 
             }
             .frame(maxWidth: Geo.size.width)
-            .padding(.top, -65)
+            
         }
                 
     }
         
         
     
+}
+struct UserProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        let rm = RecipeLogicNonUser()
+        let jm = JournalDashLogicNonUser()
+        UserProfileView(userUID: "exampleUID",
+                         name: "John Doe",
+                         userBio: "Hi there!",
+                         userProfilePicture: "examplePictureURL",
+                         journalCount: 10,
+                        isUserFollowed: false, fetchedUserRecipes: [RecipeItem](),
+                        rm: rm,
+                        jm: jm, userSocialLink: "www.google.com",
+                        exercisePreferences: ["Running"]
+                       )
+    }
 }

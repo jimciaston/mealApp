@@ -15,13 +15,13 @@ struct SearchUsersFeature: View {
     
     var body: some View {
         NavigationView{
-           
                     //DISPLAY USERS
                     ScrollView{
                         ForEach ((vm.allUsers), id:\.id ) { user in
                                 // localizedCaseInsensitiveContains(searchText)
                             if user.name.localizedCaseInsensitiveContains(userSearch) || user.gender.contains(userSearch) || user.weight.contains(userSearch) || user.height.contains(userSearch) {
-                                FollowingListRow(userUID: user.uid ,userName: user.name,userBio: user.userBio ,userProfileImage: user.profilePictureURL)
+                                FollowingListRow(userUID: user.uid ,userName: user.name,userBio: user.userBio ,userProfileImage: user.profilePictureURL, userExercisePreferences: user.exercisePreferences, userSocialLink: user.userSocialLink)
+                                 
                             }
                         }
                     }
