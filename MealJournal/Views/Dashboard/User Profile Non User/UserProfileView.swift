@@ -31,6 +31,9 @@ struct UserProfileView: View {
     @State private var nonUserFollowingCount: Int = 0
     @State private var nonUserFollowersCount: Int = 0
     //check if user is being followed or not
+    
+   
+    
     func isCurrentUserfollowingUser() -> Bool{
         FirebaseManager.shared.firestore.collection("users")
             .whereField("FollowingUsersList", arrayContains: userUID)
@@ -151,7 +154,6 @@ struct UserProfileView: View {
                                             .updateData([
                                                 //updates current User
                                                 "followingCount" : FieldValue.increment(Int64(-1)),
-                                               
                                                 "FollowingUsersList" : FieldValue.arrayRemove([followingUserUID]),
                                             ])
                                         isUserFollowed = false
@@ -195,18 +197,19 @@ struct UserProfileView: View {
                                      .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
                             }
                         
-                        Link(destination: (URL(string: userSocialLink) ?? URL(string: "www.google.com"))!) {
+                        Link(destination: (URL(string: userSocialLink) ?? URL(string: userSocialLink))!) {
                             ZStack {
                                 Rectangle()
                                     .foregroundColor(.clear)
                                     .background(
                                         RoundedRectangle(cornerRadius: 5)
-                                            .stroke(Color.gray, lineWidth: 1)
+                                            .stroke(Color("GetStartedPopUpBackground"), lineWidth: 2)
                                     )
-                                Image("Instagram_Logo_1")
+                                Image(systemName: "camera")
                                     .resizable()
-                                    .renderingMode(.original)
-                                    .frame(width: 20, height: 20)
+                                    .renderingMode(.template)
+                                    .foregroundColor(.black)
+                                    .frame(width: 15, height: 15)
                                    
                             }
                             .frame(width:40, height: 40)

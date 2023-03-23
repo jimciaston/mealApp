@@ -1,13 +1,13 @@
 //
-//  HomePageExercisePreferencesView.swift
+//  HomePageExercisePills_NonUser.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 3/19/23.
+//  Created by Jim Ciaston on 3/23/23.
 //
 
 import SwiftUI
 
-struct HomePageExercisePreferencesView: View {
+struct HomePageExercisePills_NonUser: View {
  var exercisePreferences: [String]
     var exerciseColorSelector = ExercisePreferenceForUser()
     var body: some View {
@@ -15,7 +15,7 @@ struct HomePageExercisePreferencesView: View {
             ForEach (exercisePreferences, id: \.self)  { exercise in
                 ZStack {
                     Text(exercise)
-                        .padding([.leading, .trailing], 10)
+                        .padding([.leading, .trailing], 5)
                         .font(.caption)
                         .foregroundColor(.white)
                         .background(
@@ -25,11 +25,12 @@ struct HomePageExercisePreferencesView: View {
                         }
                     }
                 }
+      
+       
             }
         }
-
-//struct HomePageExercisePreferencesView_Previews: PreviewProvider {
+//struct HomePageExercisePills_NonUser_Previews: PreviewProvider {
 //    static var previews: some View {
-//        HomePageExercisePreferencesView()
+//        HomePageExercisePills_NonUser(exercisePreferences: ["Bodybuilding", "calibouenru"])
 //    }
 //}

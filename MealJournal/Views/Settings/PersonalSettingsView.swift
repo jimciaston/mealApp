@@ -31,9 +31,11 @@ struct PersonalSettingsView: View {
      var genderOptions = ["Male", "Female", "Other"]
      var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
     
-    
-    @State var tempHeight = "" // << resets when view appears, keeps track of user changes without saving to model
-    
+    //  resets when view appears, keeps track of user changes without saving to model
+    @State var tempHeight = ""
+    @State var tempWeight = ""
+    @State var tempAgenda = ""
+    @State var tempBio = ""
     
     @Environment(\.dismiss) var dismiss
     @State var originalName = ""
@@ -42,9 +44,19 @@ struct PersonalSettingsView: View {
     @State var selectedExercises = [""]
     @State var originalHeightValue = ""
     @State var originalWeightValue = ""
+    @State var originalSocialLink = ""
     @State var originalAgenda = ""
     @State var originalExercisePreferences = [""]
     @State var pickerID = 0
+    
+    @State var isFocused = false
+    
+    func isValidInstagramLink(_ link: String) -> Bool {
+        let regex = try! NSRegularExpression(pattern: #"^https?://(www\.)?instagram\.com/[a-zA-Z0-9_]+/?$"#, options: [])
+        return regex.firstMatch(in: link, options: [], range: NSRange(location: 0, length: link.utf16.count)) != nil
+    }
+    
+    
     var body: some View {
         
         NavigationView{
@@ -84,17 +96,19 @@ struct PersonalSettingsView: View {
 //                                }
 //                        }
                         
-                    UpdatePersonalSettingsHStack(vm: vm, name: .constant(vm.userModel?.name ?? "Name not found"), bio: .constant(vm.userModel?.userBio ?? "Bio not found"))
-                    
-                    
+                    UpdatePersonalSettingsHStack(vm: vm, name: .constant(vm.userModel?.name ?? "Name not found"), bio: $userBio, tempBio: tempBio, isFocused: $isFocused )
+                       
+                    //social media link, preferred instagram
                     HStack{
-                        Image("Instagram-Logo-2")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width:20, height:20)
+                        Image(systemName: "camera")
                             .foregroundColor(Color("ButtonTwo"))
-                        TextField("Enter your instagram Link", text: $userInstagramHandle)
+                            .padding(.trailing, 5)
+                            
+                        TextField(vm.userModel?.userSocialLink ?? "Link unavailable", text: $userInstagramHandle)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    //standard alert for settings update
                     .alert(isPresented: $showSuccessAlertForSettings, content: {
                         Alert(title: Text("Settings Updated"),
                                message: Text(""), dismissButton:
@@ -122,13 +136,15 @@ struct PersonalSettingsView: View {
                                    .id(pickerID)
                         }
                     }
-                    
+//                    .onTapGesture {
+//                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                        isFocused = false // << reset color in bio textEditor
+//                    }
                         HStack{
                             if (vm.userModel != nil){
-                               
                                 Picker(selection: Binding<String> (
-                                    get: {vm.userModel!.weight },
-                                    set: {vm.userModel!.weight = $0
+                                    get: {tempWeight },
+                                    set: {tempWeight = $0
                                         pickerID += 1
                                     }),
                                        label: Text("Weight")) {
@@ -142,8 +158,8 @@ struct PersonalSettingsView: View {
                     HStack{
                         if (vm.userModel != nil){
                             Picker(selection: Binding<String> (
-                                get: {vm.userModel!.agenda },
-                                set: {vm.userModel!.agenda = $0
+                                get: {tempAgenda },
+                                set: {tempAgenda = $0
                                     pickerID += 1
                                 }),
                                    label: Text("Fitness Agenda")) {
@@ -184,6 +200,7 @@ struct PersonalSettingsView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
+                       
                         // height picker
                         if tempHeight != originalHeightValue {
                             FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["height": vm.userModel?.height])
@@ -213,32 +230,54 @@ struct PersonalSettingsView: View {
                             showSuccessAlertForSettings.toggle()
                         }
                         
-                        else if (vm.userModel?.userBio != originalBio){
-                            if (vm.userModel?.userBio.count)! > 150{
+                        else if (userBio != originalBio){
+                            if (tempBio.count) > 150{
                               print("showing fail alert")
                             }
                             else{
-                                FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["userBio": vm.userModel?.userBio])
+                                FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["userBio": userBio])
+                                vm.userModel?.userBio = userBio
                                    showSuccessAlertForSettings.toggle()
                             }
-                           
                         }
+                        
+                        else if(userInstagramHandle != originalSocialLink){
+                            if isValidInstagramLink(userInstagramHandle){
+                                FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["userSocialLink": userInstagramHandle])
+                                vm.userModel?.userSocialLink = userInstagramHandle
+                                showSuccessAlertForSettings.toggle()
+                            }
+                            else{
+                              print("social link returned not valid")
+                            }
+                        }
+                       
                         
                     } label: {
                         Text("Save Changes")
                     }
                 }
             }
+           
         }
+        //work around to dismiss keyboard from editors
+        .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
+        
         .onAppear{
+           print(originalBio)
             self.originalName = vm.userModel?.name ?? ""
             self.originalBio = vm.userModel?.userBio ?? ""
+            
             self.tempHeight = vm.userModel?.height ?? ""
+            self.tempWeight = vm.userModel?.weight ?? ""
+            self.tempAgenda = vm.userModel?.agenda ?? ""
+            
             selectedExercises = vm.userModel?.exercisePreferences ?? [""]
             self.originalHeightValue = vm.userModel?.height ?? ""
             self.originalWeightValue = vm.userModel?.weight ?? ""
             self.originalAgenda = vm.userModel?.agenda ?? ""
             self.originalExercisePreferences = vm.userModel?.exercisePreferences ?? [""]
+            self.originalSocialLink = vm.userModel?.userSocialLink ?? ""
         }
     }
        

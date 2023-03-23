@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+ 
 struct FollowersListView_NonUser: View {
     @State var userUID: String
     @State var followingUserUID: String = ""
@@ -111,12 +111,13 @@ struct FollowersListView_NonUser: View {
             }
 
             else{
-                VStack{
+                
                 ForEach(userModel, id: \.id) { user in
-                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).padding(.top, -50).onAppear{
                         jm.grabUserJournalCount(userID: user.userID)
                         rm.grabRecipes(userUID: user.userID)
                     }){
+                        VStack{
                             VStack{
                                 HStack{
                                     WebImage(url: URL(string: user.profileImage))
@@ -139,9 +140,11 @@ struct FollowersListView_NonUser: View {
                                       
                                         
                                         HStack {
-                                            HomePageExercisePreferencesView(exercisePreferences: exercisePreferences)
+                                            HomePageExercisePills_NonUser(exercisePreferences: exercisePreferences)
+                                            
                                             Spacer()
                                         }
+                                        
                                         .padding(.top, -5)
                                       
 
@@ -153,7 +156,7 @@ struct FollowersListView_NonUser: View {
                                 .padding()
                                 
                               
-                                .frame(maxWidth: 360)
+                                .frame(maxWidth: 380)
                             }
                           
                             .background(
@@ -162,10 +165,9 @@ struct FollowersListView_NonUser: View {
                                     .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
                                    
                             )
-                       
+
                         }
-                       
-                        .padding(.bottom, 0)
+                        .padding(.bottom, 20)
                     }
                  
                 }

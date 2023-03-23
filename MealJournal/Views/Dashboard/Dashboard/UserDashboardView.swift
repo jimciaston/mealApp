@@ -38,6 +38,7 @@ struct UserDashboardView: View {
                             if !isUserSearching{
                                 UserDashController(vm: vm, signUpController: signUpController)
                                     .environmentObject(EditModeActive())
+                                    .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 0.8)
                             }
                            
                         

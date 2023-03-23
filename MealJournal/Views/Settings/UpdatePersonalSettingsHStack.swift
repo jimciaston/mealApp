@@ -14,12 +14,15 @@ struct UpdatePersonalSettingsHStack: View {
     @ObservedObject var vm: DashboardLogic
     @Binding var name: String
     @Binding var bio: String
+    @State var tempBio: String
     @State var showSuccessAlertForName = false
     @State var newName = ""
     @State var userBio = ""
     @State var isUserBioValid = true
     var charLimit = 150 // << character limit for user Bio
     
+    //color in bio settings doesn't reset. IsFocused when user taps out of textEditor, will return to default color
+    @Binding var isFocused: Bool
     func bioCharacterExceededBy() -> String{
         var charRemaining = charLimit - userBio.count
         if charRemaining == charLimit{
@@ -30,35 +33,31 @@ struct UpdatePersonalSettingsHStack: View {
     
     
     var body: some View {
-            HStack{
-                Image(systemName: "person.crop.rectangle")
-                    .foregroundColor(Color("ButtonTwo"))
-                TextField(name ?? "Name unavailable", text: $newName).submitLabel(.done)
-                    .onSubmit{
-                        if (vm.userModel?.name != newName){
-                            vm.userModel?.name = newName
-                        }
-                    }
-                 
-                    .padding(.trailing, 20)
-            }
-           
-        HStack{
+        HStack {
             Image(systemName: "person.crop.rectangle")
                 .foregroundColor(Color("ButtonTwo"))
-            TextField(bio ?? "Name unavailable", text: $userBio).submitLabel(.done)
-                .onSubmit{
-                    if(userBio.count < charLimit){
-                        isUserBioValid = true
-                        vm.userModel?.userBio = userBio
+                .padding(.trailing, 5)
+            TextField(name ?? "Name unavailable", text: $newName)
+                .frame(maxWidth:.infinity, alignment: .leading) // expand to fill width
+        }
+        HStack {
+                Image(systemName: "square.and.pencil")
+                    .foregroundColor(Color("ButtonTwo"))
+                   
+                TextEditor(text: $userBio)
+                    .foregroundColor(Color("textEditorDefault"))
+                    .frame(minHeight: 20)
+                        .fixedSize(horizontal: false, vertical: true)
+                    .onTapGesture {
+                        isFocused = true
                     }
-                    else {
-                       isUserBioValid = false
+                    .onChange(of: userBio) { newBio in
+                        bio = newBio
                     }
-                  
-                }
-                .padding(.trailing, 20)
-           
+            }
+
+        .onAppear{
+            userBio = vm.userModel?.userBio == "" ? "No bio entered" : vm.userModel?.userBio ?? "No bio entered";
         }
         if userBio.count > charLimit {
             Text(!isUserBioValid ? "Please shorten Bio by \(userBio.count - charLimit) characters" : "")
