@@ -44,21 +44,27 @@ struct UserDashboardView: View {
                         
                     case .journal:
                         JournalEntryMain(dayOfWeek: "")
+                            .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     case .recipes:
                         RecipeFullListView_MainTab(recipes: rm_nonUser.savedRecipesNonUser, showAddButton: true, notCurrentUserProfile: .constant(false), // << don't show "created by" text in header
                                                    navigatingFromProfileCards: .constant(false))
+                        .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     case .searchUsers:
                         SearchUsersFeature()
+                            .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     case .addRecipes:
                         RecipeEditorHomeMenu(dashboardRouter: dashboardRouter, showSuccessMessage: $recipeSavedMessage)
+                            .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     case .addMeal:
                         MealSearchBarPopUp(isUserDoneSearching: $isUserSearching)
+                            .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     }
                
                     ZStack{
                         if  dashboardRouter.isPlusMenuOpen {
                             PlusTabPopMenu(widthAndHeight: geometry.size.width / 5.5, dashboardRouter: dashboardRouter, closePlusIconPopUpMenu: $closePlusIconPopUpMenu)
-                                    .offset(y: -geometry.size.height/10)
+                                .padding(.top, -50)
+                                    .offset(y: -geometry.size.height/10) // << move up or down menu icon
                            }
                         HStack {
                             //home tab
@@ -92,18 +98,16 @@ struct UserDashboardView: View {
                             }
                             .frame(width:70, height: 60) // << changes sizing of row
                            
-                            .offset(y: dashboardRouter.isPlusMenuOpen ? -geometry.size.height / 2/15 : -geometry.size.height / 2/10) // << bring up plus button
+                            .offset(y: dashboardRouter.isPlusMenuOpen ? -geometry.size.height / 2/15 : -geometry.size.height / 2/8) // << bring up plus button
                             
-                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "recipeTabIcon", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
+                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "recipeSavedIcon", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
                             TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "searchUsersIcon", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
                           
                             
                          }
-                       
-                        
-                       // .position(x: screenSize.width / 2, y: screenSize.height / 20)
                         //background for tabbar
                         .frame(height:75)
+            
                         
                         .frame(maxWidth: .infinity)
                      .background(Color("LighterWhite").shadow(radius: 2))

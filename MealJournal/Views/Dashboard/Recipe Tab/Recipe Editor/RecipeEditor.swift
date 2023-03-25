@@ -6,7 +6,31 @@
 //
 
 import SwiftUI
+struct SelectableButtonStyle: ButtonStyle {
 
+    var isSelected: Bool
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(isSelected ? .green : .black)
+    }
+}
+struct SelectableButton: View {
+    let label: String
+    let action: () -> Void
+
+    @Binding var isSelected: Bool
+
+    var body: some View {
+        Button(action: {
+            isSelected = true
+            action()
+        }) {
+            Text(label)
+        }
+        .buttonStyle(SelectableButtonStyle(isSelected: isSelected))
+    }
+}
 struct RecipeEditor: View {
     @Environment(\.dismiss) var dismiss
     
@@ -16,8 +40,13 @@ struct RecipeEditor: View {
     @State private var showSaveButton = false
     @State var showSuccessMessage = false
     @State private var sheetMode: SheetMode = .none
+    @State private var showNutritionInfo = true
     var onDismiss: (() -> Void)?
-   
+    @State var selectedButton: String = "Nutrition"
+    @State var isNutritionSelected = true // << auto true for recipe startup
+       @State var isDirectionsSelected = false
+       @State var isInstructionsSelected = false
+    
     var body: some View {
         GeometryReader{ geo in
             VStack{
@@ -58,14 +87,53 @@ struct RecipeEditor: View {
                 RecipeEditorImage()
                     .padding(.top,5)
                     .blur(radius: showSuccessMessage ? 15 : 0)
-              
-                RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
-                    .blur(radius: showSuccessMessage ? 15 : 0)
-                    .padding(.top, 80)
                 
-                RecipeEditModals()
-                    .blur(radius: showSuccessMessage ? 15 : 0)
-               // Spacer()
+                //Recipe Title
+                TextField("Recipe Title", text: $recipeClass.recipeTitle)
+                    .padding(.bottom, 25)
+                    .frame(height: 40)
+                    .foregroundColor(Color.black)
+                    .font(.title2)
+                    .multilineTextAlignment(.leading)
+                    .cornerRadius(5)
+                    .padding(.top, 80)
+                    .padding(.leading, 25)
+                
+                HStack{
+                        SelectableButton(label: "Nutrition", action: { /* do something */ }, isSelected: $isNutritionSelected)
+                        SelectableButton(label: "Directions", action: { /* do something */ }, isSelected: $isDirectionsSelected)
+                        SelectableButton(label: "Instructions", action: { /* do something */ }, isSelected: $isInstructionsSelected)
+                }
+                .padding(.bottom, 25)
+                .onChange(of: isNutritionSelected) { value in
+                           if value {
+                               isDirectionsSelected = false
+                               isInstructionsSelected = false
+                           }
+                       }
+                       .onChange(of: isDirectionsSelected) { value in
+                           if value {
+                               isNutritionSelected = false
+                               isInstructionsSelected = false
+                           }
+                       }
+                       .onChange(of: isInstructionsSelected) { value in
+                           if value {
+                               isNutritionSelected = false
+                               isDirectionsSelected = false
+                           }
+                       }
+                
+                if isNutritionSelected{
+                    RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
+                        .blur(radius: showSuccessMessage ? 15 : 0)
+                }
+                
+                    
+                
+//                RecipeEditModals()
+//                    .blur(radius: showSuccessMessage ? 15 : 0)
+                Spacer()
                 
                 
                 //display save button

@@ -113,13 +113,13 @@ struct FollowingListView_NonUser: View {
             }
 
             else{
-                VStack{
+                
                 ForEach(userModel, id: \.id) { user in
-                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).padding(.top, -50).onAppear{
                         jm.grabUserJournalCount(userID: user.userID)
                         rm.grabRecipes(userUID: user.userID)
                     }){
-                      
+                        VStack{
                             VStack{
                                 HStack{
                                     WebImage(url: URL(string: user.profileImage))
@@ -142,38 +142,11 @@ struct FollowingListView_NonUser: View {
                                       
                                         
                                         HStack {
-                                            ZStack {
-                                                Text("Dancing")
-                                                    .padding([.leading, .trailing], 10)
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .background(
-                                                           RoundedRectangle(cornerRadius: 10)
-                                                               .foregroundColor(Color("PieChart1"))
-                                                       )
-                                                    }
-                                            ZStack {
-                                                Text("PowerLifting")
-                                                    .padding([.leading, .trailing], 10)
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .background(
-                                                           RoundedRectangle(cornerRadius: 10)
-                                                               .foregroundColor(Color("PieChart2"))
-                                                       )
-                                                    }
-                                            ZStack {
-                                                Text("Cardio")
-                                                    .padding([.leading, .trailing], 10)
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .background(
-                                                           RoundedRectangle(cornerRadius: 10)
-                                                               .foregroundColor(Color("PieChart3"))
-                                                       )
-                                                    }
-                                          
+                                            HomePageExercisePills_NonUser(exercisePreferences: exercisePreferences)
+                                            
+                                            Spacer()
                                         }
+                                        
                                         .padding(.top, -5)
                                       
 
@@ -185,7 +158,7 @@ struct FollowingListView_NonUser: View {
                                 .padding()
                                 
                               
-                                .frame(maxWidth: 360)
+                                .frame(maxWidth: 380)
                             }
                           
                             .background(
@@ -194,10 +167,9 @@ struct FollowingListView_NonUser: View {
                                     .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
                                    
                             )
-                            
+
                         }
-                       
-                        .padding(.bottom, 0)
+                        .padding(.bottom, 20)
                     }
                  
                 }

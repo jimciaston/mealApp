@@ -34,11 +34,11 @@ struct RecipeEditorImage: View {
             }
          
                 
-                Image(systemName:("plus.circle.fill")).renderingMode(.original)
+                Image(systemName:("plus.circle.fill"))//.renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .offset(x: 20, y: -10)
-                    .foregroundColor(Color("completeGreen"))
+                    .foregroundStyle(.white, Color("UserProfileCard2"))
                     .frame(width:50, height:10)
                     .contentShape(Rectangle())
             

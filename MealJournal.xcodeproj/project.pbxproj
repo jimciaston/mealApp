@@ -70,6 +70,7 @@
 		0A630F4E29C87D8E0088A789 /* PillBoxExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */; };
 		0A630F5029C94ECF0088A789 /* ExercisePreferencesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */; };
 		0A630F5229CCD5610088A789 /* HomePageExercisePills_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F5129CCD5610088A789 /* HomePageExercisePills_NonUser.swift */; };
+		0A630F5429CF2E300088A789 /* MacroSelectHstack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F5329CF2E300088A789 /* MacroSelectHstack.swift */; };
 		0A6325F22887961F003B3D02 /* DeleteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F12887961F003B3D02 /* DeleteRecipe.swift */; };
 		0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */; };
 		0A6325F6288F0D9A003B3D02 /* FullViewDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6325F5288F0D9A003B3D02 /* FullViewDisplay.swift */; };
@@ -252,6 +253,7 @@
 		0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillBoxExercise.swift; sourceTree = "<group>"; };
 		0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePreferencesSettings.swift; sourceTree = "<group>"; };
 		0A630F5129CCD5610088A789 /* HomePageExercisePills_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageExercisePills_NonUser.swift; sourceTree = "<group>"; };
+		0A630F5329CF2E300088A789 /* MacroSelectHstack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroSelectHstack.swift; sourceTree = "<group>"; };
 		0A6325F12887961F003B3D02 /* DeleteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecipe.swift; sourceTree = "<group>"; };
 		0A6325F3288863AF003B3D02 /* PickerOptionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerOptionsStorage.swift; sourceTree = "<group>"; };
 		0A6325F5288F0D9A003B3D02 /* FullViewDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay.swift; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 				0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */,
 				0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */,
 				0A8D8072282A15280055021A /* RecipeEditorView.swift */,
+				0A630F5329CF2E300088A789 /* MacroSelectHstack.swift */,
 				0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */,
 				0A8D8076282A2AEE0055021A /* IngredientsPicker.swift */,
 				0A8D806E28298E860055021A /* RecipeEditorImage.swift */,
@@ -1110,6 +1113,7 @@
 			files = (
 				0AB1126328E5101F0071B3ED /* FetchCustomFoodItem.swift in Sources */,
 				0A5B49AB282370CF0051A20B /* UserDashboardView.swift in Sources */,
+				0A630F5429CF2E300088A789 /* MacroSelectHstack.swift in Sources */,
 				0A87DB652913695800A3C1E9 /* AnimatableGradientModifier.swift in Sources */,
 				0AAE15AF282D9DFE00B9B85A /* RecipeEditorIngredients.swift in Sources */,
 				0A07D9592847EA180080A4ED /* FirebaseManager.swift in Sources */,

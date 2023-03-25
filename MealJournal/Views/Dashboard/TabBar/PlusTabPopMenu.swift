@@ -12,38 +12,54 @@ struct PlusTabPopMenu: View {
     @ObservedObject var dashboardRouter: DashboardRouter
     @Binding var closePlusIconPopUpMenu: Bool
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 45) {
               ZStack {
-                Circle()
-                  .foregroundColor(Color("DarkPurple"))
-                  .frame(width: widthAndHeight, height: widthAndHeight)
-                Image("pullUpMealIcon")
+//                Circle()
+//                  .foregroundColor(Color("UserProfileCard1"))
+//                  .frame(width: widthAndHeight - 25, height: widthAndHeight - 25)
+                Image("recipeProfileCardIcon")
                   .resizable()
                   .aspectRatio(contentMode: .fit)
                   .padding(15)
                   .frame(width: widthAndHeight, height: widthAndHeight)
-                  .foregroundColor(Color("ButtonTwo"))
-                  
+                  .foregroundColor(Color("UserProfileCard2"))
+                  .onTapGesture{
+                      dashboardRouter.isPlusMenuOpen = false
+                      dashboardRouter.currentTab = .addMeal
+                  }
+                  Text("Add Meal")
+                .padding(.top, 75)
+                .font(.caption2)
+                .foregroundColor(Color("UserProfileCard2"))
                   .onTapGesture{
                       dashboardRouter.isPlusMenuOpen = false
                       dashboardRouter.currentTab = .addMeal
                   }
               }
               ZStack {
-                Circle()
-                  .foregroundColor(Color("DarkPurple"))
-                  .frame(width: widthAndHeight, height: widthAndHeight)
+//                  Circle()
+//                  .foregroundColor(Color("UserProfileCard1"))
+//                  .frame(width: widthAndHeight - 25, height: widthAndHeight - 25)
                   //add recipe tab
-                Image("recipeProfileCardIcon")
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .padding(15)
-                  .frame(width: widthAndHeight, height: widthAndHeight)
-                  .foregroundColor(Color("ButtonTwo"))
-                  .onTapGesture{
-                      dashboardRouter.isPlusMenuOpen = false
-                      dashboardRouter.currentTab = .addRecipes
-                  }
+                  
+                      Image("recipeTabIcon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(15)
+                        .frame(width: widthAndHeight, height: widthAndHeight)
+                        .foregroundColor(Color("UserProfileCard2"))
+                        .onTapGesture{
+                            dashboardRouter.isPlusMenuOpen = false
+                            dashboardRouter.currentTab = .addRecipes
+                        }
+                        Text("Add Recipe")
+                      .font(.caption2)
+                      .foregroundColor(Color("UserProfileCard2"))
+                      .padding(.top, 75)
+                      .onTapGesture{
+                          dashboardRouter.isPlusMenuOpen = false
+                          dashboardRouter.currentTab = .addMeal
+                      }
               }
         }
         .transition(.scale)

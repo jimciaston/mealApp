@@ -197,27 +197,52 @@ struct UserProfileView: View {
                                      .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
                             }
                         
-                        Link(destination: (URL(string: userSocialLink) ?? URL(string: userSocialLink))!) {
-                            ZStack {
-                                Rectangle()
-                                    .foregroundColor(.clear)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 5)
-                                            .stroke(Color("GetStartedPopUpBackground"), lineWidth: 2)
-                                    )
-                                Image(systemName: "camera")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(.black)
-                                    .frame(width: 15, height: 15)
-                                   
+                        if let socialLink = userSocialLink, let url = URL(string: socialLink) {
+                            Link(destination: url) {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(.clear)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .stroke(Color("GetStartedPopUpBackground"), lineWidth: 2)
+                                        )
+                                    Image(systemName: "camera")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(.black)
+                                        .frame(width: 15, height: 15)
+                                    
+                                }
+                                .frame(width:40, height: 40)
+                                .padding(.leading, 5)
                             }
-                            .frame(width:40, height: 40)
-                            .padding(.leading, 5)
+                            
                         }
+                        else{
+                            Link(destination: (URL(string: "https://www.instagram.com") ?? URL(string: "https://www.instagram.com"))!){
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(.clear)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .stroke(Color("GetStartedPopUpBackground"), lineWidth: 2)
+                                        )
+                                    Image(systemName: "camera")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(.black)
+                                        .frame(width: 15, height: 15)
+                                    
+                                }
+                                .frame(width:40, height: 40)
+                                .padding(.leading, 5)
+                            }
+                        }
+                                      
                     }
-                    //save following
                     .frame(width: Geo.size.width - 140)
+                    //save following
+                   
                          
                 }
                 .onAppear{

@@ -89,7 +89,7 @@ struct RecipeEditModals: View {
                     .padding(.top, -525)
                 }
         }
-            
+            .padding(.top, 25)
         Spacer()
     }
 }

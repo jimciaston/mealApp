@@ -56,7 +56,7 @@ struct EditorDirections: View {
                         HStack{
                             Text(String(index + 1))
                                 .font(.title)
-                                    .foregroundColor(.green)
+                                    .foregroundColor(Color("UserProfileCard1"))
                                     .fontWeight(.bold)
                             Text(direction.description)
                                 .font(.body)

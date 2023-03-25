@@ -58,7 +58,7 @@ struct EditorIngredients: View {
                             Text(recipe.sizing)
                                 .font(.body)
                                 .fontWeight(.bold)
-                                .foregroundColor(.green)
+                                .foregroundColor(Color("UserProfileCard1"))
                                 //.padding(.leading, 20)
                             Spacer()
                             Text(recipe.description)
