@@ -54,7 +54,7 @@ struct FollowingListView_NonUser: View {
                                 .document(user)
                                 .getDocument {(snap, error) in
                                     guard let userData = snap?.data() else { return }
-                                    print(userData)
+                                  
                                     followingUserUID = userData["uid"] as? String ?? ""
                                     userBioPulled = userData["userBio"] as? String ?? ""
                                     name = userData ["name"] as? String ?? "Name Unavailable"
@@ -115,7 +115,7 @@ struct FollowingListView_NonUser: View {
             else{
                 
                 ForEach(userModel, id: \.id) { user in
-                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).padding(.top, -50).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: name, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).padding(.top, -50).onAppear{
                         jm.grabUserJournalCount(userID: user.userID)
                         rm.grabRecipes(userUID: user.userID)
                     }){
@@ -134,7 +134,7 @@ struct FollowingListView_NonUser: View {
                                      
                                     VStack{
                                         HStack{
-                                            Text(user.username)
+                                            Text(name)
                                                 .font(.title)
                                                 
                                             Spacer()
@@ -151,7 +151,6 @@ struct FollowingListView_NonUser: View {
                                       
 
                                     }
-                                  
                                 }
                                 
                                 .padding(.leading, -20)

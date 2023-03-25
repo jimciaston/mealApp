@@ -42,18 +42,24 @@ struct RecipeEditorView: View {
             MacroSelectHstack(macroAmount: $recipeClass.recipeProteinMacro, macroName: "Protein")
                 .padding(.leading, 15)
             
-            HStack{
-                Text("Estimated Calories: ")
+            HStack {
+                Text("Estimated Calories:")
                     .font(.body)
-                TextField("", text: $recipeCalories)
+                    .foregroundColor(.primary)
+                TextField("0", text: $recipeCalories)
                     .keyboardType(.numberPad)
-                    .foregroundColor(.black)
-                    .frame(width: 78, height: 20)
-                    .border(.gray)
-                   
+                    .foregroundColor(.primary)
+                    .font(.body)
+                    .padding(4)
+                    .frame(width: 60, height: 20)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
             }
             .padding(.top, 35)
-            .padding(.leading, 15)
+            .padding(.horizontal, 16)
         }
        
     }

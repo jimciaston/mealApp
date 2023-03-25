@@ -27,17 +27,6 @@ struct RecipeEditorHomeMenu: View {
         GeometryReader{ geo in
             VStack{
                 HStack{
-                    Button(action: {
-                        SaveRecipeButton.newRecipeCreated = false
-                        dismiss()
-                    }){
-                        Image(systemName:"xmark").resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color("ButtonTwo"))
-                        
-                    }
-                    .blur(radius: showSuccessMessage ? 15 : 0)
-                    .padding(.leading, 20)
                    Spacer()
                     //bottom sheet for meals
                     Button(action: {
