@@ -33,6 +33,8 @@
 		0A2D896B29788D44001EDF01 /* RecipeEditorHomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */; };
 		0A2D896D297F01EB001EDF01 /* DeleteCustomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896C297F01EB001EDF01 /* DeleteCustomItemView.swift */; };
 		0A2D896F298030F3001EDF01 /* RecipeControllerNonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */; };
+		0A36C1EA29CF352100CE3A23 /* libswiftWebKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A36C1E929CF352100CE3A23 /* libswiftWebKit.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0A36C1EC29CF35CD00CE3A23 /* RecipePrepTimeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36C1EB29CF35CD00CE3A23 /* RecipePrepTimeSection.swift */; };
 		0A3B9B132808AD2B00EC631A /* emptyview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B122808AD2B00EC631A /* emptyview.swift */; };
 		0A3B9B152808DD6300EC631A /* RemoveZeroFromDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B142808DD6300EC631A /* RemoveZeroFromDouble.swift */; };
 		0A3B9B172808DFAE00EC631A /* CapitalFirstLetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B9B162808DFAE00EC631A /* CapitalFirstLetter.swift */; };
@@ -217,6 +219,8 @@
 		0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorHomeMenu.swift; sourceTree = "<group>"; };
 		0A2D896C297F01EB001EDF01 /* DeleteCustomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCustomItemView.swift; sourceTree = "<group>"; };
 		0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeControllerNonUser.swift; sourceTree = "<group>"; };
+		0A36C1E929CF352100CE3A23 /* libswiftWebKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftWebKit.tbd; path = usr/lib/swift/libswiftWebKit.tbd; sourceTree = SDKROOT; };
+		0A36C1EB29CF35CD00CE3A23 /* RecipePrepTimeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePrepTimeSection.swift; sourceTree = "<group>"; };
 		0A3B9B122808AD2B00EC631A /* emptyview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emptyview.swift; sourceTree = "<group>"; };
 		0A3B9B142808DD6300EC631A /* RemoveZeroFromDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveZeroFromDouble.swift; sourceTree = "<group>"; };
 		0A3B9B162808DFAE00EC631A /* CapitalFirstLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapitalFirstLetter.swift; sourceTree = "<group>"; };
@@ -368,6 +372,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A36C1EA29CF352100CE3A23 /* libswiftWebKit.tbd in Frameworks */,
 				0A3E03DD28DCB5C5009613CF /* SwiftUIX in Frameworks */,
 				0A07D96028480A140080A4ED /* SDWebImageSwiftUI in Frameworks */,
 				5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */,
@@ -654,6 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				0A8D80672826CBF60055021A /* RecipeEditor.swift */,
+				0A36C1EB29CF35CD00CE3A23 /* RecipePrepTimeSection.swift */,
 				0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */,
 				0A2D896A29788D44001EDF01 /* RecipeEditorHomeMenu.swift */,
 				0A8D8072282A15280055021A /* RecipeEditorView.swift */,
@@ -833,6 +839,7 @@
 		24D857BFE476881478C49E47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A36C1E929CF352100CE3A23 /* libswiftWebKit.tbd */,
 				C25B5864F41EB32D84F3D2A4 /* Pods_MealJournal.framework */,
 				2FB9401F219CF3C3DD2C591D /* Pods_MealJournal_MealJournalUITests.framework */,
 				511F702D98851A0528626E1B /* Pods_MealJournalTests.framework */,
@@ -1231,6 +1238,7 @@
 				0A2D896529774382001EDF01 /* ProfileCardNonUserDisplay.swift in Sources */,
 				0A07D969284AA1780080A4ED /* SuccessAlert.swift in Sources */,
 				0A8C892729533BA5008C549A /* FoodResultsEntryRow.swift in Sources */,
+				0A36C1EC29CF35CD00CE3A23 /* RecipePrepTimeSection.swift in Sources */,
 				0A2D895D296F561C001EDF01 /* SavedJournalDashboard.swift in Sources */,
 				0A9F495F28793E33002F227E /* EditModeActive.swift in Sources */,
 				0AAE15B1282DA34900B9B85A /* EditorIngredients.swift in Sources */,
@@ -1434,6 +1442,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swinkapp.mealJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1463,6 +1475,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swinkapp.mealJournal;

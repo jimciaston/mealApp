@@ -13,7 +13,7 @@ class Recipe: ObservableObject, Identifiable {
     let id = UUID().uuidString
     @Published var recipeImage:      String = ""
     @Published var recipeTitle:      String = ""
-    @Published var recipePrepTime:   String = "Prep Time" // << standard don't want blank as it wouldn't show up //in recipes view
+    @Published var recipePrepTime:   String = "5 mins" // << standard don't want blank as it wouldn't show up //in recipes view
     @Published var ingredients:      [Ingredients] = []
     @Published var directions:       [Directions]  = []
     @Published var isCompleted =     false

@@ -13,6 +13,9 @@ struct SelectableButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .foregroundColor(isSelected ? .green : .black)
+            .font(.body)
+            .padding(10)
+            .padding(.top, -10)
     }
 }
 struct SelectableButton: View {
@@ -27,6 +30,7 @@ struct SelectableButton: View {
             action()
         }) {
             Text(label)
+                
         }
         .buttonStyle(SelectableButtonStyle(isSelected: isSelected))
     }
@@ -46,7 +50,7 @@ struct RecipeEditor: View {
     @State var isNutritionSelected = true // << auto true for recipe startup
        @State var isDirectionsSelected = false
        @State var isInstructionsSelected = false
-    
+   
     var body: some View {
         GeometryReader{ geo in
             VStack{
@@ -90,7 +94,7 @@ struct RecipeEditor: View {
                 
                 //Recipe Title
                 TextField("Recipe Title", text: $recipeClass.recipeTitle)
-                    .padding(.bottom, 25)
+                  
                     .frame(height: 40)
                     .foregroundColor(Color.black)
                     .font(.title2)
@@ -99,11 +103,15 @@ struct RecipeEditor: View {
                     .padding(.top, 80)
                     .padding(.leading, 25)
                 
+                RecipePrepTimeSection(recipeClass: recipeClass)
+                    .padding(.leading, 25)
+                    .padding(.bottom, 25)
                 HStack{
                         SelectableButton(label: "Nutrition", action: { /* do something */ }, isSelected: $isNutritionSelected)
                         SelectableButton(label: "Directions", action: { /* do something */ }, isSelected: $isDirectionsSelected)
                         SelectableButton(label: "Instructions", action: { /* do something */ }, isSelected: $isInstructionsSelected)
                 }
+               
                 .padding(.bottom, 25)
                 .onChange(of: isNutritionSelected) { value in
                            if value {
@@ -127,6 +135,9 @@ struct RecipeEditor: View {
                 if isNutritionSelected{
                     RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
                         .blur(radius: showSuccessMessage ? 15 : 0)
+                        
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 25)
                 }
                 
                     
