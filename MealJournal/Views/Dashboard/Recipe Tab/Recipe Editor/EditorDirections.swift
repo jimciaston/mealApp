@@ -28,7 +28,6 @@ struct EditorDirections: View {
                 TextField("ex. Pour the flour", text: $userDirection)
                     .font(.body)
                     .padding(.leading, 45)
-                    .padding(.top, 5)
                     //Spacer()
                 Button(action: {
                     if (userDirection != "" ){
@@ -43,6 +42,7 @@ struct EditorDirections: View {
                         .foregroundColor(.blue)
                         .padding(.leading, 35)
                         .padding(.top, 20)
+                        .padding(.bottom, 10)
                         .background(.clear)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)

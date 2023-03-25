@@ -12,12 +12,19 @@ struct SelectableButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .foregroundColor(isSelected ? .green : .black)
-            .font(.body)
+           
+            .foregroundColor(isSelected ? Color("UserProfileCard2") : Color("LighterGray"))
+            .font(.title3)
             .padding(10)
             .padding(.top, -10)
-    }
-}
+            .background(
+                        isSelected ? Color("UserProfileCard2")
+                            .frame(width: 40, height: 3) // underline's height
+                            .offset(y: 14) // underline's y pos
+                            : nil // no background if isSelected is false
+                    )
+                }
+            }
 struct SelectableButton: View {
     let label: String
     let action: () -> Void

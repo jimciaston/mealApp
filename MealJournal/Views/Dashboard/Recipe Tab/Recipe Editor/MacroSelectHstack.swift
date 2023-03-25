@@ -38,7 +38,7 @@ struct MacroSelectHstack: View {
                 .frame(width: 15, height: 15)
                 .foregroundColor(.white)
                 .padding(3)
-                .background(Rectangle().fill(Color("PieChart3")))
+                .background(Rectangle().fill(Color("UserProfileCard2")))
                 .onTapGesture{
                     macroAmount -= 1
                 }
@@ -52,7 +52,7 @@ struct MacroSelectHstack: View {
                 .frame(width: 15, height: 15)
                     .foregroundColor(.white)
                     .padding(3)
-                    .background(Rectangle().fill(Color("PieChart3")))
+                    .background(Rectangle().fill(Color("UserProfileCard2")))
                     .onTapGesture{
                         macroAmount += 1
                     }

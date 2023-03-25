@@ -31,6 +31,17 @@ struct RecipeEditorView: View {
             //macro pickers for recipe
             
             //ios16 new update shows arrows in pickers, hides it with ZStack here
+           
+            MacroSelectHstack(macroAmount: $recipeClass.recipeFatMacro, macroName: "Fat")
+                .padding(.leading, 15)
+                .padding(.top, 15)
+                .padding(.bottom, 25)
+            MacroSelectHstack(macroAmount: $recipeClass.recipeCarbMacro, macroName: "Carbs")
+                .padding(.leading, 15)
+                .padding(.bottom, 25)
+            MacroSelectHstack(macroAmount: $recipeClass.recipeProteinMacro, macroName: "Protein")
+                .padding(.leading, 15)
+            
             HStack{
                 Text("Estimated Calories: ")
                     .font(.body)
@@ -41,14 +52,8 @@ struct RecipeEditorView: View {
                     .border(.gray)
                    
             }
+            .padding(.top, 35)
             .padding(.leading, 15)
-            .padding(.bottom, 25)
-            MacroSelectHstack(macroAmount: $recipeClass.recipeFatMacro, macroName: "Fat")
-                .padding(.leading, 15)
-            MacroSelectHstack(macroAmount: $recipeClass.recipeCarbMacro, macroName: "Carbs")
-                .padding(.leading, 15)
-            MacroSelectHstack(macroAmount: $recipeClass.recipeProteinMacro, macroName: "Protein")
-                .padding(.leading, 15)
         }
        
     }

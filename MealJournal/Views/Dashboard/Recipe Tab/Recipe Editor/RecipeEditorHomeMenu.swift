@@ -11,20 +11,33 @@ struct RecipeEditorHomeMenu: View {
     @Environment(\.dismiss) var dismiss
     @State var recipeAddedSuccess = false
     @State private var showSaveButton = false
-  
+    @State var selectedButton: String = "Nutrition"
+    @State var isNutritionSelected = true // << auto true for recipe startup
+       @State var isDirectionsSelected = false
+       @State var isInstructionsSelected = false
     @State private var sheetMode: SheetMode = .none
     @State var shown = false
     @StateObject var recipeClass = Recipe()
-    var onDismiss: (() -> Void)?
+    var onDismiss: (() -> Void)? 
     var resetPickerTime: (() -> Void)?
     @ObservedObject var dashboardRouter: DashboardRouter
     @State var dismissSaveRecipeSheet = false
     @Binding var showSuccessMessage: Bool
     var body: some View {
-        
         GeometryReader{ geo in
             VStack{
                 HStack{
+                    Button(action: {
+                        SaveRecipeButton.newRecipeCreated = false
+                        dismiss()
+                    }){
+                        Image(systemName:"xmark").resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color("ButtonTwo"))
+                        
+                    }
+                    .blur(radius: showSuccessMessage ? 15 : 0)
+                    .padding(.leading, 20)
                    Spacer()
                     //bottom sheet for meals
                     Button(action: {
@@ -50,45 +63,85 @@ struct RecipeEditorHomeMenu: View {
                 RecipeEditorImage()
                     .padding(.top,5)
                     .blur(radius: showSuccessMessage ? 15 : 0)
-               
-                RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $shown)
-                    .blur(radius: showSuccessMessage ? 15 : 0)
+                
+                //Recipe Title
+                TextField("Recipe Title", text: $recipeClass.recipeTitle)
+                  
+                    .frame(height: 40)
+                    .foregroundColor(Color.black)
+                    .font(.title2)
+                    .multilineTextAlignment(.leading)
+                    .cornerRadius(5)
                     .padding(.top, 80)
-                    
-                RecipeEditModals()
-                    .blur(radius: showSuccessMessage ? 15 : 0)
-               // Spacer()
+                    .padding(.leading, 25)
+                
+                RecipePrepTimeSection(recipeClass: recipeClass)
+                    .padding(.leading, 25)
+                    .padding(.bottom, 25)
+                HStack{
+                        SelectableButton(label: "Nutrition", action: { /* do something */ }, isSelected: $isNutritionSelected)
+                        SelectableButton(label: "Ingredients", action: { /* do something */ }, isSelected: $isDirectionsSelected)
+                        SelectableButton(label: "Directions", action: { /* do something */ }, isSelected: $isInstructionsSelected)
+                }
+               
+                .padding(.bottom, 25)
+                .onChange(of: isNutritionSelected) { value in
+                           if value {
+                               isDirectionsSelected = false
+                               isInstructionsSelected = false
+                           }
+                       }
+                       .onChange(of: isDirectionsSelected) { value in
+                           if value {
+                               isNutritionSelected = false
+                               isInstructionsSelected = false
+                           }
+                       }
+                       .onChange(of: isInstructionsSelected) { value in
+                           if value {
+                               isNutritionSelected = false
+                               isDirectionsSelected = false
+                           }
+                       }
+                
+                if isNutritionSelected{
+                    RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
+                        .blur(radius: showSuccessMessage ? 15 : 0)
+                        
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 25)
+                }
+                else if isDirectionsSelected{
+                    EditorIngredients()
+                }
+                else if isInstructionsSelected{
+                    EditorDirections()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Spacer()
+                        .border(.red)
+                }
+                
+                //RecipeEditModals()
+//                    .blur(radius: showSuccessMessage ? 15 : 0)
+                Spacer()
                 
                 
                 //display save button
-                if showSaveButton{
-                       FlexibleSheet(sheetMode: $sheetMode) {
-                           SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, dismissSaveRecipeSheet: $dismissSaveRecipeSheet)
-                           .background(Color.white)
-                           .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
-                           //sets coordinates of view on dash
-                           .offset(y:-200)
-                       }
-                       .onChange(of: dismissSaveRecipeSheet) { value in
-                           if value {
-                               dashboardRouter.currentTab = .home
-                           }
-                       }
-                   }
-                  
+                FlexibleSheet(sheetMode: $sheetMode) {
+                   SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, dismissSaveRecipeSheet: $showSaveButton)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+
+                    //sets coordinates of view on dash
+                 .offset(y:-200)
+                }
                 
-             
-                
-            }
-            .onAppear{
-                recipeAddedSuccess = false
             }
             //center view
             .alignmentGuide(VerticalAlignment.center, computeValue: { $0[.bottom] })
                     .position(x: geo.size.width / 2, y: geo.size.height / 2)
             .environmentObject(recipeClass)
         }
-        
     }
     
 }

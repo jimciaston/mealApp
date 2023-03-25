@@ -85,10 +85,10 @@ struct SaveRecipeButton: View {
             //action
         }){
             HStack{
-                Image(systemName: "pencil").resizable()
-                    .frame(width:40, height:40)
-                    .foregroundColor(.white)
-                
+//                Image(systemName: "pencil").resizable()
+//                    .frame(width:40, height:40)
+//                    .foregroundColor(.white)
+//
                 Button(action: {
                     //rules to save recipe
                     if (recipeClass.recipeTitle != ""
@@ -100,7 +100,7 @@ struct SaveRecipeButton: View {
                         saveRecipe()
                         showSuccessMessage = true
                         dismissSaveRecipeSheet = true
-                        
+                        dismissSaveRecipeSheet = false
                      
                       
                     }
@@ -112,8 +112,9 @@ struct SaveRecipeButton: View {
                 }){
                     Text("Save Recipe")
                         .font(.title)
-                        .frame(width:200)
+                        .frame(width:200, height: 80)
                         .foregroundColor(.white)
+                        .padding(.top, -25)
                 }
             }
             

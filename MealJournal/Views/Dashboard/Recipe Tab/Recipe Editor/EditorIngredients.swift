@@ -28,7 +28,7 @@ struct EditorIngredients: View {
                     TextField("ex. Chicken Breast", text: $description)
                         .font(.body)
                 }
-                .padding(.top, 25) //set to give space from ingredient/direction section
+                //.padding(.top, 25) //set to give space from ingredient/direction section
                 
                     Button(action: {
                         if (sizing != "" && description != ""){
@@ -45,6 +45,7 @@ struct EditorIngredients: View {
                             .foregroundColor(.blue)
                             .padding(.leading, 20)
                             .padding(.top, 20)
+                            .padding(.bottom, 10)
                             .opacity(!sizing.isEmpty && !description.isEmpty ? 1.0 : 0.5)
                            Spacer()
                               
@@ -71,12 +72,7 @@ struct EditorIngredients: View {
                     })
                 }
                 .listStyle(PlainListStyle())
-                .frame(height: 120) //list size
-                
-               
             }
-            .padding(.top, 25)
-         
         }
     }
 

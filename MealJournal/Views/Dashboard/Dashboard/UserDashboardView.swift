@@ -31,7 +31,7 @@ struct UserDashboardView: View {
    
     var body: some View {
         GeometryReader { geometry in
-            if !vm.isUserDataLoading{
+            if !vm.isUserDataLoading {
                 VStack{
                     switch dashboardRouter.currentTab {
                         case .home:
@@ -58,8 +58,11 @@ struct UserDashboardView: View {
                     case .addMeal:
                         MealSearchBarPopUp(isUserDoneSearching: $isUserSearching)
                             .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
+                        
+                    case .profileCardRecipes:
+                        RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false), navigatingFromProfileCards: .constant(true))
+                          //  .opacity(.dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     }
-               
                     ZStack{
                         if  dashboardRouter.isPlusMenuOpen {
                             PlusTabPopMenu(widthAndHeight: geometry.size.width / 5.5, dashboardRouter: dashboardRouter, closePlusIconPopUpMenu: $closePlusIconPopUpMenu)
@@ -129,8 +132,9 @@ struct UserDashboardView: View {
                     // allow view to leave after 2 seconds
                      .frame(width:geometry.size.width, height: geometry.size.height / 1.2)
                      .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Adjust the duration here
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust the duration here
                             recipeSavedMessage = false
+                            dashboardRouter.currentTab = .profileCardRecipes
                         }
                     }
                 }
