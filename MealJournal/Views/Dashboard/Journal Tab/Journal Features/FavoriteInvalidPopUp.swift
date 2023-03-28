@@ -22,12 +22,10 @@ struct FavoriteInvalidPopUp: View {
                     Text("Journal Saved") .foregroundColor(.black)
                 }
                 else if isExistingJournalEntrysEmpty == true {
-                    
                     Text("Cannot save an empty journal").foregroundColor(.black)
                 }
-            
-    }
-}
+            }
+        }
 
 //struct FavoriteInvalidPopUp_Previews: PreviewProvider {
 //    static var previews: some View {

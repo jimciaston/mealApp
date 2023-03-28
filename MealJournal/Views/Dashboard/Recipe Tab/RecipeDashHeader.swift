@@ -33,20 +33,6 @@ struct RecipeDashHeader: View {
     var body: some View {
         if ema.editMode {
             VStack{
-               // HStack{
-//                    Button(action: {
-//                        rm.saveUserRecipe(userName: "Leave for now", recipeImage: image, recipeTitle: name, recipePrepTime: prepTime, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro: recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, createdAt: Date(), ingredientItem: ingredients, directions: directions)
-//                      print("Saved Recipe")
-//                    }){
-//                        Image(systemName: "star")
-//                            .resizable()
-//                            .frame(width: 30, height:30)
-//                        .foregroundColor(.yellow)
-//                        .font(.title)
-//                        .padding(.leading, 260)
-//                        .padding(.top, 100)
-//                    }
-//                    Spacer()
                     TextField(ema.recipeTitle, text: $ema.recipeTitle)
                         .foregroundColor(!ema.editMode ? Color.black : Color.red)
                         .font(.title2)
@@ -134,15 +120,18 @@ struct RecipeDashHeader: View {
         //if not editing recipe
         else{
             VStack{
-                Text(recipeName.capitalized)
-                    .font(.title2)
-                    .padding()
-                
+                HStack{
+                    Text(recipeName.capitalized)
+                        .font(.title2)
+                        .padding()
+                }
+                .multilineTextAlignment(.leading)
                 HStack{
                     Image(systemName: "clock")
                         .foregroundColor(.green)
                     Text(recipePrepTime)
                 }
+                .multilineTextAlignment(.leading)
                 .padding(.top, -10)
                 
                 Text(String(caloriesPicker) + " calories").bold()
@@ -171,7 +160,7 @@ struct RecipeDashHeader: View {
             .frame(width:280, height:200)
             .background(Color.white)
             .cornerRadius(15)
-          
+            .padding(.top, 50)
            
         }
        

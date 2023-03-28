@@ -27,7 +27,7 @@ struct CustomItemsList: View {
         VStack{
             List{
                 ForEach (logic.customFoodItems.prefix(resultsShowing), id: \.self ) { item in
-                    CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, item: .constant(item), mealName: item.mealName ?? "Invalid Name", customMealID: item.id, dismissResultsView: $hideTitleRows)
+                    CustomItemListRow(mealTimingToggle: $mealTimingToggle,sheetMode: $sheetMode, MealObject: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, resultsShowing: $resultsShowing, showDeleteItemView: $showDeleteItemView, item: .constant(item), mealName: item.mealName ?? "Invalid Name", customMealID: item.id, dismissResultsView: $hideTitleRows)
                 }
            
                 
@@ -36,18 +36,19 @@ struct CustomItemsList: View {
                 }){
                     //return nothing if no custom items for user
                     if logic.customFoodItems.count > 0{
-                        
                              Text("Add Custom Food Item")
+                            .foregroundColor(.white)
                                  .frame(maxWidth: .infinity, alignment: .center)
                                  .onTapGesture{
-                                     addCustomFoodToggle.toggle()
-                                     
+                                     withAnimation(.linear(duration: 0.25)){
+                                         addCustomFoodToggle.toggle()
+                                     } 
                                  }
                              
                              .frame(maxWidth: .infinity, alignment: .leading)
                              .padding([.top, .bottom], 15)
                              .background(RoundedRectangle(
-                                 cornerRadius:20).fill(Color("AddItemColor")))
+                                 cornerRadius:20).fill(Color("UserProfileCard2")))
                              .foregroundColor(.black)
                            //  .opacity(mealTimingToggle ? 0.3 : 1)
                          
@@ -84,6 +85,7 @@ struct CustomItemsList: View {
                 }){
                     if logic.customFoodItems.count > 0{
                         Text("Cancel Search")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     
                 }
@@ -99,13 +101,17 @@ struct CustomItemsList: View {
                     GeometryReader { geometry in {
                         BottomSheetView(
                             isOpen: self.$addCustomFoodToggle,
-                            maxHeight: screensize - 300, minHeight: 200
+                            maxHeight: screensize - 400, minHeight: 200
                         ) {
                             CustomFoodItemView(showing: $addCustomFoodToggle, isViewSearching: $isViewSearching, userSearch: $userSearch)
                                 .environmentObject(mealEntryObj)
                                 .animation(.easeInOut)
+                                .background(Color("LightWhite"))
+                                .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
+
                         }
-                       
+                        .padding(.bottom, -75)
+                        .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
                     }().edgesIgnoringSafeArea(.all)
                            
                     }
@@ -114,9 +120,12 @@ struct CustomItemsList: View {
            
         }
             
-                
-            
-       
+      
+        
+        }
+        .opacity(!showDeleteItemView ? 1 : 0.4)
+        .opacity(!mealTimingToggle ? 1 : 0.4)
+        .opacity(!addCustomFoodToggle ? 1 : 0.4)
         if(mealTimingToggle){
             FlexibleSheet(sheetMode: $sheetMode) {
                 MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
@@ -125,9 +134,6 @@ struct CustomItemsList: View {
             .frame(height:240)
             .animation(.easeInOut)
             }
-        
-        }
-        
     }
 }
 

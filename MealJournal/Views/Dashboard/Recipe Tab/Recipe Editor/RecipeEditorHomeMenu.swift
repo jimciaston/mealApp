@@ -50,18 +50,17 @@ struct RecipeEditorHomeMenu: View {
                 }
                
                 RecipeEditorImage()
-                    .padding(.top,5)
+                    .padding(.top,-45)
                     .blur(radius: showSuccessMessage ? 15 : 0)
                 
                 //Recipe Title
                 TextField("Recipe Title", text: $recipeClass.recipeTitle)
-                  
-                    .frame(height: 40)
+                   //.frame(height: 20)
                     .foregroundColor(Color.black)
                     .font(.title2)
                     .multilineTextAlignment(.leading)
                     .cornerRadius(5)
-                    .padding(.top, 80)
+                    .padding(.top, 45)
                     .padding(.leading, 25)
                 
                 RecipePrepTimeSection(recipeClass: recipeClass)
@@ -96,18 +95,17 @@ struct RecipeEditorHomeMenu: View {
                 if isNutritionSelected{
                     RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
                         .blur(radius: showSuccessMessage ? 15 : 0)
-                        
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 25)
                 }
                 else if isDirectionsSelected{
                     EditorIngredients()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 else if isInstructionsSelected{
                     EditorDirections()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     Spacer()
-                        .border(.red)
                 }
                 
                 //RecipeEditModals()
@@ -124,7 +122,6 @@ struct RecipeEditorHomeMenu: View {
                     //sets coordinates of view on dash
                  .offset(y:-200)
                 }
-                
             }
             //center view
             .alignmentGuide(VerticalAlignment.center, computeValue: { $0[.bottom] })

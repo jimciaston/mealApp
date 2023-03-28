@@ -23,7 +23,7 @@ struct MealTimingSelectorView: View {
     @ObservedObject var dashboardRouter = DashboardRouter()
     init(meal: Binding<Meal>, isViewSearching: Binding<Bool>, userSearch: Binding<Bool>, mealTimingToggle: Binding<Bool>, extendedViewOpen: Binding<Bool>, mealSelected: Binding<Bool>){
         ///commented the view color out for now, as it was having a weird effect on the journalEntryMain list. 
-        UITableView.appearance().backgroundColor = .clear
+        UITableView.appearance().backgroundColor = UIColor(Color("LightWhite"))
         self._meal = meal
         self._isViewSearching = isViewSearching
         self._userSearch = userSearch
@@ -36,30 +36,34 @@ struct MealTimingSelectorView: View {
         if mealTimingToggle{
             VStack{
                 HStack{
-                    Button("X"){
+                    Button(action: {
                         mealTimingToggle = false
                         mealSelected = false
+                    }){
+                        Image(systemName: "x.square")
+                            .foregroundColor(.black)
+                                .font(.title3)
+                                .frame(width:20)
+                                .padding(.leading, 50)
                     }
-                    .foregroundColor(.black)
-                        .font(.body)
-                        .frame(width:20)
-                        .offset(x:50)
                     
-                    Text("Select a Meal")
-                        .padding(.leading,-50)
+                    
+                    Text("Meal Timing")
+                        .padding(.leading, -100)
                         .listRowSeparator(.hidden)
-                        .font(.body)
+                        .font(.title3)
                         .frame(maxWidth: .infinity)
-                        .frame(height:50)
-        
                         .multilineTextAlignment(.center)
                    
-                }.background(Color("LightWhite"))
+                }
+                .padding(.bottom, 30)
+                .padding(.top, 20)
+                .background(Color("GetStartedPopUpBackground"))
                 
                 //breakfast, lunch, dinner selectors
                 List {
                     Button(action: {
-                                              //save journal entry
+                        //save journal entry
                         UserJournalHelper().saveJournalEntry(
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "breakfast",
@@ -78,13 +82,12 @@ struct MealTimingSelectorView: View {
                       
                         if(extendedViewOpen){
                             mealSelected = true
-                            
                             dismiss()
-                           
                         }
                       
                     }){
                         Text("Breakfast")
+                            .foregroundColor(.black)
                     }
                     
                     Button(action: {
@@ -110,6 +113,7 @@ struct MealTimingSelectorView: View {
                         }
                     }){
                         Text("Lunch")
+                            .foregroundColor(.black)
                     }
                         .listRowSeparator(.automatic)
                     
@@ -137,6 +141,7 @@ struct MealTimingSelectorView: View {
                         }
                     }){
                         Text("Dinner")
+                            .foregroundColor(.black)
                     }
                     Button(action: {
                         
@@ -163,6 +168,7 @@ struct MealTimingSelectorView: View {
                       
                     }){
                         Text("Snack")
+                            .foregroundColor(.black)
                     }
                         .listRowSeparator(.automatic)
                 }
@@ -170,7 +176,7 @@ struct MealTimingSelectorView: View {
                 .frame(maxWidth: .infinity)
             }
             .frame(height:660)
-            .padding(.top, -50)
+            .padding(.top, -80)
            
         }
            

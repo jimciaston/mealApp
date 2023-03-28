@@ -31,7 +31,7 @@ struct CustomFoodItemView: View {
     }
     var foodNamePrompt: String {
         if !isFoodNameValid {
-            return "Please enter food name"
+            return "Item name cannot be blank"
         }
         else{
             return ""
@@ -39,77 +39,83 @@ struct CustomFoodItemView: View {
     }
     
     var body: some View {
-            VStack{
-                //make sure to add alert if no name has been entered
-                Text("Enter Food Name")
-                TextField("", text: $foodName)
-                   // .multilineTextAlignment(.center)
-                    .border(.white)
-                    .padding(.trailing, 10)
-                    .frame(width:100, height:10)
-                Text(foodNamePrompt)
-                    .font(.caption)
-                    .foregroundColor(.red)
-                CustomFoodHStacks(macroAmount: $caloriesAmount, macroName: "Calories")
-                CustomFoodHStacks(macroAmount: $proteinAmount , macroName: "Protein")
-                CustomFoodHStacks(macroAmount: $carbAmount, macroName: "Carbohydrates")
-                CustomFoodHStacks(macroAmount: $fatAmount, macroName: "Fat")
-                
-                // breakfast, lunch or dinner
-//                Picker("Meal Selection", selection: $mealTimingSelection){
-//                    ForEach(mealTimingOptions.allCases){ selection in
-//                        Text(selection.rawValue.capitalized)
-//                            .tag(selection)
-//                    }
-//                }
-                
-              //  .pickerStyle(SegmentedPickerStyle())
-                //BUTTON NOT WORKING BELOW
-               
-                   Text("Add Item")
-                    .onTapGesture{
-                        let foodItemID = UUID()
+        VStack {
+            GeometryReader{ geo in
+                VStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.secondary)
+                        .frame(width: 60,height: 5)
+                        .padding(.top, 15)
+                        .onTapGesture {
+                            self.showing.toggle()
+                        }
+                    TextField("  Item name", text: $foodName)
+                        .frame(width:150, height:30)
+                        .overlay(
+                         RoundedRectangle(cornerRadius: 4)
+                             .stroke(Color.black, lineWidth: 1)
+                     )
+                        .multilineTextAlignment(.leading)
+                         .cornerRadius(4)
+                        .padding(.trailing, 10)
+                        .padding(.top, 15)
                         
-                        if foodName != "" {
-                          
-                            saveItem.saveFoodItem(foodName: foodName, calories: caloriesAmount, protein: proteinAmount, fat: fatAmount, carbs: carbAmount)
-                            showing = false
-                          /*
-                          KEEPING below code hidden for now. Don't think user should be able to add meal from this view, as what if they just want to add item without appending
-                           
-                           
-                           */
-                            //create meal to add
-//                            let meal = Meal(id: foodItemID, brand: "Custom", mealName: foodName, calories: caloriesAmount, quantity: 1, amount: "g", protein: proteinAmount, carbs: carbAmount, fat: fatAmount, servingSize: 1.0, servingSizeUnit: "1tsb")
-//                            //attach to meal timing selection
-//
-//                            switch self.mealTimingSelection {
-//                                case .breakfast:  mealEntryObj.mealEntrysBreakfast.append(meal)
-//                                case .lunch: mealEntryObj.mealEntrysLunch.append(meal)
-//                                case .dinner: mealEntryObj.mealEntrysDinner.append(meal)
-//                                    }
+                    Text(foodNamePrompt)
+                        .font(.caption)
+                        .foregroundColor(.red)
+                    
+                    MacroSelectHstack(macroAmount: $fatAmount, macroName: "Fat")
+                        .padding(.leading, geo.size.width / 5)
+                        .padding(.top, 25)
+                    MacroSelectHstack(macroAmount: $carbAmount, macroName: "Carbs")
+                    .padding(.leading, geo.size.width / 5)
+                    MacroSelectHstack(macroAmount: $proteinAmount, macroName: "Protein")
+                    .padding(.leading, geo.size.width / 5)
+                        
+                    
+                    // breakfast, lunch or dinner
+    //                Picker("Meal Selection", selection: $mealTimingSelection){
+    //                    ForEach(mealTimingOptions.allCases){ selection in
+    //                        Text(selection.rawValue.capitalized)
+    //                            .tag(selection)
+    //                    }
+    //                }
+                    
+                  //  .pickerStyle(SegmentedPickerStyle())
+                    //BUTTON NOT WORKING BELOW
+                   
+                       Text("Add Item")
+                        .onTapGesture{
+                            let foodItemID = UUID()
+                            if foodName != "" {
+                                saveItem.saveFoodItem(foodName: foodName, calories: caloriesAmount, protein: proteinAmount, fat: fatAmount, carbs: carbAmount)
+                                showing = false
+                                    }
+                                else{
+                                    isFoodNameValid = false
                                 }
-                            else{
-                                isFoodNameValid = false
-                            }
-                        
-                    }
-                    .frame(width:200, height:30)
-                    .background(
-                      RoundedRectangle(cornerRadius: 20)
-                          .fill(
-                              Color.blue))
-                 
-                .padding(.top, 15)
-                
+                        }
+                        .frame(width:120, height:40)
+                        .background(
+                          RoundedRectangle(cornerRadius: 10)
+                              .fill(
+                                  Color("LighterWhite")))
+                     
+                    .padding(.top, 25)
+                   
+                }
               
-                    }
+            }
+
+        }
+        Spacer()
+        .frame(height: 80)
             
                 }
             }
 
-//struct CustomFoodItemView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CustomFoodItemView()
-//    }
-//}
+struct CustomFoodItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomFoodItemView(showing: .constant(true), isViewSearching: .constant(false), userSearch: .constant(true))
+    }
+}

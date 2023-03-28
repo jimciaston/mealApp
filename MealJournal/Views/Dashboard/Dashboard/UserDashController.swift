@@ -59,7 +59,11 @@ struct UserDashController: View {
                             HStack{
                                 Text(vm.userModel?.name ?? "Name unavailable" )
                                     .font(.custom("OpenSans-Regular", size: 24))
+                                    .padding(.bottom, 2)
                             }
+                                HomePageExercisePreferencesView(exercisePreferences: vm.userModel?.exercisePreferences ?? ["exercises unavailable"])
+                                .padding(.bottom, 25)
+                                
                             HStack{
                                 HStack{
                                     VStack{
@@ -94,8 +98,8 @@ struct UserDashController: View {
                                     self.action = 2
                                 }
                             }
-                            .padding(.top, 10)
-                            .padding(.bottom, 10)
+                          //  .padding(.top, 10)
+                            .padding(.bottom, 25)
                                 //custom divider
                             Rectangle()
                             .fill(Color("LighterGray"))
@@ -105,18 +109,12 @@ struct UserDashController: View {
                                 .padding(.bottom, 10)
                         }
                              // .background(Color("LighterGray"))
-                            
-                            Text("About Me")
-                                .font(.title3)
-                                .padding(.bottom, -10)
-                            HomePageExercisePreferencesView(exercisePreferences: vm.userModel?.exercisePreferences ?? ["exercises unavailable"])
-                            .padding(.top,10)
-                            .padding(.bottom, 25)
+                          
                             //User Bio
                             ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"))
                                 .padding(.top, 10)
                                 .minimumScaleFactor(0.5)
-                                .padding(.bottom, 25)
+                                .padding(.bottom, 50)
                                 .frame(width: Geo.size.width / 1.25)
                          
                             .padding(.top, -15)// << bring follow/followers up

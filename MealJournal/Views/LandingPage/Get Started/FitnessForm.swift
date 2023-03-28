@@ -37,7 +37,7 @@ struct FitnessForm: View {
     
     //sets color of picker in selected
     init(name: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
-        UISegmentedControl.appearance().selectedSegmentTintColor = .orange
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("UserProfileCard2"))
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
         UITableView.appearance().backgroundColor = .clear
@@ -106,7 +106,8 @@ struct FitnessForm: View {
                                 .frame(height:50)
                             
                             FitnessInterests(selectedExercises: $selectedExercises, exercises: exercisePreferences.exercises)
-                                .frame(height: 300)
+                                .frame(height: 350)
+                                .padding(.bottom, -25)
                             
                             Button(action: {
                                     if(Auth.auth().currentUser?.email != nil){
@@ -142,7 +143,7 @@ struct FitnessForm: View {
                                     
                             }
                          
-                            .padding(.top, 30)
+                            .padding(.top, 20)
                             .listRowSeparator(.hidden)
                             .fullScreenCover(isPresented: $userSignedIn){
                                 UserDashboardView(vm: vm, signUpController: signUpController, dashboardRouter: DashboardRouter())
@@ -168,10 +169,10 @@ struct FitnessForm: View {
                                     .padding()
 
                                     .font(.body)
-                                    .padding(.top, -20)
+                                    .padding(.top, -15)
                                     .padding(.bottom, 20)
                                     .cornerRadius(5)
-                                    .offset(y:CGFloat(isPickerVisible()))
+                                   // .offset(y:CGFloat(isPickerVisible()))
                             }
                             .frame(maxWidth: .infinity, alignment: .trailing)
                         }

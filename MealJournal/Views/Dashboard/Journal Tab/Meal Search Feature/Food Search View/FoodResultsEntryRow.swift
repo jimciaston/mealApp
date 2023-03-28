@@ -61,7 +61,9 @@ struct FoodResultsEntryRow: View {
                             switch sheetMode {
                                 case .none:
                                     sheetMode = .mealTimingSelection
-                                mealTimingToggle = true //meal timing list comes to view
+                                withAnimation(.linear(duration: 0.25)) {
+                                    mealTimingToggle = true //meal timing list comes to view
+                                }
                                 case .mealTimingSelection:
                                     sheetMode = .none
                                 mealTimingToggle = false //list leaves view

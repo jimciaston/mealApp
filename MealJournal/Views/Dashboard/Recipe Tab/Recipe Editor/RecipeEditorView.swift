@@ -34,11 +34,10 @@ struct RecipeEditorView: View {
            
             MacroSelectHstack(macroAmount: $recipeClass.recipeFatMacro, macroName: "Fat")
                 .padding(.leading, 15)
-                .padding(.top, 15)
-                .padding(.bottom, 25)
+             //   .padding(.bottom, 25)
             MacroSelectHstack(macroAmount: $recipeClass.recipeCarbMacro, macroName: "Carbs")
                 .padding(.leading, 15)
-                .padding(.bottom, 25)
+              //  .padding(.bottom, 25)
             MacroSelectHstack(macroAmount: $recipeClass.recipeProteinMacro, macroName: "Protein")
                 .padding(.leading, 15)
             
@@ -58,7 +57,7 @@ struct RecipeEditorView: View {
                             .stroke(Color.gray, lineWidth: 1)
                     )
             }
-            .padding(.top, 35)
+            .padding(.top, 25)
             .padding(.horizontal, 16)
         }
        

@@ -259,19 +259,37 @@ struct JournalEntryMain: View {
                             
                             //pop up if user tries to favorite current day
                                 .overlay(
-                                    FavoriteInvalidPopUp(journalSavedAlready: $journalSavedAlready, attemptedSameDaySave: $attemptedSameDaySave, journalSaved: $journalSaved, isExistingJournalEntrysEmpty: $isExistingJournalEntrysEmpty)
-                                         // Start styling the popup...
-                                        .padding(.all, 10)
-                                        .background(Color.white)
-                                        .cornerRadius(10)
-                                        .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
-                                        .offset(x: -120, y: -40) // Move the view above the button
-                                    //valid overlay
-                                       .opacity(overlayShowing ? 1.0 : 0)
-                                        .frame(width: 250, height: 70)
-                                                .padding(.trailing, 20)
-                                    )
-                                
+                                    ZStack {
+                                        FavoriteInvalidPopUp(journalSavedAlready: $journalSavedAlready, attemptedSameDaySave: $attemptedSameDaySave, journalSaved: $journalSaved, isExistingJournalEntrysEmpty: $isExistingJournalEntrysEmpty)
+                                            // Start styling the popup...
+                                            .padding(.all, 10)
+                                            .background(Color.white)
+                                            .cornerRadius(10)
+                                            .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                            .offset(x: -120, y: -40) // Move the view above the button
+                                            //valid overlay
+                                            .opacity(overlayShowing ? 1.0 : 0)
+                                            .frame(width: 250, height: 70)
+                                            .padding(.trailing, 20)
+                                        if overlayShowing {
+                                            Color.clear
+                                                .onAppear {
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                                        withAnimation {
+                                                            overlayShowing = false
+                                                        }
+                                                    }
+                                                }
+                                        }
+                                    }
+                                )
+                            
+                            
+//                                .onAppear {
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                        overlayShowing = false
+//                                    }
+//                                }
                                 }
                         ///Keep at 1, no idea why day of week doesn't center without this
                         .frame(width: 1)

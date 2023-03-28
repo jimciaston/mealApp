@@ -107,7 +107,7 @@ struct RecipeEditor: View {
                     .font(.title2)
                     .multilineTextAlignment(.leading)
                     .cornerRadius(5)
-                    .padding(.top, 80)
+                    .padding(.top, 50)
                     .padding(.leading, 25)
                 
                 RecipePrepTimeSection(recipeClass: recipeClass)
@@ -138,7 +138,6 @@ struct RecipeEditor: View {
                                isDirectionsSelected = false
                            }
                        }
-                
                 if isNutritionSelected{
                     RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
                         .blur(radius: showSuccessMessage ? 15 : 0)
@@ -146,24 +145,29 @@ struct RecipeEditor: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 25)
                 }
+                else if isDirectionsSelected{
+                    EditorIngredients()
+                }
+                else if isInstructionsSelected{
+                    EditorDirections()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Spacer()
+                        .border(.red)
+                }
                 
-                    
-                
-//                RecipeEditModals()
+                //RecipeEditModals()
 //                    .blur(radius: showSuccessMessage ? 15 : 0)
                 Spacer()
-                
-                
-                //display save button
-//                FlexibleSheet(sheetMode: $sheetMode) {
-//                    SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, onDismiss: dismiss)
-//                    .background(Color.white)
-//                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
-//                    
-//                    //sets coordinates of view on dash
-//                 .offset(y:-200)
-//                }
-                
+              
+              
+                FlexibleSheet(sheetMode: $sheetMode) {
+                   SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, dismissSaveRecipeSheet: $showSaveButton)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+
+                    //sets coordinates of view on dash
+                 .offset(y:-200)
+                }
             }
             //center view 
             .alignmentGuide(VerticalAlignment.center, computeValue: { $0[.bottom] })

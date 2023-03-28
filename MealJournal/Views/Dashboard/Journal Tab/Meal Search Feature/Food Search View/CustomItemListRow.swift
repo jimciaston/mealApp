@@ -14,7 +14,7 @@ struct CustomItemListRow: View {
     @Binding var isViewSearching: Bool
     @Binding var userSearch: Bool
     @Binding var resultsShowing: Int
-    @State var showDeleteItemView = false
+    @Binding var showDeleteItemView: Bool
     @Binding var item: Meal
     
     @State var mealName: String
@@ -36,21 +36,20 @@ struct CustomItemListRow: View {
                            
                             .frame(width:170)
                             .padding(.leading, -10)
-                            
                             .foregroundColor(.black)
                           
                         Button(action: {
                             switch sheetMode {
                                 case .none:
                                     sheetMode = .mealTimingSelection
-                                mealTimingToggle = true //meal timing list comes to view
+                                mealTimingToggle.toggle() //meal timing list comes to view
                                 case .mealTimingSelection:
                                     sheetMode = .none
-                                mealTimingToggle = false //list leaves view
+                               // mealTimingToggle = false //list leaves view
                             case .quarter:
-                                sheetMode = .none
+                                sheetMode = .mealTimingSelection
+                                mealTimingToggle.toggle() //meal timing list comes to view
                             }
-                            
                             //communicates with mealtimingselectionview
                             MealObject = item
                         }){
@@ -102,14 +101,15 @@ struct CustomItemListRow: View {
                     cornerRadius:20).fill(Color("LightWhite")))
                 .foregroundColor(.black)
                 .opacity(mealTimingToggle ? 0.3 : 1)
-               
                 
-        
         .windowOverlay(isKeyAndVisible: self.$showDeleteItemView, {
             GeometryReader { geometry in {
-                BottomSheetView(isOpen: $showDeleteItemView, maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: 300, content: {
+                BottomSheetView(isOpen: $showDeleteItemView, maxHeight: geometry.size.height * 0.6 * 0.8, minHeight: 200, content: {
                     DeleteCustomItemView(customItemID: customMealID, showDeleteItemView: $showDeleteItemView)
-                     
+                        .frame(height: 150)
+                        .padding(.top, 20)
+                        .padding(.bottom, 200)
+                        .background(Color("LightWhite"))
                         .onTapGesture{
                             self.showDeleteItemView = false
                         }

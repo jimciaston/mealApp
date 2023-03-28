@@ -27,6 +27,7 @@ struct RecipeFullListView_MainTab: View {
                 if(recipes.count > 0){
                     FullViewDisplay_MainTab(showAddButton: $showAddButton, allRecipes: recipes )
                 }
+                
                 else{
                     if navigatingFromProfileCards{
                         Image(systemName: "plus.rectangle.on.rectangle")

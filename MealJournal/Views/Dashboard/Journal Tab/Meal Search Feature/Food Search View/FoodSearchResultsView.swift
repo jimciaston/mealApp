@@ -109,9 +109,6 @@ struct FoodSearchResultsView: View {
                                                 .environmentObject(foodApi)
                                 }
                                 
-                            
-                          
-                            
                              if(mealTimingToggle){
                                  FlexibleSheet(sheetMode: $sheetMode) {
                                      MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
@@ -120,7 +117,7 @@ struct FoodSearchResultsView: View {
                                  ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
                                  .frame(height:240)
                                  .padding(.top, -1) // << moves snackbar info up in view
-                                 .animation(.easeInOut)
+                                 .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
                                  }
                         }
                         else{

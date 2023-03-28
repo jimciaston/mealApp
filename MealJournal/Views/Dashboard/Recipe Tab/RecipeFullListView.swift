@@ -16,10 +16,11 @@ struct RecipeFullListView: View {
     @State var triggerRecipeController = false
     @Binding var notCurrentUserProfile: Bool
     @Binding var navigatingFromProfileCards: Bool
+    @State var addRecipe = false
     var body: some View {
         ZStack{
             VStack{
-                Text("Saved Recipes").bold()
+                Text(recipes.count != 0 ? "Saved Recipes" : "").bold()
                     .padding(.bottom, 20)
                     .padding(.top, 20)
                     .font(.title2)
@@ -33,12 +34,17 @@ struct RecipeFullListView: View {
                             .resizable()
                             .frame(width: 70, height: 70)
                             .onTapGesture {
-                                triggerRecipeController = true
+                                addRecipe = true
                             }
                         Text("Add a Recipe!")
                             .font(.title3)
                             .padding()
+                            
+                            .fullScreenCover(isPresented: $addRecipe){
+                                RecipeEditor()
+                            }
                     }
+                        
                     else{
                         VStack {
                             Spacer()

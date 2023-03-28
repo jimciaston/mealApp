@@ -50,11 +50,10 @@ struct BottomSheetView<Content: View>: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                self.indicator.padding()
+                //self.indicator
                 self.content
             }
             .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
-            .background(Color("LightWhite"))
             .cornerRadius(Constants.radius)
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: max(self.offset + self.translation, 0))
@@ -78,7 +77,7 @@ struct BottomSheetView<Content: View>: View {
 struct BottomSheetView_Previews: PreviewProvider {
     static var previews: some View {
         BottomSheetView(isOpen: .constant(false), maxHeight: 600, minHeight: 300) {
-            Text("b3alls")
+            Text("")
            
         }.edgesIgnoringSafeArea(.all)
     }

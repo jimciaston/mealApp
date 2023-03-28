@@ -101,7 +101,10 @@ struct FoodItemView: View {
                             switch sheetMode {
                                 case .none:
                                     sheetMode = .mealTimingSelection
-                                mealTimingToggle = true //meal timing list comes to view
+                                withAnimation(.linear(duration: 0.25)) {
+                                    mealTimingToggle = true //meal timing list comes to view
+                                }
+                               
                                 case .mealTimingSelection:
                                     sheetMode = .none
                                 mealTimingToggle = false //list leaves view
@@ -155,7 +158,6 @@ struct FoodItemView: View {
            //sometimes when loading serving size can be wonky, sets to one for easier calculations
                 .onAppear{
                     mealServingSize = 1
-                   
                 }
                 
             
@@ -163,20 +165,21 @@ struct FoodItemView: View {
             //get rid of that stupid space up top
             .navigationTitle("")
             .navigationBarHidden(true)
-            ZStack {
-                FlexibleSheet(sheetMode: $sheetMode) {
-                    MealTimingSelectorView(meal: $meal, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
-                }
-                .frame(height: 200)
-                .frame(maxWidth: .infinity)
-                .padding(.top, -8) // moves snackbar info up in view
-                .animation(.easeInOut)
-               
-                // other views here
-            }
+         
 
         }
-        
+        .blur(radius: mealTimingToggle ? 0.8 : 0 )
+        ZStack {
+            FlexibleSheet(sheetMode: $sheetMode) {
+                MealTimingSelectorView(meal: $meal, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
+            }
+            .frame(height: 200)
+            .frame(maxWidth: .infinity)
+            .padding(.top, -8) // moves snackbar info up in view
+            .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
+           
+            // other views here
+        }
     }
        
      

@@ -84,12 +84,15 @@ struct UserProfileView: View {
                 HStack{
                     Text(name ?? "" ).bold()
                         .font(.title2)
+                        .padding(.bottom, 2)
                 }
-               
                     .padding()
                 
+                
+                HomePageExercisePreferencesView(exercisePreferences: exercisePreferences ?? ["exercises unavailable"])
+                .padding(.bottom, 25)
+                
                 VStack{
-                    
                     HStack{
                         HStack{
                             VStack{
@@ -195,6 +198,7 @@ struct UserProfileView: View {
                                      .background(Color("UserProfileCard2"))
                                      .font(.body)
                                      .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
+                                     .padding(.top, 5)
                             }
                         
                         if let socialLink = userSocialLink, let url = URL(string: socialLink) {
@@ -241,8 +245,7 @@ struct UserProfileView: View {
                                       
                     }
                     .frame(width: Geo.size.width - 140)
-                    //save following
-                   
+                    .padding(.top, -5)
                          
                 }
                 .onAppear{
@@ -250,18 +253,14 @@ struct UserProfileView: View {
                 }
                 Spacer()
                //display user recipes
-            
-                Text("About Me")
-                    .font(.title3)
-                    .padding(.bottom, -10)
-                    .padding(.top, 10)
-                
-                HomePageExercisePreferencesView(exercisePreferences: exercisePreferences ?? ["exercises unavailable"])
-                .padding(.top,10)
-                .padding(.bottom, 25)
+//
+//                Text("About Me")
+//                    .font(.title3)
+//                    .padding(.bottom, -10)
+//                    .padding(.top, -70)
                 //User Bio
                 ProfileBio(userBio: $userBio)
-                    .padding(.top, 10)
+                    .padding(.top, -25)
                     .minimumScaleFactor(0.5)
                     .padding(.bottom, 25)
                     .frame(width: Geo.size.width / 1.25)

@@ -13,10 +13,20 @@ struct DeleteCustomItemView: View {
     @Binding var showDeleteItemView: Bool
     var body: some View {
         VStack{
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.secondary)
+                .frame(width: 60,height: 5)
+                .padding(.top, 15)
+                .onTapGesture {
+                    self.showDeleteItemView.toggle()
+                }
+                
+            
             Text("Are you sure?")
                 .bold()
+                .padding(.top, 25)
                 .font(.title2)
-            Text("Once you delete your item, It will be gone forever")
+            Text("Once deleted, your item will be gone forever")
                 .padding(.top, 10)
            
                 Text("Yes, I'm sure").fontWeight(.bold)
@@ -27,6 +37,7 @@ struct DeleteCustomItemView: View {
                 //draw rectange around buttons
                     .overlay( RoundedRectangle(cornerRadius: 25)
                     .stroke(Color.red, lineWidth: 3)
+                              
                 )
                     .onTapGesture {
                         //delete logic
@@ -35,13 +46,12 @@ struct DeleteCustomItemView: View {
                     }
             .padding(.top, 25)
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
-
-//
-//struct DeleteCustomItemView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeleteCustomItemView()
-//    }
-//}
+struct DeleteCustomItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        DeleteCustomItemView(customItemID: UUID(), showDeleteItemView: .constant(true))
+    }
+}

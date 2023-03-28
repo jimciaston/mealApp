@@ -72,10 +72,11 @@ struct RecipeControllerModal: View {
                     WebImage(url: URL(string: image))
                         .placeholder(Image("defaultRecipeImage-2").resizable())
                         .resizable()
-                        .frame(width:500, height: 250)
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                        .frame(width:350, height: 200)
                         .aspectRatio(contentMode: .fill)
                     }
-              
+                .padding(.top, 15)
                 .onChange(of: inputImage, perform: { _ in
                     persistImageToStorage()
                 })

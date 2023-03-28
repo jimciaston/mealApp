@@ -38,7 +38,7 @@ struct UserDashboardView: View {
                             if !isUserSearching{
                                 UserDashController(vm: vm, signUpController: signUpController)
                                     .environmentObject(EditModeActive())
-                                    .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 0.8)
+                                    .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
                             }
                            
                         
@@ -132,7 +132,7 @@ struct UserDashboardView: View {
                     // allow view to leave after 2 seconds
                      .frame(width:geometry.size.width, height: geometry.size.height / 1.2)
                      .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust the duration here
+                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { // Adjust the duration here
                             recipeSavedMessage = false
                             dashboardRouter.currentTab = .profileCardRecipes
                         }

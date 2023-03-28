@@ -32,7 +32,7 @@ struct MacroSelectHstack: View {
         HStack {
             Text("\(macroName): ")
                 .frame(width: 60, alignment: .leading)
-               
+                .padding(.trailing, 15)
                 
             Image(systemName: "minus")
                 .frame(width: 15, height: 15)

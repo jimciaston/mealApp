@@ -53,6 +53,7 @@
 		0A3E03E328E122CF009613CF /* CustomFoodHStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */; };
 		0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */; };
 		0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */; };
+		0A469AFE29D2466700556F4B /* ContactUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A469AFD29D2466700556F4B /* ContactUsView.swift */; };
 		0A47472D2925910800384B51 /* PlusTabPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47472C2925910800384B51 /* PlusTabPopMenu.swift */; };
 		0A474731292B9F2300384B51 /* ProfileCardsMainDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A474730292B9F2200384B51 /* ProfileCardsMainDisplay.swift */; };
 		0A474733292E48CA00384B51 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A474732292E48CA00384B51 /* Colors.xcassets */; };
@@ -238,6 +239,7 @@
 		0A3E03E228E122CF009613CF /* CustomFoodHStacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoodHStacks.swift; sourceTree = "<group>"; };
 		0A3E03E428E3CAB4009613CF /* SaveCustomFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCustomFoodItem.swift; sourceTree = "<group>"; };
 		0A4189F4285997D3005876F2 /* RecipeSuccessPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSuccessPopUp.swift; sourceTree = "<group>"; };
+		0A469AFD29D2466700556F4B /* ContactUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsView.swift; sourceTree = "<group>"; };
 		0A47472C2925910800384B51 /* PlusTabPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTabPopMenu.swift; sourceTree = "<group>"; };
 		0A474730292B9F2200384B51 /* ProfileCardsMainDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardsMainDisplay.swift; sourceTree = "<group>"; };
 		0A474732292E48CA00384B51 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				0A07D968284AA1780080A4ED /* SuccessAlert.swift */,
 				0A87DB6A291E84DD00A3C1E9 /* DeleteProfileView.swift */,
 				0A87DB6C291EDFA900A3C1E9 /* DeleteAccountLogic.swift */,
+				0A469AFD29D2466700556F4B /* ContactUsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 				0A14956D294103B800E6258F /* JournalEntry+CoreDataProperties.swift in Sources */,
 				0AB1126B28F0A96C0071B3ED /* ProfileBio.swift in Sources */,
 				0A2D896D297F01EB001EDF01 /* DeleteCustomItemView.swift in Sources */,
+				0A469AFE29D2466700556F4B /* ContactUsView.swift in Sources */,
 				0A8D806D28296AA90055021A /* RecipeFullListRow.swift in Sources */,
 				0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */,
 				0A630F5029C94ECF0088A789 /* ExercisePreferencesSettings.swift in Sources */,
