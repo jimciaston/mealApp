@@ -25,39 +25,54 @@ struct RecipeEditorImage: View {
                        .aspectRatio(4/3, contentMode: .fill)
                        .frame(width:250, height: 170)
                        .clipped()
-                       .padding(.top, 40)
-                       .cornerRadius(5)
+                       .cornerRadius(10)
+                       .padding(.top, 25)
                 } else{
-                    Image("defaultRecipeImage")
-                        .resizable()
-                        .aspectRatio(4/3, contentMode: .fill)
-                        .frame(width:250, height: 170)
-                        .padding(.top, 40)
-                        .cornerRadius(5)
+                    ZStack {
+                        Color("LightWhite")
+                            .frame(width:250 ,height: 160)
+                        
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
+                            .foregroundColor(Color("LighterWhite"))
+                            .frame(width:250, height: 170)
+                            .frame(maxWidth: .infinity)
+                        Image("uploadRecipeImage")
+                            .resizable()
+                            .foregroundColor(.gray)
+                            .frame(width:60, height: 60)
+                            .padding()
+                        Text("Upload your recipe photo")
+                            .font(.caption)
+                            .offset(y: 55)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.top, 25)
+                    .onTapGesture {
+                        showingImagePicker = true
+                    }
+            
+                    .sheet(isPresented: $showingImagePicker){
+                        EditorImagePicker(image: $inputImage)
+                    }
                 }
-             
-                    
-                    Image(systemName:("plus.circle.fill"))//.renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .offset(x: 20, y: -10)
-                        .foregroundStyle(.white, Color("UserProfileCard2"))
-                        .frame(width:50, height:10)
-                        .contentShape(Rectangle())
+//
+//
+//                    Image(systemName:("plus.circle.fill"))//.renderingMode(.original)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fill)
+//                        .offset(x: 20, y: -10)
+//                        .foregroundStyle(.white, Color("UserProfileCard2"))
+//                        .frame(width:50, height:10)
+//                        .contentShape(Rectangle())
                 
-                        .onTapGesture {
-                            showingImagePicker = true
-                        }
-                
-                        .sheet(isPresented: $showingImagePicker){
-                            EditorImagePicker(image: $inputImage)
-                        }
+                       
                 }
             //save to storage when image is selected
-            .onChange(of: inputImage, perform: { _ in
-                persistImageToStorage()
-            })
-        }
+            
+        }.onChange(of: inputImage, perform: { _ in
+            persistImageToStorage()
+        })
         
     }
     
@@ -98,3 +113,4 @@ struct RecipeEditorImage_Previews: PreviewProvider {
         RecipeEditorImage()
     }
 }
+

@@ -81,7 +81,7 @@ struct FullListOfRecipes: View {
         VStack{
             KFImage(URL(string: image))
                 .placeholder {
-                        Image("defaultRecipeImage")
+                        Image("defaultRecipeImage-2")
                             .resizable()
                     }
                         .resizable()

@@ -120,9 +120,9 @@ struct SaveRecipeButton: View {
             
             .padding(EdgeInsets(top: 12, leading: 100, bottom: 12, trailing: 100))
             .background(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: 0)
                     .fill(
-                        Color("completeGreen")))
+                        Color("UserProfileCard1")))
             
         }
         .transition(.sideSlide)

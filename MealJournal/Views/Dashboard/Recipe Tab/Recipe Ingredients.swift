@@ -34,14 +34,15 @@ struct RecipeIngredients: View {
    
     //produces view
     private func listContent(for keys: [String]) -> some View {
-        ForEach(keys, id: \.self) { key in
+        ForEach(keys.reversed(), id: \.self) { key in
             HStack{
                 Text(key)
-                    .font(.title2)
-                    .foregroundColor(.green)
+                    .font(.body)
                     .fontWeight(.bold)
+                    .foregroundColor(Color("UserProfileCard1"))
+                
                 Text(turnIntoOrderedDictionary(regularDictionary: ingredients)[key] ?? "default")
-                    .font(.title3)
+                    .font(.body)
             }
         }
         .onDelete { indexSet in
@@ -98,7 +99,7 @@ struct RecipeIngredients: View {
                 .onAppear{
                     ema.updatedIngredients = ingredients
                 }
-                .listStyle(SidebarListStyle())
+                .listStyle(PlainListStyle())
             
                 }
             }

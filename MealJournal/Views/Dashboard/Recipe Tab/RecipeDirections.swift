@@ -58,7 +58,7 @@ struct RecipeDirections: View {
                     HStack{
                         Text(String(index + 1))
                             .font(.title)
-                            .foregroundColor(.green)
+                            .foregroundColor(Color("UserProfileCard1"))
                             .fontWeight(.bold)
                         Text(recipe)
                             .font(.title3)
@@ -78,7 +78,7 @@ struct RecipeDirections: View {
             .onAppear{
               //  ema.updatedDirections = directions
             }
-            .listStyle(SidebarListStyle())
+            .listStyle(PlainListStyle())
            
         }
         .environment(\.editMode, Binding.constant(ema.editMode ? EditMode.active : EditMode.inactive))

@@ -49,60 +49,104 @@ struct RecipeDashHeader: View {
                 //prep time
                 HStack{
                         Image(systemName:("clock"))
-                            .foregroundColor(Color("completeGreen"))
+                            .foregroundColor(Color("olympic"))
                         //select amount of time prepping/cooking
-                
-                    Picker(selection: $recipePrepTime, label: Text("")) {
-                       ForEach(cookingTime, id: \.self) {
-                           Text($0).foregroundColor(.black)
-                       }
-                       .onChange(of: recipePrepTime, perform: { _ in
-                           ema.recipePrepTime = recipePrepTime
-                       })
+                    ZStack{
+                        Text("\(recipePrepTime)")
+                              .font(.body)
+                              .foregroundColor(Color("olympic"))
+                        Picker(selection: $recipePrepTime, label: Text("").foregroundColor(.red)) {
+                            ForEach(cookingTime, id: \.self) {
+                                Text($0).foregroundColor(.black)
+                                    .font(.body)
+                            }
+                        }
+                        .frame(width:0)
+                        .opacity(0.025)
+                        .onChange(of: recipePrepTime) { value in
+                            ema.recipePrepTime = recipePrepTime
+                        }
+                       
                     }
-                        .accentColor(.red)
-                    }
-                
-                Picker(selection: $caloriesPicker, label: Text("").foregroundColor(.red)) {
-                    ForEach(0 ..< calorieCounter().count, id: \.self) {
-                        Text(String(calorieCounter()[$0]) + " Calories")
-                    }
-                }.onChange(of: caloriesPicker) { value in
-                    ema.recipeCaloriesMacro = calorieCounter()[value]
                 }
-                .accentColor(.red)
+                .padding(.top, -10)
+                ZStack{
+                    Text("\(caloriesPicker) calories")
+                          .font(.body)
+                          .foregroundColor(Color("olympic"))
+                    Picker(selection: $caloriesPicker, label: Text("").foregroundColor(.red)) {
+                        ForEach(0 ..< calorieCounter().count, id: \.self) {
+                            Text(String(calorieCounter()[$0]) + " calories")
+                                .font(.body)
+                               
+                        }
+                    }
+                    .frame(width:0)
+                    .opacity(0.025)
+                    .onChange(of: caloriesPicker) { value in
+                        ema.recipeCaloriesMacro = calorieCounter()[value]
+                    }
+                   
+                }
                 HStack{
                     //macro pickers for recipe
                   
-                  
-                    Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
-                        ForEach(0 ..< pickerGramCounter().count, id: \.self) {
-                            Text(String(pickerGramCounter()[$0]) + "g Fat")
+                    ZStack{
+                        Text("\(fatPicker)g Fat")
+                              .font(.body)
+                              .foregroundColor(Color("olympic"))
+                        Picker(selection: $fatPicker, label: Text("").foregroundColor(.red)) {
+                            ForEach(0 ..< pickerGramCounter().count, id: \.self) {
+                                Text(String(pickerGramCounter()[$0]) + "g Fat")
+                                    .font(.body)
+                                   
+                            }
                         }
-                    }.onChange(of: fatPicker) { value in
-                        ema.recipeFatMacro = pickerGramCounter()[value]
-                    }
-                    .accentColor(.red)
-                    Picker(selection: $carbPicker, label: Text("").foregroundColor(.red)) {
-                        ForEach(0 ..< pickerGramCounter().count, id: \.self) {
-                            Text(String(pickerGramCounter()[$0]) + "g Carbs")
+                        .frame(width:0)
+                        .opacity(0.025)
+                        .onChange(of: carbPicker) { value in
+                            ema.recipeCarbMacro = pickerGramCounter()[value]
                         }
-                    }.onChange(of: carbPicker) { value in
-                        ema.recipeCarbMacro = pickerGramCounter()[value]
+                       
                     }
-                    .accentColor(.red)
-                    Picker(selection: $proteinPicker, label: Text("")) {
-                        ForEach(0 ..< pickerGramCounter().count, id: \.self) {
-                            Text(String(pickerGramCounter()[$0]) + "g protein")
+                    ZStack{
+                        Text("\(carbPicker)g carbs")
+                              .font(.body)
+                              .foregroundColor(Color("olympic"))
+                        Picker(selection: $carbPicker, label: Text("").foregroundColor(.red)) {
+                            ForEach(0 ..< pickerGramCounter().count, id: \.self) {
+                                Text(String(pickerGramCounter()[$0]) + "g Carbs")
+                                    .font(.body)
+                                   
+                            }
                         }
-                    }.onChange(of: proteinPicker) { value in
-                        ema.recipeProteinMacro = pickerGramCounter()[value]
+                        .frame(width:0)
+                        .opacity(0.025)
+                        .onChange(of: carbPicker) { value in
+                            ema.recipeCarbMacro = pickerGramCounter()[value]
+                        }
+                       
                     }
-                    .accentColor(.red)
-                    .padding(.leading, 5)
+                    
+                    ZStack{
+                        Text("\(proteinPicker)g Protein")
+                              .font(.body)
+                              .foregroundColor(Color("olympic"))
+                        Picker(selection: $proteinPicker, label: Text("").foregroundColor(.red)) {
+                            ForEach(0 ..< pickerGramCounter().count, id: \.self) {
+                                Text(String(pickerGramCounter()[$0]) + "g Protein")
+                                    .font(.body)
+                            }
+                        }
+                        .frame(width:0)
+                        .opacity(0.025)
+                        .onChange(of: proteinPicker) { value in
+                            ema.recipeProteinMacro = pickerGramCounter()[value]
+                        }
+                    }
+                    
+                   
                 }
-                .padding(.top, 10)
-          
             }
             .onAppear{
                 ema.recipeFatMacro = fatPicker
@@ -128,7 +172,7 @@ struct RecipeDashHeader: View {
                 .multilineTextAlignment(.leading)
                 HStack{
                     Image(systemName: "clock")
-                        .foregroundColor(.green)
+                        .foregroundColor(Color("UserProfileCard2"))
                     Text(recipePrepTime)
                 }
                 .multilineTextAlignment(.leading)
@@ -160,7 +204,6 @@ struct RecipeDashHeader: View {
             .frame(width:280, height:200)
             .background(Color.white)
             .cornerRadius(15)
-            .padding(.top, 50)
            
         }
        

@@ -73,7 +73,7 @@ struct RecipeControllerModal: View {
                         .placeholder(Image("defaultRecipeImage-2").resizable())
                         .resizable()
                         .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                        .frame(width:350, height: 200)
+                        .frame(width:250, height: 170)
                         .aspectRatio(contentMode: .fill)
                     }
                 .padding(.top, 15)
@@ -94,6 +94,9 @@ struct RecipeControllerModal: View {
                 
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()
+                    .padding(.top, 15)
+                    .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
+                    .cornerRadius(25)
         
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
@@ -102,22 +105,40 @@ struct RecipeControllerModal: View {
                 
                      HStack{
                          Spacer() // << moves to the right
-                         DeleteRecipe(currentRecipeID: recipeID){
-                            dismiss()
+                         if ema.editMode{
+                             DeleteRecipe(currentRecipeID: recipeID){
+                                dismiss()
+                             }
+                             .alignmentGuide(.trailing) { d in d[.trailing] }
+                             .padding(.trailing, 25)
+                             .padding(.top, 25)
                          }
-                         .alignmentGuide(.trailing) { d in d[.trailing] }
-                         .padding(.trailing, 25)
-                         .padding(.top, 25)
+                         
                      }
                      .frame(height:40)
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
-                    Button(action: {
-                        dismiss()
-                    })
-                    {
-                        Text("Back")
+                    if !ema.editMode {
+                        Button(action: {
+                            dismiss()
+                        })
+                        {
+                            Text("Back")
+                        }
                     }
+                    else{
+                        Button(action: {
+                            ema.editMode.toggle()
+                        })
+                        {
+                            Image(systemName: "x.square")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
+                                .opacity(0.8)
+                        }
+                    }
+                   
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: {
@@ -181,4 +202,19 @@ struct RecipeControllerModal: View {
       }
     }
   
-      
+struct RecipeControllerModal_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeControllerModal(
+            name: "Test Recipe",
+            prepTime: "30 mins",
+            image: "https://example.com/image.png",
+            ingredients: ["Flour": "2 cups", "Sugar": "1/2 cup"],
+            directions: ["Preheat oven to 350°F", "Mix flour and sugar in a bowl", "Bake for 20 mins"],
+            recipeID: "12345",
+            recipeCaloriesMacro: 500,
+            recipeFatMacro: 20,
+            recipeCarbMacro: 60,
+            recipeProteinMacro: 30
+        )
+    }
+}

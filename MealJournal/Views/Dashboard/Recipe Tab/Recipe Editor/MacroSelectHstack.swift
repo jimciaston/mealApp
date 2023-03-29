@@ -32,7 +32,7 @@ struct MacroSelectHstack: View {
         HStack {
             Text("\(macroName): ")
                 .frame(width: 60, alignment: .leading)
-                .padding(.trailing, 15)
+                .padding(.trailing, 25)
                 
             Image(systemName: "minus")
                 .frame(width: 15, height: 15)
@@ -57,7 +57,7 @@ struct MacroSelectHstack: View {
                         macroAmount += 1
                     }
             .gesture(combined)
-            Spacer()
+           // Spacer()
         }
        
 

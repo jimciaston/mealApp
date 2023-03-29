@@ -40,7 +40,7 @@ struct RecipeEditorHomeMenu: View {
                                 sheetMode = .none
                         }
                     }){
-                        Image(systemName:"checkmark.circle.fill").resizable()
+                        Image(systemName:"checkmark.square.fill").resizable()
                             .frame(width: 30, height: 30)
                           //  .frame(maxWidth: .infinity)
                             .foregroundColor(Color("ButtonTwo"))
