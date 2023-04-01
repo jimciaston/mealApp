@@ -299,10 +299,7 @@ struct JournalEntryMain: View {
                       
                         
                         Button(action: {
-                           
                                 favoriteJournalEntry()
-                            
-                          
                         }){
                             Image(systemName:isUserFavoritingEntry && !journalSavedAlready ? "star.fill" : "star")
                                 .resizable()

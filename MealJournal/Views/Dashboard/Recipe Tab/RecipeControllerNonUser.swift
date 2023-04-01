@@ -32,12 +32,33 @@ struct RecipeControllerNonUser: View {
     @State var isRecipeSaved = false
     @State var showSavedMessage = false
     @State var isUserFollowed = false
-  
+    @State private var overlayShowing = false
     @State private var sheetMode: SheetMode = .none
-    
+    @State var exercisePreferences = [""]
+    @State var userSocialLink = ""
     @Binding var notCurrentUserProfile: Bool
     var userModel: UserModel
     //check if recipeID is saved by user
+    
+    func grabUserDetails(){
+        print(userUID)
+          
+          FirebaseManager.shared.firestore.collection("users")
+              .document(userUID)
+              .getDocument { (snapshot, err) in
+                 guard let data = snapshot?.data()
+                  else{
+                      print ("error grabbing users ")
+                      return
+                  }
+             
+                  exercisePreferences = data ["exercisePreferences"] as? [String] ?? [""]
+                  userSocialLink = data ["userSocialLink"] as? String ?? ""
+                 
+              }
+    }
+    
+    
     func checkIfRecipeExists(recipeID: String) {
         // grab current user
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -100,6 +121,34 @@ struct RecipeControllerNonUser: View {
                       .aspectRatio(contentMode: .fill)
                   Image(systemName: "bookmark.square.fill")
                       .font(.largeTitle)
+                    
+                      .overlay(
+                          ZStack {
+                              Text("User must be followed to save recipe")
+                                  .foregroundColor(.black)
+                                  // Start styling the popup...
+                                  .padding(.all, 10)
+                                  .background(Color.white)
+                                  .cornerRadius(10)
+                                  .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                  .offset(x: -120, y: 40) // Move the view above the button
+                                  //valid overlay
+                                  .opacity(overlayShowing ? 1.0 : 0)
+                                  .frame(width: 250, height: 70)
+                                  .padding(.trailing, 20)
+                              
+                              if overlayShowing {
+                                  Color.clear
+                                      .onAppear {
+                                          DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                              withAnimation {
+                                                  overlayShowing = false
+                                              }
+                                          }
+                                      }
+                              }
+                          }
+                      )
             //styling for colors of icon if saved / not saved
                       .foregroundStyle(
                           isRecipeSaved ? Color.white : Color.white,
@@ -137,17 +186,20 @@ struct RecipeControllerNonUser: View {
                                       showSavedMessage = false
                                   }
                               }
-                             
+                              else{
+                                  overlayShowing = true
+                              }
                           }
              
                       }
                       .onAppear{
                          //check if recipe is saved or not
-                         
+                          grabUserDetails()
+                          
                         checkIfRecipeExists(recipeID: recipeID)
                         rm.grabSavedUserRecipes() // refresh list
                           isCurrentUserfollowingUser(userUID: userUID) // << check if user is followed (allow to save re
-                                                                 
+                       
                       }
                     
                     if showSavedMessage {
@@ -177,12 +229,7 @@ struct RecipeControllerNonUser: View {
         .padding(.top, 65)
         .frame(width:300, height: 120)
         
-       
-        
-//show image picker
-       
-
-                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, exercisePreferences: ["Don't need, this info will not be in view"], userSocialLink: "Don't need this info in view", userModel: userModel)
+                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, exercisePreferences: $exercisePreferences, userSocialLink: $userSocialLink, userModel: userModel)
             .padding()
             .padding(.top, 15)
             .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)

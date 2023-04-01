@@ -198,7 +198,7 @@ struct UserProfileView: View {
                                      .background(Color("UserProfileCard2"))
                                      .font(.body)
                                      .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
-                                     .padding(.top, 5)
+                                    
                             }
                         
                         if let socialLink = userSocialLink, let url = URL(string: socialLink) {

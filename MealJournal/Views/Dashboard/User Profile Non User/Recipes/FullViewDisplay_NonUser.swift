@@ -33,7 +33,6 @@ struct FullListOfRecipes_nonUser: View {
                    ForEach(Array(allRecipes.chunked(into: 6)), id: \.self) { recipesChunk in
                        LazyVGrid(columns: columns) {
                           ForEach(recipesChunk, id: \.id) { recipe in
-                             
                               self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
                                  
                               .onTapGesture {
