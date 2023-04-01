@@ -24,7 +24,28 @@ class UserJournalHelper: ObservableObject {
               return container
           }()
  
-   
+    func checkIfDateExistsInFirestore(uid: String) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
+
+        FirebaseManager.shared.firestore.collection("users").document(uid).collection("userJournals").document(currentDate).getDocument { (snapshot, error) in
+            if let error = error {
+                print("Error getting document: \(error)")
+                return
+            }
+            if snapshot?.exists == true {
+                print("Current date exists in Firestore document")
+            } else {
+                print("Current date does not exist in Firestore document")
+            }
+        }
+    }
+    
+    
+    
+    
     //save feature
     func coreDataSave (context: NSManagedObjectContext) {
         do {
@@ -104,7 +125,8 @@ class UserJournalHelper: ObservableObject {
        
         //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-
+      
+        
         let journalEntryInfo = [
             "mealName" : mealName,
             "mealFat" : Int(mealFat),
@@ -139,6 +161,7 @@ class UserJournalHelper: ObservableObject {
                     return
                 }
             }
+        
         FirebaseManager.shared.firestore.collection("users")
             .document(uid)
             .collection("userJournalEntrys")

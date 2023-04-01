@@ -92,7 +92,6 @@
 		0A87DB672918A52900A3C1E9 /* GetStartedPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB662918A52900A3C1E9 /* GetStartedPopUp.swift */; };
 		0A87DB69291943B900A3C1E9 /* GetStartedPopUpContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB68291943B900A3C1E9 /* GetStartedPopUpContent.swift */; };
 		0A87DB6B291E84DD00A3C1E9 /* DeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB6A291E84DD00A3C1E9 /* DeleteProfileView.swift */; };
-		0A87DB6D291EDFA900A3C1E9 /* DeleteAccountLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB6C291EDFA900A3C1E9 /* DeleteAccountLogic.swift */; };
 		0A87DB71291EEBC600A3C1E9 /* Improvemnts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB70291EEBC500A3C1E9 /* Improvemnts.swift */; };
 		0A87DBB52923278E00A3C1E9 /* DashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DBB42923278E00A3C1E9 /* DashboardRouter.swift */; };
 		0A8BC8E0299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC8DF299D7749001B0E06 /* RecipeDashHeader_SavedRecipes.swift */; };
@@ -169,6 +168,7 @@
 		0AE0DB8E27BC1E03006F1835 /* EntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8D27BC1E02006F1835 /* EntryModel.swift */; };
 		0AE0DB9027BD5041006F1835 /* EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB8F27BD5041006F1835 /* EntryRow.swift */; };
 		0AE0DB9627C21124006F1835 /* MealSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DB9527C21124006F1835 /* MealSearchBar.swift */; };
+		0AE4792E29D5E5DA008B387D /* DeleteAccountLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A87DB6C291EDFA900A3C1E9 /* DeleteAccountLogic.swift */; };
 		0AF5B10028944FB4005533C8 /* RecipeControllerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */; };
 		0AF5B1022899B0FA005533C8 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B1012899B0FA005533C8 /* ActivityIndicator.swift */; };
 		0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B10328B0132D005533C8 /* UserProfileView.swift */; };
@@ -1192,13 +1192,13 @@
 				0A8F990E27AB0F01008F5584 /* LandingPage.swift in Sources */,
 				0AC5698029C1587F007ABBC9 /* UserModelFirestore.swift in Sources */,
 				0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */,
-				0A87DB6D291EDFA900A3C1E9 /* DeleteAccountLogic.swift in Sources */,
 				0A2D896929782930001EDF01 /* SavedJournalListNonUser.swift in Sources */,
 				0A3B9B2728162DE800EC631A /* NutrionalPieChartView.swift in Sources */,
 				0A14956C294103B800E6258F /* JournalEntry+CoreDataClass.swift in Sources */,
 				0A47472D2925910800384B51 /* PlusTabPopMenu.swift in Sources */,
 				0A07D96328492E420080A4ED /* ExercisePreferenceForUser.swift in Sources */,
 				0AB112C5290D699B0071B3ED /* LandingPageLogo.swift in Sources */,
+				0AE4792E29D5E5DA008B387D /* DeleteAccountLogic.swift in Sources */,
 				0A12639327CE5CD10076876B /* MealEntrys.swift in Sources */,
 				0A2D89672978251F001EDF01 /* JournalDashLogicNonUser.swift in Sources */,
 				0A8BC8F629B4EFC6001B0E06 /* ProfilePictureViewModel.swift in Sources */,

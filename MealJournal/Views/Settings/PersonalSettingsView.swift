@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UIKit
-
+import SwiftUIX
 
 
 struct PersonalSettingsView: View {
@@ -25,6 +25,7 @@ struct PersonalSettingsView: View {
     //@State private var height: String = ""
     @State  var agenda: String = ""
     @State  var userInstagramHandle = "" // << instagram
+    @Binding var deleteAccountSheet: Bool
    // **** Picker Options ****
      var weightOptions = getWeight() //calls function that calculates weight up to 700ibs
      var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
@@ -185,11 +186,16 @@ struct PersonalSettingsView: View {
                         .padding(.bottom, 325)
                     }
                    // Spacer()
-                
+                                
+                Text("Delete Profile")
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .onTapGesture {
+                        deleteAccountSheet = true
+                    }
                   
-               
             }
-          
+            .blur(radius: deleteAccountSheet ? 2 : 0) // blur when bottomsheet open
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
                     Button {
@@ -257,14 +263,36 @@ struct PersonalSettingsView: View {
                         Text("Save Changes")
                     }
                 }
+             
             }
            
         }
+        .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
+            GeometryReader { geometry in {
+                BottomSheetView(
+                    isOpen: self.$deleteAccountSheet,
+                    maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: geometry.size.height * 0.5 * 0.7
+                ) {
+                    DeleteProfileView(deleteSuccess: $deleteAccountSheet)
+                        .frame(maxWidth: .infinity)
+                        .background(Color("LightWhite"))
+                       Spacer()
+                        .onTapGesture{
+                            self.deleteAccountSheet = false
+                        }
+                }
+
+            }()
+                    .edgesIgnoringSafeArea(.all)
+
+            }
+
+        })
         //work around to dismiss keyboard from editors
         .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
         
         .onAppear{
-           print(originalBio)
+          
             self.originalName = vm.userModel?.name ?? ""
             self.originalBio = vm.userModel?.userBio ?? ""
             
@@ -286,6 +314,6 @@ struct PersonalSettingsView: View {
 
 struct PersonalSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonalSettingsView(vm: DashboardLogic())
+        PersonalSettingsView(vm: DashboardLogic(), deleteAccountSheet: .constant(false))
     }
 }

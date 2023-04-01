@@ -142,12 +142,8 @@ struct EntryList: View {
                     }
                 }
         }
-        .onChange(of: existingJournalEntrys.map(\.id)) { _ in
-            self.isExistingJournalEntrysEmpty = self.existingJournalEntrys.isEmpty
-            print(isExistingJournalEntrysEmpty)
-        }
+        
         .onAppear{
-           
             //fetch macros
             fetchCalorieTotals()
             fetchProteinTotals()

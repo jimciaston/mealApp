@@ -8,6 +8,13 @@
 import SwiftUI
 import CoreData
 
+
+
+
+
+
+
+
 //func removeRows(at offsets: IndexSet) {
 //        numbers.remove(atOffsets: offsets)
 //    }
@@ -24,7 +31,7 @@ struct JournalEntryMain: View {
     func removeJournalEntry(at offsets: IndexSet) {
         mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)
     }
-  
+   
     @EnvironmentObject var mealEntrys: MealEntrys
     //interchangeable, updates when we toggle calendar
     @State var dayOfWeek = ""
@@ -56,46 +63,130 @@ struct JournalEntryMain: View {
     @State var attemptedSameDaySave = false
     @State var journalSavedAlready = false
     @State var isExistingJournalEntrysEmpty = false
+    @State var intC = 0 // << count if we go six days back
+    @State var calendarDate = Date()
+    
+    //format date to xxxx-xx-xx
+    func dateString(_ date: Date) -> String {
+            let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMddyyyy"
+            return dateFormatter.string(from: date)
+        }
+    
+    
     func favoriteJournalEntry(){
-        
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
         var totalCals = 0
         var totalProtein = 0
         var totalCarbs = 0
         var totalFat = 0
        
-            for entry in fetchedJournalEntrys {
-                if(entry.dayOfWeekCreated == dayOfWeek){
-                    journalSavedAlready = true
-                        totalCals += Int(entry.mealCalories ?? 0)
-                        totalProtein += Int(entry.mealProtein ?? 0)
-                        totalCarbs += Int(entry.mealCarbs ?? 0)
-                        totalFat  += Int(entry.mealFat ?? 0)
-                        
-                       UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: entry.mealFat!, mealCarbs: entry.mealCarbs!, mealProtein: entry.mealProtein!, mealCalories: entry.mealCalories!, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!,
-                          totalCalories: String(totalCals),
-                          totalProtein: String(totalProtein),
-                          totalCarbs: String(totalCarbs),
-                          totalFat: String(totalFat)
-                       )
-        //save entry
-                    
-                        do{
-                            try managedObjectContext.save()
-                            journalSaved = true
-                        }
-                        catch{
-                           
-                            print(error.localizedDescription)
-                        }
-                    
-                        isUserFavoritingEntry = false // << so star doesn't fill
-                        overlayShowing = true
-                        favoriteAlreadySaved = true
-                    
-                }
-            }
+        //same day save not valid
+        if dayOfWeek == dayOfWeekPermanent {
+            attemptedSameDaySave = true
+        }
         
-       
+        else{
+            
+            attemptedSameDaySave = false
+            //check firestore for existenece
+                FirebaseManager.shared.firestore.collection("users").document(uid).collection("userJournalEntrys").document(dateString(calendarDate)).getDocument { (snapshot, error) in
+                    if let error = error {
+                        print("Error getting document: \(error)")
+                        return
+                    }
+                    if snapshot?.exists == true {
+                       journalSavedAlready = true
+                        print("true this is working")
+                    } else {
+                        let dateString = String(dateString(calendarDate))
+                        let dateStringDashesRemoved = dateString.replacingOccurrences(of: "/", with: "", options: NSString.CompareOptions.literal, range: nil)
+                        //Need to now reverse day and month dates
+                        let day = dateStringDashesRemoved.prefix(2)
+                        
+                        let monthStart = dateStringDashesRemoved.index(dateStringDashesRemoved.startIndex, offsetBy: 2)
+                        let monthEnd = dateStringDashesRemoved.index(monthStart, offsetBy: 2)
+                        let month = dateStringDashesRemoved[monthStart..<monthEnd]
+                       
+                        let yearStart = dateStringDashesRemoved.index(dateStringDashesRemoved.startIndex, offsetBy: 4)
+                        let yearEnd = dateStringDashesRemoved.index(yearStart, offsetBy: 4)
+                        let year = dateStringDashesRemoved[yearStart..<yearEnd]
+                        let stringFormattedForCBMatch = String("\(month)/\(day)/\(year)")
+                       print(stringFormattedForCBMatch  )
+                       
+                        let predicate = NSPredicate(format: "createdDate CONTAINS %@", stringFormattedForCBMatch )
+                        let filteredJournalEntries = fetchedJournalEntrys.filter { predicate.evaluate(with: $0) }
+                        print(filteredJournalEntries)
+                        journalSavedAlready = false
+                        
+                    }
+                }
+            
+            
+            
+            
+            
+            for entry in fetchedJournalEntrys {
+            //check if user is trying to save same day
+//
+//
+//
+//
+//                if (dateString(calendarDate) == dateString(entry.date!)){
+//                    totalCals += Int(entry.mealCalories ?? 0)
+//                        totalProtein += Int(entry.mealProtein ?? 0)
+//                        totalCarbs += Int(entry.mealCarbs ?? 0)
+//                        totalFat  += Int(entry.mealFat ?? 0)
+//                    UserJournalHelper.saveEntryToFirestore(mealName: entry.entryName!, mealFat: entry.mealFat!, mealCarbs: entry.mealCarbs!, mealProtein: entry.mealProtein!, mealCalories: entry.mealCalories!, mealSaved: true, mealServing: 0, mealTiming: entry.mealTiming!, dayOfWeek: dayOfWeek, dateCreated: entry.createdDate!,
+//                        totalCalories: String(totalCals),
+//                        totalProtein: String(totalProtein),
+//                        totalCarbs: String(totalCarbs),
+//                        totalFat: String(totalFat)
+//                     )
+//
+//                    do{
+//                          try managedObjectContext.save()
+//                          journalSaved = true
+//                      }
+//                      catch{
+//                          print(error.localizedDescription)
+//                      }
+//
+//                }
+                
+//                    if(dateString(calendarDate) == dateString(entry.date!)){
+//                        print("a")
+//                        journalSavedAlready = true
+//                        journalSaved = false
+//                    }
+//                        else if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
+//                            print("b")
+//                            attemptedSameDaySave = true
+//                            overlayShowing = true
+//                        }
+//                            else{
+//                                print("C")
+                               
+//
+//                                       //save entry
+//
+//
+//                                                       isUserFavoritingEntry = false // << so star doesn't fill
+//                                                       overlayShowing = true
+//
+//
+//                            }
+
+
+            
+
+                }
+        }
+
+        
+       overlayShowing = true
     }
    
     var body: some View {
@@ -133,10 +224,16 @@ struct JournalEntryMain: View {
                     HStack(spacing: 0){
                         HStack(spacing: 0){
                             Button(action: {
-                               
+                                // if date resets back to curent day (today) it will also chane the date
+                                if calendarHelper.currentDay == 6 {
+                                    calendarDate = Date()
+                                }
+                                    calendarDate = Calendar.current.date(byAdding: .day, value: -1, to: calendarDate)!
+                                
                                 isDeletable = false
                                 calendarHelper.decrementDate()
                                 dayOfWeek = weekdayAsString(date: calendarHelper.currentDay)
+                             
                                 isUserFavoritingEntry = false
                                 overlayShowing = false // << clear overlay if showing
                                 //takes msg away if not valid
@@ -146,9 +243,15 @@ struct JournalEntryMain: View {
                                 fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                                 fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                                 fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                intC -= 1
+                            
+                                
+                                
+                                
                             }){
-                                Image(systemName: "arrow.left")
+                                Image(systemName: calendarHelper.dateHitMaxPrev ? "" : "arrow.left")
                             }
+                         
                             if dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay) {
                                 Text("Today")
                                     .frame(width: 100)
@@ -165,6 +268,7 @@ struct JournalEntryMain: View {
                                     isDeletable = true
                                 }
                                 else{
+                                   intC += 1
                                     isDeletable = false
                                     showSearchBar = false
                                     calendarHelper.incrementDate()
@@ -179,6 +283,8 @@ struct JournalEntryMain: View {
                                     fetchEntryTotals.fetchProteinTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                                     fetchEntryTotals.fetchCarbTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
                                     fetchEntryTotals.fetchFatTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)
+                                    
+                                    calendarDate = Calendar.current.date(byAdding: .day, value: 1, to: calendarDate)!
                                 }
                                 
                             }){
@@ -190,60 +296,12 @@ struct JournalEntryMain: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center) //<< center
                         .opacity(isUserSearching ? 0 : 1.0 )
-                        
-                        // USER FAVORITING ENTRY, Star feature
+                      
                         
                         Button(action: {
-                            // if journal user is attempting to save same day
-                            if (dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay)){
-                                    attemptedSameDaySave = true
-                                    journalSavedAlready = false
-                                    journalSaved = false
-                                    isExistingJournalEntrysEmpty = false
-                                withAnimation {
-                                    overlayShowing = true
-                                }
-                               
-                            }
-                            else{ // << User attempting to save NOT on same day, which is valid
-                                // if journal is EMPTY, do not allow save
-                                if isExistingJournalEntrysEmpty{
-                                    isExistingJournalEntrysEmpty = true
-                                    overlayShowing = true
-                                    attemptedSameDaySave = false
-                                    journalSavedAlready = false
-                                    journalSaved = false
-                                }
-                                else{ // journal is NOT empty
-                                    favoriteJournalEntry()
-                                 
-                                }
-                            }
+                           
+                                favoriteJournalEntry()
                             
-                            
-                            
-                            
-                            
-                         
-//
-//                            else{
-//
-//                                journalSaved = false
-//                                journalSavedAlready = false
-//
-//                                else{
-//
-//                                        self.animateStar = true
-//                                        DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration, execute: {
-//                                            isUserFavoritingEntry = true
-//                                            self.animateStar = false
-//                                        })
-//                                        //save logic
-//
-//
-//                                }
-//                            }
-                     
                           
                         }){
                             Image(systemName:isUserFavoritingEntry && !journalSavedAlready ? "star.fill" : "star")
@@ -303,7 +361,7 @@ struct JournalEntryMain: View {
                      
                             .onAppear{
                                isDeletable = true // << current day is true
-                             
+                            
                                dayOfWeekPermanent = dayOfWeek
                                    
                                 fetchEntryTotals.fetchCalorieTotals(journalEntrys: fetchedJournalEntrys, dayOfWeek: dayOfWeek)

@@ -10,7 +10,6 @@ import Firebase
 import SwiftUI
 
 class DeleteAccountLogic: ObservableObject{
-    
    
     //@AppStorage("signedIn") var signedIn: Bool = true
     func deleteAccount(deleteSuccess: Bool){

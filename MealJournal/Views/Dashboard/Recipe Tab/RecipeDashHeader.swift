@@ -38,7 +38,7 @@ struct RecipeDashHeader: View {
                         .font(.title2)
                         .multilineTextAlignment(.center)
                         .padding()
-                        
+                        .foregroundColor(Color("olympic"))
                         .onChange(of: ema.recipeTitle, perform: { _ in
                             recipeName = ema.recipeTitle
                         })
@@ -69,6 +69,7 @@ struct RecipeDashHeader: View {
                        
                     }
                 }
+                
                 .padding(.top, -10)
                 ZStack{
                     Text("\(caloriesPicker) calories")
@@ -182,7 +183,7 @@ struct RecipeDashHeader: View {
                     .font(.body)
                     .foregroundColor(.black)
                     .font(.body)
-                    .padding(.top, 15)
+                    .padding(.top, 5)
              
                 HStack{
                     Text(String(fatPicker) + "g fat")
@@ -203,7 +204,7 @@ struct RecipeDashHeader: View {
             }
             .frame(width:280, height:200)
             .background(Color.white)
-            .cornerRadius(15)
+            .cornerRadius(10)
            
         }
        

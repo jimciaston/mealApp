@@ -13,10 +13,17 @@ struct DeleteProfileView: View {
     @Binding var deleteSuccess: Bool
     var body: some View {
         VStack{
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.secondary)
+                .frame(width: 60,height: 5)
+                .padding(.top, -25)
+                .onTapGesture {
+                    self.deleteSuccess.toggle()
+                }
             Text("Are you sure?")
                 .bold()
                 .font(.title2)
-            Text("Once you delete your account, all data will be erased. There is **no** going back")
+            Text("Deleting your account erases all data")
                 .padding(.top, 10)
             Button(action: {
                 deleteProfileLogic.deleteAccount(deleteSuccess: deleteSuccess)
@@ -34,11 +41,15 @@ struct DeleteProfileView: View {
                 )}
             .padding(.top, 25)
         }
+        .padding([.top, .bottom ], 65)
+        Spacer()
+        .frame(height: 400)
+
     }
 }
 
 struct DeleteProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        DeleteProfileView(deleteSuccess: .constant(false))
+        DeleteProfileView(deleteSuccess: .constant(true))
     }
 }

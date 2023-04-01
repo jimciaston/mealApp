@@ -40,6 +40,7 @@ struct RecipeIngredients: View {
                     .font(.body)
                     .fontWeight(.bold)
                     .foregroundColor(Color("UserProfileCard1"))
+                    .padding(.trailing, 15)
                 
                 Text(turnIntoOrderedDictionary(regularDictionary: ingredients)[key] ?? "default")
                     .font(.body)

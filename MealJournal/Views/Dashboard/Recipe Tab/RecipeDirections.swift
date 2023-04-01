@@ -60,6 +60,7 @@ struct RecipeDirections: View {
                             .font(.title)
                             .foregroundColor(Color("UserProfileCard1"))
                             .fontWeight(.bold)
+                            .padding(.trailing, 15)
                         Text(recipe)
                             .font(.title3)
                         

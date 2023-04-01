@@ -20,6 +20,7 @@ struct UserDashController: View {
     @State private var showMenu = false
     @State private var presentSettingsPage = false
     @State private var presentAddRecipePage = false
+    @State private var presentSupportPage = false
    // @State var followingCount = 0
     @State var deleteAccountSheet = false
    
@@ -141,20 +142,19 @@ struct UserDashController: View {
                                 }){
                                     Text("Settings")
                                 }
+                              
                                 Button(action: {
                                     //logs out user
-                                    userSigningOut = true
-                                    signUpController.logOutUser()
+                                    presentSupportPage = true
                                 }){
-                                    Text("Sign Out")
+                                    Text("Support")
                                 }
                                 Button(role: .destructive, action: {
-                                    //Delete Account
-                                    //variable to show Bottom Sheet
-                                    deleteAccountSheet = true
+                                    userSigningOut = true
+                                    signUpController.logOutUser()
                                     
                                 }){
-                                   Text("Delete Account")
+                                   Text("Log Out")
                                 }
                             
                                 .padding(.top, 25)
@@ -176,9 +176,11 @@ struct UserDashController: View {
                 }
                
                 .fullScreenCover(isPresented: $presentSettingsPage){
-                    PersonalSettingsView(vm: vm)
+                    PersonalSettingsView(vm: vm, deleteAccountSheet: $deleteAccountSheet)
                 }
-                
+                .fullScreenCover(isPresented: $presentSupportPage){
+                    ContactUsView()
+                }
                 .fullScreenCover(isPresented: $presentAddRecipePage){
                     RecipeEditor()
                 }
@@ -186,26 +188,9 @@ struct UserDashController: View {
                 .fullScreenCover(isPresented: $userSigningOut){
                     LandingPage()
                 }
-                .blur(radius: deleteAccountSheet ? 2 : 0) // blur when bottomsheet open
                
-                .windowOverlay(isKeyAndVisible: self.$deleteAccountSheet, {
-                    GeometryReader { geometry in {
-                        BottomSheetView(
-                            isOpen: self.$deleteAccountSheet,
-                            maxHeight: geometry.size.height * 0.5 * 0.7, minHeight: geometry.size.height * 0.5 * 0.7
-                        ) {
-                            DeleteProfileView(deleteSuccess: $deleteAccountSheet)
-                                .onTapGesture{
-                                    self.deleteAccountSheet = false
-                                }
-                        }
-
-                    }()
-                            .edgesIgnoringSafeArea(.all)
-
-                    }
-
-                })
+               
+               
             }
            
            

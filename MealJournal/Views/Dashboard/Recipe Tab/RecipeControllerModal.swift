@@ -70,18 +70,18 @@ struct RecipeControllerModal: View {
             VStack{
                 VStack{
                     WebImage(url: URL(string: image))
-                        .placeholder(Image("defaultRecipeImage-2").resizable())
+                        .placeholder(Image("defaultRecipeImage").resizable())
                         .resizable()
                         .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                        .frame(width:250, height: 170)
+                        .frame(width:320, height: 200)
                         .aspectRatio(contentMode: .fill)
                     }
                 .padding(.top, 15)
                 .onChange(of: inputImage, perform: { _ in
                     persistImageToStorage()
                 })
-                .edgesIgnoringSafeArea(.all)
-                .frame(width:300, height: 40)
+               
+                .frame(width:300, height: 100)
         //show image picker
                 .onTapGesture {
                     if(ema.editMode){
@@ -94,8 +94,8 @@ struct RecipeControllerModal: View {
                 
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
                     .padding()
-                    .padding(.top, 15)
-                    .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
+                    .padding(.top, 5)
+                    .shadow(color: Color("LightWhite"), radius: 5, x: 8, y: 10)
                     .cornerRadius(25)
         
                 //ingredients or directions selction
@@ -164,12 +164,21 @@ struct RecipeControllerModal: View {
                             }
                         }){
                             HStack{
-                                Image(systemName: !ema.editMode ? "pencil.circle" : "")
-                                        .foregroundColor(.black)
-                                        .font(.title3)
-                                Text(!ema.editMode ? "Edit" : "Complete")
-                                    .foregroundColor(.black) .font(Font.headline.weight(.bold))
-                                    .font(.title3)
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(Color.black.opacity(0.4))
+                                        .cornerRadius(10)
+//                                      Image(systemName: !ema.editMode ? "pencil.circle" : "")
+//                                          .foregroundColor(.white)
+//                                          .font(.body)
+//                                          .padding(.trailing, 45)
+                                      
+                                      Text(!ema.editMode ? "Edit" : "Done")
+                                          .foregroundColor(.white)
+                                          .font(Font.headline.weight(.bold))
+                                          .font(.title3)
+                                          .padding([.leading, .trailing], 25)
+                                  }
                                 }
                         }
                     }

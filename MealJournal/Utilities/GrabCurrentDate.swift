@@ -52,6 +52,7 @@ enum Weekday: String, CaseIterable {
 
 class CalendarHelper: ObservableObject {
     @Published private(set) var currentDay = Date().currentDay - 1
+    @Published var dateHitMaxPrev = false
     var permDate = Date().currentDay
     var currentWeekday: Weekday {
           Weekday.allCases[currentDay]
@@ -65,6 +66,7 @@ class CalendarHelper: ObservableObject {
             }
             else{
                 currentDay = 6 // go back to Saturday
+                
             }
         }
         
@@ -77,7 +79,7 @@ class CalendarHelper: ObservableObject {
             }
             else{
                 ///if saturday, go back to sunday
-                currentDay = 0
+                dateHitMaxPrev = true
             }
         }
         
