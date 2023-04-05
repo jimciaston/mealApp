@@ -40,7 +40,9 @@ struct MacroSelectHstack: View {
                 .padding(3)
                 .background(Rectangle().fill(Color("UserProfileCard2")))
                 .onTapGesture{
-                    macroAmount -= 1
+                    if macroAmount != 0{
+                        macroAmount -= 1
+                    }
                 }
             Text("\(macroAmount)g")
                 .foregroundColor(.black)
