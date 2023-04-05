@@ -88,7 +88,7 @@ class UserJournalHelper: ObservableObject {
        }
     }
    
-    static func saveEntryToFirestore(
+    func saveEntryToFirestore(
         mealName:   String,
         mealFat:    Int16,
         mealCarbs:  Int16,

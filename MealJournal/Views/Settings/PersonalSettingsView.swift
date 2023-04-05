@@ -33,6 +33,7 @@ struct PersonalSettingsView: View {
      var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
     
     //  resets when view appears, keeps track of user changes without saving to model
+    @State var tempName = ""
     @State var tempHeight = ""
     @State var tempWeight = ""
     @State var tempAgenda = ""
@@ -97,7 +98,7 @@ struct PersonalSettingsView: View {
 //                                }
 //                        }
                         
-                    UpdatePersonalSettingsHStack(vm: vm, name: .constant(vm.userModel?.name ?? "Name not found"), bio: $userBio, tempBio: tempBio, isFocused: $isFocused )
+                    UpdatePersonalSettingsHStack(vm: vm, name: $name, bio: $userBio, tempBio: tempBio, newName: tempName, isFocused: $isFocused )
                        
                     //social media link, preferred instagram
                     HStack{
@@ -206,7 +207,7 @@ struct PersonalSettingsView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
-                       
+                      
                         // height picker
                         if tempHeight != originalHeightValue {
                             FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["height": vm.userModel?.height])
@@ -231,8 +232,9 @@ struct PersonalSettingsView: View {
                             showSuccessAlertForSettings.toggle()
                         }
                         
-                        else if (vm.userModel?.name != originalName){
-                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["name": vm.userModel?.name])
+                        else if (name != originalName){
+                            FirebaseManager.shared.firestore.collection("users").document(FirebaseManager.shared.auth.currentUser!.uid).updateData(["name": name])
+                            vm.userModel?.name = name
                             showSuccessAlertForSettings.toggle()
                         }
                         
@@ -296,6 +298,7 @@ struct PersonalSettingsView: View {
             self.originalName = vm.userModel?.name ?? ""
             self.originalBio = vm.userModel?.userBio ?? ""
             
+            self.tempName = vm.userModel?.name ?? ""
             self.tempHeight = vm.userModel?.height ?? ""
             self.tempWeight = vm.userModel?.weight ?? ""
             self.tempAgenda = vm.userModel?.agenda ?? ""

@@ -79,7 +79,7 @@ class CalendarHelper: ObservableObject {
             }
             else{
                 ///if saturday, go back to sunday
-                dateHitMaxPrev = true
+                currentDay = 0
             }
         }
         

@@ -17,6 +17,33 @@ struct ProfileCardsNonUserDisplay: View {
     @State var showAllJournals = false
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
    
+    var journalCountText:  some View {
+        if jm.userJournalCountNonUser == 1 {
+           return  Text("Journal Found")
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+        }
+        else{
+            return Text("Journals Found")
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+        }
+    }
+    
+    var recipeCountText: some View {
+        Group {
+            Text(String(rm.recipesNonUser.count))
+                .bold()
+                .font(.title2)
+                .padding(.top, 20)
+                .padding(.bottom,2)
+            
+            Text(rm.recipesNonUser.count == 1 ? "Recipe Found" : "Recipes Found")
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+        }
+    }
+    
     var body: some View {
         HStack{
             ZStack{
@@ -27,15 +54,8 @@ struct ProfileCardsNonUserDisplay: View {
                         .frame(width: 50, height: 50)
                         .foregroundColor(Color(.systemPink))
                         .padding(.top, 15)
-                   
-                    Text(String(rm.recipesNonUser.count)).bold() // << calling function directly in view
-                        .font(.title2)
-                        .padding(.top, 20)
-                        .padding(.bottom,2)
-                    Text(rm.recipesNonUser.count == 1 ? "Recipe Found" : "Recipes Found")
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                   
+                
+                    recipeCountText
                     }
                 }
           
@@ -63,23 +83,15 @@ struct ProfileCardsNonUserDisplay: View {
                     .foregroundColor(Color(.systemPink))
                     .padding(.top, 15)
                 
-              //  Text(String(jm.grabUserJournalCount(userID: userUID))).bold()
+ 
                     
                 Text(String(journalCount))
+                    .bold()
                     .font(.title2)
                     .padding(.top, 20)
                     .padding(.bottom,2)
                 
-                if jm.userJournalCountNonUser == 1 {
-                    Text("Journal Found")
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                }
-                else{
-                    Text("Journals Found")
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                }
+                journalCountText // << text count view
                         
             }
             .sheet(isPresented: $showAllJournals){

@@ -123,6 +123,8 @@ struct UserDashController: View {
                             //Display recipes
                             ProfileCardsMainDisplay()
                                 .padding(.top, -10)
+                               
+                                
                             Spacer()
                         }
                         
