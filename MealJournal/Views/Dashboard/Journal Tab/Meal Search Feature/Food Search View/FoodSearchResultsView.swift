@@ -13,6 +13,7 @@ import SwiftUIX
 struct FoodSearchResultsView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
     @EnvironmentObject private var foodApi: FoodApiSearch
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass // IPad Nano sizing
     @State var MealObject = Meal()
     @State var isResultsShowing = true
     @State var extendedViewOpen = false
@@ -108,7 +109,7 @@ struct FoodSearchResultsView: View {
                                         FoodResultsEntryRow(mealTimingToggle: $mealTimingToggle, resultsDisplayed: $resultsDisplayed, isViewSearching: $isViewSearching, userSearch: $userSearch, MealObject: $MealObject, sheetMode: $sheetMode, dismissResultsView: $dismissResultsView)
                                                 .environmentObject(foodApi)
                                 }
-                                
+                                .navigationViewStyle(StackNavigationViewStyle())
                              if(mealTimingToggle){
                                  FlexibleSheet(sheetMode: $sheetMode) {
                                      MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
@@ -116,7 +117,7 @@ struct FoodSearchResultsView: View {
                                
                                  ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
                                  .frame(height:240)
-                                 .padding(.top, -1) // << moves snackbar info up in view
+                                 .padding(.top,horizontalSizeClass == .regular ? -650 : -1 ) // << moves snackbar info up in view
                                  .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
                                  }
                         }

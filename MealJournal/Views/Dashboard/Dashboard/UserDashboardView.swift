@@ -10,6 +10,7 @@ import Firebase
 struct UserDashboardView: View {
     //Core Data Variables
     @Environment(\.managedObjectContext) var managedObjContext
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
     
     @StateObject var calendarHelper = CalendarHelper()
     @ObservedObject var vm: DashboardLogic
@@ -24,6 +25,7 @@ struct UserDashboardView: View {
     @State var isUserSearching = false
     @State var recipeSavedMessage = false
     
+   
     //    init(){
 //        UITabBar.appearance().backgroundColor = UIColor.white
 //        self._signUpController = signUpController
@@ -63,10 +65,18 @@ struct UserDashboardView: View {
                         RecipeFullListView(recipes: rm.recipes, showAddButton: true, notCurrentUserProfile: .constant(false), navigatingFromProfileCards: .constant(true))
                           //  .opacity(.dashboardRouter.isPlusMenuOpen ? 0 : 1)
                     }
+                    //mini buttons
+//                    let widthAndHeight: CGFloat = {
+//                        if horizontalSizeClass == .regular {
+//                            return 100 // set a smaller size for iPad
+//                        } else {
+//                            return UIScreen.main.bounds.width / 5.5 // use existing size for other devices
+//                        }
+//                    }()
                     ZStack{
                         if  dashboardRouter.isPlusMenuOpen {
-                            PlusTabPopMenu(widthAndHeight: geometry.size.width / 5.5, dashboardRouter: dashboardRouter, closePlusIconPopUpMenu: $closePlusIconPopUpMenu)
-                                .padding(.top, -50)
+                            PlusTabPopMenu(widthAndHeight:  horizontalSizeClass == .regular ? 120: geometry.size.width / 5.5, dashboardRouter: dashboardRouter, closePlusIconPopUpMenu: $closePlusIconPopUpMenu)
+                                .padding(.top, horizontalSizeClass == .regular ? -100 : -50)
                                     .offset(y: -geometry.size.height/10) // << move up or down menu icon
                            }
                         HStack {
@@ -86,7 +96,7 @@ struct UserDashboardView: View {
                                  Image(systemName: "plus.circle.fill")
                                      .resizable()
                                      .aspectRatio(contentMode: .fit)
-                                     .frame(width: 50 , height: 50)
+                                     .frame(width: horizontalSizeClass == .regular ? 65 : 50 , height: horizontalSizeClass == .regular ? 65 : 50)
                                      .foregroundColor(Color("ButtonTwo")) 
                                      .shadow(color: dashboardRouter.isPlusMenuOpen ?  Color("spaceGray") : Color("LightWhite"), radius: 1.2, x: 2, y: 5)
                                      .scaleEffect(dashboardRouter.isPlusMenuOpen ? 0.9 : 1)
@@ -109,7 +119,7 @@ struct UserDashboardView: View {
                             
                          }
                         //background for tabbar
-                        .frame(height:75)
+                        .frame(height: horizontalSizeClass == .regular ? 100 : 75)
             
                         
                         .frame(maxWidth: .infinity)

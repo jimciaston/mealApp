@@ -194,7 +194,7 @@ struct UserDashController: View {
                
                
             }
-           
+            .navigationViewStyle(StackNavigationViewStyle())
            
    //     }
 //

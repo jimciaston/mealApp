@@ -37,13 +37,13 @@ struct RecipeIngredients: View {
         ForEach(keys.reversed(), id: \.self) { key in
             HStack{
                 Text(key)
-                    .font(.body)
+                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(Color("UserProfileCard1"))
                     .padding(.trailing, 15)
                 
                 Text(turnIntoOrderedDictionary(regularDictionary: ingredients)[key] ?? "default")
-                    .font(.body)
+                    .font(.title3)
             }
         }
         .onDelete { indexSet in
