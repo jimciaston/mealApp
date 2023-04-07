@@ -15,6 +15,8 @@ import Firebase
 
 
 struct UserProfileView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
+    
     @State var userUID: String
     @State var name: String
     @State var userBio: String
@@ -121,7 +123,6 @@ struct UserProfileView: View {
                             .padding(.leading, 15)
                         }
                       
-                        
                         .onTapGesture {
                             //perform some tasks if needed before opening Destination view
                             self.action = 2
@@ -198,7 +199,7 @@ struct UserProfileView: View {
                                      .background(Color("UserProfileCard2"))
                                      .font(.body)
                                      .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
-                                    
+                                   
                             }
                         
                         if let socialLink = userSocialLink, let url = URL(string: socialLink) {
@@ -244,24 +245,17 @@ struct UserProfileView: View {
                         }
                                       
                     }
-                    .frame(width: Geo.size.width - 140)
+                    .frame(width: Geo.size.width)
                     .padding(.top, -5)
                          
                 }
                 .onAppear{
                     fetchFollowingCount_NonUser() // << grab follow/follower totals from firestore
                 }
-                Spacer()
-               //display user recipes
-//
-//                Text("About Me")
-//                    .font(.title3)
-//                    .padding(.bottom, -10)
-//                    .padding(.top, -70)
-                //User Bio
+              
                 ProfileBio(userBio: $userBio)
-                    .padding(.top, -25)
                     .minimumScaleFactor(0.5)
+                    .padding(.top, 15)
                     .padding(.bottom, 25)
                     .frame(width: Geo.size.width / 1.25)
                 

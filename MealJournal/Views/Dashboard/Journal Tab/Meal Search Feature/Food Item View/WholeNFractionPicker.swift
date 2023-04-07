@@ -17,25 +17,27 @@ struct MultiPicker: View  {
     @Binding var mealProtein: Int
     
     func convertMacrosForSaving(
-                                mealCalories: Binding<Int>,
-                                mealCarbs: Binding<Int>,
-                                mealFat: Binding<Int>,
-                                mealProtein: Binding<Int>) {
-                                    let caloriesConverted = convertToDouble(selection) ?? 0.0 * Double(mealCalories.wrappedValue)
+        mealCalories: Binding<Int>,
+        mealCarbs: Binding<Int>,
+        mealFat: Binding<Int>,
+        mealProtein: Binding<Int>) {
+            
+        let caloriesConverted = convertToDouble(selection) ?? 0.0 * Double(mealCalories.wrappedValue)
         let roundedValue_calories = caloriesConverted.rounded(toPlaces: 2)
         mealCalories.wrappedValue = Int(roundedValue_calories)
-        
-        let carbsConverted = convertToDouble(selection)! * Double(mealCarbs.wrappedValue)
+      
+        let carbsConverted = convertToDouble(selection) ?? 0.0 * Double(mealCarbs.wrappedValue)
         let roundedValue_carbs = carbsConverted.rounded(toPlaces: 2)
         mealCarbs.wrappedValue = Int(roundedValue_carbs)
         
-        let fatConverted = convertToDouble(selection)! * Double(mealFat.wrappedValue)
+        let fatConverted = convertToDouble(selection) ?? 0.0 * Double(mealFat.wrappedValue)
         let roundedValue_fat = fatConverted.rounded(toPlaces: 2)
         mealFat.wrappedValue = Int(roundedValue_fat)
         
-        let proteinConverted = convertToDouble(selection)! * Double(mealProtein.wrappedValue)
+        let proteinConverted = convertToDouble(selection) ?? 0.0 * Double(mealProtein.wrappedValue)
         let roundedValue_protein = proteinConverted.rounded(toPlaces: 2)
         mealProtein.wrappedValue = Int(roundedValue_protein)
+           
     }
 
     

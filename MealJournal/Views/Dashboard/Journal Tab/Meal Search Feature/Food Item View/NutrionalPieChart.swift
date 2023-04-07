@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+
+
 struct NutrionalPieChart: View {
     var pieSliceData: PieSliceData
-    
+    var totalCalories: Double
+    @State var convertCaloriesToString = ""
     var midRadians: Double {
         return Double.pi / 2.0 - (pieSliceData.startAngle + pieSliceData.endAngle).radians / 2.0
     }
@@ -42,9 +45,10 @@ struct NutrionalPieChart: View {
                 else{
                     Circle()
                        .stroke(lineWidth: 4)
-                       .frame(width: 100, height: 100)
+                       .frame(width: 110, height: 110)
                        .foregroundColor(.white)
-                    Text("Calories: 300")
+                    //display calories in middle of circle
+                    Text("Calories: \(String(Int(totalCalories)))")
                         .font(.title3)
                         .bold()
                         .frame(width:170, height: 170)
@@ -55,6 +59,9 @@ struct NutrionalPieChart: View {
         }
         .aspectRatio(1, contentMode: .fit)
         
+        .onAppear{
+            convertCaloriesToString = String(String(totalCalories).split(separator: ".")[0])
+        }
     }
         
 }
@@ -69,9 +76,9 @@ struct PieSliceData {
 }
 
 
-
-struct NutrionalPieChart_Previews: PreviewProvider {
-    static var previews: some View {
-        NutrionalPieChart(pieSliceData: PieSliceData(startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 220.0), text: "65%", color: Color.black, value: 3.0, counter: 2))
-    }
-}
+//
+//struct NutrionalPieChart_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NutrionalPieChart(pieSliceData: PieSliceData(startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 220.0), text: "65%", color: Color.black, value: 3.0, counter: 2))
+//    }
+//}

@@ -115,7 +115,7 @@ struct UserDashboardView: View {
                             
                             TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "recipeSavedIcon", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
                             TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "searchUsersIcon", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
-                          
+                    
                             
                          }
                         //background for tabbar

@@ -27,7 +27,6 @@ struct RecipeNavigationModals: View {
                     RecipeIngredients(ema: ema, currentRecipeID: $currentRecipeID, ingredients: $ingredients)
                 }
                 
-                
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))

@@ -32,7 +32,7 @@ struct FoodItemView: View {
                meal.brand
             }
     }
-     @State var mealCalories: Int {
+     var mealCalories: Int {
         didSet {
                 meal.calories
             }
@@ -145,12 +145,12 @@ struct FoodItemView: View {
                      
                      
                      */
-                    NutrionalPieChartView(values: [
+                    NutrionalPieChartView(totalCalories: Double(mealCalories) * mealServingSize, values: [
                         Double(mealProtein)  * mealServingSize,
                         Double(mealCarbs) * mealServingSize,
                         Double(mealFat) * mealServingSize
-                      ],
-                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
+                    ],
+                                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
                             .opacity(mealTimingToggle ? 0.0 : 1.0)
                        
                  

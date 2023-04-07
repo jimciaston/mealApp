@@ -13,6 +13,7 @@ import SDWebImageSwiftUI
 
 struct RecipeControllerNonUser: View {
     @Environment(\.dismiss) var dismiss // << dismiss view
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
     @ObservedObject var ema = EditModeActive()
     //displays image picker
    
@@ -237,7 +238,8 @@ struct RecipeControllerNonUser: View {
             
         //ingredients or directions selction
 RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
-    .padding(.top, 70)
+                    .padding(.top,horizontalSizeClass == .regular ? -200 : 70)
+                    .padding(.bottom, horizontalSizeClass == .regular ? -100 : 0 )
    
 
 //offsets toolbar, if text removed, would interrupt toolbar.
@@ -296,7 +298,7 @@ RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directio
             .shadow(radius: 10)
             .frame(width:355, height: 100)
             //sets coordinates of view on dash
-         .offset(y:-500)
+            .offset(y: horizontalSizeClass == .regular ? -1000 : -500)
         }
         .frame(height: sheetMode == .none ? 0 : 100)
     }
