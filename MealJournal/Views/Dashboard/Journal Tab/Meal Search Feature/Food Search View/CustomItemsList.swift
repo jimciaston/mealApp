@@ -106,7 +106,7 @@ struct CustomItemsList: View {
                             CustomFoodItemView(showing: $addCustomFoodToggle, isViewSearching: $isViewSearching, userSearch: $userSearch)
                                 .environmentObject(mealEntryObj)
                                 .animation(.easeInOut)
-                                .background(Color("LightWhite"))
+                                .background(.white)
                                 .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
 
                         }

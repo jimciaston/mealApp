@@ -22,7 +22,7 @@ struct SavedJournalsListNonUser: View {
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .font(.title2)
-                  
+                    .padding(.top, 25)
                 List{
                     ForEach(savedJournals , id: \.id) { entry in
                         ZStack{

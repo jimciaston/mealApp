@@ -22,6 +22,9 @@
 		0A14956D294103B800E6258F /* JournalEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14956B294103B800E6258F /* JournalEntry+CoreDataProperties.swift */; };
 		0A14956F29412D6300E6258F /* EntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14956E29412D6300E6258F /* EntryList.swift */; };
 		0A1495712942474100E6258F /* FavoriteInvalidPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1495702942474100E6258F /* FavoriteInvalidPopUp.swift */; };
+		0A1EAC9529E21710005E15EA /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9429E21710005E15EA /* MailView.swift */; };
+		0A1EAC9729E4B1A7005E15EA /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9629E4B1A7005E15EA /* ForgotPasswordView.swift */; };
+		0A1EAC9929E4F988005E15EA /* PasswordResetSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9829E4F988005E15EA /* PasswordResetSuccess.swift */; };
 		0A2D895B296B97F6001EDF01 /* JournalDashLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D895A296B97F6001EDF01 /* JournalDashLogic.swift */; };
 		0A2D895D296F561C001EDF01 /* SavedJournalDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */; };
 		0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D895E29703B26001EDF01 /* EntryRowSavedDashboard.swift */; };
@@ -209,6 +212,9 @@
 		0A14956B294103B800E6258F /* JournalEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JournalEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A14956E29412D6300E6258F /* EntryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryList.swift; sourceTree = "<group>"; };
 		0A1495702942474100E6258F /* FavoriteInvalidPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteInvalidPopUp.swift; sourceTree = "<group>"; };
+		0A1EAC9429E21710005E15EA /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		0A1EAC9629E4B1A7005E15EA /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		0A1EAC9829E4F988005E15EA /* PasswordResetSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetSuccess.swift; sourceTree = "<group>"; };
 		0A2D895A296B97F6001EDF01 /* JournalDashLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDashLogic.swift; sourceTree = "<group>"; };
 		0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalDashboard.swift; sourceTree = "<group>"; };
 		0A2D895E29703B26001EDF01 /* EntryRowSavedDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRowSavedDashboard.swift; sourceTree = "<group>"; };
@@ -416,6 +422,7 @@
 				0A87DB6A291E84DD00A3C1E9 /* DeleteProfileView.swift */,
 				0A87DB6C291EDFA900A3C1E9 /* DeleteAccountLogic.swift */,
 				0A469AFD29D2466700556F4B /* ContactUsView.swift */,
+				0A1EAC9429E21710005E15EA /* MailView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -486,6 +493,8 @@
 			isa = PBXGroup;
 			children = (
 				0A9A055227B2E6E100CAD66B /* Login.swift */,
+				0A1EAC9629E4B1A7005E15EA /* ForgotPasswordView.swift */,
+				0A1EAC9829E4F988005E15EA /* PasswordResetSuccess.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1155,6 +1164,7 @@
 				0A12639627CEC1200076876B /* FitnessForm.swift in Sources */,
 				0A6534DA27E0D3F400A50FB8 /* RecipeController.swift in Sources */,
 				0A87DB6B291E84DD00A3C1E9 /* DeleteProfileView.swift in Sources */,
+				0A1EAC9529E21710005E15EA /* MailView.swift in Sources */,
 				0AE0DB9627C21124006F1835 /* MealSearchBar.swift in Sources */,
 				0AC1B77427D298720070895D /* GetWeight.swift in Sources */,
 				0A14956F29412D6300E6258F /* EntryList.swift in Sources */,
@@ -1238,6 +1248,7 @@
 				0AB1126728EC60D40071B3ED /* CustomItemListRow.swift in Sources */,
 				0A2D8961297658B6001EDF01 /* MacroViewSavedJournals.swift in Sources */,
 				0A3E03DF28DCD63A009613CF /* CustomFoodItemView.swift in Sources */,
+				0A1EAC9729E4B1A7005E15EA /* ForgotPasswordView.swift in Sources */,
 				0A8D80682826CBF60055021A /* RecipeEditor.swift in Sources */,
 				0A2D896529774382001EDF01 /* ProfileCardNonUserDisplay.swift in Sources */,
 				0A07D969284AA1780080A4ED /* SuccessAlert.swift in Sources */,
@@ -1259,6 +1270,7 @@
 				0A87DB69291943B900A3C1E9 /* GetStartedPopUpContent.swift in Sources */,
 				0A53020F27E8E0F100B8D261 /* RecipeDirections.swift in Sources */,
 				0A6534D827E021C100A50FB8 /* AddToolbar.swift in Sources */,
+				0A1EAC9929E4F988005E15EA /* PasswordResetSuccess.swift in Sources */,
 				0A53021327E8F01700B8D261 /* RecipeNavigationModals.swift in Sources */,
 				0A3E03D128C24758009613CF /* FollowingUsersView.swift in Sources */,
 				0A3B9B172808DFAE00EC631A /* CapitalFirstLetter.swift in Sources */,
@@ -1358,6 +1370,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				"INFOPLIST_KEY_CFBundleDisplayName[sdk=*]" = "Macro Mate";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1415,6 +1429,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				"INFOPLIST_KEY_CFBundleDisplayName[sdk=*]" = "Macro Mate";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1437,11 +1453,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MealJournal/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) Would like to access your photo libary";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1471,11 +1488,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MealJournal/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) Would like to access your photo libary";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,6 +10,7 @@ import SwiftUI
 enum LoginEnum{
     case loginPage
     case createAccount // <<will be forgot passwrod once ready to setup
+    case forgotPassword
     case journalEntryMain // switch name createAccoutn when ready
 }
 
@@ -28,66 +29,68 @@ struct userLogin: View {
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @ObservedObject var signUpController: LandingPageViewModel
    
-    @State private var loginPageViewState: LoginEnum = .loginPage
+    @State var loginPageViewState: LoginEnum = .loginPage
     
     var body: some View {
         
     switch loginPageViewState{
         case .loginPage:
             VStack{
-                Text("Sign In")
-                    .font(.custom("PlayfairDisplay-Regular", size: 30))
-                    .fontWeight(.medium)
+//                Text("Sign In")
+//                    .font(.custom("Montserrat-Regular", size: 21))
+//                    .fontWeight(.medium)
+//
                 HStack{
                     Image(systemName: "mail")
                         .padding(15)
-                        .foregroundColor(.orange)
+                        .foregroundColor(Color("sports"))
                     
                     TextField("Email", text: $userEmail)
                         .font(.title3)
-                        .frame(width:240, height:50)
-                    
+                        .frame(width:220, height:50)
                     }
                 .padding(.trailing, 25) //evens out email width with password
-        
-                    .overlay( RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color.gray, lineWidth: 3)
-                        )
-                        .offset(y:15)
-                        .padding(.bottom, 20)
+                .padding(.bottom, -10)
+//
+//                    .overlay( RoundedRectangle(cornerRadius: 25)
+//                                .stroke(Color("LighterGray"), lineWidth: 1)
+//                        )
+//                        .offset(y:15)
+//                        .padding(.bottom, 20)
                 
                 VStack{
                     HStack{
                         Image(systemName: "lock")
-                            .padding(10)
-                            .foregroundColor(.orange)
+                            .padding(15)
+                            .foregroundColor(Color("sports"))
                         
                         HStack{
                             if isPWSecured {
                                 SecureField("Password", text: $userPassword)
-                                    .font(.body)
+                                    .font(.title3)
                                     .frame(width:220, height:50)
                             }
                             else {
                                 TextField("Password", text: $userPassword)
-                                    .font(.body)
+                                    .font(.title3)
                                     .frame(width:220, height:50)
                             }
                             Button(action: {
                                 isPWSecured.toggle()
                             }){
                                 Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
-                                                    .accentColor(.gray)
-                                                    .padding(.trailing, 25)
+                                        .accentColor(.gray)
+                                        .padding(.trailing, 25)
+                                        .frame(width:10)
                             }
                         }
 
                     }
-                    
-                    .overlay( RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.gray, lineWidth: 3)
-                        )
-                            .offset(y:15)
+//
+//                    .overlay( RoundedRectangle(cornerRadius: 25)
+//                        .stroke(Color("LighterGray"), lineWidth: 1)
+//                        )
+                          .offset(y:15)
                     
                     .onTapGesture{
                         hide_UserKeyboard()
@@ -103,29 +106,38 @@ struct userLogin: View {
                         
                         
                     }
-                    HStack{
+                    VStack(alignment: .trailing){
                         Button(action: {
-                            loginPageViewState = .createAccount
+                            loginPageViewState = .forgotPassword
                         })
                         {
-                            Text("Forgot Password?").font(.subheadline).italic()
+                            Text("Forgot Password?")
+                                .font(.subheadline)
+                                .italic()
+                                .multilineTextAlignment(.trailing)
+                                .padding(.trailing, 80)
+                                .padding(.top, 10)
                         }
-                        
+                        .multilineTextAlignment(.trailing)
                         .foregroundColor(.gray)
-                        .offset(y:20)
+                 
                         
                         Button(action: {
                             loginPageViewState = .createAccount
                         })
                         {
-                            Text("Create account").font(.subheadline).italic()
+                            Text("Create Account")
+                                .font(.body)
+                                .frame(maxWidth: .infinity)
+                                .padding(.bottom, -15)
+                                .padding(.top, 45)
                         }
                         
                 
                         .foregroundColor(.black)
                         .offset(y:20)
                     }
-                    
+                    .padding(.top, 20)
                         
                 }
                 
@@ -149,9 +161,9 @@ struct userLogin: View {
                         .font(.title2)
                         .foregroundColor(.black)
                         .frame(width:250, height:50)
-                        .background(RoundedRectangle(cornerRadius: 25)
+                        .background(RoundedRectangle(cornerRadius: 15)
                             .fill(LinearGradient(
-                                colors: [.orange, .yellow],
+                                colors: [Color("GetStartedBtn"), Color("LandingPage_LoginBtn")],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ))
@@ -162,7 +174,6 @@ struct userLogin: View {
               
             }
         
-            .offset(y:-100)
             .offset(y: keyboardResponder.currentHeight/20)
             
         case .createAccount:
@@ -171,8 +182,9 @@ struct userLogin: View {
         case .journalEntryMain:
             JournalEntryMain(dayOfWeek: weekdayAsString(date: calendarHelper.currentDay)) // << will be create
             
+    case .forgotPassword:
+        ForgotPasswordView(loginPageViewState: $loginPageViewState)
         }
-           
     }
             
         
@@ -181,9 +193,24 @@ struct userLogin: View {
     
 
 
-//struct Login_Previews: PreviewProvider {
-//    static var previews: some View {
-//        userLogin(userEmail: "jim", userPassword: 111, isPWSecured: true, success: false, userAttemptedToLogin: true, userInformation: FormViewModel(), keyboardResponder: <#T##KeyboardResponder#>, signUpController: <#T##SignUpController#>)
-//    }
-//}
+struct LoginPreview: PreviewProvider {
+    static var previews: some View {
+        Group {
+            NavigationView {
+                userLogin(signUpController: LandingPageViewModel())
+            }
+            .previewDevice("iPhone 12 Pro")
+            
+            NavigationView {
+                userLogin(signUpController: LandingPageViewModel())
+            }
+            .preferredColorScheme(.dark)
+            .previewDevice("iPhone 12 Pro")
+        }
+    }
+}
+
+
+
+
 //

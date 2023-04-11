@@ -75,130 +75,133 @@ struct createUserAccount: View {
     
     
     var body: some View {
-        
-    switch viewState{
-        case .createAccount:
-                    Section(){
-                        TextField("Name", text: $userName)
-                            .padding(.leading, 50)
-                           
-                        TextField("Email", text: $userEmail)
-                            .padding(.leading, 50)
-                         
-                        //email promp letting user know to type valid email
-                        if userEmail != "" && !isEmailValid_Test(){
-                            
-                            Text(emailPrompt)
-                                .font(.caption).italic().foregroundColor(.red)
-                                .padding(.leading, -80)
-                              
-                        }
-                        //if email is alreqdy in use prompt
-                        else if emailAlreadyInUse {
-                            Text("This email already exists")
-                                .font(.caption).italic().foregroundColor(.red)
-                        }
-                        HStack{
-                            if isPWSecured {
-                                SecureField("Password", text: $userPassword)
-                                    
-                            }
-                            else {
-                                TextField("Password", text: $userPassword)
-                                
-                            }
-                            Button(action: {
-                                isPWSecured.toggle()
-                            }){
-                                Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
-                            .accentColor(.gray)
-                            .padding(.leading, -40)
-                            .border(.blue)
-                            }
-                            
-                        }
-                        .padding(.leading, 50)
-                        if userPassword != "" && !isPasswordValid(){
-                           Text(passwordPrompt)
-                               .font(.caption).italic().foregroundColor(.red)
-                               .frame(width: 250)
-                               .padding(.leading, -80)
-                               .lineLimit(nil)
-                                   .minimumScaleFactor(0.2)
-                       }
-                    }
-                    .padding(.leading, 50)
-                            .listRowBackground(Color.clear)
-                            .padding()
-                            .font(.system(size:18))
-                          
-                                Button("Create Account"){
-                                    Auth.auth().createUser(withEmail: userEmail, password: userPassword ) { user, error in
-                                       if let x = error {
-                                          let err = x as NSError
-                                           switch err.code {
-                                           case AuthErrorCode.invalidEmail.rawValue:
-                                               print("invalid email")
-                                               
-                                           case AuthErrorCode.emailAlreadyInUse.rawValue:
-                                               emailAlreadyInUse = true
-                                               print("Email already is use, please use a new email or sign in")
-                                               
-                                           default:
-                                               print("Uknown error: \(err.localizedDescription)")
-                                           }
-                                           //return
-                                       } else {
-                                           emailAlreadyInUse = false
-                                          //continue to app
-                                           dismiss()
-                                           showFitnessForm = true
-                                       }
-                                    }}
-                
-                                    .frame(width: 150, height: 50)
+      
+            switch viewState{
+                case .createAccount:
+                            Section(){
+                                TextField("Name", text: $userName)
+                                    .padding(.leading, 25)
                                    
-                                    .foregroundColor(.white)
-                                    .background(LinearGradient(gradient: Gradient(colors: [Color("getStartedBtn"), Color("e")]), startPoint: .leading, endPoint: .bottom))
-                                    .font(.title3)
-                                    .background(.clear)
-                                    .cornerRadius(5)
-                                    .padding(.top, 100)
-                                    .opacity(isSignUpComplete ? 1 : 0.5)
-                                   // .offset(y: keyboardResponder.currentHeight)
-                                    .disabled(!isSignUpComplete)
-                
-                                    .fullScreenCover(isPresented: $showFitnessForm){
-                                        FitnessForm(
-                                           name: $userName,
-                                           userEmailAddress: $userEmail,
-                                           userLoginPassword: $userPassword)
-                                            .transition(transition)
+                                TextField("Email", text: $userEmail)
+                                    .padding(.leading, 25)
+                                 
+                                //email promp letting user know to type valid email
+                                if userEmail != "" && !isEmailValid_Test(){
+                                    
+                                    Text(emailPrompt)
+                                        .font(.caption).italic().foregroundColor(.red)
+                                        .padding(.leading, -80)
+                                        .padding(.top, -25)
+                                        .frame(height: 5)
+                                      
+                                }
+                                //if email is alreqdy in use prompt
+                                else if emailAlreadyInUse {
+                                    Text("This email already exists")
+                                        .font(.caption).italic().foregroundColor(.red)
+                                }
+                                HStack{
+                                    if isPWSecured {
+                                        SecureField("Password", text: $userPassword)
                                             
                                     }
-                                    .animation(Animation.easeInOut(duration: 0.30), value: showFitnessForm)
-                                    
-                            HStack{
-                                Text("Already a User?").italic().font(.callout)
-                                Button(action: {
-                                    viewState = .login
-                                }){
-                                    Text("Login")
-                                        .foregroundColor(Color("ButtonTwo")).font(.callout)
+                                    else {
+                                        TextField("Password", text: $userPassword)
+                                        
+                                    }
+                                    Button(action: {
+                                        isPWSecured.toggle()
+                                    }){
+                                        Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
+                                    .accentColor(.gray)
+                                    }
+                                    .padding(.leading, -115)
                                 }
+                                .padding(.leading, 25)
+                                if userPassword != "" && !isPasswordValid(){
+                                   Text(passwordPrompt)
+                                       .font(.caption).italic().foregroundColor(.red)
+                                       .frame(width: 250)
+                                       .padding(.leading, -80)
+                                       .lineLimit(nil)
+                                           .minimumScaleFactor(0.2)
+                               }
                             }
-                            
-                .offset(y:20) // << adds separation from continue button
-              //  .offset(y: keyboardResponder.currentHeight)
-               
-        case .login:
-            VStack{
-                userLogin(signUpController: signUpController)
-                    .transition(.slide)
-            }
-            .animation(.linear(duration: 0.25), value: viewState)
-      
-        }
+                            .padding(.leading, 50)
+                                    .listRowBackground(Color.clear)
+                                    .padding()
+                                    .font(.system(size:18))
+                                  
+                                        Button("Create Account"){
+                                            Auth.auth().createUser(withEmail: userEmail, password: userPassword ) { user, error in
+                                               if let x = error {
+                                                  let err = x as NSError
+                                                   switch err.code {
+                                                   case AuthErrorCode.invalidEmail.rawValue:
+                                                       print("invalid email")
+                                                       
+                                                   case AuthErrorCode.emailAlreadyInUse.rawValue:
+                                                       emailAlreadyInUse = true
+                                                       print("Email already is use, please use a new email or sign in")
+                                                       
+                                                   default:
+                                                       print("Uknown error: \(err.localizedDescription)")
+                                                   }
+                                                   //return
+                                               } else {
+                                                   emailAlreadyInUse = false
+                                                  //continue to app
+                                                   dismiss()
+                                                   showFitnessForm = true
+                                               }
+                                            }}
+                        
+                                            .frame(width: 150, height: 50)
+                                           
+                                            .foregroundColor(.white)
+                                            .background(LinearGradient(gradient: Gradient(colors: [Color("getStartedBtn"), Color("e")]), startPoint: .leading, endPoint: .bottom))
+                                            .font(.title3)
+                                            .background(.clear)
+                                            .cornerRadius(5)
+                                            .padding(.top, 100)
+                                            .opacity(isSignUpComplete ? 1 : 0.5)
+                                           // .offset(y: keyboardResponder.currentHeight)
+                                            .disabled(!isSignUpComplete)
+                        
+                                            .fullScreenCover(isPresented: $showFitnessForm){
+                                                FitnessForm(
+                                                   name: $userName,
+                                                   userEmailAddress: $userEmail,
+                                                   userLoginPassword: $userPassword)
+                                                    .transition(transition)
+                                                    
+                                            }
+                                          //  .animation(Animation.easeInOut(duration: 0.30), value: showFitnessForm)
+                                            
+                                    HStack{
+                                        Text("Already a User?").italic().font(.callout)
+                                      
+                                        Button(action: {
+                                            viewState = .login
+                                        }){
+                                            Text("Login")
+                                                .foregroundColor(Color("ButtonTwo")).font(.callout)
+                                        }
+                                    }
+                                    
+                        .offset(y:20) // << adds separation from continue button
+                      //  .offset(y: keyboardResponder.currentHeight)
+                       
+                case .login:
+                    VStack{
+                        userLogin(signUpController: signUpController)
+                        //    .transition(.slide)
+                    }
+                
+              
+                }
+        
+    
     }
 }
 

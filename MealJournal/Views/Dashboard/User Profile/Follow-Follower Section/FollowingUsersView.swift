@@ -40,46 +40,49 @@ struct FollowingUsersView: View {
                 let fetchedFollowingList = data ["FollowingUsersList"] as? [String] ?? [""]
                 //GRAB FOLLOWING LIST
                 for user in fetchedFollowingList {
-                    FirebaseManager.shared.firestore.collection("users")
-                        .document(user)
-                        .getDocument {(snap, error) in
-                            guard let userData = snap?.data() else { return }
-                            userUID = userData["uid"] as? String ?? ""
-                            name = userData ["name"] as? String ?? "Name Unavailable"
-                            exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
-                            userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
-                            exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Nothing to return"]
-                            FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
-                                .getDocuments{ recipeDocumentSnapshot, error in
-                                    if let error = error {
-                                        print("Errors retreiving recipes")
-                                        return
-                                    }
-                                    recipeDocumentSnapshot?.documents.forEach({ recipeSnapshot in
-                                        let data = recipeSnapshot.data()
-
-                                        let recipeTitle = data ["recipeTitle"] as? String ?? ""
-                                        let recipePrepTime = data ["recipePrepTime"] as? String ?? ""
-                                        let recipeImage = data ["recipeImage"] as? String ?? ""
-                                        let createdAt = data ["createdAt"] as? String ?? ""
-                                        let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
-                                        let directions = data ["directions"] as? [String] ?? [""]
-                                        let recipeID = data ["recipeID"] as? String ?? ""
-                                        let recipeCaloriesMacro = data ["recipeCaloriesMacro"] as? Int ?? 0
-                                        let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
-                                        let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
-                                        let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
-                                        let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
-
-                                   //first check if recipe ID exists by filtering by the id
-                                        let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
-                                   //if it doens't exist, append recipe
-                                        if recipeExistence.isEmpty == true {
-                                            self.fetchedUserRecipes.append(recipe)
+                    if user != "" {
+                        FirebaseManager.shared.firestore.collection("users")
+                            .document(user)
+                            .getDocument {(snap, error) in
+                                guard let userData = snap?.data() else { return }
+                                userUID = userData["uid"] as? String ?? ""
+                                name = userData ["name"] as? String ?? "Name Unavailable"
+                                exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
+                                userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
+                                exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Nothing to return"]
+                                FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
+                                    .getDocuments{ recipeDocumentSnapshot, error in
+                                        if let error = error {
+                                            print("Errors retreiving recipes")
+                                            return
                                         }
-                                    })
-                                }
-                        }
+                                        recipeDocumentSnapshot?.documents.forEach({ recipeSnapshot in
+                                            let data = recipeSnapshot.data()
+
+                                            let recipeTitle = data ["recipeTitle"] as? String ?? ""
+                                            let recipePrepTime = data ["recipePrepTime"] as? String ?? ""
+                                            let recipeImage = data ["recipeImage"] as? String ?? ""
+                                            let createdAt = data ["createdAt"] as? String ?? ""
+                                            let ingredients = data ["ingredientItem"] as? [String: String] ?? ["": ""]
+                                            let directions = data ["directions"] as? [String] ?? [""]
+                                            let recipeID = data ["recipeID"] as? String ?? ""
+                                            let recipeCaloriesMacro = data ["recipeCaloriesMacro"] as? Int ?? 0
+                                            let recipeFatMacro = data ["recipeFatMacro"] as? Int ?? 0
+                                            let recipeCarbMacro = data ["recipeCarbMacro"] as? Int ?? 0
+                                            let recipeProteinMacro = data ["recipeProteinMacro"] as? Int ?? 0
+                                            let recipe = RecipeItem(id: recipeID, recipeTitle:recipeTitle , recipePrepTime: recipePrepTime, recipeImage: recipeImage, createdAt: createdAt, recipeCaloriesMacro: recipeCaloriesMacro, recipeFatMacro: recipeFatMacro, recipeCarbMacro:recipeCarbMacro, recipeProteinMacro: recipeProteinMacro, directions: directions, ingredientItem: ingredients)
+
+                                       //first check if recipe ID exists by filtering by the id
+                                            let recipeExistence = fetchedUserRecipes.filter { $0.id == recipeID }
+                                       //if it doens't exist, append recipe
+                                            if recipeExistence.isEmpty == true {
+                                                self.fetchedUserRecipes.append(recipe)
+                                            }
+                                        })
+                                    }
+                            }
+                    }
+
                 }
             }
 
@@ -89,6 +92,7 @@ struct FollowingUsersView: View {
         VStack{
             if userUID == ""{
                 Text("You currently aren't following any users")
+                    .offset(y: 250)
             }
 
             else{
@@ -146,10 +150,10 @@ struct FollowingUsersView: View {
 
             }
         }
+        Spacer()
         .onAppear(){
             fetchFollowingList()
         }
-        Spacer()
     }
 }
 

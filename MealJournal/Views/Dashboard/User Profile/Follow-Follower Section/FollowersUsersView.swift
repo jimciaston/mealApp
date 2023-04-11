@@ -93,6 +93,7 @@ struct FollowersUsersView: View {
         VStack{
             if userUID == "" {
                 Text("You currently don't have any followers")
+                    .offset(y: 250)
             }
             else{
                 NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{

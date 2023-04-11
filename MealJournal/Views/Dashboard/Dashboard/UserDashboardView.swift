@@ -54,6 +54,7 @@ struct UserDashboardView: View {
                     case .searchUsers:
                         SearchUsersFeature()
                             .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
+                            .animation(nil)
                     case .addRecipes:
                         RecipeEditorHomeMenu(dashboardRouter: dashboardRouter, showSuccessMessage: $recipeSavedMessage)
                             .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
@@ -148,8 +149,6 @@ struct UserDashboardView: View {
                         }
                     }
                 }
-                    
-             
             }
         }
          

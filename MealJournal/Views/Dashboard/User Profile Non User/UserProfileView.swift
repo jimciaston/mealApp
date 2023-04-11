@@ -37,6 +37,7 @@ struct UserProfileView: View {
    
     
     func isCurrentUserfollowingUser() -> Bool{
+      
         FirebaseManager.shared.firestore.collection("users")
             .whereField("FollowingUsersList", arrayContains: userUID)
             .getDocuments { (snapshot, err) in
@@ -144,9 +145,9 @@ struct UserProfileView: View {
                             //grab current user UID
                         
                             guard let uid = Auth.auth().currentUser?.uid else { return } // << current user
-                           
+                        
                             let followingUserUID = userUID // person following
-                            
+                            print(followingUserUID)
                             FirebaseManager.shared.firestore.collection("users")
                                 .whereField("FollowingUsersList", arrayContains: followingUserUID)
                                 .getDocuments { (snapshot, err) in
@@ -250,6 +251,7 @@ struct UserProfileView: View {
                          
                 }
                 .onAppear{
+                    print(userUID)
                     fetchFollowingCount_NonUser() // << grab follow/follower totals from firestore
                 }
               

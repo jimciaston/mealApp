@@ -45,7 +45,7 @@ struct CustomFoodItemView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.secondary)
                         .frame(width: 60,height: 5)
-                        .padding(.top, 15)
+                        .padding(.top, -15 )
                         .onTapGesture {
                             self.showing.toggle()
                         }
@@ -55,7 +55,7 @@ struct CustomFoodItemView: View {
                          RoundedRectangle(cornerRadius: 4)
                              .stroke(Color.black, lineWidth: 1)
                      )
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                          .cornerRadius(4)
                         .padding(.trailing, 10)
                         .padding(.top, 15)
@@ -65,12 +65,12 @@ struct CustomFoodItemView: View {
                         .foregroundColor(.red)
                     
                     MacroSelectHstack(macroAmount: $fatAmount, macroName: "Fat")
-                        .padding(.leading, geo.size.width / 5)
+                       // .padding(.leading, geo.size.width / 5)
                         .padding(.top, 25)
                     MacroSelectHstack(macroAmount: $carbAmount, macroName: "Carbs")
-                    .padding(.leading, geo.size.width / 5)
+                   // .padding(.leading, geo.size.width / 5)
                     MacroSelectHstack(macroAmount: $proteinAmount, macroName: "Protein")
-                    .padding(.leading, geo.size.width / 5)
+                   // .padding(.leading, geo.size.width / 5)
                         
                     
                     // breakfast, lunch or dinner
@@ -99,12 +99,12 @@ struct CustomFoodItemView: View {
                         .background(
                           RoundedRectangle(cornerRadius: 10)
                               .fill(
-                                  Color("LighterWhite")))
+                                  Color("LightWhite")))
                      
                     .padding(.top, 25)
                    
                 }
-              
+                .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
             }
 
         }
@@ -116,6 +116,6 @@ struct CustomFoodItemView: View {
 
 struct CustomFoodItemView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomFoodItemView(showing: .constant(true), isViewSearching: .constant(false), userSearch: .constant(true))
+        CustomFoodItemView(showing: .constant(true), isViewSearching: .constant(true), userSearch: .constant(true))
     }
 }

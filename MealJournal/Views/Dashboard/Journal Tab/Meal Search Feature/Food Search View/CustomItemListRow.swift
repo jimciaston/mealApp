@@ -109,7 +109,7 @@ struct CustomItemListRow: View {
                         .frame(height: 150)
                         .padding(.top, 20)
                         .padding(.bottom, 200)
-                        .background(Color("LightWhite"))
+                        .background(.white)
                         .onTapGesture{
                             self.showDeleteItemView = false
                         }

@@ -69,7 +69,7 @@ struct LandingPage: View {
                          
                             Button(action: {
                                 viewState = .createUserAccountView
-                                offsetValue = -125
+                              //  offsetValue = -200
                                 scale -= 0.50
                                 isMealJournalTitleShowing = true
                             }){
@@ -87,7 +87,6 @@ struct LandingPage: View {
                             
                                Button(action: {
                                    viewState = .signUpController
-                                   offsetValue = -125
                                    scale -= 0.50
                                    isMealJournalTitleShowing = true
                                }){
@@ -108,7 +107,7 @@ struct LandingPage: View {
                             LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
                                 .frame(height:10)
                             createUserAccount()
-                                .transition(.slide)
+                             
                                
                         }
                     case .signUpController:
@@ -116,7 +115,7 @@ struct LandingPage: View {
                                 LandingPageLogo(offsetValue: $offsetValue, scale: $scale, isMealJournalTitleShowing: $isMealJournalTitleShowing)
                                     .frame(height:10)
                                 userLogin(signUpController: signUpController)
-                                    .transition(.slide)
+                                   
                             }
                     }
                         

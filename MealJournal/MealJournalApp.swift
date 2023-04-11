@@ -54,7 +54,9 @@ struct MealJournalApp: App {
                 .environmentObject(vm)
                 .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, UserJournalHelper.persistentContainer.viewContext)
-               
+                .onAppear{
+                    print(UIDevice.current.systemVersion)
+                }
         }
     }
 }

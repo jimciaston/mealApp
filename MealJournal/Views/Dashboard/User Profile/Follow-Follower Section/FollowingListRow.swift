@@ -41,7 +41,7 @@ struct FollowingListRow: View {
                                     .placeholder(Image("profileDefaultPicture"))
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width:60, height: 60)
+                                    .frame(width:35, height: 35)
                                     .clipShape(Circle())
                                     .padding(.leading, 20)
                                     .padding(.trailing, 25)
@@ -50,7 +50,7 @@ struct FollowingListRow: View {
                             VStack{
                                 HStack{
                                     Text(userName)
-                                        .font(.title)
+                                        .font(.title3)
                                         
                                     Spacer()
                                 }
