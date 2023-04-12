@@ -32,29 +32,23 @@ struct CustomItemsList: View {
            
                 
                 Button(action: {
-                    resultsShowing += 5
+                   
+                    withAnimation(.linear(duration: 0.25)){
+                        addCustomFoodToggle.toggle()
+                    }
                 }){
                     //return nothing if no custom items for user
                     if logic.customFoodItems.count > 0{
                              Text("Add Custom Food Item")
                             .foregroundColor(.white)
                                  .frame(maxWidth: .infinity, alignment: .center)
-                                 .onTapGesture{
-                                     withAnimation(.linear(duration: 0.25)){
-                                         addCustomFoodToggle.toggle()
-                                     } 
-                                 }
+                                
                              
-                             .frame(maxWidth: .infinity, alignment: .leading)
                              .padding([.top, .bottom], 15)
                              .background(RoundedRectangle(
                                  cornerRadius:20).fill(Color("UserProfileCard2")))
                              .foregroundColor(.black)
-                           //  .opacity(mealTimingToggle ? 0.3 : 1)
                          
-                        
-                        Text("View More")
-                            .padding(.top, 10)
                     }
                     else{
                         VStack{
@@ -79,6 +73,14 @@ struct CustomItemsList: View {
                 .multilineTextAlignment(.center)
                 
                 
+               
+               Text("View More")
+                   .padding(.top, 10)
+                   .onTapGesture {
+                       resultsShowing += 5
+                   }
+                   .frame(maxWidth: .infinity, alignment: .center)
+                
                 Button(action: {
                     isViewSearching = false
                     userSearch = false
@@ -101,7 +103,7 @@ struct CustomItemsList: View {
                     GeometryReader { geometry in {
                         BottomSheetView(
                             isOpen: self.$addCustomFoodToggle,
-                            maxHeight: screensize - 400, minHeight: 200
+                            maxHeight: screensize - 200, minHeight: 300
                         ) {
                             CustomFoodItemView(showing: $addCustomFoodToggle, isViewSearching: $isViewSearching, userSearch: $userSearch)
                                 .environmentObject(mealEntryObj)
@@ -110,18 +112,14 @@ struct CustomItemsList: View {
                                 .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
 
                         }
-                        .padding(.bottom, -75)
+        
+                        .frame(maxHeight: .infinity)
                         .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
                     }().edgesIgnoringSafeArea(.all)
                            
                     }
                 })
-           
-           
         }
-            
-      
-        
         }
         .opacity(!showDeleteItemView ? 1 : 0.4)
         .opacity(!mealTimingToggle ? 1 : 0.4)
@@ -130,6 +128,7 @@ struct CustomItemsList: View {
             FlexibleSheet(sheetMode: $sheetMode) {
                 MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: .constant(false), mealSelected: .constant(true))
                 }
+            .padding(.top, -150)
             ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
             .frame(height:240)
             .animation(.easeInOut)

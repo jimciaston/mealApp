@@ -24,7 +24,7 @@ struct SearchUsersFeature: View {
                     }
                 }
                 Spacer()
-                    .padding(.top, 15) // << add separation from list and search bar
+                    .padding(.top, 25) // << add separation from list and search bar
                     .navigationBarTitle("Search")
 
                 //SEARCH

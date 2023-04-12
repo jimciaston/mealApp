@@ -41,6 +41,7 @@ struct FollowingListRow: View {
                                     .placeholder(Image("profileDefaultPicture"))
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
+                                    .scaledToFit()
                                     .frame(width:35, height: 35)
                                     .clipShape(Circle())
                                     .padding(.leading, 20)

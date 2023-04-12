@@ -47,7 +47,7 @@ struct userLogin: View {
                     
                     TextField("Email", text: $userEmail)
                         .font(.title3)
-                        .frame(width:220, height:50)
+                        .frame(width:270, height:50)
                     }
                 .padding(.trailing, 25) //evens out email width with password
                 .padding(.bottom, -10)
@@ -68,12 +68,12 @@ struct userLogin: View {
                             if isPWSecured {
                                 SecureField("Password", text: $userPassword)
                                     .font(.title3)
-                                    .frame(width:220, height:50)
+                                    .frame(width:270, height:50)
                             }
                             else {
                                 TextField("Password", text: $userPassword)
                                     .font(.title3)
-                                    .frame(width:220, height:50)
+                                    .frame(width:270, height:50)
                             }
                             Button(action: {
                                 isPWSecured.toggle()

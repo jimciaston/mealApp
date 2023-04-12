@@ -42,8 +42,7 @@ struct RecipeControllerNonUser: View {
     //check if recipeID is saved by user
     
     func grabUserDetails(){
-        print(userUID)
-          
+       
           FirebaseManager.shared.firestore.collection("users")
               .document(userUID)
               .getDocument { (snapshot, err) in
@@ -115,11 +114,19 @@ struct RecipeControllerNonUser: View {
         NavigationView{
             VStack{
                 ZStack(alignment: .topTrailing) {
-                  WebImage(url: URL(string: image))
-                      .placeholder(Image("recipeImageNew").resizable())
-                      .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                      .frame(width:350, height: 200)
-                      .aspectRatio(contentMode: .fill)
+                    if let imageURL = URL(string: image) {
+                                            WebImage(url: imageURL)
+                                                .resizable()
+                                                .frame(width:350, height: 200)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                                                .aspectRatio(contentMode: .fill)
+                    } else {
+                        Image("recipeImageNew")
+                            .resizable()
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .frame(width:350, height: 200)
+                    }
+                    
                   Image(systemName: "bookmark.square.fill")
                       .font(.largeTitle)
                     
@@ -299,6 +306,9 @@ RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directio
             .frame(width:355, height: 100)
             //sets coordinates of view on dash
             .offset(y: horizontalSizeClass == .regular ? -1000 : -500)
+        }
+        .onAppear{
+           // print("appearing ahh no")
         }
         .frame(height: sheetMode == .none ? 0 : 100)
     }

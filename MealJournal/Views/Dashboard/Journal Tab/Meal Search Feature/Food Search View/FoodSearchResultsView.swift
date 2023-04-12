@@ -113,8 +113,9 @@ struct FoodSearchResultsView: View {
                              if(mealTimingToggle){
                                  FlexibleSheet(sheetMode: $sheetMode) {
                                      MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
+                                        
                                      }
-                               
+                                 .padding(.top, -150)
                                  ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
                                  .frame(height:240)
                                  .padding(.top,horizontalSizeClass == .regular ? -650 : -1 ) // << moves snackbar info up in view

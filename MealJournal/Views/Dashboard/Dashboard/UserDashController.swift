@@ -99,7 +99,7 @@ struct UserDashController: View {
                                     self.action = 2
                                 }
                             }
-                          //  .padding(.top, 10)
+                           .padding(.top, 15)
                             .padding(.bottom, 25)
                                 //custom divider
                             Rectangle()

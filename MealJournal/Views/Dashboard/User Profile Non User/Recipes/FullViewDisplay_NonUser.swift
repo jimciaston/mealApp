@@ -9,8 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FullListOfRecipes_nonUser: View {
-    
-    
     @EnvironmentObject var mealEntryObj: MealEntrys
     
     @ObservedObject var rm = RecipeLogic()
@@ -34,10 +32,13 @@ struct FullListOfRecipes_nonUser: View {
                        LazyVGrid(columns: columns) {
                           ForEach(recipesChunk, id: \.id) { recipe in
                               self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
-                                 
-                              .onTapGesture {
-                                selectedRecipe = recipe
-                            }
+                                 //logic in tap ensures only one is clicked at a time (avoiding issues)
+                                  .onTapGesture {
+                                             if selectedRecipe == nil {
+                                                 selectedRecipe = recipe
+                                             }
+                                         }
+                                         .disabled(selectedRecipe != nil && selectedRecipe != recipe)
                           }
                        }.frame(maxHeight: .infinity, alignment: .top)                   }
                }

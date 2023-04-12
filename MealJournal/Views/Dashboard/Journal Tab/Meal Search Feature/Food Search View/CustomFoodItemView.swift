@@ -45,18 +45,18 @@ struct CustomFoodItemView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.secondary)
                         .frame(width: 60,height: 5)
-                        .padding(.top, -15 )
+                        .padding(.top, -25 )
                         .onTapGesture {
                             self.showing.toggle()
                         }
-                    TextField("  Item name", text: $foodName)
-                        .frame(width:150, height:30)
+                    TextField(" Item name", text: $foodName)
+                        .frame(width:180, height:30)
                         .overlay(
                          RoundedRectangle(cornerRadius: 4)
                              .stroke(Color.black, lineWidth: 1)
                      )
                         .multilineTextAlignment(.center)
-                         .cornerRadius(4)
+                        .cornerRadius(4)
                         .padding(.trailing, 10)
                         .padding(.top, 15)
                         
@@ -85,6 +85,7 @@ struct CustomFoodItemView: View {
                     //BUTTON NOT WORKING BELOW
                    
                        Text("Add Item")
+                       
                         .onTapGesture{
                             let foodItemID = UUID()
                             if foodName != "" {
@@ -102,17 +103,17 @@ struct CustomFoodItemView: View {
                                   Color("LightWhite")))
                      
                     .padding(.top, 25)
-                   
+                    .padding(.bottom, 100)
                 }
                 .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
             }
 
         }
         Spacer()
-        .frame(height: 80)
-            
-                }
-            }
+        .frame(height: 100)
+       
+    }
+}
 
 struct CustomFoodItemView_Previews: PreviewProvider {
     static var previews: some View {
