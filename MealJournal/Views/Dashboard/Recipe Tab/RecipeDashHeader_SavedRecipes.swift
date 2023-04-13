@@ -61,7 +61,7 @@ struct RecipeDashHeader_SavedRecipes: View {
                                         label: {
                                             Text(userName)
                                                 .italic()
-                                                .foregroundColor(.blue)
+                                                .foregroundColor(Color("defaultColorForExercise"))
                                                 .underline() // or Text("localized string key")
                                         }
                                     )
@@ -74,7 +74,7 @@ struct RecipeDashHeader_SavedRecipes: View {
                 
                 HStack{
                     Image(systemName: "clock")
-                        .foregroundColor(.green)
+                        .foregroundColor(Color("defaultColorForExercise"))
                     Text(recipePrepTime)
                 }
                 .padding(.top, -10)

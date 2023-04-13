@@ -69,7 +69,7 @@ struct FullViewDisplay_MainTab: View {
         
         VStack{
             WebImage(url: URL(string: image))
-                .placeholder(Image("recipeImageNew").resizable())
+                .placeholder(Image("defaultRecipeImage-2").resizable())
                 .resizable()
                 .frame (width: 150, height:130)
                 .cornerRadius(15)
@@ -108,7 +108,6 @@ struct FullViewDisplay_MainTab: View {
                                         "agenda": user.agenda,
                                         "profilePicture": user.profilePictureURL
                                     ])
-                                    print(userModel.name)
                                 }
                             }
                         }

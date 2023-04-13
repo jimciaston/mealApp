@@ -38,7 +38,7 @@ struct FullListOfRecipes_nonUser: View {
                                                  selectedRecipe = recipe
                                              }
                                          }
-                                         .disabled(selectedRecipe != nil && selectedRecipe != recipe)
+                                      //   .disabled(selectedRecipe != nil && selectedRecipe != recipe)
                           }
                        }.frame(maxHeight: .infinity, alignment: .top)                   }
                }

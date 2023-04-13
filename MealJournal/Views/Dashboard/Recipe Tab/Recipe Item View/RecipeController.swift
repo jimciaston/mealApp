@@ -66,7 +66,7 @@ struct RecipeController: View {
         NavigationView{
             VStack{
                     WebImage(url: URL(string: image))
-                        .placeholder(Image("recipeImageNew").resizable())
+                        .placeholder(Image("defaultRecipeImage-2").resizable())
                         .resizable()
                         .frame(width:500, height: 250)
                         .aspectRatio(contentMode: .fill)

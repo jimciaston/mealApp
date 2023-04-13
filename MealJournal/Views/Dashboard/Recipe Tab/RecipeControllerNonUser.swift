@@ -119,45 +119,71 @@ struct RecipeControllerNonUser: View {
                                                 .resizable()
                                                 .frame(width:350, height: 200)
                                                 .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                                                .aspectRatio(contentMode: .fill)
+                                                .overlay(
+                                                    ZStack {
+                                                        Text("User must be followed to save recipe")
+                                                            .foregroundColor(.black)
+                                                            // Start styling the popup...
+                                                            .padding(.all, 10)
+                                                            .background(Color.white)
+                                                            .cornerRadius(10)
+                                                            .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                                            .offset(x: 15, y: 5) // Move the view above the button
+                                                            //valid overlay
+                                                            .opacity(overlayShowing ? 1.0 : 0)
+                                                            .frame(width: 250, height: 70)
+                                                            .padding(.trailing, 20)
+                                                        
+                                                        if overlayShowing {
+                                                            Color.clear
+                                                                .onAppear {
+                                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                                                        withAnimation {
+                                                                            overlayShowing = false
+                                                                        }
+                                                                    }
+                                                                }
+                                                        }
+                                                    }
+                                                )
+                        
                     } else {
-                        Image("recipeImageNew")
+                        Image("defaultRecipeImage-2")
                             .resizable()
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                             .frame(width:350, height: 200)
-                    }
+                        
+                            .overlay(
+                                ZStack {
+                                    Text("User must be followed to save recipe")
+                                        .foregroundColor(.black)
+                                        // Start styling the popup...
+                                        .padding(.all, 10)
+                                        .background(Color.white)
+                                        .cornerRadius(10)
+                                        .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                        .offset(x: 15, y: 5) // Move the view above the button
+                                        //valid overlay
+                                        .opacity(overlayShowing ? 1.0 : 0)
+                                        .frame(width: 250, height: 70)
+                                        .padding(.trailing, 20)
+                                    
+                                    if overlayShowing {
+                                        Color.clear
+                                            .onAppear {
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                                    withAnimation {
+                                                        overlayShowing = false
+                                                    }
+                                                }
+                                            }
+                                    }
+                                }
+                            )
+                         }
                     
                   Image(systemName: "bookmark.square.fill")
                       .font(.largeTitle)
-                    
-                      .overlay(
-                          ZStack {
-                              Text("User must be followed to save recipe")
-                                  .foregroundColor(.black)
-                                  // Start styling the popup...
-                                  .padding(.all, 10)
-                                  .background(Color.white)
-                                  .cornerRadius(10)
-                                  .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
-                                  .offset(x: -120, y: 40) // Move the view above the button
-                                  //valid overlay
-                                  .opacity(overlayShowing ? 1.0 : 0)
-                                  .frame(width: 250, height: 70)
-                                  .padding(.trailing, 20)
-                              
-                              if overlayShowing {
-                                  Color.clear
-                                      .onAppear {
-                                          DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                              withAnimation {
-                                                  overlayShowing = false
-                                              }
-                                          }
-                                      }
-                              }
-                          }
-                      )
-            //styling for colors of icon if saved / not saved
                       .foregroundStyle(
                           isRecipeSaved ? Color.white : Color.white,
                           isRecipeSaved ? Color.yellow : Color.gray
@@ -165,9 +191,11 @@ struct RecipeControllerNonUser: View {
                      // .animation(Animation.easeInOut(duration: 0.3))
                       .padding(.top, 25)
                       .padding(.leading, -60)
+                     
+                    
                   
                       .onTapGesture{
-                         
+                         print("tapped")
                           if isRecipeSaved{
                               switch sheetMode {
                                   case .none:

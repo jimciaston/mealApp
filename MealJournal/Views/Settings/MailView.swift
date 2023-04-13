@@ -19,50 +19,56 @@ struct MailData {
 
 typealias MailViewCallback = ((Result<MFMailComposeResult, Error>) -> Void)?
 
-struct MailView : UIViewControllerRepresentable{
-    
-    var content: String
-    var to: String
-    var subject: String
+struct MailView: UIViewControllerRepresentable {
     
     typealias UIViewControllerType = MFMailComposeViewController
     
-    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {
-        
-    }
-
+    var toRecipient: String
+    var subject: String
+    var messageBody: String
+    @Binding var mailSendSuccess: Bool
+    
     func makeUIViewController(context: Context) -> MFMailComposeViewController {
-        if MFMailComposeViewController.canSendMail(){
-            let view = MFMailComposeViewController()
-            view.mailComposeDelegate = context.coordinator
-            view.setToRecipients([to])
-            view.setSubject(subject)
-            view.setMessageBody(content, isHTML: false)
-            return view
-        } else {
-            return MFMailComposeViewController()
-        }
+        let mailComposeViewController = MFMailComposeViewController()
+        mailComposeViewController.setToRecipients([toRecipient])
+        mailComposeViewController.setSubject(subject)
+        mailComposeViewController.setMessageBody(messageBody, isHTML: false)
+        mailComposeViewController.mailComposeDelegate = context.coordinator
+        return mailComposeViewController
+    }
+    
+    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {
+        // Do nothing, since the view controller is managed by UIKit
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
+        return Coordinator(mailSendSuccess: $mailSendSuccess)
     }
     
-    
-    class Coordinator : NSObject, MFMailComposeViewControllerDelegate{
+    class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
         
-        var parent : MailView
+        @Binding var mailSendSuccess: Bool
         
-        init(_ parent: MailView){
-            self.parent = parent
+        init(mailSendSuccess: Binding<Bool>) {
+            _mailSendSuccess = mailSendSuccess
         }
         
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            controller.dismiss(animated: true)
+            if result == .sent {
+                print("saved")
+                mailSendSuccess = true
+                controller.dismiss(animated: true)
+            }
+            else {
+                print("error")
+                mailSendSuccess = false
+            }
         }
         
-       
     }
     
-    
 }
+
+
+
+
