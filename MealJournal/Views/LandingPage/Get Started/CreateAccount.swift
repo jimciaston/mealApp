@@ -81,10 +81,10 @@ struct createUserAccount: View {
                             Section(){
                                 TextField("Name", text: $userName)
                                     .padding(.leading, 25)
-                                   
+                                    .submitLabel(.done)
                                 TextField("Email", text: $userEmail)
                                     .padding(.leading, 25)
-                                 
+                                    .submitLabel(.done)
                                 //email promp letting user know to type valid email
                                 if userEmail != "" && !isEmailValid_Test(){
                                     
@@ -103,11 +103,11 @@ struct createUserAccount: View {
                                 HStack{
                                     if isPWSecured {
                                         SecureField("Password", text: $userPassword)
-                                            
+                                            .submitLabel(.done)
                                     }
                                     else {
                                         TextField("Password", text: $userPassword)
-                                        
+                                            .submitLabel(.done)
                                     }
                                     Button(action: {
                                         isPWSecured.toggle()

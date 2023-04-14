@@ -9,8 +9,15 @@ import SwiftUI
 import Foundation
 
 struct ContentView: View {
+    let isSignedIn = UserDefaults.standard.object(forKey: "signedIn") as? Bool ?? false
     var body: some View {
-      LandingPage()
+        if isSignedIn {
+            SplashView()
+        }
+        else{
+            LandingPage()
+        }
+      
     }
 
 }

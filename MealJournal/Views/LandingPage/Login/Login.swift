@@ -28,7 +28,6 @@ struct userLogin: View {
  
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @ObservedObject var signUpController: LandingPageViewModel
-   
     @State var loginPageViewState: LoginEnum = .loginPage
     
     var body: some View {
@@ -47,7 +46,9 @@ struct userLogin: View {
                     
                     TextField("Email", text: $userEmail)
                         .font(.title3)
-                        .frame(width:270, height:50)
+                        .frame(width:280, height:50)
+                        .submitLabel(.done)
+                      
                     }
                 .padding(.trailing, 25) //evens out email width with password
                 .padding(.bottom, -10)
@@ -68,12 +69,14 @@ struct userLogin: View {
                             if isPWSecured {
                                 SecureField("Password", text: $userPassword)
                                     .font(.title3)
-                                    .frame(width:270, height:50)
+                                    .frame(width:280, height:50)
+                                    .submitLabel(.done)
                             }
                             else {
                                 TextField("Password", text: $userPassword)
                                     .font(.title3)
-                                    .frame(width:270, height:50)
+                                    .frame(width:280, height:50)
+                                    .submitLabel(.done)
                             }
                             Button(action: {
                                 isPWSecured.toggle()

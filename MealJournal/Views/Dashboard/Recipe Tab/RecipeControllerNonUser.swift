@@ -305,7 +305,7 @@ RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directio
                     }
                     //button styling
                     .frame(width: 80, height: 50)
-                    .background(Color.red)
+                    .background(Color("olympic"))
                     .cornerRadius(10)
                     .padding()
                     //yes button
@@ -319,11 +319,11 @@ RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directio
                         .padding()
                     }
                     //button styling
-                    .frame(width: 80, height: 50)
-                    .background(Color.green)
+                    .frame(width: 100, height: 50)
+                    .background(Color("PieChart1"))
                     .cornerRadius(10)
                     .padding()
-                    .shadow(radius: 5)
+                    .shadow(radius: 2)
                 }
             
             }
@@ -334,9 +334,7 @@ RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directio
             .frame(width:355, height: 100)
             //sets coordinates of view on dash
             .offset(y: horizontalSizeClass == .regular ? -1000 : -500)
-        }
-        .onAppear{
-           // print("appearing ahh no")
+            Spacer()
         }
         .frame(height: sheetMode == .none ? 0 : 100)
     }

@@ -22,7 +22,7 @@ struct ContactUsView: View {
     @State private var selectedReasonIndex = 0
     
     @State private var mailData = MailData(name: "",
-            recipients: ["jimmyciaston@gmail.com"],
+            recipients: ["macromateapp@gmail.com"],
             message: ""
            )
    
@@ -31,7 +31,7 @@ struct ContactUsView: View {
         NavigationView{
             VStack {
                 Text("Get in touch")
-                    .font(.largeTitle)
+                    .font(.custom("Montserrat-Regular", size: 32))
                     .fontWeight(.bold)
                     .padding(.bottom, 25)
                     .padding(.top, -50)
@@ -136,7 +136,7 @@ struct ContactUsView: View {
             
             .alert(isPresented: $showMailUnavailableAlert, content: {
                 Alert(title: Text("You do not have an email account set up on this device."),
-                       message: Text("Add your email account in the Settings page, or email us directly at support@macromate.com"), dismissButton:
+                       message: Text("Add your email account in the Settings page, or email us directly at macromateapp@gmail.com"), dismissButton:
                             .default(Text("Ok")))
             })
             // show mail view

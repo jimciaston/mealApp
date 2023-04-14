@@ -50,11 +50,11 @@ struct PersonalSettingsView: View {
     @State var originalAgenda = ""
     @State var originalExercisePreferences = [""]
     @State var pickerID = 0
-    
+    @FocusState var isKeyboardFocused: Bool
     @State var isFocused = false
     
     func isValidInstagramLink(_ link: String) -> Bool {
-        let regex = try! NSRegularExpression(pattern: #"^https?://(www\.)?instagram\.com/[a-zA-Z0-9_]+/?$"#, options: [])
+        let regex = try! NSRegularExpression(pattern: "^(https?:\\/\\/)?(www\\.)?instagram\\.com\\/[a-zA-Z0-9_\\.]+\\/?$", options: [])
         return regex.firstMatch(in: link, options: [], range: NSRange(location: 0, length: link.utf16.count)) != nil
     }
     
@@ -107,6 +107,15 @@ struct PersonalSettingsView: View {
                             .padding(.trailing, 5)
                             
                         TextField(vm.userModel?.userSocialLink ?? "Link unavailable", text: $userInstagramHandle)
+                            .focused($isKeyboardFocused)
+                            .toolbar{
+                                ToolbarItemGroup(placement: .keyboard){
+                                    Button("Done"){
+                                        isKeyboardFocused = false
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                }
+                            }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -205,6 +214,7 @@ struct PersonalSettingsView: View {
                         Text("Back")
                     }
                 }
+              
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button {
                       
@@ -256,6 +266,7 @@ struct PersonalSettingsView: View {
                                 showSuccessAlertForSettings.toggle()
                             }
                             else{
+                            print(userInstagramHandle)
                               print("social link returned not valid")
                             }
                         }

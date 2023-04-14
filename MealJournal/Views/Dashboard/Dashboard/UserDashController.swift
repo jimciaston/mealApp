@@ -47,13 +47,12 @@ struct UserDashController: View {
         }
   
     var body: some View {
-    //    if !vm.isUserDataLoading { // << if user data loaded
+        if !vm.isUserDataLoading { // << if user data loaded
             NavigationView{
                 ZStack{
                     GeometryReader { Geo in
                         VStack{
                             VStack{
-                        
                             //profile picture
                             ProfilePicture()
                                     .padding(.top, 50) // << bring down profile picture on view
@@ -166,6 +165,8 @@ struct UserDashController: View {
                                 title: { Text("") },
                                 icon: {
                                     Image(systemName: "plus")
+                                        .frame(width: 50, height: 50)
+                                        .foregroundColor(Color("ButtonTwo"))
                                         
                                 })
                             }
@@ -196,17 +197,17 @@ struct UserDashController: View {
             }
             .navigationViewStyle(StackNavigationViewStyle())
            
-   //     }
-//
-//        else{
-//            ActivityIndicator()
-//            //activity indicator had bug where it wouldn't leave after initial setup
-//                .onAppear{
-//                    vm.fetchCurrentUser()
-//                }
-//
-//            // << showing loading spinner while loading
-//        }
+        }
+
+        else{
+            ActivityIndicator()
+            //activity indicator had bug where it wouldn't leave after initial setup
+                .onAppear{
+                    vm.fetchCurrentUser()
+                }
+
+            // << showing loading spinner while loading
+        }
         
     }
         

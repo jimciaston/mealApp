@@ -25,6 +25,7 @@
 		0A1EAC9529E21710005E15EA /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9429E21710005E15EA /* MailView.swift */; };
 		0A1EAC9729E4B1A7005E15EA /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9629E4B1A7005E15EA /* ForgotPasswordView.swift */; };
 		0A1EAC9929E4F988005E15EA /* PasswordResetSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9829E4F988005E15EA /* PasswordResetSuccess.swift */; };
+		0A1EAC9B29E9ADBF005E15EA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EAC9A29E9ADBF005E15EA /* SplashView.swift */; };
 		0A2D895B296B97F6001EDF01 /* JournalDashLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D895A296B97F6001EDF01 /* JournalDashLogic.swift */; };
 		0A2D895D296F561C001EDF01 /* SavedJournalDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */; };
 		0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2D895E29703B26001EDF01 /* EntryRowSavedDashboard.swift */; };
@@ -215,6 +216,7 @@
 		0A1EAC9429E21710005E15EA /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		0A1EAC9629E4B1A7005E15EA /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		0A1EAC9829E4F988005E15EA /* PasswordResetSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetSuccess.swift; sourceTree = "<group>"; };
+		0A1EAC9A29E9ADBF005E15EA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0A2D895A296B97F6001EDF01 /* JournalDashLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDashLogic.swift; sourceTree = "<group>"; };
 		0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalDashboard.swift; sourceTree = "<group>"; };
 		0A2D895E29703B26001EDF01 /* EntryRowSavedDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRowSavedDashboard.swift; sourceTree = "<group>"; };
@@ -759,6 +761,7 @@
 				0ADDCCA929BF2B0A0082FB1E /* Secrets.xcconfig */,
 				0AB112B129017C5A0071B3ED /* Info.plist */,
 				0A8F98E027AB09AE008F5584 /* MealJournalApp.swift */,
+				0A1EAC9A29E9ADBF005E15EA /* SplashView.swift */,
 				0A9A055427B3328800CAD66B /* Models */,
 				0A87DB632913694C00A3C1E9 /* Modifiers */,
 				0A8F98E627AB09AE008F5584 /* Preview Content */,
@@ -1219,6 +1222,7 @@
 				0A469AFE29D2466700556F4B /* ContactUsView.swift in Sources */,
 				0A8D806D28296AA90055021A /* RecipeFullListRow.swift in Sources */,
 				0A2D895F29703B26001EDF01 /* EntryRowSavedDashboard.swift in Sources */,
+				0A1EAC9B29E9ADBF005E15EA /* SplashView.swift in Sources */,
 				0A630F5029C94ECF0088A789 /* ExercisePreferencesSettings.swift in Sources */,
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
 				0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */,
