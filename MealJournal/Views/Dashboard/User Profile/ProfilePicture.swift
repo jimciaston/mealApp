@@ -10,37 +10,57 @@ import Firebase
 import FirebaseFirestore
 import SDWebImageSwiftUI
 import Photos
+import Kingfisher
 
-struct UrlImageView: View, Equatable {
-    @ObservedObject var urlImageModel: UrlImageModel
+struct UrlImageView: View {
+    @StateObject var urlImageModel: UrlImageModel
+    @State var pictureUpdated = false
+    @Binding var inputImage: UIImage?
+  
+    @Binding var testLink: String
     
-    static func == (lhs: UrlImageView, rhs: UrlImageView) -> Bool {
-          return lhs.urlImageModel.urlString == rhs.urlImageModel.urlString
+    init(testLink: Binding<String>, inputImage: Binding<UIImage?>) {
+          _urlImageModel = StateObject(wrappedValue: UrlImageModel(urlString: testLink.wrappedValue))
+          _inputImage = inputImage
+          _testLink = testLink
       }
-    init(urlString: String?) {
-        urlImageModel = UrlImageModel(urlString: urlString)
-    }
-    
+  
     var body: some View {
-        if urlImageModel.isLoading {
-            // show loading indicator
-            ProgressView()
-                .frame(width: 150, height: 150)
-        } else {
-            Image(uiImage: urlImageModel.image ?? ProfilePicture.placeholderProfileImage!)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 150, height: 150)
-                .clipShape(Circle())
-                .shadow(color: Color("LightWhite"), radius: 9, x: 0, y: 13)
-        }
+        if let image = inputImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+                    .shadow(color: Color("LightWhite"), radius: 9, x: 0, y: 13)
+                    .onChange(of: testLink, perform: { newValue in
+                        urlImageModel.image = inputImage
+                        urlImageModel.urlString = testLink
+                        urlImageModel.imageCache.removeCache(forKey: testLink)
+                        urlImageModel.newImageAdded = true
+                        urlImageModel.loadImage()
+                    })
+                    
+            }  else {
+                Image(uiImage: urlImageModel.image ?? ProfilePicture.placeholderProfileImage!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+                    .shadow(color: Color("LightWhite"), radius: 9, x: 0, y: 13)
+                    .onAppear{
+                        
+                    }
+            }
     }
+
 }
 
 struct ProfilePicture: View {
     @State var showingPhotoPermissionAlert = false
-    
-    
+    @State var pictureUpdated = false
+    @StateObject var vm = DashboardLogic()
+   
     struct PhotoPermissionAlert: View {
         var body: some View {
             VStack {
@@ -96,13 +116,10 @@ struct ProfilePicture: View {
         }
     }
     
-    
-    @StateObject var vm = DashboardLogic()
-    
-    let placeholderImage = UIImage(named: "profileDefaultPicture") // << placeholderImage
+  
     @State private var showingImagePicker = false
     @State private var inputImage: UIImage?
-    @State var profilePicURL = ""
+    @State var profilePicURL: String
     
     static var placeholderProfileImage = UIImage(named: "profileDefaultPicture" )
     
@@ -123,12 +140,17 @@ struct ProfilePicture: View {
                         print("failed to fetch download link")
                         return
                     }
-
+                    
                    print("Image saved Successfully")
                     
                     guard let url = url else { return }
+                  
+                  
+                    profilePicURL = url.absoluteString
+                   
                     //save to firestore
                     Firestore.firestore().collection("users").document(uid).setData([ "profilePicture": url.absoluteString ], merge: true)
+                    
                 }
             }
         }
@@ -136,10 +158,9 @@ struct ProfilePicture: View {
     //store in cache
     
     var body: some View {
-       
             VStack{
-                UrlImageView(urlString: vm.userModel?.profilePictureURL)
-                    .equatable()
+                UrlImageView(testLink: $profilePicURL, inputImage: $inputImage)
+                   
                 Button(action: {
                    checkPermission()
                    
@@ -157,7 +178,7 @@ struct ProfilePicture: View {
                 .edgesIgnoringSafeArea(.all)
             //PRESENT PICKER
         }
-           
+         
             .sheet(isPresented: $showingImagePicker){
                 EditorImagePicker(image: $inputImage)
                 
@@ -179,16 +200,18 @@ struct ProfilePicture: View {
     
         //SAVE IMAGE TO DATABASE (FIREBASE)
         .onChange(of: inputImage, perform: { _ in
-            persistImageToStorage() //call to save function
+            persistImageToStorage()
+         
+         
         })
 }
         
 
         
 }
-
-struct ProfilePicture_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePicture()
-    }
-}
+//
+//struct ProfilePicture_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfilePicture()
+//    }
+//}

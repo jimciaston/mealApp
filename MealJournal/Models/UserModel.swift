@@ -22,7 +22,7 @@ class UserModel: ObservableObject, Identifiable {
         self.weight = data["weight"] as? String ?? "Unavailable"
         self.userBio = data["userBio"] as? String ?? "No Bio entered"
         self.agenda = data["agenda"] as? String ?? "Unavailable"
-        self.profilePictureURL = data ["profilePicture"] as? String ?? "Unavailable"
+        self.profilePictureURL = data ["profilePicture"] as? String ?? ""
         self.exercisePreferences = data ["exercisePreferences"] as? [String] ?? ["Unavailable"]
         self.userSocialLink = data ["userSocialLink"] as? String ?? "Instagram link not entered"
     }

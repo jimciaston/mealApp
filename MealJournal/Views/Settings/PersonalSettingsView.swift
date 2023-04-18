@@ -64,7 +64,7 @@ struct PersonalSettingsView: View {
         NavigationView{
             Form{
                 Section(header: Text("Personal Settings").foregroundColor(.blue).font(.title3)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("graySettingsPillbox"))
                             .font(.body)
                             .textCase(nil))
                 {

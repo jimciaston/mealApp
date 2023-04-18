@@ -10,6 +10,7 @@ import Firebase
 import SwiftUIX
 
 struct UserDashController: View {
+ 
     @ObservedObject var vm: DashboardLogic
     @ObservedObject var rm = RecipeLogic()
     @ObservedObject var signUpController: LandingPageViewModel
@@ -54,7 +55,7 @@ struct UserDashController: View {
                         VStack{
                             VStack{
                             //profile picture
-                            ProfilePicture()
+                                ProfilePicture(profilePicURL: vm.userModel?.profilePictureURL ?? "unavailable")
                                     .padding(.top, 50) // << bring down profile picture on view
                             HStack{
                                 Text(vm.userModel?.name ?? "Name unavailable" )
@@ -131,7 +132,7 @@ struct UserDashController: View {
                         .onAppear{
                             fetchFollowingCount()
                             vm.fetchCurrentUser() //view refreshes if new data entered
-                         
+            
                         }
                     }
                     
