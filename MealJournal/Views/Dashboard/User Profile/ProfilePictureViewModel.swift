@@ -34,12 +34,10 @@ class UrlImageModel: ObservableObject {
             return
         }
         else{
-            print("loading from URL") // << 6th
             loadImageFromURL()
         }
-        
     }
-    
+
     func loadImageFromCache() -> Bool {
         guard let urlString = urlString else {
             print("urlString is nil")
@@ -57,20 +55,21 @@ class UrlImageModel: ObservableObject {
         return true
     }
 
-    func loadImageFromURL (){
+    private func loadImageFromURL (){
       
         guard let urlString = urlString else {
                  return
              }
         let url = URL(string: urlString)!
            let task = URLSession.shared.dataTask(with:url, completionHandler:
-                                                   getImageFromResponse(data: response: error: ))
+               getImageFromResponse(data: response: error: ))
+        print("BREADCRUMS BBB")
            task.resume()
     }
     
-    func getImageFromResponse (data: Data?, response: URLResponse?, error: Error?){
+    private func getImageFromResponse (data: Data?, response: URLResponse?, error: Error?){
         DispatchQueue.main.async {
-         
+         print("a")
             guard error == nil else {
                 print("error: \(error!)")
                 return
@@ -86,6 +85,7 @@ class UrlImageModel: ObservableObject {
             guard let loadedImage = UIImage(data: data) else {
                 return
             }
+            print("BREADCRUMS A")
             self.imageCache.setCache(forKey: self.urlString!, image: loadedImage)
             self.image = loadedImage
         }

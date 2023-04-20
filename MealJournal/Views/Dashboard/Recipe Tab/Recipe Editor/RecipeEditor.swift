@@ -95,9 +95,13 @@ struct RecipeEditor: View {
                     .blur(radius: showSuccessMessage ? 15 : 0)
                 }
                
-                RecipeEditorImage()
-                    .padding(.top,5)
-                    .blur(radius: showSuccessMessage ? 15 : 0)
+                if #available(iOS 16.0, *) {
+                    RecipeEditorImage()
+                        .padding(.top,5)
+                        .blur(radius: showSuccessMessage ? 15 : 0)
+                } else {
+                    // Fallback on earlier versions
+                }
                 
                 //Recipe Title
                 TextField("Recipe Title", text: $recipeClass.recipeTitle)
@@ -152,7 +156,7 @@ struct RecipeEditor: View {
                     EditorDirections()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     Spacer()
-                        .border(.red)
+                        
                 }
                 
                 //RecipeEditModals()
@@ -162,11 +166,12 @@ struct RecipeEditor: View {
               
                 FlexibleSheet(sheetMode: $sheetMode) {
                    SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, dismissSaveRecipeSheet: $showSaveButton)
+                    
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
 
                     //sets coordinates of view on dash
-                 .offset(y:-200)
+                 .offset(y:-100)
                 }
             }
             //center view 

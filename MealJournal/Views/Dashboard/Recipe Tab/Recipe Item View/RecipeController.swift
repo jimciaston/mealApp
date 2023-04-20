@@ -83,7 +83,7 @@ struct RecipeController: View {
                     }
                 }
                 .sheet(isPresented: $showingImagePicker){
-                    EditorImagePicker(image: $inputImage)
+                    EditorImagePicker(imageForRecipe: $inputImage)
                 }
 
         RecipeDashHeader(recipeName: name, recipePrepTime: prepTime,caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)

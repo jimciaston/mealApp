@@ -65,8 +65,12 @@ struct FullListOfRecipes: View {
               }
                
             )
-           .fullScreenCover(item: $selectedRecipe, content: { item in
-               RecipeControllerModal(name: item.recipeTitle, prepTime: item.recipePrepTime, image: item.recipeImage, ingredients: item.ingredientItem, directions: item.directions, recipeID: item.id, recipeCaloriesMacro: item.recipeCaloriesMacro, recipeFatMacro: item.recipeFatMacro, recipeCarbMacro: item.recipeCarbMacro, recipeProteinMacro: item.recipeProteinMacro)
+           .sheet(item: $selectedRecipe, content: { item in
+               if #available(iOS 16.0, *) {
+                   RecipeControllerModal(name: item.recipeTitle, prepTime: item.recipePrepTime, image: item.recipeImage, ingredients: item.ingredientItem, directions: item.directions, recipeID: item.id, recipeCaloriesMacro: item.recipeCaloriesMacro, recipeFatMacro: item.recipeFatMacro, recipeCarbMacro: item.recipeCarbMacro, recipeProteinMacro: item.recipeProteinMacro)
+               } else {
+                   // Fallback on earlier versions
+               }
                    })
         }
         else{
@@ -79,20 +83,12 @@ struct FullListOfRecipes: View {
     func item(image: String, title: String, ingredients: [String: String], directions: [String], recipeID: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, prepTime: String) -> some View {
         
         VStack{
-            KFImage(URL(string: image))
-                .placeholder {
-                        Image("defaultRecipeImage-2")
-                            .resizable()
-                    }
-                        .resizable()
-                        .loadDiskFileSynchronously()
-                         .cacheMemoryOnly()
-                         .onSuccess { result in
-                             
-                            print("successfully cached!!!!")
-                         }
-                        .frame (width: 150, height:130)
-                        .cornerRadius(15)
+            WebImage(url: URL(string: image))
+                         .placeholder(Image("defaultRecipeImage-2").resizable())
+                         .resizable()
+                         .frame (width: 150, height:130)
+                         .cornerRadius(15)
+            
             
             ZStack{
                 HStack{

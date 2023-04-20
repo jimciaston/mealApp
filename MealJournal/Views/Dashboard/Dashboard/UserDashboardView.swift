@@ -33,7 +33,7 @@ struct UserDashboardView: View {
    
     var body: some View {
         GeometryReader { geometry in
-            if !vm.isUserDataLoading {
+            if !vm.isUserDataLoading { // disable to see previews
                 VStack{
                     switch dashboardRouter.currentTab {
                         case .home:
@@ -110,12 +110,12 @@ struct UserDashboardView: View {
                                     dashboardRouter.isPlusMenuOpen.toggle()
                                  }
                             }
-                            .frame(width:70, height: 60) // << changes sizing of row
+                            .frame(width:100, height: 60) // << changes sizing of row
                            
                             .offset(y: dashboardRouter.isPlusMenuOpen ? -geometry.size.height / 2/15 : -geometry.size.height / 2/8) // << bring up plus button
                             
                             TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "recipeSavedIcon", tabName: "Recipes", dashboardRouter: dashboardRouter, selectedTab: .recipes)
-                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "searchUsersIcon", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
+                            TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "nuts", tabName: "Find Users", dashboardRouter: dashboardRouter, selectedTab: .searchUsers)
                     
                             
                          }

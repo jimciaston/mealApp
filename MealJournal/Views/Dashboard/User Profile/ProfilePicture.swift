@@ -39,6 +39,7 @@ struct UrlImageView: View {
                         urlImageModel.imageCache.removeCache(forKey: testLink)
                         urlImageModel.newImageAdded = true
                         urlImageModel.loadImage()
+                        urlImageModel.newImageAdded = false
                     })
                     
             }  else {
@@ -48,9 +49,7 @@ struct UrlImageView: View {
                     .frame(width: 150, height: 150)
                     .clipShape(Circle())
                     .shadow(color: Color("LightWhite"), radius: 9, x: 0, y: 13)
-                    .onAppear{
-                        
-                    }
+                    
             }
     }
 
@@ -180,7 +179,7 @@ struct ProfilePicture: View {
         }
          
             .sheet(isPresented: $showingImagePicker){
-                EditorImagePicker(image: $inputImage)
+                ProfilePictureImageEditor(imageProfile: $inputImage)
                 
             }
             .alert(isPresented: $showingPhotoPermissionAlert) {

@@ -149,6 +149,9 @@ struct RecipeDashHeader: View {
                    
                 }
             }
+            .frame(width:280, height:200)
+            .background(Color.white)
+            .cornerRadius(10)
             .onAppear{
                 ema.recipeFatMacro = fatPicker
                 ema.recipeCaloriesMacro = caloriesPicker
@@ -159,8 +162,6 @@ struct RecipeDashHeader: View {
                 
             }
        
-        .background(Color.white)
-        .cornerRadius(15)
         }
         //if not editing recipe
         else{

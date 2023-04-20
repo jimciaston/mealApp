@@ -49,9 +49,13 @@ struct RecipeEditorHomeMenu: View {
                     .blur(radius: showSuccessMessage ? 15 : 0)
                 }
                
-                RecipeEditorImage()
-                    .padding(.top,-45)
-                    .blur(radius: showSuccessMessage ? 15 : 0)
+                if #available(iOS 16.0, *) {
+                    RecipeEditorImage()
+                        .padding(.top,-45)
+                        .blur(radius: showSuccessMessage ? 15 : 0)
+                } else {
+                    // Fallback on earlier versions
+                }
                 
                 //Recipe Title
                 TextField("Recipe Title", text: $recipeClass.recipeTitle)
@@ -120,7 +124,7 @@ struct RecipeEditorHomeMenu: View {
                     .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
 
                     //sets coordinates of view on dash
-                 .offset(y:-200)
+                 .offset(y:-290)
                 }
             }
             //center view

@@ -56,7 +56,6 @@ struct RecipeEditorView: View {
             .padding(.top, 35)
             //.padding(.horizontal, 16)
         }
-       
     }
        
 }

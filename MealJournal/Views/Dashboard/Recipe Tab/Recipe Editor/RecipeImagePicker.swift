@@ -59,13 +59,14 @@ import SwiftUI
 
 
 struct EditorImagePicker: UIViewControllerRepresentable{
-    @Binding var image: UIImage?
+    @Binding var imageForRecipe: UIImage?
 
     class Coordinator: NSObject, PHPickerViewControllerDelegate{
         var parent: EditorImagePicker
 
         init(_ parent: EditorImagePicker){
             self.parent = parent
+            print("locator b")
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -76,7 +77,7 @@ struct EditorImagePicker: UIViewControllerRepresentable{
             if provider.canLoadObject(ofClass: UIImage.self){
                 provider.loadObject(ofClass: UIImage.self){image, _ in
                     DispatchQueue.main.async {
-                        self.parent.image = image as? UIImage
+                        self.parent.imageForRecipe = image as? UIImage
                     }
                 }
             }

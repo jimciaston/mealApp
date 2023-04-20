@@ -30,7 +30,7 @@ struct TabBarIconImage: View {
                 Spacer()
             }
                 .padding(.horizontal, -4)
-                .foregroundColor(dashboardRouter.currentTab == selectedTab ? Color(.blue) : Color (.black))
+                .foregroundColor(dashboardRouter.currentTab == selectedTab ? Color(.blue) : Color ("titleLogo"))
                 .onTapGesture {
                     dashboardRouter.isPlusMenuOpen = false
                     

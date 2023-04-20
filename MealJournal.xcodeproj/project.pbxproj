@@ -155,6 +155,7 @@
 		0AB112B9290590CD0071B3ED /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112B8290590CD0071B3ED /* TabBar.swift */; };
 		0AB112BB29079F020071B3ED /* TabBarIconPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */; };
 		0AB112C5290D699B0071B3ED /* LandingPageLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112C4290D699A0071B3ED /* LandingPageLogo.swift */; };
+		0AB3819A29F00E3200B96A94 /* ProfilePictureImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3819929F00E3200B96A94 /* ProfilePictureImageEditor.swift */; };
 		0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */; };
 		0ABE3C64298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */; };
 		0ABE3C66298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */; };
@@ -345,6 +346,7 @@
 		0AB112B8290590CD0071B3ED /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarIconPlus.swift; sourceTree = "<group>"; };
 		0AB112C4290D699A0071B3ED /* LandingPageLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageLogo.swift; sourceTree = "<group>"; };
+		0AB3819929F00E3200B96A94 /* ProfilePictureImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureImageEditor.swift; sourceTree = "<group>"; };
 		0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay_NonUser.swift; sourceTree = "<group>"; };
 		0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditor_NonUser.swift; sourceTree = "<group>"; };
 		0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalDashboard_NonUser.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				0AB1126A28F0A96C0071B3ED /* ProfileBio.swift */,
 				0AC5698529C75580007ABBC9 /* HomePageExercisePreferencesView.swift */,
 				0A8D957E27B9626700193B84 /* ProfilePicture.swift */,
+				0AB3819929F00E3200B96A94 /* ProfilePictureImageEditor.swift */,
 				0A8BC8F529B4EFC6001B0E06 /* ProfilePictureViewModel.swift */,
 			);
 			path = "User Profile";
@@ -1216,6 +1219,7 @@
 				0A2D89672978251F001EDF01 /* JournalDashLogicNonUser.swift in Sources */,
 				0A8BC8F629B4EFC6001B0E06 /* ProfilePictureViewModel.swift in Sources */,
 				0A87DBB52923278E00A3C1E9 /* DashboardRouter.swift in Sources */,
+				0AB3819A29F00E3200B96A94 /* ProfilePictureImageEditor.swift in Sources */,
 				0A14956D294103B800E6258F /* JournalEntry+CoreDataProperties.swift in Sources */,
 				0AB1126B28F0A96C0071B3ED /* ProfileBio.swift in Sources */,
 				0A2D896D297F01EB001EDF01 /* DeleteCustomItemView.swift in Sources */,

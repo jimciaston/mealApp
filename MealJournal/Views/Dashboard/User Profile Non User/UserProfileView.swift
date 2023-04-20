@@ -199,7 +199,7 @@ struct UserProfileView: View {
                                      .foregroundColor(.white)
                                      .background(Color("UserProfileCard2"))
                                      .font(.body)
-                                     .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
+                                    // .shadow(color: Color("UserProfileCard2"), radius: 2, y: 2)
                                    
                             }
                         

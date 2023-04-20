@@ -5,20 +5,22 @@
 //  Created by Jim Ciaston on 7/29/22.
 //
 
-import SwiftUI
+
 
 import SwiftUI
 import FirebaseFirestore
 import SDWebImageSwiftUI
+import _PhotosUI_SwiftUI
 
+@available(iOS 16.0, *)
 struct RecipeControllerModal: View {
     @Environment(\.dismiss) var dismiss // << dismiss view
-    
+   
     @ObservedObject var rm = RecipeLogic()
     @StateObject var ema = EditModeActive()
     //displays image picker
     @State var showingImagePicker = false
-    @State private var inputImage: UIImage?
+    @State private var inputImage: Image?
     @ObservedObject var keyboardResponder = KeyboardResponder()
     @State var name: String
     @State var prepTime: String
@@ -30,66 +32,91 @@ struct RecipeControllerModal: View {
     @State var recipeFatMacro: Int
     @State var recipeCarbMacro: Int
     @State var recipeProteinMacro: Int
-
+    @State private var updatedRecipeImage: PhotosPickerItem?
     /*/
      can add if ingredients != ema.updatedINgredients then run the saveRecipes function
-     
+     .placeholder(Image("defaultRecipeImage").resizable())
+     .resizable()
+     .clipShape(RoundedRectangle(cornerRadius: 10.0))
+     .frame(width:320, height: 200)
+     .aspectRatio(contentMode: .fill)
+ }
+.padding(.top, 15)
      */
-    
-    //Save updatedRecipe picture to firestore
-    private func persistImageToStorage() {
-            guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-            let ref = FirebaseManager.shared.storage.reference(withPath: uid)
-        
-            guard let imageData = self.inputImage?.jpegData(compressionQuality: 0.5) else { return }
-            ref.putData(imageData, metadata: nil) { metadata, err in
-                if let err = err {
-                   print("failed to push to storage \(err)")
-                    return
-                }
-
-                ref.downloadURL { url, err in
-                    if let err = err {
-                        print("failed to fetch download link")
-                        return
-                    }
-
-                   print("Image saved Successfully")
-                    guard let url = url else { return }
-                    
-                    //save
-                    image = url.absoluteString
-                    ema.recipeImage = url.absoluteString
-                   
-                }
-            }
-        }
+  
     
     var body: some View {
         NavigationView{
             VStack{
                 VStack{
-                    WebImage(url: URL(string: image))
-                        .placeholder(Image("defaultRecipeImage").resizable())
-                        .resizable()
-                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                        .frame(width:320, height: 200)
-                        .aspectRatio(contentMode: .fill)
-                    }
-                .padding(.top, 15)
-                .onChange(of: inputImage, perform: { _ in
-                    persistImageToStorage()
-                })
-               
-                .frame(width:300, height: 100)
-        //show image picker
-                .onTapGesture {
-                    if(ema.editMode){
-                      showingImagePicker = true
+                    if let inputImage {
+                        inputImage
+                            .resizable()
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .frame(width:320, height: 200)
+                            .aspectRatio(contentMode: .fill)
+                        
+                    } else{
+                        WebImage(url: URL(string: image))
+                            .placeholder(Image("defaultRecipeImage").resizable())
+                            .resizable()
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .frame(width:320, height: 200)
+                            .aspectRatio(contentMode: .fill)
+
+                      
+                        .onTapGesture {
+                            if(ema.editMode){
+                              showingImagePicker = true
+                            }
+                        }
                     }
                 }
+                .frame(width:300, height: 100)
+                //show image picker
+                       
+                .onChange(of: updatedRecipeImage) { _ in
+                    Task {
+                        if let data = try? await updatedRecipeImage?.loadTransferable(type: Data.self) {
+                            if let uiImage = UIImage(data: data) {
+                                inputImage = Image(uiImage: uiImage)
+                                guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+                                let ref = FirebaseManager.shared.storage.reference(withPath: "\(uid)/recipeImage.jpg")
+                                guard let imageData = uiImage.jpegData(compressionQuality: 0.5) else { return }
+                                ref.putData(imageData, metadata: nil) { metadata, err in
+                                    if let err = err {
+                                        print("failed to push to storage \(err)")
+                                        return
+                                    }
+                                    ref.downloadURL { url, err in
+                                        if let err = err {
+                                            print("failed to fetch download link")
+                                            return
+                                        }
+                                        print("Image saved Successfully")
+                                        guard let url = url else { return }
+                                        ema.recipeImage = url.absoluteString // Save the image URL to the recipe model'
+                                        showingImagePicker = false
+                                    }
+                                }
+                                return
+                            }
+                        }
+                        print("Failed")
+                    }
+                }
+               
+                
+      
                 .sheet(isPresented: $showingImagePicker){
-                    EditorImagePicker(image: $inputImage)
+                    if #available(iOS 16.0, *) {
+                        PhotosPicker("Select Recipe Image", selection: $updatedRecipeImage, matching: .images)
+                            .onChange(of: showingImagePicker, perform: { _ in
+                               dismiss()
+                            })
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 }
                 
                 RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
@@ -101,8 +128,6 @@ struct RecipeControllerModal: View {
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
             .padding(.top, 70)
-                
-                
                      HStack{
                          Spacer() // << moves to the right
                          if ema.editMode{
@@ -211,19 +236,19 @@ struct RecipeControllerModal: View {
       }
     }
   
-struct RecipeControllerModal_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeControllerModal(
-            name: "Test Recipe",
-            prepTime: "30 mins",
-            image: "https://example.com/image.png",
-            ingredients: ["Flour": "2 cups", "Sugar": "1/2 cup"],
-            directions: ["Preheat oven to 350°F", "Mix flour and sugar in a bowl", "Bake for 20 mins"],
-            recipeID: "12345",
-            recipeCaloriesMacro: 500,
-            recipeFatMacro: 20,
-            recipeCarbMacro: 60,
-            recipeProteinMacro: 30
-        )
-    }
-}
+//struct RecipeControllerModal_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeControllerModal(
+//            name: "Test Recipe",
+//            prepTime: "30 mins",
+//            image: "https://example.com/image.png",
+//            ingredients: ["Flour": "2 cups", "Sugar": "1/2 cup"],
+//            directions: ["Preheat oven to 350°F", "Mix flour and sugar in a bowl", "Bake for 20 mins"],
+//            recipeID: "12345",
+//            recipeCaloriesMacro: 500,
+//            recipeFatMacro: 20,
+//            recipeCarbMacro: 60,
+//            recipeProteinMacro: 30
+//        )
+//    }
+//}

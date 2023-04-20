@@ -55,9 +55,13 @@ struct RecipeEditor_NonUser: View {
                     .blur(radius: showSuccessMessage ? 15 : 0)
                 }
                
-                RecipeEditorImage()
-                    .padding(.top,5)
-                    .blur(radius: showSuccessMessage ? 15 : 0)
+                if #available(iOS 16.0, *) {
+                    RecipeEditorImage()
+                        .padding(.top,5)
+                        .blur(radius: showSuccessMessage ? 15 : 0)
+                } else {
+                    // Fallback on earlier versions
+                }
                
                 RecipeEditorView(recipeClass: recipeClass, showSuccessMessage: $showSuccessMessage)
                     .blur(radius: showSuccessMessage ? 15 : 0)
