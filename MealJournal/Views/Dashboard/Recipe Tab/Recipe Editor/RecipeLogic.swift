@@ -141,7 +141,64 @@ class RecipeLogic: ObservableObject {
                 }
             }
         }
-    
+    func saveRecipeTitle(recipeTitle: String, currentRecipe: String) {
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("userRecipes")
+            .whereField("recipeID", isEqualTo: currentRecipe)
+            .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            FirebaseManager.shared.firestore
+                                .collection("users")
+                                .document(uid)
+                                .collection("userRecipes")
+                                .document(document.documentID)
+                                .updateData([
+                                    "recipeTitle": recipeTitle,
+                                   ]
+                                )
+                        }
+                        print("saved title to firestore")
+                    }
+                }
+    }
+    func saveRecipePrepTime(recipePrepTime: String, currentRecipe: String) {
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("userRecipes")
+            .whereField("recipeID", isEqualTo: currentRecipe)
+            .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            FirebaseManager.shared.firestore
+                                .collection("users")
+                                .document(uid)
+                                .collection("userRecipes")
+                                .document(document.documentID)
+                                .updateData([
+                                    "recipePrepTime": recipePrepTime,
+                                   ]
+                                )
+                                    
+                          
+                        }
+                        print("saved prep to firestore")
+                    }
+                }
+    }
     //save recipeTitle, Cook Time and recipe macros
     func saveDashHeaders(recipeTitle: String, recipePrepTime: String, recipeCaloriesMacro: Int ,recipeFatMacro: Int, recipeCarbMacro: Int, recipeProteinMacro: Int, currentRecipe: String){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {

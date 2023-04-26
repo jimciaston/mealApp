@@ -14,7 +14,10 @@ struct RecipeController: View {
     //displays image picker
     @State var showingImagePicker = false
     @State private var inputImage: UIImage?
-    
+    enum FocusField {
+      case header, password
+    }
+    @FocusState var focusState: FocusField?
     @State var name: String
     @State var prepTime: String
     @State var image: String
@@ -27,8 +30,9 @@ struct RecipeController: View {
     @State var recipeProteinMacro: Int
     @State private var showRecipeBottomSheet = false
     /*/
-     can add if ingredients != ema.updatedINgredients then run the saveRecipes function
+    MAIN VIEW FOR CREATING RECIPE
      
+     RECIPE CONTROLLER MODAL HANDLES EDITS TO A EXISTING RECIPE
      */
     
     //Save updatedRecipe picture to firestore
@@ -86,8 +90,8 @@ struct RecipeController: View {
                     EditorImagePicker(imageForRecipe: $inputImage)
                 }
 
-        RecipeDashHeader(recipeName: name, recipePrepTime: prepTime,caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema)
-                    .padding(.top, 50)
+//                RecipeDashHeader(recipeName: name, recipePrepTime: prepTime,caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema, focused: $focusState)
+//                    .padding(.top, 50)
         
                 //ingredients or directions selction
         RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)

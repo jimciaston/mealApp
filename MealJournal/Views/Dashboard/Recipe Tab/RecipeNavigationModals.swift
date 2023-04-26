@@ -67,7 +67,7 @@ struct RecipeNavigationModals: View {
                     }){
                         Text("Ingredients")
                             .foregroundColor(isIngredientsActive ? .gray : .black)
-                            .font(.title2)
+                            .font(.title3)
                     }
                 //line between
                      Divider()
@@ -96,13 +96,14 @@ struct RecipeNavigationModals: View {
                 }){
                     Text("Directions")
                         .foregroundColor(isDirectionsActive ? .gray : .black)
-                         .font(.title3)
+                        .font(.title3)
                    
                 }
                     
             }
+            .padding(.top, 10)
     //sets divider on view, adjust to move up or down
-     .offset(y:-170)
+     .offset(y:-160)
         }
         
         

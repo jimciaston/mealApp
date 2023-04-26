@@ -1,24 +1,23 @@
 //
-//  EditorIngredients.swift
+//  ExistingRecipeIngredients.swift
 //  MealJournal
 //
-//  Created by Jim Ciaston on 5/12/22.
-//READY FOR CORE DATA
+//  Created by Jim Ciaston on 4/25/23.
+//
 
 import SwiftUI
 
-struct EditorIngredients: View {
+struct ExistingRecipeIngredients: View {
     @EnvironmentObject var recipeClass: Recipe
-    
+    @ObservedObject var ema: EditModeActive
     @State private var sizing: String = ""
     @State private var description: String = ""
     //@State private var counter = 1
     @State private var filledOut = false
-    
-
-   
+    @Binding var ingredients: [String : String]
+  
     var body: some View {
-       
+        if ema.editMode{
             VStack{
                 HStack{
                     TextField("ex. 1 cup", text: $sizing)
@@ -33,13 +32,14 @@ struct EditorIngredients: View {
                 //.padding(.top, 25) //set to give space from ingredient/direction section
                 
                     Button(action: {
-                        if (sizing != "" && description != ""){
-                            let newIngredient = Ingredients(sizing: sizing, description: description)
-                            recipeClass.ingredients.append(newIngredient)
-                                //clear when appended
-                                sizing = ""
-                                description  = ""
-                        }
+                        if (sizing != "" && description != "") {
+                               ingredients[sizing] = description
+                            ema.updatedIngredients.updateValue(description, forKey: sizing)
+                            ingredients = ema.updatedIngredients
+                            ema.isIngredientsActive = true
+                               sizing = ""
+                               description = ""
+                           }
                         
                     })
                        {
@@ -56,15 +56,15 @@ struct EditorIngredients: View {
                        .padding(.bottom, 10)
                 
                 List{
-                    ForEach(recipeClass.ingredients){ recipe in
+                    ForEach(Array(ingredients), id: \.key) { key, value in
                         HStack{
-                            Text(recipe.sizing)
+                            Text(key)
                                 .font(.body)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("UserProfileCard1"))
                                 //.padding(.leading, 20)
                             Spacer()
-                            Text(recipe.description)
+                            Text(value)
                                 .font(.body)
                                 //.padding(.trailing, 20)
                         }
@@ -75,12 +75,34 @@ struct EditorIngredients: View {
                 }
                 .listStyle(PlainListStyle())
             }
+            
         }
-    }
-
-
-struct EditorIngredients_Previews: PreviewProvider {
-    static var previews: some View {
-        EditorIngredients().environmentObject(Recipe())
-    }
+        else{
+            List{
+                ForEach(Array(ingredients), id: \.key) { key, value in
+                    HStack{
+                        Text(key)
+                            .font(.body)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("UserProfileCard1"))
+                            //.padding(.leading, 20)
+                        Spacer()
+                        Text(value)
+                            .font(.body)
+                            //.padding(.trailing, 20)
+                    }
+                }
+                .onDelete(perform: { indexSet in
+                    recipeClass.ingredients.remove(atOffsets: indexSet)
+                })
+            }
+            .listStyle(PlainListStyle())
+        }
+        }
 }
+//
+//struct ExistingRecipeIngredients_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExistingRecipeIngredients()
+//    }
+//}

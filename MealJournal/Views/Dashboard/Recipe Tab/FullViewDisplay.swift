@@ -43,10 +43,12 @@ struct FullListOfRecipes: View {
                              
                               self.item(image: recipe.recipeImage, title: recipe.recipeTitle, ingredients: recipe.ingredientItem, directions: recipe.directions, recipeID: recipe.id, recipeCaloriesMacro: recipe.recipeCaloriesMacro, recipeFatMacro: recipe.recipeFatMacro, recipeCarbMacro: recipe.recipeCarbMacro, recipeProteinMacro: recipe.recipeProteinMacro, prepTime: recipe.recipePrepTime)
                                  
-                              .onTapGesture {
-                                selectedRecipe = recipe
-                                  
-                            }
+                                  .onTapGesture {
+                                             if selectedRecipe == nil {
+                                                 selectedRecipe = recipe
+                                             }
+                                         }
+                                         .disabled(selectedRecipe != nil && selectedRecipe != recipe)
                           }
                        }.frame(maxHeight: .infinity, alignment: .top)
                     

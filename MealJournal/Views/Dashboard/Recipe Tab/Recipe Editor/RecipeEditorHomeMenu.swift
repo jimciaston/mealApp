@@ -23,6 +23,11 @@ struct RecipeEditorHomeMenu: View {
     @ObservedObject var dashboardRouter: DashboardRouter
     @State var dismissSaveRecipeSheet = false
     @Binding var showSuccessMessage: Bool
+    
+  
+  
+    
+    
     var body: some View {
         GeometryReader{ geo in
             VStack{
@@ -66,6 +71,7 @@ struct RecipeEditorHomeMenu: View {
                     .cornerRadius(5)
                     .padding(.top, 45)
                     .padding(.leading, 25)
+                    .submitLabel(.done)
                 
                 RecipePrepTimeSection(recipeClass: recipeClass)
                     .padding(.leading, 25)

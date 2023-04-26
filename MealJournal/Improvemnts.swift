@@ -26,3 +26,13 @@ import Foundation
 
 //woman searching should only see other woman
 //settings page for lifting?
+
+
+
+/*
+ Have to fix recipeControllerModal
+ Check if compatiable with smaller sizes, maybe ignoreSafeArea(keyboard) if it doesnt affect other views
+ 
+ 
+ 
+ */

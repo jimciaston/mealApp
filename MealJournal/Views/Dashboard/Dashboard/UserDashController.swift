@@ -165,7 +165,7 @@ struct UserDashController: View {
                             Label(
                                 title: { Text("") },
                                 icon: {
-                                    Image(systemName: "plus")
+                                    Image(systemName: "line.3.horizontal.decrease")
                                         .frame(width: 50, height: 50)
                                         .foregroundColor(Color("ButtonTwo"))
                                         

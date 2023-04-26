@@ -65,11 +65,12 @@ struct RecipeIngredients: View {
                         TextField("ex. 1 cup", text: $sizing)
                             .font(.body)
                             .padding(.leading, 30)
-                           
+                            .submitLabel(.done)
                         TextField("ex. Chicken Breast", text: $description)
                             .font(.body)
+                            .submitLabel(.done)
                     }
-                    .padding(.top, 25) //set to give space from ingredient/direction section
+                    .padding(.top, 30) //set to give space from ingredient/direction section
                     
                     Button(action: {
                         if (sizing != "" && description != ""){
@@ -87,6 +88,7 @@ struct RecipeIngredients: View {
                             .foregroundColor(.blue)
                             .padding(.leading, 20)
                             .padding(.top, 20)
+                            .padding(.bottom, 5)
                             .opacity(!sizing.isEmpty && !description.isEmpty ? 1.0 : 0.5)
                            Spacer()
                               
@@ -97,6 +99,7 @@ struct RecipeIngredients: View {
                     self.listContent(for: Array(turnIntoOrderedDictionary(regularDictionary: ingredients).keys))
                   
                 }
+                .padding(.top, 15)
                 .onAppear{
                     ema.updatedIngredients = ingredients
                 }

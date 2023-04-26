@@ -10,6 +10,7 @@ import UIKit
 
 
 
+@available(iOS 16.0, *)
 struct RecipeDashHeader: View {
     @State var recipeName = ""
     @State var recipePrepTime = ""
@@ -19,9 +20,8 @@ struct RecipeDashHeader: View {
     @State var fatPicker:Int =     0
     @State var carbPicker:Int =     0
     @State var proteinPicker:Int =     0
-    
     @ObservedObject var ema: EditModeActive
-    
+    var focused: FocusState<RecipeControllerModal.FocusField?>.Binding 
     var cookingTime = ["5 Mins", "10 Mins","15 Mins","20 Mins","25 Mins","30 Mins ","45 Mins ","1 Hour","2 Hours", "A Long Time", "A Very Long Time"]
    // @State var cookingTimesInMinutes = [5, 10, 15, 20, 25, 30, 45, 60, 120, 240, 480]
     @State private var pickerTime: String = ""
@@ -34,14 +34,17 @@ struct RecipeDashHeader: View {
         if ema.editMode {
             VStack{
                     TextField(ema.recipeTitle, text: $ema.recipeTitle)
-                        .foregroundColor(!ema.editMode ? Color.black : Color.red)
+                        .foregroundColor(!ema.editMode ? Color.black : Color("olympic"))
                         .font(.title2)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .foregroundColor(Color("olympic"))
+                       
+                        .focused(focused, equals: .header)
+                        .submitLabel(.done)
                         .onChange(of: ema.recipeTitle, perform: { _ in
                             recipeName = ema.recipeTitle
                         })
+                        
                 
                 //}
                
@@ -61,6 +64,7 @@ struct RecipeDashHeader: View {
                                     .font(.body)
                             }
                         }
+                        .frame(height: 15)
                         .frame(width:0)
                         .opacity(0.025)
                         .onChange(of: recipePrepTime) { value in
@@ -82,6 +86,7 @@ struct RecipeDashHeader: View {
                                
                         }
                     }
+                    .frame(height: 15)
                     .frame(width:0)
                     .opacity(0.025)
                     .onChange(of: caloriesPicker) { value in
@@ -103,6 +108,7 @@ struct RecipeDashHeader: View {
                                    
                             }
                         }
+                        .frame(height: 15)
                         .frame(width:0)
                         .opacity(0.025)
                         .onChange(of: carbPicker) { value in
@@ -121,6 +127,7 @@ struct RecipeDashHeader: View {
                                    
                             }
                         }
+                        .frame(height: 15)
                         .frame(width:0)
                         .opacity(0.025)
                         .onChange(of: carbPicker) { value in
@@ -148,8 +155,9 @@ struct RecipeDashHeader: View {
                     
                    
                 }
+                .padding(.top, -5)
             }
-            .frame(width:280, height:200)
+            .frame(width:280, height:170)
             .background(Color.white)
             .cornerRadius(10)
             .onAppear{

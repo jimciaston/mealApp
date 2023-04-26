@@ -156,6 +156,11 @@
 		0AB112BB29079F020071B3ED /* TabBarIconPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */; };
 		0AB112C5290D699B0071B3ED /* LandingPageLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB112C4290D699A0071B3ED /* LandingPageLogo.swift */; };
 		0AB3819A29F00E3200B96A94 /* ProfilePictureImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3819929F00E3200B96A94 /* ProfilePictureImageEditor.swift */; };
+		0AB3819C29F6EADD00B96A94 /* ImageUpdateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3819B29F6EADD00B96A94 /* ImageUpdateSelector.swift */; };
+		0AB3819F29F71EA600B96A94 /* ExistingRecipeHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3819E29F71EA600B96A94 /* ExistingRecipeHome.swift */; };
+		0AB381A129F723CD00B96A94 /* ExistingRecipeHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A029F723CD00B96A94 /* ExistingRecipeHeaders.swift */; };
+		0AB381A329F8A30100B96A94 /* ExistingRecipeIngredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A229F8A30100B96A94 /* ExistingRecipeIngredients.swift */; };
+		0AB381A529F8DAB900B96A94 /* ExistingRecipeDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A429F8DAB800B96A94 /* ExistingRecipeDirections.swift */; };
 		0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */; };
 		0ABE3C64298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */; };
 		0ABE3C66298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */; };
@@ -347,6 +352,11 @@
 		0AB112BA29079F020071B3ED /* TabBarIconPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarIconPlus.swift; sourceTree = "<group>"; };
 		0AB112C4290D699A0071B3ED /* LandingPageLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageLogo.swift; sourceTree = "<group>"; };
 		0AB3819929F00E3200B96A94 /* ProfilePictureImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureImageEditor.swift; sourceTree = "<group>"; };
+		0AB3819B29F6EADD00B96A94 /* ImageUpdateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpdateSelector.swift; sourceTree = "<group>"; };
+		0AB3819E29F71EA600B96A94 /* ExistingRecipeHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeHome.swift; sourceTree = "<group>"; };
+		0AB381A029F723CD00B96A94 /* ExistingRecipeHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeHeaders.swift; sourceTree = "<group>"; };
+		0AB381A229F8A30100B96A94 /* ExistingRecipeIngredients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeIngredients.swift; sourceTree = "<group>"; };
+		0AB381A429F8DAB800B96A94 /* ExistingRecipeDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeDirections.swift; sourceTree = "<group>"; };
 		0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay_NonUser.swift; sourceTree = "<group>"; };
 		0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditor_NonUser.swift; sourceTree = "<group>"; };
 		0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalDashboard_NonUser.swift; sourceTree = "<group>"; };
@@ -453,6 +463,7 @@
 				0A8D80692826CBFC0055021A /* Recipe Editor */,
 				0A8BC8F329B42DE4001B0E06 /* Recipe Item View */,
 				0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */,
+				0AB3819D29F71E8100B96A94 /* EditExistingRecipe */,
 				0A2D896E298030F3001EDF01 /* RecipeControllerNonUser.swift */,
 				0A8BC8E1299F3361001B0E06 /* BookmarkRecipeRemovalView.swift */,
 				0A6325F12887961F003B3D02 /* DeleteRecipe.swift */,
@@ -845,6 +856,18 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		0AB3819D29F71E8100B96A94 /* EditExistingRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				0AB3819B29F6EADD00B96A94 /* ImageUpdateSelector.swift */,
+				0AB381A429F8DAB800B96A94 /* ExistingRecipeDirections.swift */,
+				0AB3819E29F71EA600B96A94 /* ExistingRecipeHome.swift */,
+				0AB381A229F8A30100B96A94 /* ExistingRecipeIngredients.swift */,
+				0AB381A029F723CD00B96A94 /* ExistingRecipeHeaders.swift */,
+			);
+			path = EditExistingRecipe;
+			sourceTree = "<group>";
+		};
 		0AE0DB8C27BC1A81006F1835 /* Journal Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -1198,6 +1221,7 @@
 				0A07D95D284801260080A4ED /* UserModel.swift in Sources */,
 				0A630F5229CCD5610088A789 /* HomePageExercisePills_NonUser.swift in Sources */,
 				0AC5697E29C10406007ABBC9 /* FollowingListView_NonUser.swift in Sources */,
+				0AB381A529F8DAB900B96A94 /* ExistingRecipeDirections.swift in Sources */,
 				0A8D8077282A2AEE0055021A /* IngredientsPicker.swift in Sources */,
 				0A07D95B2847F0850080A4ED /* DashboardLogic.swift in Sources */,
 				0A5E691627CC5C1D00ACB6A5 /* MacroView.swift in Sources */,
@@ -1209,6 +1233,7 @@
 				0AC5698029C1587F007ABBC9 /* UserModelFirestore.swift in Sources */,
 				0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */,
 				0A2D896929782930001EDF01 /* SavedJournalListNonUser.swift in Sources */,
+				0AB381A329F8A30100B96A94 /* ExistingRecipeIngredients.swift in Sources */,
 				0A3B9B2728162DE800EC631A /* NutrionalPieChartView.swift in Sources */,
 				0A14956C294103B800E6258F /* JournalEntry+CoreDataClass.swift in Sources */,
 				0A47472D2925910800384B51 /* PlusTabPopMenu.swift in Sources */,
@@ -1217,6 +1242,7 @@
 				0AE4792E29D5E5DA008B387D /* DeleteAccountLogic.swift in Sources */,
 				0A12639327CE5CD10076876B /* MealEntrys.swift in Sources */,
 				0A2D89672978251F001EDF01 /* JournalDashLogicNonUser.swift in Sources */,
+				0AB3819C29F6EADD00B96A94 /* ImageUpdateSelector.swift in Sources */,
 				0A8BC8F629B4EFC6001B0E06 /* ProfilePictureViewModel.swift in Sources */,
 				0A87DBB52923278E00A3C1E9 /* DashboardRouter.swift in Sources */,
 				0AB3819A29F00E3200B96A94 /* ProfilePictureImageEditor.swift in Sources */,
@@ -1264,6 +1290,7 @@
 				0A36C1EC29CF35CD00CE3A23 /* RecipePrepTimeSection.swift in Sources */,
 				0A2D895D296F561C001EDF01 /* SavedJournalDashboard.swift in Sources */,
 				0A9F495F28793E33002F227E /* EditModeActive.swift in Sources */,
+				0AB381A129F723CD00B96A94 /* ExistingRecipeHeaders.swift in Sources */,
 				0AAE15B1282DA34900B9B85A /* EditorIngredients.swift in Sources */,
 				0A3E03D828D39BC3009613CF /* GramsToOuncesConversition.swift in Sources */,
 				0AA11759282031400024FECE /* WholeNFractionPicker.swift in Sources */,
@@ -1271,6 +1298,7 @@
 				0A8D8075282A28CB0055021A /* FlexibleSheetPicker.swift in Sources */,
 				0A8C89232946AA7F008C549A /* SavedJournalsList.swift in Sources */,
 				0A8D8063282573680055021A /* SearchUsersFeature.swift in Sources */,
+				0AB3819F29F71EA600B96A94 /* ExistingRecipeHome.swift in Sources */,
 				0A53021127E8EFAD00B8D261 /* FlexibleSheet.swift in Sources */,
 				0AB1126128E4E5770071B3ED /* AllCustomFoodItemsRow.swift in Sources */,
 				0AE0DB9027BD5041006F1835 /* EntryRow.swift in Sources */,

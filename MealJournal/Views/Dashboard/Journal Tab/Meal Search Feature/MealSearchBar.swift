@@ -32,8 +32,9 @@ struct MealSearchBar: View {
                 HStack{
                     Image(systemName: "magnifyingglass")
                     TextField("Enter Meal", text: $userFoodInput)
+                        .submitLabel(.search)
+                        
                         .onSubmit {
-                            
                             foodApi.searchFood(userItem: userFoodInput, showMoreResults: showMoreResults)
                             didUserSearch = true
                             didtextComplete = true

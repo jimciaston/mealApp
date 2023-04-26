@@ -32,8 +32,9 @@ struct RecipeDirections: View {
                 TextField("ex. Pour the flour", text: $userDirection)
                     .font(.body)
                     .padding(.leading, 45)
-                    .padding(.top, 15)
-                
+                    .padding(.top, 35)
+                  
+                    .submitLabel(.done)
                 Button(action: {
                     if (userDirection != "" ){
                         directions.append(userDirection)
@@ -46,6 +47,7 @@ struct RecipeDirections: View {
                         .foregroundColor(.blue)
                         .padding(.leading, 35)
                         .padding(.top, 20)
+                        .padding(.bottom, 5)
                         .background(.clear)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -80,8 +82,9 @@ struct RecipeDirections: View {
               //  ema.updatedDirections = directions
             }
             .listStyle(PlainListStyle())
-           
+            .padding(.top, 15)
         }
+      
         .environment(\.editMode, Binding.constant(ema.editMode ? EditMode.active : EditMode.inactive))
     }
 }
