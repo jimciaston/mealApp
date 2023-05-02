@@ -20,14 +20,14 @@ struct RecipeEditorView: View {
     @Binding var showSuccessMessage: Bool
     @State private var timer: Timer?
     @State var isLongPressing = false
-    
+    @State var showingCircularSelector = false
     var resetPickerTime: (() -> Void)?
    @State var fatSelectorActivated = false
    
     
     
     var body: some View {
-        VStack (alignment: .center){
+        VStack {
             //macro pickers for recipe
             
             //ios16 new update shows arrows in pickers, hides it with ZStack here
@@ -37,22 +37,19 @@ struct RecipeEditorView: View {
             MacroSelectHstack(macroAmount: $recipeClass.recipeProteinMacro, macroName: "Protein")
             
             HStack {
-                Text("Estimated Calories: ")
+                Text("Estimated Calories: \(recipeClass.recipeCaloriesMacro)")
                     .font(.body)
                     .foregroundColor(.primary)
-                TextField("0", text: $recipeCalories)
-                    .keyboardType(.numberPad)
-                    .foregroundColor(.primary)
-                    .font(.body)
-                    .padding(4)
-                    .frame(width: 60, height: 20)
-                    .cornerRadius(8)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
+                    .onTapGesture{
+                        print(recipeCalories)
+                        showingCircularSelector.toggle()
+                    }
+                    .sheet(isPresented: $showingCircularSelector, content: {
+                        CaloriesCircularSelector(selectedCalories: $recipeClass.recipeCaloriesMacro, showingCircularSelector: $showingCircularSelector)
+                    })
+               
             }
-            .padding(.leading, 15)
+        
             .padding(.top, 35)
             //.padding(.horizontal, 16)
         }

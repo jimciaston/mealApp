@@ -46,6 +46,12 @@ struct RecipeControllerModal: View {
     @State var originalPrepTime = ""
     @State var originalImage = ""
     @State var originalIngredients = ["": ""]
+    @State var originalFatMacro = 0
+    @State var originalCarbMacro = 0
+    @State var originalProteinMacro = 0
+    @State var originalCaloriesMacro = 0
+    
+    
     
     @State var selectedRecipeImage: PhotosPickerItem?
     @State var isNutritionSelected = true // << auto true for recipe startup
@@ -80,6 +86,18 @@ struct RecipeControllerModal: View {
                         
                         ema.updatedIngredients = ingredients
                         originalIngredients = ingredients
+                        
+                        ema.recipeFatMacro = recipeFatMacro
+                        originalFatMacro = recipeFatMacro
+                        
+                        ema.recipeCarbMacro = recipeCarbMacro
+                        originalCarbMacro = recipeCarbMacro
+                        
+                        ema.recipeProteinMacro = recipeProteinMacro
+                        originalProteinMacro = recipeProteinMacro
+                        
+                        ema.recipeCaloriesMacro = recipeCaloriesMacro
+                        originalCaloriesMacro = recipeCaloriesMacro
                     }
                   
                     
@@ -130,13 +148,13 @@ struct RecipeControllerModal: View {
                             // Fallback on earlier versions
                         }
                     }
-                    HStack{
+                HStack (alignment: .center){
                             SelectableButton(label: "Nutrition", action: { /* do something */ }, isSelected: $isNutritionSelected)
                             SelectableButton(label: "Ingredients", action: { /* do something */ }, isSelected: $isDirectionsSelected)
                             SelectableButton(label: "Directions", action: { /* do something */ }, isSelected: $isInstructionsSelected)
-                        Spacer()
+                       
                     }
-                 
+                    .frame(maxWidth: .infinity)
                
                    
                     .padding(.bottom, 25)
@@ -175,56 +193,16 @@ struct RecipeControllerModal: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                        
                     }
-                    
-                    //RecipeEditModals()
-    //                    .blur(radius: showSuccessMessage ? 15 : 0)
-                   
-                
-                
-               
-//                RecipeDashHeader(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro, ema: ema, focused: $focusState)
-//                    .padding()
-//                    .shadow(color: Color("LightWhite"), radius: 5, x: 8, y: 10)
-//                    .cornerRadius(25)
-        
-                //ingredients or directions selction
-//        RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directions, ingredients: ingredients)
-//                    .padding(.top, 50)
-//                    .padding(.bottom, 20)
-//                     HStack{
-//                         Spacer() // << moves to the right
-//                         if ema.editMode{
-//                             DeleteRecipe(currentRecipeID: recipeID){
-//                                dismiss()
-//                             }
-//                             .alignmentGuide(.trailing) { d in d[.trailing] }
-//                             .padding(.trailing, 25)
-//                             .padding(.top, 25)
-//                         }
-//
-//                     }
-//                     .frame(height:40)
-
-        //delete recipe
-           
-//                HStack{
-//                    Spacer() // << moves to the right
-//                    DeleteRecipe(currentRecipeID: recipeID){
-//                       dismiss()
-//                    }
-//                    .alignmentGuide(.trailing) { d in d[.trailing] }
-//                    .padding(.trailing, 25)
-//                }
-//               // .padding(.top, -50)
-//              //  .padding(.bottom, 100)
-//                .frame(height:40)
-//
-        
-        //offsets toolbar, if text removed, would interrupt toolbar.
-       //Text("")
-                  
-        //edit recipe button
-
+                if ema.editMode{
+                    HStack{
+                         Spacer() // << moves to the right
+                         DeleteRecipe(currentRecipeID: recipeID){
+                            dismiss()
+                         }
+                         .alignmentGuide(.trailing) { d in d[.trailing] }
+                         .padding(.trailing, 25)
+                     }
+                }
             }
           
             .toolbar{
@@ -267,7 +245,7 @@ struct RecipeControllerModal: View {
                                 if originalImage != ema.recipeImage{
                                     rm.updateRecipeImage(recipeImage: ema.recipeImage, currentRecipe: recipeID)
                                 }
-                               
+                                
                                 if originalName != ema.recipeTitle {
                                     print("saved recipe")
                                     rm.saveRecipeTitle(recipeTitle: ema.recipeTitle, currentRecipe: recipeID)
@@ -277,7 +255,10 @@ struct RecipeControllerModal: View {
                                     rm.saveRecipePrepTime(recipePrepTime: ema.recipePrepTime, currentRecipe: recipeID)
                                 }
                                 //save dash headers to firestore
-//
+                                if originalFatMacro != ema.recipeFatMacro || originalCaloriesMacro != ema.recipeCaloriesMacro || originalCarbMacro != ema.recipeCarbMacro
+                                || originalProteinMacro != ema.recipeProteinMacro {
+                                    rm.saveRecipeMacros(recipeFatMacro: ema.recipeFatMacro, recipeCarbMacro: ema.recipeCarbMacro, recipeProteinMacro: ema.recipeProteinMacro, recipeCaloriesMacro: ema.recipeCaloriesMacro, currentRecipe: recipeID)
+                                }
 
                                 if ema.isIngredientsActive{
                                         rm.saveRecipeIngredients(ingredientList: ema.updatedIngredients, currentRecipe: recipeID)
@@ -294,11 +275,7 @@ struct RecipeControllerModal: View {
                                     Rectangle()
                                         .foregroundColor(Color.black.opacity(0.4))
                                         .cornerRadius(10)
-    //                                      Image(systemName: !ema.editMode ? "pencil.circle" : "")
-    //                                          .foregroundColor(.white)
-    //                                          .font(.body)
-    //                                          .padding(.trailing, 45)
-                                      
+                                         
                                       Text(!ema.editMode ? "Edit" : "Done")
                                           .foregroundColor(.white)
                                           .font(Font.headline.weight(.bold))
@@ -309,7 +286,7 @@ struct RecipeControllerModal: View {
                         }
                     }
                 }
-            .ignoresSafeArea(.keyboard)
+          //  .ignoresSafeArea(.keyboard)
             .onTapGesture {
                focusState = nil
             }

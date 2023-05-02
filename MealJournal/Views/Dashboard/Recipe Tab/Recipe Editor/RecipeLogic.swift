@@ -141,6 +141,37 @@ class RecipeLogic: ObservableObject {
                 }
             }
         }
+    func saveRecipeMacros(recipeFatMacro: Int,recipeCarbMacro: Int, recipeProteinMacro: Int, recipeCaloriesMacro: Int, currentRecipe: String) {
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.firestore
+            .collection("users")
+            .document(uid)
+            .collection("userRecipes")
+            .whereField("recipeID", isEqualTo: currentRecipe)
+            .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            FirebaseManager.shared.firestore
+                                .collection("users")
+                                .document(uid)
+                                .collection("userRecipes")
+                                .document(document.documentID)
+                                .updateData([
+                                    "recipeCaloriesMacro": recipeCaloriesMacro,
+                                    "recipeFatMacro" : recipeFatMacro,
+                                    "recipeCarbMacro": recipeCarbMacro,
+                                    "recipeProteinMacro": recipeProteinMacro
+                                   ]
+                                )
+                        }
+                        print("saved title to firestore")
+                    }
+                }
+    }
     func saveRecipeTitle(recipeTitle: String, currentRecipe: String) {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             return

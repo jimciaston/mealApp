@@ -70,7 +70,9 @@ struct ExistingRecipeDirections: View {
                     .onMove(perform: move)
                     
                     .onDelete(perform: { indexSet in
-                        recipeClass.directions.remove(atOffsets: indexSet)
+                        recipeDirections.remove(atOffsets: indexSet)
+                        ema.updatedDirections = recipeDirections
+                        ema.isDirectionsActive = true
                     })
                 }
                 .listStyle(PlainListStyle())
@@ -91,12 +93,6 @@ struct ExistingRecipeDirections: View {
                             .padding()
                         }
                     }
-                
-                .onMove(perform: move)
-                
-                .onDelete(perform: { indexSet in
-                    ema.updatedDirections.remove(atOffsets: indexSet)
-                })
             }
             .listStyle(PlainListStyle())
             .padding(.top, -20)

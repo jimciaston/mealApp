@@ -161,6 +161,8 @@
 		0AB381A129F723CD00B96A94 /* ExistingRecipeHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A029F723CD00B96A94 /* ExistingRecipeHeaders.swift */; };
 		0AB381A329F8A30100B96A94 /* ExistingRecipeIngredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A229F8A30100B96A94 /* ExistingRecipeIngredients.swift */; };
 		0AB381A529F8DAB900B96A94 /* ExistingRecipeDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A429F8DAB800B96A94 /* ExistingRecipeDirections.swift */; };
+		0AB381A729F951E900B96A94 /* ExistingRecipeMacroToggles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A629F951E900B96A94 /* ExistingRecipeMacroToggles.swift */; };
+		0AB381A929F981AF00B96A94 /* CaloriesCircularSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB381A829F981AF00B96A94 /* CaloriesCircularSelector.swift */; };
 		0ABE3C62298D88F000AF3B15 /* FullViewDisplay_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */; };
 		0ABE3C64298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */; };
 		0ABE3C66298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */; };
@@ -357,6 +359,8 @@
 		0AB381A029F723CD00B96A94 /* ExistingRecipeHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeHeaders.swift; sourceTree = "<group>"; };
 		0AB381A229F8A30100B96A94 /* ExistingRecipeIngredients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeIngredients.swift; sourceTree = "<group>"; };
 		0AB381A429F8DAB800B96A94 /* ExistingRecipeDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeDirections.swift; sourceTree = "<group>"; };
+		0AB381A629F951E900B96A94 /* ExistingRecipeMacroToggles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingRecipeMacroToggles.swift; sourceTree = "<group>"; };
+		0AB381A829F981AF00B96A94 /* CaloriesCircularSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesCircularSelector.swift; sourceTree = "<group>"; };
 		0ABE3C61298D88F000AF3B15 /* FullViewDisplay_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullViewDisplay_NonUser.swift; sourceTree = "<group>"; };
 		0ABE3C63298D8AEE00AF3B15 /* RecipeEditor_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditor_NonUser.swift; sourceTree = "<group>"; };
 		0ABE3C65298F238E00AF3B15 /* SavedJournalDashboard_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedJournalDashboard_NonUser.swift; sourceTree = "<group>"; };
@@ -862,6 +866,8 @@
 				0AB3819B29F6EADD00B96A94 /* ImageUpdateSelector.swift */,
 				0AB381A429F8DAB800B96A94 /* ExistingRecipeDirections.swift */,
 				0AB3819E29F71EA600B96A94 /* ExistingRecipeHome.swift */,
+				0AB381A829F981AF00B96A94 /* CaloriesCircularSelector.swift */,
+				0AB381A629F951E900B96A94 /* ExistingRecipeMacroToggles.swift */,
 				0AB381A229F8A30100B96A94 /* ExistingRecipeIngredients.swift */,
 				0AB381A029F723CD00B96A94 /* ExistingRecipeHeaders.swift */,
 			);
@@ -1224,6 +1230,7 @@
 				0AB381A529F8DAB900B96A94 /* ExistingRecipeDirections.swift in Sources */,
 				0A8D8077282A2AEE0055021A /* IngredientsPicker.swift in Sources */,
 				0A07D95B2847F0850080A4ED /* DashboardLogic.swift in Sources */,
+				0AB381A929F981AF00B96A94 /* CaloriesCircularSelector.swift in Sources */,
 				0A5E691627CC5C1D00ACB6A5 /* MacroView.swift in Sources */,
 				0A3B9B252815DAD000EC631A /* NutrionalPieChart.swift in Sources */,
 				0A4747372934E62F00384B51 /* GrabCurrentDate.swift in Sources */,
@@ -1257,6 +1264,7 @@
 				0AAE15AD282D8C5300B9B85A /* RecipeEditModals.swift in Sources */,
 				0A3E03E528E3CAB4009613CF /* SaveCustomFoodItem.swift in Sources */,
 				0AC5698429C41920007ABBC9 /* FitnessInterestes.swift in Sources */,
+				0AB381A729F951E900B96A94 /* ExistingRecipeMacroToggles.swift in Sources */,
 				0A6A687C283C84DC0047CFB9 /* LandingPageViewModel.swift in Sources */,
 				0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */,
 				0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */,

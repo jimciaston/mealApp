@@ -28,7 +28,7 @@ struct EntryRow: View {
                     }
                 Spacer()
             
-            Text(String(mealEntry.mealCalories!))
+            Text(String(mealEntry.mealCalories ?? 0))
             }
         
         .deleteDisabled(!isDeletable)

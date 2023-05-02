@@ -11,6 +11,7 @@ import Foundation
 struct ContentView: View {
     let isSignedIn = UserDefaults.standard.object(forKey: "signedIn") as? Bool ?? false
     var body: some View {
+       
         if isSignedIn {
             SplashView()
         }

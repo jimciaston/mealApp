@@ -17,7 +17,6 @@ struct ExistingRecipeHeaders: View {
     var body: some View {
         if ema.editMode{
             TextField(name, text: $ema.recipeTitle)
-               //.frame(height: 20)
                 .foregroundColor(Color.black)
                 .font(.title2)
                 .multilineTextAlignment(.leading)
@@ -57,7 +56,7 @@ struct ExistingRecipeHeaders: View {
         else{
             Text("Recipe Title: \(ema.recipeTitle)")
                 .foregroundColor(Color.black)
-                .font(.title2)
+                .font(.custom("Montserrat-Regular", size: 21))
                 .multilineTextAlignment(.leading)
                 .cornerRadius(5)
                 .padding(.top, 45)
@@ -65,7 +64,7 @@ struct ExistingRecipeHeaders: View {
                 .submitLabel(.done)
             
             Text("Prep Time: \(ema.recipePrepTime)")
-                .font(.body)
+                .font(.custom("Montserrat-Regular", size: 18))
                 .padding(.top, 5)
                 .padding(.leading, 25)
                 .padding(.bottom, 25)

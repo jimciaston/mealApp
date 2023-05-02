@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+
 struct ExistingRecipeHome: View {
     @ObservedObject var ema: EditModeActive
     //@State var recipeTitle = ""
-  
+    @State var showingCircularSelector = false
     @State private var recipeCalories = ""
     //calls macro pickers
     @State var caloriesPicker: Int = 0
@@ -24,38 +25,44 @@ struct ExistingRecipeHome: View {
     var resetPickerTime: (() -> Void)?
    @State var fatSelectorActivated = false
     @Binding var totalCalories: Int
-    
+   
     
     var body: some View {
         VStack (alignment: .center){
             if ema.editMode{
                 MacroSelectHstack(macroAmount: $ema.recipeFatMacro  , macroName: "Fat")
-                    .padding(.leading, -25)
+                    .padding(.leading, -50)
                 MacroSelectHstack(macroAmount: $ema.recipeCarbMacro, macroName: "Carbs")
-                    .padding(.leading, -25)
+                    .padding(.leading, -50)
                 MacroSelectHstack(macroAmount: $ema.recipeProteinMacro, macroName: "Protein")
-                    .padding(.leading, -25)
+                    .padding(.leading, -50)
+               
                 
                 HStack {
-                    Text("Estimated Calories: ")
+                    Text("Estimated Calories: \(ema.recipeCaloriesMacro)")
                         .font(.body)
                         .foregroundColor(.primary)
-                    TextField("\(totalCalories)", text: $recipeCalories)
-                        .keyboardType(.numberPad)
-                        .foregroundColor(.primary)
-                        .font(.body)
-                        .padding(4)
-                        .frame(width: 60, height: 20)
-                        .cornerRadius(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
+                        .onTapGesture{
+                            showingCircularSelector.toggle()
+                        }
+//                    TextField("\(totalCalories)", text: $recipeCalories)
+//                        .keyboardType(.numberPad)
+//                        .foregroundColor(.primary)
+//                        .font(.body)
+//                        .padding(4)
+//                        .frame(width: 60, height: 20)
+//                        .cornerRadius(8)
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 5)
+//                                .stroke(Color.gray, lineWidth: 1)
+//                        )
                 }
-                .padding(.leading, 15)
+             
                 .padding(.top, 35)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 25)
+                .sheet(isPresented: $showingCircularSelector, content: {
+                    CaloriesCircularSelector(selectedCalories: $ema.recipeCaloriesMacro, showingCircularSelector: $showingCircularSelector)
+                })
             }
             else{
                 VStack{

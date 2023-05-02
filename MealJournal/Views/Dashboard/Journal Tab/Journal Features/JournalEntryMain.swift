@@ -203,6 +203,7 @@ struct JournalEntryMain: View {
                             
                             }){
                                 Image(systemName: intC == -6 ? "" : "arrow.left")
+                                    .foregroundColor(Color("ButtonTwo"))
                             }
                             .disabled(intC == -6)
                             if dayOfWeekPermanent == weekdayAsString(date: calendarHelper.currentDay) {
@@ -243,6 +244,7 @@ struct JournalEntryMain: View {
                                 
                             }){
                                 Image(systemName: "arrow.right")
+                                    .foregroundColor(Color("ButtonTwo"))
                                     .opacity(showSearchBar ? 0 : 1)
                                    
                             }

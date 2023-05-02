@@ -92,9 +92,7 @@ struct SaveRecipeButton: View {
                 Button(action: {
                     //rules to save recipe
                     if (recipeClass.recipeTitle != ""
-                        &&
-                        recipeClass.ingredients.isEmpty == false &&
-                        recipeClass.directions.isEmpty == false
+                       
                     ){
                         isNewRecipeValid = true
                         saveRecipe()
