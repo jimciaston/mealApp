@@ -21,8 +21,9 @@ struct FitnessForm: View {
     @Binding var name: String
     @Binding var userEmailAddress: String
     @Binding var userLoginPassword: String
-    
-    
+    @State private var healthSettingsPrivate = true // << if weight and height are shown
+    var healthOptionsPrivate = ["Yes", "No"]
+    @State private var selectionIndex = 0
     @State var showingGetStartedPopUp = false //tied to continue, show popup on true
     //options for picker
     @State private var selectedGender = ""
@@ -87,11 +88,11 @@ struct FitnessForm: View {
                                          .pickerStyle(WheelPickerStyle())
                                  }
                             }
-                           
+                         
                             //highlight selection
-                            Text("Why are you eating?") //.listSectionSeparator(.hidden)
-                                .padding()
-                                .frame(width:300, height: 5 )
+                            Text("What are your eating goals") //.listSectionSeparator(.hidden)
+                                .padding(.top, 15)
+                                .frame(maxWidth: .infinity, alignment: .center)
                                 .multilineTextAlignment(.center)
                                 .listRowSeparator(.hidden)
                            
@@ -104,7 +105,7 @@ struct FitnessForm: View {
                                 .pickerStyle(.segmented)
                                 .navigationBarTitle(Text("Fitness Stats"))
                                 .frame(height:50)
-                            
+                          
                             FitnessInterests(selectedExercises: $selectedExercises, exercises: exercisePreferences.exercises)
                                 .frame(height: 350)
                                 .padding(.bottom, -25)
@@ -123,7 +124,7 @@ struct FitnessForm: View {
                                         
                                         
                                         //save user to Firebase
-                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises)
+                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: healthSettingsPrivate)
                                             signedIn = true //updates storage container
                                           
                                     }
@@ -159,7 +160,7 @@ struct FitnessForm: View {
                                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                                     let dateString = dateFormatter.string(from: date)
                                     //save user to Firebase
-                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises)
+                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: healthSettingsPrivate)
                                         signedIn = true //updates storage container
                               
                                 }

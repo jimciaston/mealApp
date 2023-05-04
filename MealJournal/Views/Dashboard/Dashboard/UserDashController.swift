@@ -62,8 +62,10 @@ struct UserDashController: View {
                                     .font(.custom("OpenSans-Regular", size: 24))
                                     .padding(.bottom, 2)
                             }
+                
                                 HomePageExercisePreferencesView(exercisePreferences: vm.userModel?.exercisePreferences ?? ["exercises unavailable"])
                                 .padding(.bottom, 25)
+                               
                                 
                             HStack{
                                 HStack{

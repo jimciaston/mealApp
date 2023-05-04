@@ -135,7 +135,7 @@ struct userLogin: View {
                                 .padding(.bottom, -15)
                                 .padding(.top, 45)
                         }
-                        
+                        .ignoresSafeArea(.keyboard)
                 
                         .foregroundColor(.black)
                         .offset(y:20)
@@ -173,6 +173,7 @@ struct userLogin: View {
                         )
                   
                 }
+                .ignoresSafeArea(.keyboard)
                 .offset(y:50)
               
             }

@@ -11,7 +11,7 @@ class UserModel: ObservableObject, Identifiable {
     var id: String = UUID().uuidString
     @Published var name: String
     @Published var userBio: String
-    var uid, gender, height, weight, agenda, profilePictureURL, userSocialLink: String
+    var uid, gender, height, weight, agenda, profilePictureURL, userSocialLink, healthSettingsPrivate: String
     @Published var exercisePreferences: [String]
     
     init(data: [String: Any]){
@@ -25,6 +25,7 @@ class UserModel: ObservableObject, Identifiable {
         self.profilePictureURL = data ["profilePicture"] as? String ?? ""
         self.exercisePreferences = data ["exercisePreferences"] as? [String] ?? ["Unavailable"]
         self.userSocialLink = data ["userSocialLink"] as? String ?? "Instagram link not entered"
+        self.healthSettingsPrivate = data ["healthSettingsPrivate"] as? String ?? "Unavailable"
     }
 }
 

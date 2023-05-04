@@ -60,11 +60,16 @@ class UrlImageModel: ObservableObject {
         guard let urlString = urlString else {
                  return
              }
-        let url = URL(string: urlString)!
-           let task = URLSession.shared.dataTask(with:url, completionHandler:
-               getImageFromResponse(data: response: error: ))
-        print("BREADCRUMS BBB")
-           task.resume()
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with:url, completionHandler:
+                getImageFromResponse(data: response: error: ))
+       
+            task.resume()
+        } else {
+          return
+            // use the `placeholderURL` object
+        }
+          
     }
     
     private func getImageFromResponse (data: Data?, response: URLResponse?, error: Error?){
@@ -85,7 +90,6 @@ class UrlImageModel: ObservableObject {
             guard let loadedImage = UIImage(data: data) else {
                 return
             }
-            print("BREADCRUMS A")
             self.imageCache.setCache(forKey: self.urlString!, image: loadedImage)
             self.image = loadedImage
         }

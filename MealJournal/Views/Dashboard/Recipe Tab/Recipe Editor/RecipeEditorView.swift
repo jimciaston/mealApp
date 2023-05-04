@@ -27,7 +27,7 @@ struct RecipeEditorView: View {
     
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             //macro pickers for recipe
             
             //ios16 new update shows arrows in pickers, hides it with ZStack here
@@ -47,7 +47,7 @@ struct RecipeEditorView: View {
                     .sheet(isPresented: $showingCircularSelector, content: {
                         CaloriesCircularSelector(selectedCalories: $recipeClass.recipeCaloriesMacro, showingCircularSelector: $showingCircularSelector)
                     })
-               
+               Spacer()
             }
         
             .padding(.top, 35)

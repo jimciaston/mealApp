@@ -85,11 +85,12 @@ struct JournalEntryMain: View {
        
         //same day save not valid
         if dayOfWeek == dayOfWeekPermanent {
+            print("day of week")
             attemptedSameDaySave = true
         }
         
         else{
-            
+          
             attemptedSameDaySave = false
             //check firestore for existenece
                 FirebaseManager.shared.firestore.collection("users").document(uid).collection("userJournalEntrys").document(dateString(calendarDate)).getDocument { (snapshot, error) in
@@ -101,6 +102,7 @@ struct JournalEntryMain: View {
                         print("Journal Exists already")
                        journalSavedAlready = true
                     } else {
+                      
                         journalSavedAlready = false
                         let dateString = String(dateString(calendarDate))
                         let dateStringDashesRemoved = dateString.replacingOccurrences(of: "/", with: "", options: NSString.CompareOptions.literal, range: nil)
@@ -118,8 +120,9 @@ struct JournalEntryMain: View {
                       
                         let predicate = NSPredicate(format: "createdDate CONTAINS %@", stringFormattedForCBMatch )
                         let filteredJournalEntries = fetchedJournalEntrys.filter { predicate.evaluate(with: $0) }
-                      
+                       
                         for entry in filteredJournalEntries {
+                           
                            totalCals += Int(entry.mealCalories ?? 0)
                            totalProtein += Int(entry.mealProtein ?? 0)
                            totalCarbs += Int(entry.mealCarbs ?? 0)
@@ -130,12 +133,8 @@ struct JournalEntryMain: View {
                                        totalCarbs: String(totalCarbs),
                                        totalFat: String(totalFat)
                                     )
-                                   do{
-                                    journalSaved = true
-                                     }
-                                     catch{
-                                         print(error.localizedDescription)
-                                     }
+                            print("journal saved okay!")
+                         journalSaved = true
                         }
                        
                     }
@@ -327,8 +326,10 @@ struct JournalEntryMain: View {
                                 dayOfWeekPermanent = weekdayAsString(date: calendarHelper.currentDay)
                                //delete if time to live
                                         for mealEntry in fetchedJournalEntrys {
+                                            print(type(of: calendarHelper.currentDate()))
+                                            print(calendarHelper.currentDate())
                                             // if time to live from cb matches current date (7 days)
-                                            if mealEntry.timeToLive == calendarHelper.currentDate() {
+                                            if mealEntry.timeToLive! <= calendarHelper.currentDate() {
                                                 UserJournalHelper().deleteJournalEntry(entry: mealEntry, context: managedObjectContext)
                                                
                                             }

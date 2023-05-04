@@ -8,8 +8,33 @@
 import SwiftUI
 import Firebase
 import SDWebImageSwiftUI
+
+struct followingUserData: Hashable {
+    var uid: String
+    var name: String
+    var bio: String
+    var profilePicture: String
+    var recipes: [String:String]
+    var isFollowed: Bool
+    var socialLink: String
+    var exercisePreferences: [String]
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(uid)
+            hasher.combine(name)
+            hasher.combine(bio)
+            hasher.combine(profilePicture)
+            hasher.combine(recipes)
+            hasher.combine(isFollowed)
+            hasher.combine(socialLink)
+            hasher.combine(exercisePreferences)
+        }
+}
+
+
+
 struct FollowingUsersView: View {
     @State var userUID: String = ""
+    @State var followingUsers: [followingUserData] = []
     @State var name: String = ""
     @State var userBio: String = ""
     @State var userProfilePicture: String = ""
@@ -18,6 +43,7 @@ struct FollowingUsersView: View {
     @State var fetchedUserRecipes = [RecipeItem]()
     @State var exercisePreferences: [String] = [""]
     @State var userSocialLink: String = ""
+    @State var followingUsersList = [Any]()
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
     /*
@@ -26,7 +52,7 @@ struct FollowingUsersView: View {
      */
 
     func fetchFollowingList(){
-
+        followingUsers.removeAll()
        // var fetchedFollowingList = [String:String]()
         let uid = Auth.auth().currentUser?.uid ?? "no name"
         FirebaseManager.shared.firestore.collection("users")
@@ -49,7 +75,10 @@ struct FollowingUsersView: View {
                                 name = userData ["name"] as? String ?? "Name Unavailable"
                                 exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
                                 userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
-                                exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Nothing to return"]
+                                exercisePreferences = userData ["exercisePreferences"] as? [String] ?? [""]
+                                let newUser = followingUserData(uid: userUID, name: name, bio: userBio, profilePicture: userProfilePicture, recipes: userRecipes, isFollowed: isUserFollowed, socialLink: userSocialLink, exercisePreferences: exercisePreferences)
+                                followingUsers.append(newUser)
+                              
                                 FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
                                     .getDocuments{ recipeDocumentSnapshot, error in
                                         if let error = error {
@@ -96,60 +125,60 @@ struct FollowingUsersView: View {
             }
 
             else{
-                NavigationLink(destination: UserProfileView(userUID: userUID, name: name, userBio: userBio, userProfilePicture: userProfilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).onAppear{
-                    jm.grabUserJournalCount(userID: userUID)
-                    rm.grabRecipes(userUID: userUID)
-                }){
-                    VStack{
-                        HStack{
-                            WebImage(url: URL(string: userProfilePicture))
-                                    .placeholder(Image("profileDefaultPicture"))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width:60, height: 60)
-                                    .clipShape(Circle())
-                                    .padding(.leading, 20)
-                                    .padding(.trailing, 25)
-                            
-                             
-                            VStack{
-                                HStack{
-                                    Text(name)
-                                        .font(.title)
+                ForEach(followingUsers, id: \.self){ user in
+                    NavigationLink(destination: UserProfileView(userUID: user.uid, name: user.name, userBio: userBio, userProfilePicture: user.profilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: user.socialLink, exercisePreferences: user.exercisePreferences ).onAppear{
+                        jm.grabUserJournalCount(userID: userUID)
+                        rm.grabRecipes(userUID: userUID)
+                    }){
+                                VStack{
+                                    HStack{
+                                        WebImage(url: URL(string: user.profilePicture))
+                                                .placeholder(Image("profileDefaultPicture"))
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width:60, height: 60)
+                                                .clipShape(Circle())
+                                                .padding(.leading, 20)
+                                                .padding(.trailing, 25)
                                         
-                                    Spacer()
-                                }
-                              
-                                
-                                HStack {
-                                   HomePageExercisePreferencesView(exercisePreferences: exercisePreferences)
-                                    Spacer()
-                                }
-                                .padding(.top, -5)
-                              
+                                         
+                                        VStack{
+                                            HStack{
+                                                Text(user.name)
+                                                    .font(.title3)
+                                                    
+                                                Spacer()
+                                            }
+                                          
+                                            
+                                            HStack {
+                                                HomePageExercisePreferencesView(exercisePreferences: user.exercisePreferences)
+                                                Spacer()
+                                            }
+                                            .padding(.top, -5)
+                                          
 
-                            }
-                          
+                                        }
+                                      
+                                    }
+                                    .frame(height: 50)
+                                    .padding(.leading, -20)
+                                    .padding()
+                                    
+                                  
+                                    .frame(maxWidth: 360)
+                                }
+                              
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white)
+                                        .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
+                                       
+                                )
                         }
-                        
-                        .padding(.leading, -20)
-                        .padding()
-                        
-                      
-                        .frame(maxWidth: 360)
                     }
-                  
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white)
-                            .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
-                           
-                    )
-                    }
-                
-
+                }
             }
-        }
         Spacer()
         .onAppear(){
             fetchFollowingList()

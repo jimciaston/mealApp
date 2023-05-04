@@ -26,6 +26,9 @@ struct EntryRow: View {
                             .foregroundColor(.gray)
                            
                     }
+                .onTapGesture {
+                    print(mealEntry.timeToLive)
+                }
                 Spacer()
             
             Text(String(mealEntry.mealCalories ?? 0))

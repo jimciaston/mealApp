@@ -12,7 +12,7 @@ struct CaloriesCircularSelector: View {
     @State var calorieValue: CGFloat = 0.0
     @State var angleValue: CGFloat = 0.0
     @State private var isDragging = false
-   @State private var stopGesture = false
+    @State private var stopGesture = false
     @State var prevCalorieValue: CGFloat = 0.0
     @State private var reachedMaxAngle = false
     @State var movingForward = false
@@ -57,9 +57,14 @@ struct CaloriesCircularSelector: View {
                                
                                if !reachedMaxAngle && prevCalorieValue <= calorieValue {
                                    change(location: value.location) // << controls movement of knob
+                                   
+                                   let generator = UIImpactFeedbackGenerator(style: .soft)
+                                                                     generator.impactOccurred()
                                }
                                else if previousValueYLocation < value.location.y {
                                    change(location: value.location) // << controls movement of knob
+                                   
+                                  
                                }
                                previousValueYLocation = value.location.y // << track prev location
                               
