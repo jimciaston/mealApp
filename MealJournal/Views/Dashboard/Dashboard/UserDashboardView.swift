@@ -11,7 +11,7 @@ struct UserDashboardView: View {
     //Core Data Variables
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
-    
+    @AppStorage("notUserFirstVisit") var notUserFirstVisit = false
     @StateObject var calendarHelper = CalendarHelper()
     @ObservedObject var vm: DashboardLogic
     @EnvironmentObject var mealEntrys: MealEntrys 
@@ -25,12 +25,35 @@ struct UserDashboardView: View {
     @State var isUserSearching = false
     @State var recipeSavedMessage = false
     
-   
-    //    init(){
-//        UITabBar.appearance().backgroundColor = UIColor.white
-//        self._signUpController = signUpController
+    @State private var showPushNotificationAlert = false
+        @State private var pushNotificationPermissionStatus: UNAuthorizationStatus?
+    
+    
+//    func requestPushNotificationPermission() {
+//           UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+//               pushNotificationPermissionStatus = granted ? .authorized : .denied
+//           }
+//       }
+//
+//    func showAlertForPushNotificationPermission() {
+//        let message = "Allow app to send push notifications?"
+//        let alert = UIAlertController(title: "Push Notification", message: message, preferredStyle: .alert)
+//
+//        let allowAction = UIAlertAction(title: "Allow", style: .default) { _ in
+//            requestPushNotificationPermission()
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//        alert.addAction(allowAction)
+//        alert.addAction(cancelAction)
+//
+//        if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+//            rootViewController.present(alert, animated: true, completion: nil)
+//        }
 //    }
-   
+  
+    
+    
     var body: some View {
         GeometryReader { geometry in
             if !vm.isUserDataLoading { // disable to see previews
@@ -127,7 +150,27 @@ struct UserDashboardView: View {
                      .background(Color("LighterWhite").shadow(radius: 2))
                             
                     }
+                    
                     .onAppear{
+//                        if !notUserFirstVisit { // << Only show alert if first Time visit
+//                            if let status = pushNotificationPermissionStatus {
+//                                          switch status {
+//                                              case .authorized, .denied:
+//                                                  break
+//                                              default:
+//                                                 break
+//                                          }
+//                                      } else {
+//                                          if  !notUserFirstVisit {
+//                                              showAlertForPushNotificationPermission()
+//                                              notUserFirstVisit = true
+//                                          }
+//
+//                                      }
+//                        }
+                     
+                        
+                        
                         rm_nonUser.grabSavedUserRecipes()
                     }
                     

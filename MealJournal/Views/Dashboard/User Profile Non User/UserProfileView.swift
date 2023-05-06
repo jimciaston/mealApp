@@ -194,6 +194,7 @@ struct UserProfileView: View {
                                     }
                                 }
                             }){
+                                //FOLLOW BUTTON ICON
                                 Text(isCurrentUserfollowingUser() ? "Following" : "Follow") // << user followed yay or nay
                                      .frame(width: 85, height: 40)
                                      .foregroundColor(.white)

@@ -184,6 +184,7 @@
 		0AF5B10028944FB4005533C8 /* RecipeControllerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */; };
 		0AF5B1022899B0FA005533C8 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B1012899B0FA005533C8 /* ActivityIndicator.swift */; };
 		0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B10328B0132D005533C8 /* UserProfileView.swift */; };
+		0AFABC512A05737B000E0145 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFABC502A05737B000E0145 /* FirebaseMessaging */; };
 		5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C25B5864F41EB32D84F3D2A4 /* Pods_MealJournal.framework */; };
 		5C242788565D140AA76C5810 /* Pods_MealJournalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511F702D98851A0528626E1B /* Pods_MealJournalTests.framework */; };
 		7A39380DA3EB5586909D0B1F /* Pods_MealJournal_MealJournalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB9401F219CF3C3DD2C591D /* Pods_MealJournal_MealJournalUITests.framework */; };
@@ -382,6 +383,7 @@
 		0AF5B0FF28944FB4005533C8 /* RecipeControllerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeControllerModal.swift; sourceTree = "<group>"; };
 		0AF5B1012899B0FA005533C8 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		0AF5B10328B0132D005533C8 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		0AFABC4F2A0528AF000E0145 /* MealJournal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MealJournal.entitlements; sourceTree = "<group>"; };
 		2FB9401F219CF3C3DD2C591D /* Pods_MealJournal_MealJournalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealJournal_MealJournalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC83A24A7217B78C4DFECF2 /* Pods-MealJournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealJournalTests.release.xcconfig"; path = "Target Support Files/Pods-MealJournalTests/Pods-MealJournalTests.release.xcconfig"; sourceTree = "<group>"; };
 		511F702D98851A0528626E1B /* Pods_MealJournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealJournalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -400,6 +402,7 @@
 			files = (
 				0A36C1EA29CF352100CE3A23 /* libswiftWebKit.tbd in Frameworks */,
 				0A3E03DD28DCB5C5009613CF /* SwiftUIX in Frameworks */,
+				0AFABC512A05737B000E0145 /* FirebaseMessaging in Frameworks */,
 				0A07D96028480A140080A4ED /* SDWebImageSwiftUI in Frameworks */,
 				5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */,
 				0A9F4965287BCBCC002F227E /* OrderedCollections in Frameworks */,
@@ -775,6 +778,7 @@
 		0A8F98DF27AB09AE008F5584 /* MealJournal */ = {
 			isa = PBXGroup;
 			children = (
+				0AFABC4F2A0528AF000E0145 /* MealJournal.entitlements */,
 				0A87DB70291EEBC500A3C1E9 /* Improvemnts.swift */,
 				0ADDCCA929BF2B0A0082FB1E /* Secrets.xcconfig */,
 				0AB112B129017C5A0071B3ED /* Info.plist */,
@@ -933,6 +937,7 @@
 				0A9F4964287BCBCC002F227E /* OrderedCollections */,
 				0A3E03DC28DCB5C5009613CF /* SwiftUIX */,
 				0A8BC8F829B65B92001B0E06 /* Kingfisher */,
+				0AFABC502A05737B000E0145 /* FirebaseMessaging */,
 			);
 			productName = MealJournal;
 			productReference = 0A8F98DD27AB09AE008F5584 /* MealJournal.app */;
@@ -1491,6 +1496,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MealJournal/MealJournal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MealJournal/Preview Content\"";
@@ -1499,7 +1505,8 @@
 				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Macro Mate";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) Would like to access your photo libary";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) would like to use your camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) would like to access your photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -1528,6 +1535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MealJournal/MealJournal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MealJournal/Preview Content\"";
@@ -1536,7 +1544,8 @@
 				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Macro Mate";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) Would like to access your photo libary";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) would like to use your camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) would like to access your photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -1754,6 +1763,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A9F4963287BCBCC002F227E /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		0AFABC502A05737B000E0145 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 

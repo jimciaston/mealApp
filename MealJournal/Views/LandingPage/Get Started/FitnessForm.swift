@@ -124,7 +124,7 @@ struct FitnessForm: View {
                                         
                                         
                                         //save user to Firebase
-                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: healthSettingsPrivate)
+                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: "No")
                                             signedIn = true //updates storage container
                                           
                                     }
@@ -160,7 +160,7 @@ struct FitnessForm: View {
                                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                                     let dateString = dateFormatter.string(from: date)
                                     //save user to Firebase
-                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: healthSettingsPrivate)
+                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: "No")
                                         signedIn = true //updates storage container
                               
                                 }
@@ -199,14 +199,14 @@ struct FitnessForm: View {
                     .shadow(color: Color("LighterWhite") ,radius: 2, x: 0, y: 4)
                 }
             }
-                //delay pop up
-//            .task{
-//                do{
-//                    // 1 nano = 1 second
-//                    try? await Task.sleep(nanoseconds: 1_000_000_000)
-//                    showingGetStartedPopUp = true
-//                }
-//            }
+               // delay pop up
+            .task{
+                do{
+                    // 1 nano = 1 second
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+                    showingGetStartedPopUp = true
+                }
+            }
             //Overlay allows to not allow user to click while pop up is up
             .overlay{
                     if showingGetStartedPopUp {

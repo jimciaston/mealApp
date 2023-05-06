@@ -71,7 +71,7 @@ class LandingPageViewModel: ObservableObject  {
         agenda:         String,
         dateJoined:     String,
         exercisePreferences: [String],
-        healthSettingsPrivate:  Bool // << if weight and height are public
+        healthSettingsPrivate:  String // << if weight and height are public
     ){
         //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }

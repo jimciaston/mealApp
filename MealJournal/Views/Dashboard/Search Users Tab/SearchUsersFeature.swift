@@ -35,7 +35,11 @@ struct SearchUsersFeature: View {
                 .onChange(of: userSearch) { query in
                     if !query.isEmpty {
                         filteredUsers = vm.allUsers.filter { user in
-                            user.name.localizedCaseInsensitiveContains(query) || user.gender.contains(query) || user.weight.contains(query) || user.height.contains(query)
+                            if user.healthSettingsPrivate == "No" || user.healthSettingsPrivate == nil{
+                                return user.name.localizedCaseInsensitiveContains(query) || user.gender.contains(query) || user.weight.contains(query) || user.height.contains(query)
+                            } else {
+                                return false
+                            }
                         }
                     } else {
                         filteredUsers = []
