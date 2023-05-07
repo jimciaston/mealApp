@@ -15,11 +15,37 @@ import FirebaseMessaging
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-
-      let deviceToken:[String: String] = ["token": fcmToken ?? ""]
-        print("Device token: ", deviceToken) // This token can be used for testing notifications on FCM
+        //grab token
+        let deviceToken:[String] = [fcmToken ?? ""]
+        //save bad boy to firestore
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        FirebaseManager.shared.firestore.collection("users")
+            .document(uid).getDocument { (document, error) in
+                if let error = error {
+                    print("Error checking for device token: \(error.localizedDescription)")
+                    return
+                }
+                
+                // If the document exists, the device token is already saved
+                //token for Firestore messenger cloud
+                if let data = document?.data(), let existingToken = data["token"] as? String {
+                               print("Device token already saved")
+                               return
+                   }
+                
+                // If the document doesn't exist, save the device token to Firestore
+                FirebaseManager.shared.firestore.collection("users").document(uid).setData(["token": deviceToken], merge: true) { (error) in
+                    if let error = error {
+                        print("Error saving device token: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    print("Device token saved")
+                }
+            }
     }
 }
+
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
 

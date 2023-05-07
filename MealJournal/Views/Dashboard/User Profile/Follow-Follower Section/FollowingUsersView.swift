@@ -18,6 +18,7 @@ struct followingUserData: Hashable {
     var isFollowed: Bool
     var socialLink: String
     var exercisePreferences: [String]
+    var fcmToken: String
     func hash(into hasher: inout Hasher) {
             hasher.combine(uid)
             hasher.combine(name)
@@ -27,6 +28,7 @@ struct followingUserData: Hashable {
             hasher.combine(isFollowed)
             hasher.combine(socialLink)
             hasher.combine(exercisePreferences)
+            hasher.combine(fcmToken)
         }
 }
 
@@ -43,6 +45,7 @@ struct FollowingUsersView: View {
     @State var fetchedUserRecipes = [RecipeItem]()
     @State var exercisePreferences: [String] = [""]
     @State var userSocialLink: String = ""
+    @State var fcmToken: String = ""
     @State var followingUsersList = [Any]()
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
@@ -76,7 +79,8 @@ struct FollowingUsersView: View {
                                 exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
                                 userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
                                 exercisePreferences = userData ["exercisePreferences"] as? [String] ?? [""]
-                                let newUser = followingUserData(uid: userUID, name: name, bio: userBio, profilePicture: userProfilePicture, recipes: userRecipes, isFollowed: isUserFollowed, socialLink: userSocialLink, exercisePreferences: exercisePreferences)
+                                fcmToken = userData ["token"] as? String ?? ""
+                                let newUser = followingUserData(uid: userUID, name: name, bio: userBio, profilePicture: userProfilePicture, recipes: userRecipes, isFollowed: isUserFollowed, socialLink: userSocialLink, exercisePreferences: exercisePreferences, fcmToken: fcmToken)
                                 followingUsers.append(newUser)
                               
                                 FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
@@ -126,7 +130,7 @@ struct FollowingUsersView: View {
 
             else{
                 ForEach(followingUsers, id: \.self){ user in
-                    NavigationLink(destination: UserProfileView(userUID: user.uid, name: user.name, userBio: userBio, userProfilePicture: user.profilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: user.socialLink, exercisePreferences: user.exercisePreferences ).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.uid, name: user.name, userBio: userBio, userProfilePicture: user.profilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: user.socialLink, exercisePreferences: user.exercisePreferences, fcmToken: user.fcmToken ).onAppear{
                         jm.grabUserJournalCount(userID: userUID)
                         rm.grabRecipes(userUID: userUID)
                     }){

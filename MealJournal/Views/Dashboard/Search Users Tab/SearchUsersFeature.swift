@@ -20,7 +20,7 @@ struct SearchUsersFeature: View {
                 //DISPLAY USERS
                 LazyVStack{
                     ForEach(filteredUsers, id:\.id ) { user in
-                        FollowingListRow(userUID: user.uid ,userName: user.name,userBio: user.userBio ,userProfileImage: user.profilePictureURL, userExercisePreferences: user.exercisePreferences, userSocialLink: user.userSocialLink).animation(nil)
+                        FollowingListRow(userUID: user.uid ,userName: user.name,userBio: user.userBio ,userProfileImage: user.profilePictureURL, userExercisePreferences: user.exercisePreferences, userSocialLink: user.userSocialLink, fcmToken: user.fcmToken).animation(nil)
                     }
                 }
                 Spacer()

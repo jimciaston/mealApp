@@ -12,7 +12,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
-
+import FirebaseFunctions
 
 struct UserProfileView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
@@ -29,11 +29,13 @@ struct UserProfileView: View {
     @ObservedObject var jm: JournalDashLogicNonUser
     @State var userSocialLink: String
     @State var exercisePreferences: [String]
+    @State var fcmToken: String
     @State private var action: Int? = 0
     @State private var nonUserFollowingCount: Int = 0
     @State private var nonUserFollowersCount: Int = 0
     //check if user is being followed or not
     
+   //set up firestore cloud messenger for new follower notificiation
    
     
     func isCurrentUserfollowingUser() -> Bool{
@@ -139,15 +141,23 @@ struct UserProfileView: View {
                     .frame(height: 2)
                         //.edgesIgnoringSafeArea(.horizontal)
                         .padding(.bottom, 10)
-                       
+                    
+                      ///FOLLOW BUTTON
                     HStack{
                         Button(action: {
+                           
                             //grab current user UID
-                        
+                            let message = [
+                                "to": fcmToken,
+                                "notification": [
+                                    "title": "Notification from MacroMate",
+                                    "body": "You gained a new follower!"
+                                ]
+                            ] as [String : Any]
                             guard let uid = Auth.auth().currentUser?.uid else { return } // << current user
                         
                             let followingUserUID = userUID // person following
-                            print(followingUserUID)
+                           
                             FirebaseManager.shared.firestore.collection("users")
                                 .whereField("FollowingUsersList", arrayContains: followingUserUID)
                                 .getDocuments { (snapshot, err) in
@@ -182,6 +192,15 @@ struct UserProfileView: View {
                                               "FollowingUsersList" : FieldValue.arrayUnion([followingUserUID]), // << add to fire
                                           ])
                                         isUserFollowed = true
+                                        
+                                        Functions.functions().httpsCallable("sendNotification").call(message) { result, error in
+                                            if let error = error {
+                                                print("Error sending notification: \(error.localizedDescription)")
+                                            } else {
+                                                print("Notification sent successfully!")
+                                            }
+                                        }
+                                      
                                         fetchFollowingCount_NonUser()
                                         //Updates user being followed
                                         FirebaseManager.shared.firestore.collection("users")
@@ -278,19 +297,19 @@ struct UserProfileView: View {
         
     
 }
-struct UserProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        let rm = RecipeLogicNonUser()
-        let jm = JournalDashLogicNonUser()
-        UserProfileView(userUID: "exampleUID",
-                         name: "John Doe",
-                         userBio: "Hi there!",
-                         userProfilePicture: "examplePictureURL",
-                         journalCount: 10,
-                        isUserFollowed: false, fetchedUserRecipes: [RecipeItem](),
-                        rm: rm,
-                        jm: jm, userSocialLink: "www.google.com",
-                        exercisePreferences: ["Running"]
-                       )
-    }
-}
+//struct UserProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let rm = RecipeLogicNonUser()
+//        let jm = JournalDashLogicNonUser()
+//        UserProfileView(userUID: "exampleUID",
+//                         name: "John Doe",
+//                         userBio: "Hi there!",
+//                         userProfilePicture: "examplePictureURL",
+//                         journalCount: 10,
+//                        isUserFollowed: false, fetchedUserRecipes: [RecipeItem](),
+//                        rm: rm,
+//                        jm: jm, userSocialLink: "www.google.com",
+//                        exercisePreferences: ["Running"]
+//                       )
+//    }
+//}

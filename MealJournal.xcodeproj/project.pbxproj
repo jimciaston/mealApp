@@ -185,6 +185,9 @@
 		0AF5B1022899B0FA005533C8 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B1012899B0FA005533C8 /* ActivityIndicator.swift */; };
 		0AF5B10428B0132D005533C8 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5B10328B0132D005533C8 /* UserProfileView.swift */; };
 		0AFABC512A05737B000E0145 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFABC502A05737B000E0145 /* FirebaseMessaging */; };
+		0AFABC532A06CB71000E0145 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFABC522A06CB71000E0145 /* FirebaseAnalytics */; };
+		0AFABC552A072C5F000E0145 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFABC542A072C5F000E0145 /* FirebaseFunctions */; };
+		0AFABC572A07F5AF000E0145 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFABC562A07F5AF000E0145 /* NetworkConnectivity.swift */; };
 		5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C25B5864F41EB32D84F3D2A4 /* Pods_MealJournal.framework */; };
 		5C242788565D140AA76C5810 /* Pods_MealJournalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511F702D98851A0528626E1B /* Pods_MealJournalTests.framework */; };
 		7A39380DA3EB5586909D0B1F /* Pods_MealJournal_MealJournalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB9401F219CF3C3DD2C591D /* Pods_MealJournal_MealJournalUITests.framework */; };
@@ -384,6 +387,7 @@
 		0AF5B1012899B0FA005533C8 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		0AF5B10328B0132D005533C8 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		0AFABC4F2A0528AF000E0145 /* MealJournal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MealJournal.entitlements; sourceTree = "<group>"; };
+		0AFABC562A07F5AF000E0145 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
 		2FB9401F219CF3C3DD2C591D /* Pods_MealJournal_MealJournalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealJournal_MealJournalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC83A24A7217B78C4DFECF2 /* Pods-MealJournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealJournalTests.release.xcconfig"; path = "Target Support Files/Pods-MealJournalTests/Pods-MealJournalTests.release.xcconfig"; sourceTree = "<group>"; };
 		511F702D98851A0528626E1B /* Pods_MealJournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealJournalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -403,9 +407,11 @@
 				0A36C1EA29CF352100CE3A23 /* libswiftWebKit.tbd in Frameworks */,
 				0A3E03DD28DCB5C5009613CF /* SwiftUIX in Frameworks */,
 				0AFABC512A05737B000E0145 /* FirebaseMessaging in Frameworks */,
+				0AFABC552A072C5F000E0145 /* FirebaseFunctions in Frameworks */,
 				0A07D96028480A140080A4ED /* SDWebImageSwiftUI in Frameworks */,
 				5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */,
 				0A9F4965287BCBCC002F227E /* OrderedCollections in Frameworks */,
+				0AFABC532A06CB71000E0145 /* FirebaseAnalytics in Frameworks */,
 				0A8BC8F929B65B92001B0E06 /* Kingfisher in Frameworks */,
 				0A6A6883284577210047CFB9 /* FirebaseStorage in Frameworks */,
 				0A6A687F284577210047CFB9 /* FirebaseAuth in Frameworks */,
@@ -843,6 +849,7 @@
 				0A9F495C28653382002F227E /* RecipeModelTwo.swift */,
 				0A70A8BA27F8BC0900318780 /* Search_Food_Model.swift */,
 				0A07D95C284801260080A4ED /* UserModel.swift */,
+				0AFABC562A07F5AF000E0145 /* NetworkConnectivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -938,6 +945,8 @@
 				0A3E03DC28DCB5C5009613CF /* SwiftUIX */,
 				0A8BC8F829B65B92001B0E06 /* Kingfisher */,
 				0AFABC502A05737B000E0145 /* FirebaseMessaging */,
+				0AFABC522A06CB71000E0145 /* FirebaseAnalytics */,
+				0AFABC542A072C5F000E0145 /* FirebaseFunctions */,
 			);
 			productName = MealJournal;
 			productReference = 0A8F98DD27AB09AE008F5584 /* MealJournal.app */;
@@ -1276,6 +1285,7 @@
 				0A8C89252947845C008C549A /* FetchEntryTotals.swift in Sources */,
 				0ADDCCA729B977CD0082FB1E /* FoodCategoryTextOutput.swift in Sources */,
 				0AB112B9290590CD0071B3ED /* TabBar.swift in Sources */,
+				0AFABC572A07F5AF000E0145 /* NetworkConnectivity.swift in Sources */,
 				0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */,
 				0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */,
 				0AAE15B3282DA3E400B9B85A /* EditorDirections.swift in Sources */,
@@ -1768,6 +1778,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		0AFABC522A06CB71000E0145 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0AFABC542A072C5F000E0145 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A6A687D284577210047CFB9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 

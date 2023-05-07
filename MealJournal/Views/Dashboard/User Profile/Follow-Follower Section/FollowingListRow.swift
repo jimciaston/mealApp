@@ -17,6 +17,7 @@ struct FollowingListRow: View {
     @State var userProfileImage: String
     @State var userExercisePreferences: [String]
     @State var userSocialLink: String
+    @State var fcmToken: String
     @StateObject var jm = JournalDashLogicNonUser()
     @StateObject var rm = RecipeLogicNonUser()
     var body: some View {
@@ -25,7 +26,7 @@ struct FollowingListRow: View {
          Note the two navigation Links. NOt sure what is happening, but If I remove the NavLink from the Image, the first element in the list does not click. Will figure out in next update..possibly..
          */
         
-        NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: userExercisePreferences).padding(.top, -65)
+        NavigationLink(destination: UserProfileView(userUID: userUID, name: userName, userBio: userBio, userProfilePicture: userProfileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: userExercisePreferences, fcmToken: fcmToken).padding(.top, -65)
            
             .onAppear{
               
@@ -94,8 +95,8 @@ struct FollowingListRow: View {
     
 }
 
-struct FollowingListRow_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowingListRow(userUID: "", userName: "John Doe", userBio: "", userProfileImage: "", userExercisePreferences: ["Bodybuilding"], userSocialLink: "www.google.com")
-    }
-}
+//struct FollowingListRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FollowingListRow(userUID: "", userName: "John Doe", userBio: "", userProfileImage: "", userExercisePreferences: ["Bodybuilding"], userSocialLink: "www.google.com")
+//    }
+//}

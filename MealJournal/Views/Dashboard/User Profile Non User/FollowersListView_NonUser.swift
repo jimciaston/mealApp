@@ -20,6 +20,7 @@ struct FollowersListView_NonUser: View {
     @State var fetchedUserRecipes = [RecipeItem]()
     @State var exercisePreferences: [String] = [""]
     @State var userSocialLink: String = ""
+    @State var fcmToken: String = ""
     @StateObject var rm = RecipeLogicNonUser()
     @StateObject var jm = JournalDashLogicNonUser()
    
@@ -62,6 +63,7 @@ struct FollowersListView_NonUser: View {
                                     userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
                                     exercisePreferences = userData ["exercisePreferences"] as? [String ] ?? ["Unavailable"]
                                     userSocialLink = userData["userSocialLink"] as? String ?? "Unavailable"
+                                    fcmToken = userData ["token"] as? String ?? ""
                                     FirebaseManager.shared.firestore.collection("users").document(followingUserUID).collection("userRecipes")
                                         .getDocuments{ recipeDocumentSnapshot, error in
                                             if let error = error {
@@ -113,7 +115,7 @@ struct FollowersListView_NonUser: View {
             else{
                 
                 ForEach(userModel, id: \.id) { user in
-                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences).padding(.top, -50).onAppear{
+                    NavigationLink(destination: UserProfileView(userUID: user.userID, name: user.username, userBio: user.userBio, userProfilePicture: user.profileImage, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences, fcmToken: fcmToken).padding(.top, -50).onAppear{
                         jm.grabUserJournalCount(userID: user.userID)
                         rm.grabRecipes(userUID: user.userID)
                     }){

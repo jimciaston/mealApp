@@ -24,9 +24,7 @@ struct UserDashboardView: View {
     @State private var closePlusIconPopUpMenu = false
     @State var isUserSearching = false
     @State var recipeSavedMessage = false
-    
-    @State private var showPushNotificationAlert = false
-        @State private var pushNotificationPermissionStatus: UNAuthorizationStatus?
+    let networkConnectivity = NetworkConnectivity()
     
     
 //    func requestPushNotificationPermission() {
@@ -152,6 +150,7 @@ struct UserDashboardView: View {
                     }
                     
                     .onAppear{
+                        print(networkConnectivity.reachable)
 //                        if !notUserFirstVisit { // << Only show alert if first Time visit
 //                            if let status = pushNotificationPermissionStatus {
 //                                          switch status {

@@ -37,6 +37,7 @@ struct RecipeControllerNonUser: View {
     @State private var sheetMode: SheetMode = .none
     @State var exercisePreferences = [""]
     @State var userSocialLink = ""
+    @State var fcmToken = ""
     @Binding var notCurrentUserProfile: Bool
     var userModel: UserModel
     //check if recipeID is saved by user
@@ -54,7 +55,7 @@ struct RecipeControllerNonUser: View {
              
                   exercisePreferences = data ["exercisePreferences"] as? [String] ?? [""]
                   userSocialLink = data ["userSocialLink"] as? String ?? ""
-                 
+                 fcmToken = data["token"] as? String ?? ""
               }
     }
     
@@ -265,7 +266,7 @@ struct RecipeControllerNonUser: View {
         .padding(.top, 65)
         .frame(width:300, height: 120)
         
-                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, exercisePreferences: $exercisePreferences, userSocialLink: $userSocialLink, userModel: userModel)
+                RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, exercisePreferences: $exercisePreferences, userSocialLink: $userSocialLink, fcmToken: $fcmToken, userModel: userModel)
             .padding()
             .padding(.top, 15)
             .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)

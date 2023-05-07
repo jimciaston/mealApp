@@ -24,7 +24,7 @@ struct FollowersUsersView: View {
     @StateObject var jm = JournalDashLogicNonUser()
     @State var userSocialLink: String = ""
     @State var followerUsersList = [followingUserData]()
-    
+    @State var fcmToken: String = ""
     
   //move below function to another view, shouldn't be in view
     func fetchFollowersList(){
@@ -55,7 +55,8 @@ struct FollowersUsersView: View {
                                     userProfilePicture = userData ["profilePicture"] as? String ?? "Image Unavailable"
                                     exercisePreferences = userData ["exercisePreferences"] as? [String] ?? ["Unavailable"]
                                     userSocialLink = userData ["userSocialLink"] as? String ?? "Invalid link"
-                                    let newUser = followingUserData(uid: userUID, name: name, bio: userBio, profilePicture: userProfilePicture, recipes: userRecipes, isFollowed: isUserFollowed, socialLink: userSocialLink, exercisePreferences: exercisePreferences)
+                                    fcmToken = userData ["token"] as? String ?? ""
+                                    let newUser = followingUserData(uid: userUID, name: name, bio: userBio, profilePicture: userProfilePicture, recipes: userRecipes, isFollowed: isUserFollowed, socialLink: userSocialLink, exercisePreferences: exercisePreferences, fcmToken: fcmToken)
                                     followerUsersList.append(newUser)
                                     
                                     FirebaseManager.shared.firestore.collection("users").document(userUID).collection("userRecipes")
