@@ -39,100 +39,117 @@ struct FoodSearchResultsView: View {
   
     @Environment (\.dismiss) var dismiss // remove
     
-    
+    let networkConnectivity = NetworkConnectivity() // check network
     
     @ViewBuilder
     var body: some View {
-       
-        if userSearch { // << if user searche food on searchbar
-            GeometryReader { geo in
-                VStack{
-                    if dismissResultsView{
-                        HStack{
-                            Button(foodApi.isFoodSearchLoading ? "Searching..." : "Results"){
-                                foodApi.customFoodSearch = false // << not custom searching
-                                isResultsShowing = true
-                                isCustomItemsShowing = false
+      
+            if userSearch { // << if user searche food on searchbar
+                if networkConnectivity.reachable{
+                    GeometryReader { geo in
+                        VStack{
+                            if dismissResultsView{
+                                HStack{
+                                    Button(foodApi.isFoodSearchLoading ? "Searching..." : "Results"){
+                                        foodApi.customFoodSearch = false // << not custom searching
+                                        isResultsShowing = true
+                                        isCustomItemsShowing = false
+                                    }
+                                    .foregroundColor(.black)
+                                    .padding(10)
+                                    .background(isResultsShowing ? Color.gray : Color.almostClear)
+                                        .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
+                                    
+                                    
+                                    //Text(foodApi.isFoodSearchLoading ? "Searching..." : "Results")
+                                    
+                                    Button("Custom Items"){
+                                        foodApi.customFoodSearch = true // << custom searching
+                                        isResultsShowing = false
+                                        isCustomItemsShowing = true
+                                    }
+                                    .foregroundColor(.black)
+                                    .padding(10)
+                                    .background( !isResultsShowing ? Color.gray : Color.almostClear)
+                                        .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
+                                
                             }
-                            .foregroundColor(.black)
-                            .padding(10)
-                            .background(isResultsShowing ? Color.gray : Color.almostClear)
-                                .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
-                            
-                            
-                            //Text(foodApi.isFoodSearchLoading ? "Searching..." : "Results")
-                            
-                            Button("Custom Items"){
-                                foodApi.customFoodSearch = true // << custom searching
-                                isResultsShowing = false
-                                isCustomItemsShowing = true
-                            }
-                            .foregroundColor(.black)
-                            .padding(10)
-                            .background( !isResultsShowing ? Color.gray : Color.almostClear)
-                                .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
-                        
-                    }
-                }
+                        }
 
-                   
-                    //if api loading
-                    if(foodApi.isFoodSearchLoading){
-                        ActivityIndicator() // << show progress bar
-                        //every new search, reset the food results per page
-                            .onAppear{
-                                resultsDisplayed = 5
-                                if isViewSearching{
-                                    resultsDisplayed = 5
-                                    listCounter = 0
-                                }
-                                //api loads all ,then only displays 5 at a time
-                                if mealSelected {
-                                    resultsDisplayed = 5
-                                }
-                                mealSelected = false
-                            }
-                    }
-                   
-                        
-                    //if user has completed searching for a food
-                    
-                    if isViewSearching{
-                        if isResultsShowing{
-                            //if network time out
-                            if foodApi.isFoodSearchTimedOut {
-                                Text("Can't connect to server, please try again in a few minutes")
-                                    .padding(.all, 50)
+                           
+                            //if api loading
+                            if(foodApi.isFoodSearchLoading){
+                                ActivityIndicator() // << show progress bar
+                                //every new search, reset the food results per page
+                                    .onAppear{
+                                        resultsDisplayed = 5
+                                        if isViewSearching{
+                                            resultsDisplayed = 5
+                                            listCounter = 0
+                                        }
+                                        //api loads all ,then only displays 5 at a time
+                                        if mealSelected {
+                                            resultsDisplayed = 5
+                                        }
+                                        mealSelected = false
+                                    }
                             }
                            
-                                NavigationView{
-                                        FoodResultsEntryRow(mealTimingToggle: $mealTimingToggle, resultsDisplayed: $resultsDisplayed, isViewSearching: $isViewSearching, userSearch: $userSearch, MealObject: $MealObject, sheetMode: $sheetMode, dismissResultsView: $dismissResultsView)
-                                                .environmentObject(foodApi)
+                                
+                            //if user has completed searching for a food
+                            
+                            if isViewSearching{
+                                if isResultsShowing{
+                                    //if network time out
+                                    if foodApi.isFoodSearchTimedOut {
+                                        Text("Can't connect to server, please try again in a few minutes")
+                                            .padding(.all, 50)
+                                    }
+                                   
+                                        NavigationView{
+                                                FoodResultsEntryRow(mealTimingToggle: $mealTimingToggle, resultsDisplayed: $resultsDisplayed, isViewSearching: $isViewSearching, userSearch: $userSearch, MealObject: $MealObject, sheetMode: $sheetMode, dismissResultsView: $dismissResultsView)
+                                                        .environmentObject(foodApi)
+                                        }
+                                        .navigationViewStyle(StackNavigationViewStyle())
+                                     if(mealTimingToggle){
+                                         FlexibleSheet(sheetMode: $sheetMode) {
+                                             MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
+                                                
+                                             }
+                                         .padding(.top, -150)
+                                         ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
+                                         .frame(height:240)
+                                         .padding(.top,horizontalSizeClass == .regular ? -650 : -1 ) // << moves snackbar info up in view
+                                         .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
+                                         }
                                 }
-                                .navigationViewStyle(StackNavigationViewStyle())
-                             if(mealTimingToggle){
-                                 FlexibleSheet(sheetMode: $sheetMode) {
-                                     MealTimingSelectorView(meal: $MealObject, isViewSearching: $isViewSearching, userSearch: $userSearch, mealTimingToggle: $mealTimingToggle, extendedViewOpen: $extendedViewOpen, mealSelected: $mealSelected)
-                                        
-                                     }
-                                 .padding(.top, -150)
-                                 ///when adjusting frame height for sheet, must adjust heights on flexible sheet and meal timing selector view or will display weird
-                                 .frame(height:240)
-                                 .padding(.top,horizontalSizeClass == .regular ? -650 : -1 ) // << moves snackbar info up in view
-                                 .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
-                                 }
-                        }
-                        else{
-                            CustomItemsList(isViewSearching: $isViewSearching, userSearch: $userSearch, hideTitleRows: $dismissResultsView)
-                        }
+                                else{
+                                    CustomItemsList(isViewSearching: $isViewSearching, userSearch: $userSearch, hideTitleRows: $dismissResultsView)
+                                }
+                            }
+                                
                     }
-                        
+                        .frame(height: geo.size.height + 50) // manually bring view down to go past tabbar
+                    }
+                }
+                else{
+                    VStack{
+                        Text("Must be connected to the internet")
+                            .font(.title3)
+                            .padding(.bottom, 2)
+                        Text("Please try again in a few minutes..")
+                            .font(.title3)
+                        Image("NoInternetSymbol")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                            .padding(.top, 15)
+                    }
+                    .frame(maxHeight: .infinity)
+                }
+                   
             }
-                .frame(height: geo.size.height + 50) // manually bring view down to go past tabbar
-            }
-
-               
-        }
+        
+     
    
     }
 
