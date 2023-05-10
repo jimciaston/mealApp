@@ -16,7 +16,7 @@ import _PhotosUI_SwiftUI
 
 @available(iOS 16.0, *)
 struct RecipeControllerModal: View {
-    
+    @Environment (\.colorScheme) var colorScheme
     enum FocusField {
       case header, modals
     }
@@ -215,7 +215,7 @@ struct RecipeControllerModal: View {
                             Image(systemName: "x.square")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .opacity(0.8)
                         }
                     }
@@ -228,7 +228,7 @@ struct RecipeControllerModal: View {
                             Image(systemName: "x.square")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .opacity(0.8)
                         }
                     }

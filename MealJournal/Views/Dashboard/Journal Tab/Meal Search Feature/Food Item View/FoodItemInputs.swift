@@ -13,6 +13,7 @@ extension Double {
     }
 }
 struct FoodItemInputs: View {
+    @Environment (\.colorScheme) var colorScheme
     @Binding var mealUnitSize: String
     @Binding var mealServingSize: Double
     @State var userToggleServings = false
@@ -63,7 +64,7 @@ struct FoodItemInputs: View {
                     
                         .frame(width:80, height: 30)
                          .border(.gray)
-                         .foregroundColor(.black)
+                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
                 .padding(.leading, 30)
                
@@ -86,12 +87,13 @@ struct FoodItemInputs: View {
                     HStack{
                         ZStack{
                             Text(servingSizeSelection[0])
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .frame(width:80, height: 30)
                             .border(.gray)
                             .foregroundColor(.black)
                             Text(servingSizeSelection[1] == "0" ? "" : servingSizeSelection[1])
                                 .font(.caption)
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .offset(x: 20, y: -2)
                                 
                         }
@@ -104,9 +106,8 @@ struct FoodItemInputs: View {
             .padding(.top, 1)
             if userToggleServings {
                 
-                ZStack{
+                VStack{
                     WholeNFractionPicker(isOpen: $userToggleServings, selection: $servingSizeSelection, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
-                     
                         .transition(.move(edge: self.userToggleServings ? .bottom : .top))
                         .animation(Animation.easeInOut(duration: 0.40))
     //

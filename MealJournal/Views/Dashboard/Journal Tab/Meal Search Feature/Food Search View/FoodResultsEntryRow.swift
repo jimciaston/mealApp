@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FoodResultsEntryRow: View {
     @EnvironmentObject var foodApi: FoodApiSearch
+    @Environment(\.colorScheme) var colorScheme
     @State var isResultsShowing = true
     @Binding var mealTimingToggle: Bool //Tells whether mealtiming list is open or closed, binded to meal timing selector view
     @Binding var resultsDisplayed: Int //bursts of 5 results added to the screen
@@ -34,16 +35,16 @@ struct FoodResultsEntryRow: View {
                                      (meal.mealName ?? "default"))
                                     .bold()
                                     .font(.body)
-                                    
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                    
                                 HStack{
                                     Text(meal.brand ?? "BrandName Unavailable")
                                         .font(.caption)
-                                        
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                     
                                     Text(" " + String(meal.calories ?? 0) + " calories")
                                         .font(.caption)
-                                       
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                     
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading) // <<aligns to left of frame

@@ -8,6 +8,7 @@
 import SwiftUI
   
 struct ProfileCardsNonUserDisplay: View {
+    @Environment (\.colorScheme) var colorScheme
     @ObservedObject var rm: RecipeLogicNonUser
     @ObservedObject var jm: JournalDashLogicNonUser
     var userUID: String
@@ -20,7 +21,6 @@ struct ProfileCardsNonUserDisplay: View {
     var journalCountText:  some View {
         if jm.userJournalCountNonUser == 1 {
            return  Text("Journal Found")
-                .foregroundColor(.black)
                 .multilineTextAlignment(.center)
         }
         else{
@@ -34,6 +34,7 @@ struct ProfileCardsNonUserDisplay: View {
         Group {
             Text(String(rm.recipesNonUser.count))
                 .bold()
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .font(.title2)
                 .padding(.top, 20)
                 .padding(.bottom,2)
@@ -86,6 +87,7 @@ struct ProfileCardsNonUserDisplay: View {
  
                     
                 Text(String(journalCount))
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .bold()
                     .font(.title2)
                     .padding(.top, 20)

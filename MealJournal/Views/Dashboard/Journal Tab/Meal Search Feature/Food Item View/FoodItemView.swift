@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FoodItemView: View {
     @Environment (\.dismiss) var dismiss
+    @Environment (\.colorScheme) var colorScheme
     @EnvironmentObject var mealEntryObj: MealEntrys
     @StateObject var mealEntrys = MealEntrys()
     
@@ -119,12 +120,13 @@ struct FoodItemView: View {
                               .multilineTextAlignment(.leading)
                               .font(.body)
                         })
-                            .foregroundColor(.black)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                             .padding()
                     }
                   
                     Text(String(mealName)) .bold()
                         .font(.title2)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                         .frame(maxWidth:.infinity)
                         .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.center)
@@ -133,7 +135,7 @@ struct FoodItemView: View {
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
                         .padding(.top, 5)
-                      
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                     
                     FoodItemInputs(mealUnitSize: .constant(mealUnitSize), mealServingSize: $mealServingSize, mealCalories: mealCalories, mealCarbs: mealCarbs, mealFat: mealFat, mealProtein: mealProtein, originalMealServingSize: originalMealServingSize, foodCategory: foodCategory)
                         .frame(maxWidth: .infinity)
@@ -150,8 +152,9 @@ struct FoodItemView: View {
                         Double(mealCarbs) * mealServingSize,
                         Double(mealFat) * mealServingSize
                     ],
-                                          colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"], backgroundColor: .white )
-                            .opacity(mealTimingToggle ? 0.0 : 1.0)
+                  colors: [Color.PieChart1, Color.PieChart2, Color.PieChart3], names: ["Protein", "Carbohydrates", "Fats"],
+                                          backgroundColor: colorScheme == .dark ? .clear : .white )
+    .opacity(mealTimingToggle ? 0.0 : 1.0)
                        
                  
                 }

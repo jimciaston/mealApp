@@ -284,6 +284,7 @@ RecipeNavigationModals(ema: ema, currentRecipeID: recipeID, directions: directio
 //edit recipe button
 
     }
+    
     .opacity(sheetMode == .none ? 1 : 0.3)
     .blur(radius: sheetMode == .none ? 0 : 3)
         }

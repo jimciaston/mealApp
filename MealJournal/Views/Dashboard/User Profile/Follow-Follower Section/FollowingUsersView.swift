@@ -35,6 +35,7 @@ struct followingUserData: Hashable {
 
 
 struct FollowingUsersView: View {
+    @Environment (\.colorScheme) var colorScheme
     @State var userUID: String = ""
     @State var followingUsers: [followingUserData] = []
     @State var name: String = ""
@@ -125,6 +126,7 @@ struct FollowingUsersView: View {
         VStack{
             if userUID == ""{
                 Text("You currently aren't following any users")
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     .offset(y: 250)
             }
 
@@ -150,7 +152,7 @@ struct FollowingUsersView: View {
                                             HStack{
                                                 Text(user.name)
                                                     .font(.title3)
-                                                    
+                                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                                 Spacer()
                                             }
                                           
@@ -175,7 +177,7 @@ struct FollowingUsersView: View {
                               
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color.white)
+                                        .fill(colorScheme == .dark ? Color.gray : Color.white)
                                         .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
                                        
                                 )

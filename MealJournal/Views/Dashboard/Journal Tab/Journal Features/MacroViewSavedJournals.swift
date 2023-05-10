@@ -48,13 +48,15 @@ struct MacroViewSavedJournals: View {
                     Text(String(totalProtein))
                     Text("Protein")
                         .padding(-5)
+                     
                    
                 }
                 .padding(20)
             }
             .padding(.top, -15)
         }
-        .foregroundColor(.black)
+     
+      
     }
 }
 

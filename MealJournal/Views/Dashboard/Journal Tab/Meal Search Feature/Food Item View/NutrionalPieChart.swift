@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct NutrionalPieChart: View {
+    @Environment (\.colorScheme) var colorScheme
     var pieSliceData: PieSliceData
     var totalCalories: Double
     @State var convertCaloriesToString = ""
@@ -46,13 +47,13 @@ struct NutrionalPieChart: View {
                     Circle()
                        .stroke(lineWidth: 4)
                        .frame(width: 110, height: 110)
-                       .foregroundColor(.white)
+                       .foregroundColor(colorScheme == .dark ? .white : .black)
                     //display calories in middle of circle
                     Text("Calories: \(String(Int(totalCalories)))")
                         .font(.title3)
                         .bold()
                         .frame(width:170, height: 170)
-                        .background(Circle().fill(Color.white))
+                        .background(Circle().fill(colorScheme == .dark ? .gray : .white))
                         
                 }   
             }

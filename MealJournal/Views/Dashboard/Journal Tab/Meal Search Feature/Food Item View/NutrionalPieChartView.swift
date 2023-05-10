@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct NutrionalPieChartView: View {
-    var dailyMacrosCounter = DailyMacrosCounter()
+    @Environment (\.colorScheme) var colorScheme
     @EnvironmentObject var mealEntryObj: MealEntrys
-public let totalCalories: Double
-   public var meals: String {
+    var dailyMacrosCounter = DailyMacrosCounter()
+    public let totalCalories: Double
+    public var meals: String {
         get{
             (dailyMacrosCounter.getCarbTotals(
                 breakfast: mealEntryObj,
@@ -71,7 +72,7 @@ public let totalCalories: Double
                    
                 
                 .background(self.backgroundColor)
-                .foregroundColor(Color.black)
+                .foregroundColor(colorScheme == .dark ? .gray : .black)
      
             }
         }

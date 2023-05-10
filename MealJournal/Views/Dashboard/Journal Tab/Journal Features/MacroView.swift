@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 
 struct MacroView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var mealEntryObj: MealEntrys
     @ObservedObject var fetchEntryTotals:  FetchEntryTotals
     var dailyMacrosCounter = DailyMacrosCounter()
@@ -52,7 +53,7 @@ struct MacroView: View {
             }
             .padding(.top, -15)
         }
-        .foregroundColor(.black)
+        .foregroundColor(colorScheme == .dark ? .white : .black)
 //        .onAppear{
 //            fetchEntryTotals.totalCalories
 //            fetchEntryTotals.totalProtein

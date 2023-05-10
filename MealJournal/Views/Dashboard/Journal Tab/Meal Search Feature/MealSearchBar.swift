@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MealSearchBar: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var logic = CustomFoodLogic()
     //TEXTFIELD
     @State var userFoodInput = ""
@@ -49,7 +50,7 @@ struct MealSearchBar: View {
                            
                     }
                 }
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .padding(.leading, 13)
             }
             

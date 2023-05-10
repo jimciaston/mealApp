@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecipeNavigationModals: View {
     @Environment (\.dismiss) var dismiss
-    
+    @Environment(\.colorScheme) var colorScheme
     //located in EditModeActive Class
     @ObservedObject var ema: EditModeActive
     @State private var sheetModeIngredients: SheetMode = .quarter
@@ -25,10 +25,10 @@ struct RecipeNavigationModals: View {
             FlexibleSheet(sheetMode: $sheetModeIngredients) {
                 VStack {
                     RecipeIngredients(ema: ema, currentRecipeID: $currentRecipeID, ingredients: $ingredients)
+                        .padding(.top, 25)
                 }
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 //sets coordinates of view on dash
                 .offset(y:-370)
@@ -37,10 +37,10 @@ struct RecipeNavigationModals: View {
             FlexibleSheet(sheetMode: $sheetModeDirections) {
                 VStack {
                     RecipeDirections(ema: ema, directions: $directions)
+                        .padding(.top, 25)
                 }
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
                 
                 //sets coordinates of view on dash
@@ -66,7 +66,12 @@ struct RecipeNavigationModals: View {
                         }
                     }){
                         Text("Ingredients")
-                            .foregroundColor(isIngredientsActive ? .gray : .black)
+                            .foregroundColor(isIngredientsActive ?
+                                             colorScheme == .dark ? .white :
+                                    .black // ckciked light
+                                             : colorScheme == .dark ? .gray :
+                                    .gray // not clicked .light
+                            )
                             .font(.title3)
                     }
                 //line between
@@ -95,7 +100,12 @@ struct RecipeNavigationModals: View {
                         
                 }){
                     Text("Directions")
-                        .foregroundColor(isDirectionsActive ? .gray : .black)
+                        .foregroundColor(isDirectionsActive ?
+                                         colorScheme == .dark ? .white :
+                                .black // ckciked light
+                                         : colorScheme == .dark ? .gray :
+                                .gray // not clicked .light
+                        )
                         .font(.title3)
                    
                 }

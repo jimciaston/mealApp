@@ -10,6 +10,7 @@ import SwiftUI
 ///create character limit on brands when they appear in journal entry.
 ///more details on jouranlEntry where they see full meal stats
 struct MealTimingSelectorView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var mealEntryObj: MealEntrys
     @StateObject var userJournalHelper = UserJournalHelper()
     @Environment(\.managedObjectContext) var managedObjContext
@@ -41,10 +42,11 @@ struct MealTimingSelectorView: View {
                         mealSelected = false
                     }){
                         Image(systemName: "x.square")
-                            .foregroundColor(.black)
+                          
                                 .font(.title3)
                                 .frame(width:20)
                                 .padding(.leading, 50)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
                     
                     
@@ -54,11 +56,12 @@ struct MealTimingSelectorView: View {
                         .font(.title3)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                    
                 }
                 .padding(.bottom, 30)
                 .padding(.top, 20)
-                .background(Color("GetStartedPopUpBackground"))
+                .background(Color.black)
                 
                 //breakfast, lunch, dinner selectors
                 List {
@@ -87,7 +90,7 @@ struct MealTimingSelectorView: View {
                       
                     }){
                         Text("Breakfast")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
                     
                     Button(action: {
@@ -113,7 +116,7 @@ struct MealTimingSelectorView: View {
                         }
                     }){
                         Text("Lunch")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
                         .listRowSeparator(.automatic)
                     
@@ -141,7 +144,7 @@ struct MealTimingSelectorView: View {
                         }
                     }){
                         Text("Dinner")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
                     Button(action: {
                         
@@ -168,16 +171,17 @@ struct MealTimingSelectorView: View {
                       
                     }){
                         Text("Snack")
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                     }
                         .listRowSeparator(.automatic)
                 }
                 .padding(.top, -25)
                 .frame(maxWidth: .infinity)
             }
+          
             .frame(height:660)
             .padding(.top, -80)
-           
+            .background(Color("ButtonTwo"))
         }
            
     }

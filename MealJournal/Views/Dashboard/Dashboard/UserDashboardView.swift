@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 struct UserDashboardView: View {
     //Core Data Variables
+    @Environment (\.colorScheme) var colorScheme
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
     @AppStorage("notUserFirstVisit") var notUserFirstVisit = false
@@ -109,7 +110,7 @@ struct UserDashboardView: View {
                             //PLUS
                             ZStack {
                                  Circle()
-                                    .foregroundColor(.white) //<<adds border around image
+                                    .foregroundColor(colorScheme == .dark ? Color("LightWhite") : .white) //<<adds border around image
                                   //  .frame(width: 10 , height: 10)
                                 
                                 TabBarIconPlus(width: geometry.size.width/100, height: geometry.size.height / 10, iconName: "", tabName: "")
@@ -150,7 +151,7 @@ struct UserDashboardView: View {
                     }
                     
                     .onAppear{
-                        print(networkConnectivity.reachable)
+                        
 //                        if !notUserFirstVisit { // << Only show alert if first Time visit
 //                            if let status = pushNotificationPermissionStatus {
 //                                          switch status {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecipeFullListView_MainTab: View {
+    @Environment(\.colorScheme) var colorScheme
     var recipes: [SavedRecipeItem]
     @State var showAddButton: Bool // << keep false to not allow users to add recipe to meal journal if not on their profile
     
@@ -54,7 +55,7 @@ struct RecipeFullListView_MainTab: View {
                 
                 
             }
-            
+            .foregroundColor(colorScheme == .dark ? .white : Color("darkModeBackground"))
         }
     }
 }

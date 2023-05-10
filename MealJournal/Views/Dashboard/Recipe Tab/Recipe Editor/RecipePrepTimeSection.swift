@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecipePrepTimeSection: View {
+    @Environment (\.colorScheme) var colorScheme
     @ObservedObject var recipeClass: Recipe
     @State private var recipeTime = "Cook Time"
     @State private var pickerTime: String = ""
@@ -20,7 +21,7 @@ struct RecipePrepTimeSection: View {
                    // Custom picker label
                     Text("\(recipeClass.recipePrepTime)")
                         .font(.body)
-                       .foregroundColor(.black)
+                        .foregroundColor(colorScheme == .dark ? Color.white : .black)
                    // Invisible picker
                     Picker(selection: $recipeClass.recipePrepTime, label: Text("")) {
                        ForEach(cookingTime, id: \.self) {

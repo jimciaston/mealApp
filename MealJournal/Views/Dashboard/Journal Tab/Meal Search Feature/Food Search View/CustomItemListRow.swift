@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomItemListRow: View {
+    @Environment(\.colorScheme) var colorScheme
     @Binding var mealTimingToggle: Bool
     @Binding var sheetMode: SheetMode // << communicates with mealtimings
     @Binding var MealObject: Meal
@@ -26,10 +27,11 @@ struct CustomItemListRow: View {
                             VStack(alignment:.leading){
                                 Text(mealName ?? "default")
                                     .font(.body)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                 HStack{
                                     Text(String(item.calories ?? 0) + " cals")
                                         .font(.caption)
-                                       
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading) //<<aligns to left of frame
                                 }

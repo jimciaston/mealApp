@@ -12,6 +12,7 @@ import SwiftUI
 
 struct EntryRow: View {
   //  var meal: Meal
+    @Environment(\.colorScheme) var colorScheme
     var mealEntry: JournalEntry
     @Binding var isDeletable: Bool
     var body: some View {
@@ -21,17 +22,17 @@ struct EntryRow: View {
         HStack{
                 VStack(alignment: .leading){
                     Text(mealEntry.entryName ?? "Default Value")
+                      
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                         Text("Default Value")
                             .font(.subheadline)
-                            .foregroundColor(.gray)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                            
                     }
-                .onTapGesture {
-                    print(mealEntry.timeToLive)
-                }
                 Spacer()
             
             Text(String(mealEntry.mealCalories ?? 0))
+                .foregroundColor(colorScheme == .dark ? .white : .black)
             }
         
         .deleteDisabled(!isDeletable)

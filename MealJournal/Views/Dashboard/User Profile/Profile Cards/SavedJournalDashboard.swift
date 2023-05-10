@@ -39,7 +39,7 @@ struct SavedJournalDashboard: View {
         VStack{
             
             Button(action: {
-                print("deleting....")
+               
                 jm.deleteJournalEntry(journalID: id)
                 dismiss()
             }){

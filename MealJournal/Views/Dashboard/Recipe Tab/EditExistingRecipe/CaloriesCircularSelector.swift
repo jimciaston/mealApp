@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CaloriesCircularSelector: View {
-  
+    @Environment (\.colorScheme) var colorScheme
     @State var calorieValue: CGFloat = 0.0
     @State var angleValue: CGFloat = 0.0
     @State private var isDragging = false
@@ -36,8 +36,6 @@ struct CaloriesCircularSelector: View {
                     .frame(width: config.radius * 2, height: config.radius * 2)
                     .scaleEffect(1.2)
                  
-              
-                
                 Circle()
                     .trim(from: 0.0, to: calorieValue/config.totalValue)
                     .stroke(Color("PieChart1"), lineWidth: 15)
@@ -76,7 +74,7 @@ struct CaloriesCircularSelector: View {
                 
                 Text(!reachedMaxAngle ? "\(String.init(format: "%.0f", calorieValue)) cals" : "1500+ cals")
                     .font(.custom("Montserrat-Regular", size: 40))
-                                .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                 
             }
             .onChange(of: self.calorieValue) { newValue in
@@ -101,7 +99,7 @@ struct CaloriesCircularSelector: View {
             }){
                 Text("Calories Confirmed")
                     .font(.title3)
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .frame(width: 200, height: 50)
                     .overlay( RoundedRectangle(cornerRadius: 10)
                       .stroke(Color("GetStartedPopUpBackground"), lineWidth: 2)

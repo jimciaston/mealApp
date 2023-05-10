@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MultiPicker: View  {
+    @Environment (\.colorScheme) var colorScheme
     let data: [ (String, [String]) ]
     @Binding var selection: [String]
     @Binding var isOpen: Bool // << toggle select size button
@@ -60,6 +61,7 @@ struct MultiPicker: View  {
     var body: some View {
         GeometryReader { geometry in
             VStack{
+               
                 HStack {
                     ForEach(0..<self.data.count) { column in
                         Picker(self.data[column].0, selection: self.$selection[column]) {
@@ -79,19 +81,31 @@ struct MultiPicker: View  {
                 
                 //buttons for no or select a serving size
                 HStack{
-                  
+                    Button(action: {
+                        isOpen = false
+                        
+                    }){
+                        Text("X")
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .font(.title2)
+                    }
+                    .frame(maxWidth: 50)
+                    .frame(height: 50)
+                    
+                    .background(Color("PieChart2"))
+                    
                     Button(action: {
                         isOpen = false
                         convertMacrosForSaving(mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein)
                     }){
                         Text("Select Size")
-                            .foregroundColor(.white)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                             .font(.title2)
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
                     
-                    .background(.green)
+                    .background(Color("PieChart3"))
                 }
                 .padding(.top, 50)
                 
@@ -115,6 +129,7 @@ struct WholeNFractionPicker: View {
     
     var body: some View {
         VStack {
+           
             MultiPicker(data: data, selection: $selection, isOpen: $isOpen, mealCalories: $mealCalories, mealCarbs: $mealCarbs, mealFat: $mealFat, mealProtein: $mealProtein )
                 .frame(height: 300)
           

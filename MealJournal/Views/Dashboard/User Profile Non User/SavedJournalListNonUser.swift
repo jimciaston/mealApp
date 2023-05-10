@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SavedJournalsListNonUser: View {
+    @Environment (\.colorScheme) var colorScheme
     var savedJournalIDs: [String]
     @State var savedJournals: [UserJournalEntryHalf]
     var userUID: String
@@ -29,7 +30,9 @@ struct SavedJournalsListNonUser: View {
                             VStack (alignment: .leading){
                                 HStack{
                                     Text(formatJournalID(journalID: entry.id) ?? "Unavailable").bold()
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                     Text("Total Calories: \(entry.totalCalories ?? "Not Available")")
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .padding(.leading, 15)
                                 }
                                 .frame(maxWidth: .infinity)
@@ -38,13 +41,13 @@ struct SavedJournalsListNonUser: View {
                                 .padding(.top, 10)
                                     HStack{
                                         Text("Total Carbs: \(entry.totalCarbs ?? "n/a")")
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(colorScheme == .dark ? .white : .gray)
                                             .font(.caption)
                                         Text("Total Fats: \(entry.totalFat ?? "n/a")")
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(colorScheme == .dark ? .white : .gray)
                                             .font(.caption)
                                         Text("Total Protein: \(entry.totalProtein ?? "n/a")")
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(colorScheme == .dark ? .white : .gray)
                                             .font(.caption)
                                     }
                                     .padding(.top, 3)
@@ -52,8 +55,8 @@ struct SavedJournalsListNonUser: View {
                                     .frame(maxWidth: .infinity)
                                 }
                                     
-                                    .listRowBackground( Color("ListBackgroundColor"))
-                                    .background(.white)
+                                  
+                            .background(colorScheme == .dark ? .gray : .white)
                                     .cornerRadius(25)
                                     .shadow(color: Color("LighterGray"), radius: 2, x: 0, y: 8)
                                     .padding(.bottom, 15)
@@ -70,13 +73,13 @@ struct SavedJournalsListNonUser: View {
                             }
                     
                         .listRowSeparator(.hidden)
-                        .listRowBackground( Color("ListBackgroundColor"))
+                        .listRowBackground(colorScheme == .dark ? .clear : Color("ListBackgroundColor")) // go back to dark t
                     
                     }
                 
                 }
            
-            .background( Color("ListBackgroundColor")) // << background for saved Journals Title
+         
             }
            
         }

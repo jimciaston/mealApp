@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct FollowingListRow: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
-    
+    @Environment (\.colorScheme) var colorScheme
     @State var userUID: String
     @State var userName: String
     @State var userBio: String
@@ -53,7 +53,7 @@ struct FollowingListRow: View {
                                 HStack{
                                     Text(userName)
                                         .font(.title3)
-                                        
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                     Spacer()
                                 }
                               
@@ -79,7 +79,7 @@ struct FollowingListRow: View {
                   
                     .background(
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white)
+                            .fill(colorScheme == .dark ? Color.gray : Color.white)
                             .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
                            
                     )

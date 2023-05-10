@@ -16,7 +16,7 @@ import FirebaseFunctions
 
 struct UserProfileView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass // ipad sizing
-    
+    @Environment (\.colorScheme) var colorScheme
     @State var userUID: String
     @State var name: String
     @State var userBio: String
@@ -235,7 +235,7 @@ struct UserProfileView: View {
                                     Image(systemName: "camera")
                                         .resizable()
                                         .renderingMode(.template)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(colorScheme == .dark ? .gray : .black)
                                         .frame(width: 15, height: 15)
                                     
                                 }
@@ -256,7 +256,7 @@ struct UserProfileView: View {
                                     Image(systemName: "camera")
                                         .resizable()
                                         .renderingMode(.template)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                         .frame(width: 15, height: 15)
                                     
                                 }
@@ -276,6 +276,7 @@ struct UserProfileView: View {
                 }
               
                 ProfileBio(userBio: $userBio)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .minimumScaleFactor(0.5)
                     .padding(.top, 15)
                     .padding(.bottom, 25)

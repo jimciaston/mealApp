@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DeleteProfileView: View {
     @StateObject var deleteProfileLogic = DeleteAccountLogic()
-    
+    @Environment (\.colorScheme) var colorScheme
     @Binding var deleteSuccess: Bool
     var body: some View {
         VStack{
@@ -30,10 +30,10 @@ struct DeleteProfileView: View {
                 deleteSuccess = false
                 UserDefaults.standard.set(false, forKey: "signedIn")
             }){
-                Text("Delete Profile").fontWeight(.bold)
+                Text("Delete Account").fontWeight(.bold)
                     .frame(minWidth: 0, maxWidth: 200)
                     .padding(10)
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     
                 //draw rectange around buttons
                     .overlay( RoundedRectangle(cornerRadius: 25)

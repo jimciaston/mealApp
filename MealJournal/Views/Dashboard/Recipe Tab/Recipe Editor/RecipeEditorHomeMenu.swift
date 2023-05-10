@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecipeEditorHomeMenu: View {
     @Environment(\.dismiss) var dismiss
+    @Environment (\.colorScheme) var colorScheme
     @State var recipeAddedSuccess = false
     @State private var showSaveButton = false
     @State var selectedButton: String = "Nutrition"
@@ -65,7 +66,7 @@ struct RecipeEditorHomeMenu: View {
                 //Recipe Title
                 TextField("Recipe Title", text: $recipeClass.recipeTitle)
                    //.frame(height: 20)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(colorScheme == .dark ? Color.white : .black)
                     .font(.title2)
                     .multilineTextAlignment(.leading)
                     .cornerRadius(5)
@@ -76,6 +77,7 @@ struct RecipeEditorHomeMenu: View {
                 RecipePrepTimeSection(recipeClass: recipeClass)
                     .padding(.leading, 25)
                     .padding(.bottom, 25)
+                   
                 HStack{
                         SelectableButton(label: "Nutrition", action: { /* do something */ }, isSelected: $isNutritionSelected)
                         SelectableButton(label: "Ingredients", action: { /* do something */ }, isSelected: $isDirectionsSelected)

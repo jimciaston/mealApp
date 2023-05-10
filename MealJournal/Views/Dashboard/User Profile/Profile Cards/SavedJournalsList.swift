@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct SavedJournalsList: View {
+    @Environment (\.colorScheme) var colorScheme
+    @ObservedObject var jm = JournalDashLogic()
     var savedJournalIDs: [String]
     var savedJournals: [UserJournalEntry]
- 
-  
-    @ObservedObject var jm = JournalDashLogic()
- 
+    
     var body: some View {
         
         if jm.userJournalsHalf.isEmpty{
@@ -32,34 +31,37 @@ struct SavedJournalsList: View {
                             ZStack{
                                 VStack (alignment: .leading){
                                     HStack{
-                                        Text(formatJournalID(journalID: entry.id) ?? "Unavailable").bold()
+                                        Text(formatJournalID(journalID: entry.id) ?? "Unavailable")
+                                            .bold()
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                         Text("Total Calories: \(entry.totalCalories ?? "Not Available")")
                                     .padding(.leading, 15)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                     }
+                                  
                                     .frame(maxWidth: .infinity)
                                     .multilineTextAlignment(.center)
                                     .padding(.bottom, 5)
                                     .padding(.top, 10)
                                         HStack{
                                             Text("Total Carbs: \(entry.totalCarbs ?? "n/a")")
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(colorScheme == .dark ? .white : .gray)
                                                 .font(.caption)
                                             Text("Total Fats: \(entry.totalFat ?? "n/a")")
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(colorScheme == .dark ? .white : .gray)
                                                 .font(.caption)
                                             Text("Total Protein: \(entry.totalProtein ?? "n/a")")
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(colorScheme == .dark ? .white : .gray)
                                                 .font(.caption)
                                         }
                                         .padding(.top, 3)
                                         .padding(.bottom, 10)
                                         .frame(maxWidth: .infinity)
                                     }
-                                        
-                                        .listRowBackground( Color("ListBackgroundColor"))
-                                        .background(.white)
+                                       
+                                .background(colorScheme == .dark ? .gray : .white) // << main list background
                                         .cornerRadius(10)
-                                        .shadow(color: Color("LighterGray"), radius: 2, x: 0, y: 5)
+                                      
                                         .padding(.bottom, 15)
                                         
 
@@ -71,15 +73,15 @@ struct SavedJournalsList: View {
                                     .buttonStyle(PlainButtonStyle())
                                     }
                                 }
-                        
+                        .shadow(color: Color("LighterGray"), radius: 2, x: 0, y: 5)
                          .listRowSeparator(.hidden)
-                          .listRowBackground( Color("ListBackgroundColor"))
+                         .listRowBackground(colorScheme == .dark ? .clear : Color("ListBackgroundColor")) // go back to dark t
                         
                         }
                    
                     }
                
-                .background( Color("ListBackgroundColor")) // << background for saved Journals Title
+              //  .background( Color("ListBackgroundColor")) // << background for saved Journals Title
                 }
             }
         }

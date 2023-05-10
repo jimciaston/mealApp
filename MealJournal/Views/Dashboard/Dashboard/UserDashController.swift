@@ -8,9 +8,11 @@
 import SwiftUI
 import Firebase
 import SwiftUIX
-
+extension Color {
+    static let systemBackground = Color("lightWhite")
+}
 struct UserDashController: View {
- 
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var vm: DashboardLogic
     @ObservedObject var rm = RecipeLogic()
     @ObservedObject var signUpController: LandingPageViewModel
@@ -26,6 +28,9 @@ struct UserDashController: View {
     @State var deleteAccountSheet = false
    
     @ObservedObject var rm_nonUser = RecipeLogicNonUser()
+    
+    
+    
     func fetchFollowingCount(){
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             print("no current User")
@@ -180,7 +185,7 @@ struct UserDashController: View {
                     
                     
                 }
-               
+                .background(colorScheme == .dark  ? Color("darkModeBackground") : .white)
                 .fullScreenCover(isPresented: $presentSettingsPage){
                     PersonalSettingsView(vm: vm, deleteAccountSheet: $deleteAccountSheet)
                 }
@@ -198,6 +203,7 @@ struct UserDashController: View {
                
                
             }
+          
             .navigationViewStyle(StackNavigationViewStyle())
            
         }
@@ -213,7 +219,7 @@ struct UserDashController: View {
         }
         
     }
-        
+       
         
 }
     

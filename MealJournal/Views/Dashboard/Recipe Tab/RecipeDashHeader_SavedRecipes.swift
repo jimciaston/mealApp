@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipeDashHeader_SavedRecipes: View {
     @State var recipeName = ""
     @State var recipePrepTime = ""
-  
+    @Environment(\.colorScheme) var colorScheme
     //calls macro pickers
     @State var caloriesPicker:Int =     0
     @State var fatPicker:Int =     0
@@ -47,12 +47,12 @@ struct RecipeDashHeader_SavedRecipes: View {
                     Text(recipeName.capitalized)
                         .font(.title2)
                         .padding()
-                    
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                     if !notCurrentUserProfile { // << if navigating on own user page, don't show
                         HStack{
                             Text("Created by: ")
                                 .italic()
-                           
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                                     NavigationLink(
                                         destination: UserProfileView(userUID: userUID, name: userModel.name, userBio: userModel.userBio, userProfilePicture: userModel.profilePictureURL, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences, fcmToken: "").onAppear{
                                           
@@ -77,34 +77,34 @@ struct RecipeDashHeader_SavedRecipes: View {
                     Image(systemName: "clock")
                         .foregroundColor(Color("defaultColorForExercise"))
                     Text(recipePrepTime)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
                 .padding(.top, -10)
                 
-                Text(String(caloriesPicker) + " calories").bold()
+                Text(String(caloriesPicker) + " calories")
                     .font(.body)
-                    .foregroundColor(.black)
-                    .font(.body)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding(.top, 15)
              
                 HStack{
                     Text(String(fatPicker) + "g fat")
                         .font(.body)
-                        .foregroundColor(.black)
-                        .font(.body)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        
                     //carb
                     Text(String(carbPicker) + "g carbs")
-                        .foregroundColor(.black)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                         .font(.body)
                     //protein
                     Text(String(proteinPicker) + "g protein")
-                        .foregroundColor(.black)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
                 .padding(.top, 10)
                
               
             }
             .frame(width:280, height:200)
-            .background(Color.white)
+            .background(colorScheme == .dark ? Color("recipeDashHeader") : .white)
             .cornerRadius(15)
           
     }

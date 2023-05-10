@@ -82,7 +82,7 @@ struct LandingPage: View {
                                       .overlay( RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color("getStartedButton"), lineWidth: 4)
                                    )
-                                      .shadow(color: Color("getStartedButton"), radius: 4, x: 0, y: 3)
+                                      .shadow(color: Color("LightWhite"), radius: 4, x: 0, y: 3)
                             }
                             
                                Button(action: {

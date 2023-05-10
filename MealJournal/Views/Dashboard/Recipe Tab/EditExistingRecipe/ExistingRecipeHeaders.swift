@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExistingRecipeHeaders: View {
+    @Environment (\.colorScheme) var colorScheme
     @ObservedObject var ema: EditModeActive
     @State var name: String
     @Binding var prepTime: String
@@ -17,7 +18,7 @@ struct ExistingRecipeHeaders: View {
     var body: some View {
         if ema.editMode{
             TextField(name, text: $ema.recipeTitle)
-                .foregroundColor(Color.black)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .font(.title2)
                 .multilineTextAlignment(.leading)
                 .cornerRadius(5)
@@ -32,7 +33,7 @@ struct ExistingRecipeHeaders: View {
                        // Custom picker label
                         Text("\(ema.recipePrepTime)")
                             .font(.body)
-                           .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                        // Invisible picker
                         Picker(selection: $ema.recipePrepTime, label: Text("")) {
                            ForEach(cookingTime, id: \.self) {
@@ -41,7 +42,7 @@ struct ExistingRecipeHeaders: View {
                            }
                         }
                         .opacity(0.025) // << show picker
-                        .accentColor(.gray)
+                        .accentColor(colorScheme == .dark ? .white : .gray)
                         .pickerStyle(.menu)
                     }
                     
@@ -55,8 +56,9 @@ struct ExistingRecipeHeaders: View {
         }
         else{
             Text("Recipe Title: \(ema.recipeTitle)")
-                .foregroundColor(Color.black)
+               
                 .font(.custom("Montserrat-Regular", size: 21))
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .multilineTextAlignment(.leading)
                 .cornerRadius(5)
                 .padding(.top, 45)

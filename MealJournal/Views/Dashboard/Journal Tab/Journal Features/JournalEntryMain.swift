@@ -22,6 +22,7 @@ import CoreData
 
 struct JournalEntryMain: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment (\.colorScheme) var colorScheme
     @FetchRequest(entity: JournalEntry.entity(), sortDescriptors: []) var fetchedJournalEntrys: FetchedResults<JournalEntry>
     @StateObject var userJournalHelper = UserJournalHelper()
     @StateObject var fetchEntryTotals = FetchEntryTotals()
@@ -31,7 +32,7 @@ struct JournalEntryMain: View {
     func removeJournalEntry(at offsets: IndexSet) {
         mealEntrys.mealEntrysLunch.remove(atOffsets: offsets)
     }
-   
+  
     @EnvironmentObject var mealEntrys: MealEntrys
     //interchangeable, updates when we toggle calendar
     @State var dayOfWeek = ""
@@ -262,7 +263,7 @@ struct JournalEntryMain: View {
                                 .frame(width:25, height: 25)
                                 .opacity(isUserSearching ? 0 : 1.0 )
                                 .padding(.trailing, 65)
-                                .foregroundColor(isUserFavoritingEntry && !journalSaved && journalSavedAlready ? .yellow : .black)
+                                .foregroundColor(isUserFavoritingEntry && !journalSaved && journalSavedAlready ? .yellow : colorScheme == .dark ? .white : .black)
                             //animate shadow separately
                               //  .shadow(color: .yellow.opacity(animateStar  && !journalSavedAlready ? 0 : 1) , radius: isUserFavoritingEntry ? 1 : 0)
                                 .scaleEffect(animateStar  && !journalSavedAlready ? animateStarScale : 1)
@@ -340,6 +341,7 @@ struct JournalEntryMain: View {
                         }
                   
                 }
+             
                 .onAppear{
                     isDeletable = true // make sure can't delete past entrys
                 }

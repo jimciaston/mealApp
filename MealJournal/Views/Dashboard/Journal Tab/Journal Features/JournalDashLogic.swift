@@ -151,18 +151,34 @@ class JournalDashLogic: ObservableObject {
             .collection("userJournalEntrys")
             .document(journalID)
             .delete() { err in
-                   if let err = err {
-                       print("Error removing document: \(err)")
-                   } else {
-                       for entry in self.fetchedJournalEntrys {
-                           entry.entrySaved = false
-                           self.managedObjectContext.delete(entry)
-                           try? self.managedObjectContext.save()
-                       }
-                       print("Document successfully removed!")
-                   }
+                if let err = err {
+                    print("Error removing document: \(err)")
+                } else {
+                    print("Document marked for deletion")
+                    FirebaseManager.shared.firestore
+                        .collection("users")
+                        .document(uid)
+                        .collection("userJournalEntrys")
+                        .document(journalID)
+                        .addSnapshotListener { snapshot, error in
+                            guard let snapshot = snapshot else {
+                                print("Error fetching snapshot: \(error)")
+                                return
+                            }
+                            if !snapshot.exists {
+                                // The collection has been fully deleted, update the UI and local storage
+                                for entry in self.fetchedJournalEntrys {
+                                    entry.entrySaved = false
+                                    self.managedObjectContext.delete(entry)
+                                    try? self.managedObjectContext.save()
+                                    print("emptying chat... .\(self.userJournalsHalf)")
+                                }
+                                print("Document successfully removed!")
+                            }
+                        }
+                }
             }
-        }
+    }
 }
 
 //grab id of journal entrys

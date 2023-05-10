@@ -12,6 +12,7 @@ import SwiftUIX
 
 struct FoodSearchResultsView: View {
     @EnvironmentObject var mealEntryObj: MealEntrys
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject private var foodApi: FoodApiSearch
     @Environment(\.horizontalSizeClass) var horizontalSizeClass // IPad Nano sizing
     @State var MealObject = Meal()
@@ -54,8 +55,10 @@ struct FoodSearchResultsView: View {
                                         foodApi.customFoodSearch = false // << not custom searching
                                         isResultsShowing = true
                                         isCustomItemsShowing = false
+                                         
                                     }
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    
                                     .padding(10)
                                     .background(isResultsShowing ? Color.gray : Color.almostClear)
                                         .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))
@@ -68,7 +71,7 @@ struct FoodSearchResultsView: View {
                                         isResultsShowing = false
                                         isCustomItemsShowing = true
                                     }
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                     .padding(10)
                                     .background( !isResultsShowing ? Color.gray : Color.almostClear)
                                         .clipShape(RoundedRectangle(cornerRadius: 15.0, style: .continuous))

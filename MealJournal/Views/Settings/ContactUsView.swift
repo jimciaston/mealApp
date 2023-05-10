@@ -47,7 +47,7 @@ struct ContactUsView: View {
                             TextField("", text: $name)
                                 .font(.custom("Montserrat-Regular", size: 18))
                                 .focused($isMessageFieldActive)
-                                .frame(width: 400, height: 40)
+                                .frame(width: 350, height: 40)
                                 .foregroundColor(.black)
                                 .overlay(
                                    RoundedRectangle(cornerRadius: 8)
@@ -74,7 +74,7 @@ struct ContactUsView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .accentColor(.gray)
                              //   .pickerStyle(.menu)
-                                .frame(width: 400, height: 30)
+                                .frame(width: 305, height: 30)
                              
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
@@ -93,7 +93,7 @@ struct ContactUsView: View {
                             TextEditor(text: $message)
                                 .font(.title3)
                                 .frame(height: 100)
-                                .frame(width: 400)
+                                .frame(width: 350)
                                 .foregroundColor(.black)
                                 .overlay(
                                    RoundedRectangle(cornerRadius: 8)

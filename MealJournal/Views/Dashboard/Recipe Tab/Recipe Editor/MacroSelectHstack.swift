@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MacroSelectHstack: View {
+    @Environment (\.colorScheme) var colorScheme
     @Binding var macroAmount: Int
     @State var macroName: String
     @State private var timer: Timer?
@@ -45,7 +46,7 @@ struct MacroSelectHstack: View {
                     }
                 }
             Text("\(macroAmount)g")
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .frame(width:60)
                 .padding([.leading, .trailing], -5)
             

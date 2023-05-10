@@ -12,6 +12,7 @@ import SDWebImageSwiftUI
 
 
 struct FollowersUsersView: View {
+    @Environment (\.colorScheme) var colorScheme
     @State var userUID: String = ""
     @State var name: String = ""
     @State var userBio: String = ""
@@ -103,11 +104,61 @@ struct FollowersUsersView: View {
         VStack{
             if userUID == "" {
                 Text("You currently don't have any followers")
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     .offset(y: 250)
             }
             else {
                 ForEach(followerUsersList, id: \.self) { user in
-                    
+                    NavigationLink(destination: UserProfileView(userUID: user.uid, name: user.name, userBio: userBio, userProfilePicture: user.profilePicture, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: user.socialLink, exercisePreferences: user.exercisePreferences, fcmToken: user.fcmToken ).onAppear{
+                        jm.grabUserJournalCount(userID: userUID)
+                        rm.grabRecipes(userUID: userUID)
+                    }){
+                                VStack{
+                                    HStack{
+                                        WebImage(url: URL(string: user.profilePicture))
+                                                .placeholder(Image("profileDefaultPicture"))
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width:60, height: 60)
+                                                .clipShape(Circle())
+                                                .padding(.leading, 20)
+                                                .padding(.trailing, 25)
+                                        
+                                         
+                                        VStack{
+                                            HStack{
+                                                Text(user.name)
+                                                    .font(.title3)
+                                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                                Spacer()
+                                            }
+                                          
+                                            
+                                            HStack {
+                                                HomePageExercisePreferencesView(exercisePreferences: user.exercisePreferences)
+                                                Spacer()
+                                            }
+                                            .padding(.top, -5)
+                                          
+
+                                        }
+                                      
+                                    }
+                                    .frame(height: 50)
+                                    .padding(.leading, -20)
+                                    .padding()
+                                    
+                                  
+                                    .frame(maxWidth: 360)
+                                }
+                              
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(colorScheme == .dark ? Color.gray : Color.white)
+                                        .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 2)
+                                       
+                                )
+                        }
                 }
             }
         }
