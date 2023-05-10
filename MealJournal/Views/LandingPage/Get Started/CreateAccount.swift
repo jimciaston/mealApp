@@ -11,7 +11,7 @@ enum CreateAccountViewState {
 }
 
 struct createUserAccount: View {
-    
+    @Environment (\.colorScheme) var colorScheme
     //transition for fitness form
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
     //Stores form info as userInfo, stored in userModel
@@ -156,10 +156,10 @@ struct createUserAccount: View {
                                                }
                                             }}
                         
-                                            .frame(width: 150, height: 50)
+                                            .frame(width: 200, height: 50)
                                            
-                                            .foregroundColor(.white)
-                                            .background(LinearGradient(gradient: Gradient(colors: [Color("getStartedBtn"), Color("e")]), startPoint: .leading, endPoint: .bottom))
+                                            .foregroundColor(colorScheme == .dark ? .black : .white)
+                                            .background(Color("e"))
                                             .font(.title3)
                                             .background(.clear)
                                             .cornerRadius(5)

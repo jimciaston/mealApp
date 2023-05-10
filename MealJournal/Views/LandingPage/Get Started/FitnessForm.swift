@@ -10,6 +10,7 @@ import Firebase
 
 struct FitnessForm: View {
     @Environment (\.dismiss) var dismiss
+    @Environment (\.colorScheme) var colorScheme
     @StateObject var signUpController = LandingPageViewModel()
     var exercisePreferences = ExercisePreferenceForUser()
     @StateObject var vm = DashboardLogic()
@@ -90,7 +91,7 @@ struct FitnessForm: View {
                             }
                          
                             //highlight selection
-                            Text("What are your eating goals") //.listSectionSeparator(.hidden)
+                            Text("What are your diet goals") //.listSectionSeparator(.hidden)
                                 .padding(.top, 15)
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .multilineTextAlignment(.center)
@@ -99,13 +100,13 @@ struct FitnessForm: View {
                             Picker("", selection: $agenda){
                                 ForEach(fitnessAgenda, id: \.self) {
                                         Text($0)
+                                        
                                     }
                                 }
                                 .clipped()
                                 .pickerStyle(.segmented)
                                 .navigationBarTitle(Text("Fitness Stats"))
                                 .frame(height:50)
-                          
                             FitnessInterests(selectedExercises: $selectedExercises, exercises: exercisePreferences.exercises)
                                 .frame(height: 350)
                                 .padding(.bottom, -25)

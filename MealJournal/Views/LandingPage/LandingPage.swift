@@ -24,6 +24,7 @@ enum ViewState {
 
 struct LandingPage: View {
     @AppStorage("signedIn") var signedIn = false
+    @Environment (\.colorScheme) var colorScheme
     @State private var isPressed = false
     @Environment (\.dismiss) var dismiss
    
@@ -82,7 +83,7 @@ struct LandingPage: View {
                                       .overlay( RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color("getStartedButton"), lineWidth: 4)
                                    )
-                                      .shadow(color: Color("LightWhite"), radius: 4, x: 0, y: 3)
+                                      .shadow(color: colorScheme != .dark ? Color("LightWhite") : .white, radius: 4, x: 0, y: 3)
                             }
                             
                                Button(action: {
