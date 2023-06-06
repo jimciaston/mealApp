@@ -271,7 +271,7 @@ struct UserProfileView: View {
                          
                 }
                 .onAppear{
-                    print(userUID)
+                    print("fcm token here: \(fcmToken)")
                     fetchFollowingCount_NonUser() // << grab follow/follower totals from firestore
                 }
               

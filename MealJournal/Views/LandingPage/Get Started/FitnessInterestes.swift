@@ -101,7 +101,7 @@ struct FitnessInterests: View {
     
     var body: some View {
         VStack{
-            Text("Select your preferred training methods")
+            Text("Training Type (select up to 3")
             TagCloudView(tags: exercises, selectedExercises: $selectedExercises)
         }   
         

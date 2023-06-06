@@ -33,8 +33,8 @@ struct FitnessForm: View {
     @State private var agenda = "" //bulking, cutting , or maintaoinin
     @State var pickerVisible: Bool = false
     private var weightOptions = getWeight()
-    private var fitnessAgenda = ["Bulking", "Cutting", "Maintain"]
-    private var genderOptions = ["Male", "Female", "Other"]
+    private var fitnessAgenda = ["Bulking", "Cutting/Weight Loss", "Maintain", "Casual Health"]
+    private var genderOptions = ["Male", "Female", "Non-binary/non-comforming", "Transgender", "Prefer not to respond"]
     private var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
     
     //sets color of picker in selected
@@ -91,7 +91,7 @@ struct FitnessForm: View {
                             }
                          
                             //highlight selection
-                            Text("What are your diet goals") //.listSectionSeparator(.hidden)
+                            Text("Diet Goals") //.listSectionSeparator(.hidden)
                                 .padding(.top, 15)
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .multilineTextAlignment(.center)

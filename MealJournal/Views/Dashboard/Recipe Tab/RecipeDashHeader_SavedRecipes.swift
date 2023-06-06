@@ -43,10 +43,12 @@ struct RecipeDashHeader_SavedRecipes: View {
     var body: some View {
       
             VStack{
-                HStack{
+                VStack{
                     Text(recipeName.capitalized)
                         .font(.title2)
                         .padding()
+                       .multilineTextAlignment(.center)
+                       .frame(width: 400)
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                     if !notCurrentUserProfile { // << if navigating on own user page, don't show
                         HStack{
@@ -54,7 +56,7 @@ struct RecipeDashHeader_SavedRecipes: View {
                                 .italic()
                                 .foregroundColor(colorScheme == .dark ? .white : .black)
                                     NavigationLink(
-                                        destination: UserProfileView(userUID: userUID, name: userModel.name, userBio: userModel.userBio, userProfilePicture: userModel.profilePictureURL, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences, fcmToken: "").onAppear{
+                                        destination: UserProfileView(userUID: userUID, name: userModel.name, userBio: userModel.userBio, userProfilePicture: userModel.profilePictureURL, journalCount: jm.userJournalCountNonUser, rm: rm, jm: jm, userSocialLink: userSocialLink, exercisePreferences: exercisePreferences, fcmToken: fcmToken).onAppear{
                                           
                                             jm.grabUserJournalCount(userID: userUID)
                                             rm.grabRecipes(userUID: userUID)
@@ -68,7 +70,8 @@ struct RecipeDashHeader_SavedRecipes: View {
                                     )
                                 
                         }
-                       
+                        .padding(.top, -15)
+                        .padding(.bottom, 15)
                     }
                    
                 }
@@ -84,7 +87,7 @@ struct RecipeDashHeader_SavedRecipes: View {
                 Text(String(caloriesPicker) + " calories")
                     .font(.body)
                     .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .padding(.top, 15)
+                    .padding(.top, 5)
              
                 HStack{
                     Text(String(fatPicker) + "g fat")
@@ -99,20 +102,37 @@ struct RecipeDashHeader_SavedRecipes: View {
                     Text(String(proteinPicker) + "g protein")
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
-                .padding(.top, 10)
+                .padding(.top, 5)
                
               
             }
-            .frame(width:280, height:200)
+            .frame(width:400, height:notCurrentUserProfile ? 180 : 200)
             .background(colorScheme == .dark ? Color("recipeDashHeader") : .white)
             .cornerRadius(15)
           
     }
     
 }
-//
-//struct RecipeDashHeader_savedRecipes_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeDashHeader_SavedRecipes(userName: "Timmy", ema: EditModeActive(), userUID: "33", userRecipesPage: true)
-//    }
-//}
+
+struct RecipeDashHeader_SavedRecipes_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeDashHeader_SavedRecipes(recipeName: "Mango Coolada in PineApple in mango sauceee",
+                                      recipePrepTime: "30 Mins",
+                                      userName: "John Doe",
+                                      ema: EditModeActive(),
+                                      userUID: "123456",
+                                      notCurrentUserProfile: true,
+                                      userRecipeName: "Sample Recipe",
+                                      userBio: "Lorem ipsum dolor sit amet",
+                                      userProfileImage: "profile-image",
+                                      testSubject: "Sample Subject",
+                                      rm: RecipeLogicNonUser(),
+                                      jm: JournalDashLogicNonUser(),
+                                      uid: "654321",
+                                      exercisePreferences: .constant(["Running", "Yoga"]),
+                                      userSocialLink: .constant("https://example.com"),
+                                      fcmToken: .constant("FCM_TOKEN"),
+                                      userModel: UserModel(data: ["d": "Jk"]))
+      
+    }
+}

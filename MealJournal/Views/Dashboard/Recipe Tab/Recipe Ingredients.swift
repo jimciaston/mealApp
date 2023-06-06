@@ -37,7 +37,7 @@ struct RecipeIngredients: View {
         ForEach(keys.reversed(), id: \.self) { key in
             HStack{
                 Text(key)
-                    .font(.title)
+                    .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(Color("UserProfileCard1"))
                     .padding(.trailing, 15)

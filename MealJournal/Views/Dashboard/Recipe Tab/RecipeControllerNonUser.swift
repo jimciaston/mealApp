@@ -118,7 +118,7 @@ struct RecipeControllerNonUser: View {
                     if let imageURL = URL(string: image) {
                                             WebImage(url: imageURL)
                                                 .resizable()
-                                                .frame(width:350, height: 200)
+                                                .frame(width:400, height: 300)
                                                 .clipShape(RoundedRectangle(cornerRadius: 10.0))
                                                 .overlay(
                                                     ZStack {
@@ -152,7 +152,7 @@ struct RecipeControllerNonUser: View {
                         Image("defaultRecipeImage-2")
                             .resizable()
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                            .frame(width:350, height: 200)
+                            .frame(width:400, height: 200)
                         
                             .overlay(
                                 ZStack {
@@ -268,7 +268,7 @@ struct RecipeControllerNonUser: View {
         
                 RecipeDashHeader_SavedRecipes(recipeName: name, recipePrepTime: prepTime, caloriesPicker: recipeCaloriesMacro ,fatPicker: recipeFatMacro,carbPicker: recipeCarbMacro, proteinPicker: recipeProteinMacro,userName: userName ,ema: ema, userUID: userUID, notCurrentUserProfile: notCurrentUserProfile, exercisePreferences: $exercisePreferences, userSocialLink: $userSocialLink, fcmToken: $fcmToken, userModel: userModel)
             .padding()
-            .padding(.top, 15)
+            .padding(.top, 80)
             .shadow(color: Color("LightWhite"), radius: 5, x: 10, y: 10)
             .cornerRadius(25)
             

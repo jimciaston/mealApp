@@ -16,7 +16,7 @@ import FirebaseMessaging
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         //grab token
-        let deviceToken:[String] = [fcmToken ?? ""]
+        let deviceToken: String = fcmToken ?? ""
         //save bad boy to firestore
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         FirebaseManager.shared.firestore.collection("users")
@@ -61,11 +61,21 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 
     print(userInfo)
 
-    // Change this to your preferred presentation option
+    // Preferred presentation option
     completionHandler([[.banner, .badge, .sound]])
   }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+#if DEVELOPMENT
+      //Develop
         Messaging.messaging().apnsToken = deviceToken
+        Messaging.messaging().setAPNSToken(deviceToken as Data, type: .sandbox)
+  #else
+        //Production
+        Messaging.messaging().apnsToken = deviceToken
+        Messaging.messaging().setAPNSToken(deviceToken as Data, type: .prod)
+  #endif
+
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -80,8 +90,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     if let messageID = userInfo["gcm.message_id"] {
       print("Message ID from userNotificationCenter didReceive: \(messageID)")
     }
-
-    print(userInfo)
 
     completionHandler()
   }
@@ -162,9 +170,7 @@ struct MealJournalApp: App {
                 .environmentObject(vm)
                 .environmentObject(mealEntrys)
                 .environment(\.managedObjectContext, UserJournalHelper.persistentContainer.viewContext)
-                .onAppear{
-                    print(UIDevice.current.systemVersion)
-                }
+              
         }
     }
 }

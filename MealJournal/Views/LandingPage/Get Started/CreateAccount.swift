@@ -179,7 +179,7 @@ struct createUserAccount: View {
                                           //  .animation(Animation.easeInOut(duration: 0.30), value: showFitnessForm)
                                             
                                     HStack{
-                                        Text("Already a User?").italic().font(.callout)
+                                        Text("Already a user?").italic().font(.callout)
                                       
                                         Button(action: {
                                             viewState = .login
