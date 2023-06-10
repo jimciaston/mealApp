@@ -43,7 +43,7 @@ struct PersonalSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @State var originalName = ""
     @State var originalBio = ""
-    
+    @State var bioExceedsCharLimit = false
     @State var selectedExercises = [""]
     @State var originalHeightValue = ""
     @State var originalHealthSettings = ""
@@ -104,7 +104,8 @@ struct PersonalSettingsView: View {
 //                                }
 //                        }
                         
-                    UpdatePersonalSettingsHStack(vm: vm, name: $name, bio: $userBio, tempBio: tempBio, newName: tempName, isFocused: $isFocused )
+                    UpdatePersonalSettingsHStack(vm: vm, name: $name, bio: $userBio, tempBio: tempBio, newName: tempName, isUserBioValid: $bioExceedsCharLimit, isFocused: $isFocused )
+                       
                        
                     //social media link, preferred instagram
                     HStack{
@@ -114,14 +115,7 @@ struct PersonalSettingsView: View {
                             
                         TextField(vm.userModel?.userSocialLink ?? "Link unavailable", text: $userInstagramHandle)
                             .focused($isKeyboardFocused)
-                            .toolbar{
-                                ToolbarItemGroup(placement: .keyboard){
-                                    Button("Done"){
-                                        isKeyboardFocused = false
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                }
-                            }
+                            .submitLabel(.done)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -294,7 +288,7 @@ struct PersonalSettingsView: View {
                         }
                         
                         if (userBio != originalBio){
-                            if (tempBio.count) > 150{
+                            if (!bioExceedsCharLimit){
                               print("showing fail alert")
                             }
                             else{

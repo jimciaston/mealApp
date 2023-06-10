@@ -159,7 +159,7 @@ struct createUserAccount: View {
                                             .frame(width: 200, height: 50)
                                            
                                             .foregroundColor(colorScheme == .dark ? .black : .white)
-                                            .background(Color("e"))
+                                            .background(Color("PieChart1"))
                                             .font(.title3)
                                             .background(.clear)
                                             .cornerRadius(5)

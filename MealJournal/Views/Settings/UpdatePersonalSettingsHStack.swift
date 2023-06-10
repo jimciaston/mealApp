@@ -6,8 +6,65 @@
 //
 
 import SwiftUI
+import UIKit
 
-
+struct TextViewWrapper: UIViewRepresentable {
+    @Binding var text: String
+    @Binding var isFocused: Bool
+    @Binding var isUserBioValid: Bool
+    let charLimit: Int
+    
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.textColor = .lightGray
+        textView.delegate = context.coordinator
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.autocapitalizationType = .sentences
+        textView.isScrollEnabled = true
+        textView.isEditable = true
+        textView.isUserInteractionEnabled = true
+        textView.backgroundColor = UIColor.clear
+        return textView
+    }
+    
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.text = text
+        if isFocused {
+            uiView.becomeFirstResponder()
+        } else {
+            uiView.resignFirstResponder()
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UITextViewDelegate {
+        var parent: TextViewWrapper
+        
+        init(_ parent: TextViewWrapper) {
+            self.parent = parent
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            parent.text = textView.text
+            parent.isUserBioValid = textView.text.count <= parent.charLimit
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            parent.isFocused = false
+        }
+        
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            if text == "\n" {
+                textView.resignFirstResponder()
+                return false
+            }
+            return true
+        }
+    }
+}
 
 
 struct UpdatePersonalSettingsHStack: View {
@@ -19,7 +76,7 @@ struct UpdatePersonalSettingsHStack: View {
     @State var newName: String
     @State var userBio = ""
     @State var userName = ""
-    @State var isUserBioValid = true
+    @Binding var isUserBioValid: Bool
     var charLimit = 150 // << character limit for user Bio
     
     //color in bio settings doesn't reset. IsFocused when user taps out of textEditor, will return to default color
@@ -40,9 +97,8 @@ struct UpdatePersonalSettingsHStack: View {
                 .padding(.trailing, 5)
             TextField(name ?? "Name unavailable", text: $userName)
                 .frame(maxWidth:.infinity, alignment: .leading) // expand to fill width
-            
+                .foregroundColor(.gray)
                 .onChange(of: userName) { updatedName in
-                    print(updatedName)
                     name = updatedName
                 }
         }
@@ -50,15 +106,19 @@ struct UpdatePersonalSettingsHStack: View {
                 Image(systemName: "square.and.pencil")
                     .foregroundColor(Color("ButtonTwo"))
                    
-                TextEditor(text: $userBio)
-                    .foregroundColor(Color("textEditorDefault"))
-                    .frame(minHeight: 20)
-                        .fixedSize(horizontal: false, vertical: true)
-                    .onTapGesture {
-                        isFocused = true
-                    }
+            TextViewWrapper(text: $userBio, isFocused: $isFocused, isUserBioValid: $isUserBioValid, charLimit: charLimit)
+                       .foregroundColor(Color("textEditorDefault"))
+                       .frame(minHeight: 80)
+                       .fixedSize(horizontal: false, vertical: true)
+                       .onTapGesture {
+                           isFocused = true
+                       }
+                       .submitLabel(.done)
+                    
                     .onChange(of: userBio) { newBio in
                         bio = newBio
+                        isUserBioValid = newBio.count <= charLimit
+                    
                     }
             }
 
@@ -67,7 +127,7 @@ struct UpdatePersonalSettingsHStack: View {
             userName = vm.userModel?.name == "" ? "No name entered" : vm.userModel?.name ?? "No name entered";
         }
         if userBio.count > charLimit {
-            Text(!isUserBioValid ? "Please shorten Bio by \(userBio.count - charLimit) characters" : "")
+            Text(!isUserBioValid ? "Please shorten bio by \(userBio.count - charLimit) characters" : "")
                 .foregroundColor(.red)
                 .font(.caption)
                 .listRowSeparator(.hidden)

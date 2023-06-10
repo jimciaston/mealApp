@@ -91,9 +91,7 @@ struct SaveRecipeButton: View {
 //
                 Button(action: {
                     //rules to save recipe
-                    if (recipeClass.recipeTitle != ""
-                       
-                    ){
+                    if (recipeClass.recipeTitle != ""){
                         isNewRecipeValid = true
                         saveRecipe()
                         showSuccessMessage = true
@@ -110,9 +108,8 @@ struct SaveRecipeButton: View {
                 }){
                     Text("Save Recipe")
                         .font(.title)
-                        .frame(width:200, height: 80)
+                        .frame(width:200, height: 50)
                         .foregroundColor(.white)
-                        .padding(.top, -25)
                 }
             }
             

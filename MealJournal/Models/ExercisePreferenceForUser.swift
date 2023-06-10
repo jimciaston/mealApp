@@ -38,59 +38,59 @@ class ExercisePreferenceForUser {
     func exerciseSelectionColor(_ exerciseTypeSelection: String) -> Color {
         switch exerciseTypeSelection {
                 case "Bodybuilding":
-                    return Color("olympic")
+                    return Color("UserProfileCard2")
                 case "Bodyweight":
-                    return .blue
+                    return Color("UserProfileCard2")
                 
                 case "BJJ":
-                    return Color("sports")
+                    return Color("UserProfileCard2")
                 case "Gymnastics":
-            return Color("gymnastics")
+            return Color("UserProfileCard2")
                 case "Boxing":
-                    return Color("boxing")
+                    return Color("UserProfileCard2")
                 case "Calisthenics":
-                    return .green
+                    return Color("UserProfileCard2")
                 case "Casual":
-                    return Color("sports")
+                    return Color("UserProfileCard2")
                 case "Circuit training":
-                    return .yellow
+                    return Color("UserProfileCard2")
                 case "CrossFit":
-                    return Color("crossfit")
+                    return Color("UserProfileCard2")
                 case "Cycling":
-                    return .blue
+                    return Color("UserProfileCard2")
                 case "Kickboxing":
-                    return Color("boxing")
+                    return Color("UserProfileCard2")
                 case "Dance":
-                    return .purple
+                    return Color("UserProfileCard2")
                 case "Functional fitness training":
-                    return Color("running")
+                    return Color("UserProfileCard2")
                 case "HIIT":
-                    return .orange
+                    return Color("UserProfileCard2")
                 case "Martial arts":
-                    return .black
+                    return Color("UserProfileCard2")
                 case "Olympic":
-                    return .yellow
+                    return Color("UserProfileCard2")
                 case "Pilates":
-                    return Color("yoga")
-                case "Plyometrics":
-                    return Color("running")
+                    return Color("UserProfileCard2")
+                case "UserProfileCard2":
+                    return Color("UserProfileCard2")
                 case "Running":
-                    return Color("cardio")
+                    return Color("UserProfileCard2")
                 case "Sports Training":
-                    return Color("sports")
+                    return Color("UserProfileCard2")
                 case "Strength Training":
-                    return Color("olympic")
+                    return Color("UserProfileCard2")
                 case "Swimming":
-                    return Color("water")
+                    return Color("UserProfileCard2")
             
                 case "Water Aerobics":
-                    return Color("water")
+                    return Color("UserProfileCard2")
                 case "Yoga":
-                    return Color("yoga")
+                    return Color("UserProfileCard2")
                 case "Zumba":
-                    return .purple
+                    return Color("UserProfileCard2")
                 default:
-                    return Color("defaultColorForExercise")
+                    return Color("UserProfileCard2")
             
         }
     }

@@ -119,7 +119,7 @@ struct UserDashController: View {
                              // .background(Color("LighterGray"))
                           
                             //User Bio
-                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"))
+                            ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "User has yet to enter bio"))
                                 .padding(.top, 10)
                                 .minimumScaleFactor(0.5)
                                 .padding(.bottom, 50)

@@ -76,7 +76,7 @@ struct TagCloudView: View {
             .padding([.leading, .trailing], 10)
            .font(.body)
            .background(selectedExercises.contains(text) ?
-            .gray : 
+            Color("selectedExercisePreference") :
             exercisePreferenceForUser.exerciseSelectionColor(text))
            .foregroundColor(Color.white)
            .cornerRadius(5)
