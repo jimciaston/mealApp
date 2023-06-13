@@ -4,6 +4,20 @@ import UIKit
 import CoreData
 import Firebase
 
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
+
+
 // enum for create account page
 enum CreateAccountViewState {
     case createAccount // << stay on page
@@ -28,7 +42,7 @@ struct createUserAccount: View {
     @Environment (\.dismiss) var dismiss
    
     @State private var viewState: CreateAccountViewState = .createAccount //viewState of page
-    
+    @State var fullName = ""
     @State var userName = ""
     @State var userEmail = ""
     @State var userPassword = ""
@@ -79,17 +93,36 @@ struct createUserAccount: View {
             switch viewState{
                 case .createAccount:
                             Section(){
-                                TextField("Name", text: $userName)
+                                TextField("", text: $fullName)
+                                    .placeholder(when: fullName.isEmpty) {
+                                        Text("Full Name").foregroundColor(Color("accentUserText"))
+                                            .font(.custom("Montserrat-Regular", size: 18))
+                                                                .fontWeight(.medium)
+                                    }
+                                   
                                     .padding(.leading, 25)
                                     .submitLabel(.done)
-                                TextField("Email", text: $userEmail)
+                                TextField("", text: $userName)
+                                    .placeholder(when: userName.isEmpty) {
+                                        Text("User Name").foregroundColor(Color("accentUserText"))
+                                            .font(.custom("Montserrat-Regular", size: 18))
+                                                                .fontWeight(.medium)
+                                    }
+                                    .padding(.leading, 25)
+                                    .submitLabel(.done)
+                                TextField("", text: $userEmail)
+                                    .placeholder(when: userEmail.isEmpty) {
+                                        Text("Email").foregroundColor(Color("accentUserText"))
+                                            .font(.custom("Montserrat-Regular", size: 18))
+                                                                .fontWeight(.medium)
+                                    }
                                     .padding(.leading, 25)
                                     .submitLabel(.done)
                                 //email promp letting user know to type valid email
                                 if userEmail != "" && !isEmailValid_Test(){
                                     
                                     Text(emailPrompt)
-                                        .font(.caption).italic().foregroundColor(.red)
+                                        .font(.body).italic().foregroundColor(.red)
                                         .padding(.leading, -80)
                                         .padding(.top, -25)
                                         .frame(height: 5)
@@ -98,33 +131,43 @@ struct createUserAccount: View {
                                 //if email is alreqdy in use prompt
                                 else if emailAlreadyInUse {
                                     Text("This email already exists")
-                                        .font(.caption).italic().foregroundColor(.red)
+                                        .font(.body).italic().foregroundColor(.red)
                                 }
                                 HStack{
                                     if isPWSecured {
-                                        SecureField("Password", text: $userPassword)
+                                        SecureField("", text: $userPassword)
+                                            .placeholder(when: userPassword.isEmpty) {
+                                                Text("Password").foregroundColor(Color("accentUserText"))
+                                                    .font(.custom("Montserrat-Regular", size: 18))
+                                                                        .fontWeight(.medium)
+                                            }
                                             .submitLabel(.done)
                                     }
                                     else {
-                                        TextField("Password", text: $userPassword)
+                                        TextField("", text: $userPassword)
+                                            .placeholder(when: userPassword.isEmpty) {
+                                                Text("Password").foregroundColor(Color("accentUserText"))
+                                                    .font(.custom("Montserrat-Regular", size: 18))
+                                                                        .fontWeight(.medium)
+                                            }
                                             .submitLabel(.done)
                                     }
                                     Button(action: {
                                         isPWSecured.toggle()
                                     }){
                                         Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
-                                    .accentColor(.gray)
+                                    .accentColor(Color("accentUserText"))
                                     }
                                     .padding(.leading, -115)
                                 }
                                 .padding(.leading, 25)
                                 if userPassword != "" && !isPasswordValid(){
                                    Text(passwordPrompt)
-                                       .font(.caption).italic().foregroundColor(.red)
-                                       .frame(width: 250)
+                                       .font(.body).italic().foregroundColor(.red)
+                                       .frame(width:300)
                                        .padding(.leading, -80)
-                                       .lineLimit(nil)
-                                           .minimumScaleFactor(0.2)
+                                       .fixedSize(horizontal: false, vertical: true)
+                                  
                                }
                             }
                             .padding(.leading, 50)
@@ -170,6 +213,7 @@ struct createUserAccount: View {
                         
                                             .fullScreenCover(isPresented: $showFitnessForm){
                                                 FitnessForm(
+                                                    fullName: $fullName,
                                                    name: $userName,
                                                    userEmailAddress: $userEmail,
                                                    userLoginPassword: $userPassword)

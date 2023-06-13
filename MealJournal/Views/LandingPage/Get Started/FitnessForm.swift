@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 struct FitnessForm: View {
+    let fcmToken = UserDefaults.standard.string(forKey: "FCMToken")
     @Environment (\.dismiss) var dismiss
     @Environment (\.colorScheme) var colorScheme
     @StateObject var signUpController = LandingPageViewModel()
@@ -19,10 +20,14 @@ struct FitnessForm: View {
     @Environment(\.managedObjectContext) var moc
     @State var selectedExercises: [String] = []
     //getting info from previous sign up view
+    @Binding var fullName: String
     @Binding var name: String
     @Binding var userEmailAddress: String
     @Binding var userLoginPassword: String
-    @State private var healthSettingsPrivate = true // << if weight and height are shown
+    @State private var healthSettingsPrivate = ""
+    private var healthPrivacyValue: String {
+        return healthSettingsSelection ? "Yes" : "No"
+    }
     var healthOptionsPrivate = ["Yes", "No"]
     @State private var selectionIndex = 0
     @State var showingGetStartedPopUp = false //tied to continue, show popup on true
@@ -31,14 +36,15 @@ struct FitnessForm: View {
     @State private var selectedHeight = ""
     @State private var selectedWeight = ""
     @State private var agenda = "" //bulking, cutting , or maintaoinin
+    @State private var healthSettingsSelection: Bool = false
     @State var pickerVisible: Bool = false
     private var weightOptions = getWeight()
     private var fitnessAgenda = ["Bulking", "Cutting/ Weight Loss", "Maintain", "Casual Health"]
     private var genderOptions = ["Male", "Female", "Non-binary/non-comforming", "Transgender", "Prefer not to respond"]
     private var heightOptions = ["4'0", "4'1","4'2","4'3", "4'4", "4'5","4'6","4'7","4'8","4'9","4'10","4'11","5'0","5'1", "5'2", "5'3", "5'4", "5'5","5'6","5'7","5'8","5'9","5'10","5'11","6'0","6'1","6'2","6'3","6'4","6'5","6'6","6'7","6'8","6'9","6'10","6'11","7'0","7'1","7'2"]
-    
+    private var healthPrivateOptions = ["Yes", "No"]
     //sets color of picker in selected
-    init(name: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
+    init(fullName: Binding <String>, name: Binding <String>, userEmailAddress: Binding <String>, userLoginPassword: Binding <String> ) {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("UserProfileCard2"))
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
@@ -47,6 +53,7 @@ struct FitnessForm: View {
         //iniatlize firebase
        
         //iniatilizes the binding , error if we take these out
+        self._fullName = fullName
         self._name = name
         self._userEmailAddress = userEmailAddress
         self._userLoginPassword = userLoginPassword
@@ -111,6 +118,12 @@ struct FitnessForm: View {
                                 .frame(height: 350)
                                 .padding(.bottom, -25)
                             
+                            
+                            Toggle("Keep fitness statistics private?", isOn: $healthSettingsSelection)
+                                .font(.body)
+                           
+                            
+                            
                             Button(action: {
                                     if(Auth.auth().currentUser?.email != nil){
                                         vm.fetchCurrentUser() //fetches current user
@@ -125,7 +138,7 @@ struct FitnessForm: View {
                                         
                                         
                                         //save user to Firebase
-                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: "No")
+                                        LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, fullName: fullName, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: healthPrivacyValue, token: fcmToken ?? "")
                                             signedIn = true //updates storage container
                                           
                                     }
@@ -161,7 +174,7 @@ struct FitnessForm: View {
                                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                                     let dateString = dateFormatter.string(from: date)
                                     //save user to Firebase
-                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: "No")
+                                    LandingPageViewModel.storeUserInfomation(uid: Auth.auth().currentUser!.uid, email: userEmailAddress, fullName: fullName, name: name, height: selectedHeight, weight: selectedWeight, gender: selectedGender, agenda: agenda, dateJoined: dateString, exercisePreferences: selectedExercises, healthSettingsPrivate: healthPrivacyValue, token: fcmToken ?? "")
                                         signedIn = true //updates storage container
                               
                                 }
@@ -233,7 +246,7 @@ struct FitnessForm: View {
 
 struct FitnessForm_Previews: PreviewProvider {
     static var previews: some View {
-        FitnessForm(name: .constant("Bill"), userEmailAddress: .constant("1@aol.com"), userLoginPassword: .constant("Jm"))
+        FitnessForm(fullName: .constant("bIlly hargrove"), name: .constant("Bill"), userEmailAddress: .constant("1@aol.com"), userLoginPassword: .constant("Jm"))
     }
 }
 

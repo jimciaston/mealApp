@@ -49,7 +49,7 @@ struct UrlImageView: View {
                     .frame(width: 150, height: 150)
                     .clipShape(Circle())
                     .shadow(color: Color("LightWhite"), radius: 9, x: 0, y: 13)
-                    
+                    .id(UUID()) // Add a unique identifier
             }
     }
 
@@ -103,7 +103,7 @@ struct ProfilePicture: View {
                 print("It is not determined until now")
             case .restricted:
                 // same same
-                print("User do not have access to photo album.")
+                print("User does not have access to photo album.")
             //handle user deny
             case .denied:
                 showingPhotoPermissionAlert = true

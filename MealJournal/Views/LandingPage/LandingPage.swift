@@ -33,8 +33,8 @@ struct LandingPage: View {
     
     @State private var progress: CGFloat = 0
     //colors for background on landing page
-    let gradient1 = Gradient(colors: [Color("LandingPage1"), Color("LandingPage2")])
-    let gradient2 = Gradient(colors: [.orange, Color("LandingPage3")])
+    let gradient1 = Gradient(colors: [Color("sports"), Color("LandingPage1")])
+    let gradient2 = Gradient(colors: [Color("LandingPage2"), Color("LandingPage3")])
     
     @State private var animateGradient = false
     @State var scale: CGFloat = 1.0

@@ -64,6 +64,7 @@ class LandingPageViewModel: ObservableObject  {
     static func storeUserInfomation(
         uid:            String,
         email:          String,
+        fullName:       String,
         name:           String,
         height:         String,
         weight:         String,
@@ -71,13 +72,15 @@ class LandingPageViewModel: ObservableObject  {
         agenda:         String,
         dateJoined:     String,
         exercisePreferences: [String],
-        healthSettingsPrivate:  String // << if weight and height are public
+        healthSettingsPrivate:  String, // << if weight and height are public
+        token:          String // FCM TOKEN
     ){
         //grab user ID
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         
         let publicUserData = [
             "uid" :             uid,
+            "fullName" :        fullName,
             "name":             name,
             "height":           height,
             "weight":           weight,
@@ -85,7 +88,8 @@ class LandingPageViewModel: ObservableObject  {
             "agenda" :          agenda ,
             "dateJoined":       dateJoined,
             "exercisePreferences":   exercisePreferences,
-            "healthSettingsPrivate": healthSettingsPrivate
+            "healthSettingsPrivate": healthSettingsPrivate,
+            "token" :           token
             
         
         ] as [String : Any]

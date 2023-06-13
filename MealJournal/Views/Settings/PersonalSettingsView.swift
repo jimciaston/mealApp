@@ -212,7 +212,7 @@ struct PersonalSettingsView: View {
                                             get: {tempHealthSettingsPrivate },
                                             set: {tempHealthSettingsPrivate = $0
                                                 pickerID += 1
-                                            }), label: Text("Keep fitness stats private")) {
+                                            }), label: Text("Fitness Settings Private")) {
                                                 ForEach(healthPrivateOptions, id: \.self) { privacyConfirmation in
                                                 Text(privacyConfirmation) // yes or no
                                                     
