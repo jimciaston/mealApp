@@ -59,13 +59,10 @@ struct UserDashboardView: View {
                 VStack{
                     switch dashboardRouter.currentTab {
                         case .home:
-                            if !isUserSearching{
                                 UserDashController(vm: vm, signUpController: signUpController)
                                     .environmentObject(EditModeActive())
                                     .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
-                            }
-                           
-                        
+                            
                     case .journal:
                         JournalEntryMain(dayOfWeek: "")
                             .opacity(dashboardRouter.isPlusMenuOpen ? 0 : 1)
@@ -105,6 +102,7 @@ struct UserDashboardView: View {
                         HStack {
                             //home tab
                             TabBarIcon(width: geometry.size.width/6, height: geometry.size.height/30, iconName: "homekit", tabName: "Home", dashboardRouter: dashboardRouter, selectedTab: .home)
+                                
                             //journal tab
                             TabBarIconImage(width: geometry.size.width/6, height: geometry.size.height/25, iconName: "journalLogo_Dash", tabName: "Journal", dashboardRouter: dashboardRouter, selectedTab: .journal)
                             //PLUS

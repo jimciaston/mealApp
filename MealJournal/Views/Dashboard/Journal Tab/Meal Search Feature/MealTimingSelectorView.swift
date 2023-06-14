@@ -61,7 +61,7 @@ struct MealTimingSelectorView: View {
                 }
                 .padding(.bottom, 30)
                 .padding(.top, 20)
-                .background(Color.black)
+                .background(Color.white)
                 
                 //breakfast, lunch, dinner selectors
                 List {

@@ -29,7 +29,14 @@ struct RecipeEditorImage: View {
                        .clipped()
                        .cornerRadius(10)
                        .padding(.top, 25)
-                   
+                       .onTapGesture {
+                           showingImagePicker = true
+                       }
+               
+                       .sheet(isPresented: $showingImagePicker){
+                           PhotosPicker("Select Image", selection: $selectedRecipeImage, matching: .images)
+
+                       }
                 } else{
                     ZStack {
                         Color("LightWhite")
@@ -91,7 +98,6 @@ struct RecipeEditorImage: View {
                                         print("failed to fetch download link")
                                         return
                                     }
-                                    print("Image saved Successfully")
                                     guard let url = url else { return }
                                     recipeClass.recipeImage = url.absoluteString // Save the image URL to the recipe model
                                 }

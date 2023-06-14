@@ -139,18 +139,41 @@ struct PersonalSettingsView: View {
                                     isPopoverPresented = true
                                 }
                                 .popover(isPresented: $isPopoverPresented, content: {
-                                   
+                                    VStack{
                                         Text("Privacy Notice")
                                             .foregroundColor(.black)
                                             .font(.title3)
                                             .textCase(nil)
                                             .padding(.bottom, 10)
-                                        Text("We collect your height and weight to help allow other users with similar body types to find you on our platform. This information is always kept private by default and can be toggled on and off at any time. \n\n Your health settings if searchable, will only show up on our search page. They will never be made public on your actual profile page for now. \n\n We take your privacy very seriously, and we will never share your personal information with anyone without your explicit consent.")
+                                            .overlay(
+                                                    Rectangle()
+                                                        .frame(width: 60, height: 3)
+                                                        .foregroundColor(Color("LighterGray"))
+                                                        .opacity(0.8)
+                                                        .padding(.top, -50)
+                                                )
+                                        Text("We collect your height and weight to help allow other users with similar body types to find you on our platform. This information is always kept private by default and can be toggled on and off at any time. \n\nYour health settings if searchable, will only show up on our search page. They will never be made public on your actual profile page for now. \n\nWe take your privacy very seriously, and we will never share your personal information with anyone without your explicit consent.")
+                                            .textCase(nil)
+                                            .font(.body)
                                             .foregroundColor(.black)
                                             .padding(.all, 15)
-                                            .background(Color.white)
                                             .cornerRadius(10)
                                             .shadow(color: Color.black.opacity(0.1), radius: 20, x: 0, y: 0)
+                                        
+                                        HStack {
+                                            Spacer()
+                                            Text("Close")
+                                                .foregroundColor(.black)
+                                                .font(.title3)
+                                                .textCase(nil)
+                                                .padding(.trailing, 20)
+                                                .onTapGesture {
+                                                    isPopoverPresented = false
+                                                }
+                                        }
+                                        
+                                    }
+                                  
                                     
                                 })
                         }){

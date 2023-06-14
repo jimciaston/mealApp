@@ -202,36 +202,36 @@ struct FitnessForm: View {
             .navigationViewStyle(.stack)
             
                 //Notice pop up
-            .popup(isPresented: $showingGetStartedPopUp) { // 3
-                VStack{
-                    ZStack { // 4
-                        Color("LighterWhite")
-                         GetStartedPopUpContent()
-                    }
-                    .frame(width: 350, height: 450)
-                    .cornerRadius(25)
-                    .shadow(color: Color("LighterWhite") ,radius: 2, x: 0, y: 4)
-                }
-            }
+//            .popup(isPresented: $showingGetStartedPopUp) { // 3
+//                VStack{
+//                    ZStack { // 4
+//                        Color("LighterWhite")
+//                         GetStartedPopUpContent()
+//                    }
+//                    .frame(width: 350, height: 450)
+//                    .cornerRadius(25)
+//                    .shadow(color: Color("LighterWhite") ,radius: 2, x: 0, y: 4)
+//                }
+//            }
                // delay pop up
-            .task{
-                do{
-                    // 1 nano = 1 second
-                    try? await Task.sleep(nanoseconds: 1_000_000_000)
-                    showingGetStartedPopUp = true
-                }
-            }
-            //Overlay allows to not allow user to click while pop up is up
-            .overlay{
-                    if showingGetStartedPopUp {
-                        Color.white.opacity(0.001)
-                        .ignoresSafeArea()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onTapGesture {
-                            showingGetStartedPopUp = false
-                        }
-                    }
-            }
+//            .task{
+//                do{
+//                    // 1 nano = 1 second
+//                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+//                    showingGetStartedPopUp = true
+//                }
+//            }
+//            //Overlay allows to not allow user to click while pop up is up
+//            .overlay{
+//                    if showingGetStartedPopUp {
+//                        Color.white.opacity(0.001)
+//                        .ignoresSafeArea()
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                        .onTapGesture {
+//                            showingGetStartedPopUp = false
+//                        }
+//                    }
+//            }
                      
         
         }
