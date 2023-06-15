@@ -257,7 +257,9 @@ struct PersonalSettingsView: View {
                         .padding(.bottom, 325)
                     }
                    // Spacer()
-                                
+                     
+                PrivacyPolicy()
+                  
                 Text("Delete Profile")
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity, alignment: .trailing)

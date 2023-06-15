@@ -25,8 +25,7 @@ struct RecipeEditorHomeMenu: View {
     @State var dismissSaveRecipeSheet = false
     @Binding var showSuccessMessage: Bool
     
-    
-    
+    @State var recipeTitleEmpty: Bool = false
     
     
     var body: some View {
@@ -37,15 +36,26 @@ struct RecipeEditorHomeMenu: View {
                         Spacer()
                         //bottom sheet for meals
                         Button(action: {
-                            showSaveButton.toggle()
-                            switch sheetMode {
-                            case .none:
-                                sheetMode = .mealTimingSelection
-                            case .mealTimingSelection:
-                                sheetMode = .none
-                            case .quarter:
-                                sheetMode = .none
+                            if (recipeClass.recipeTitle == "" ){
+                                recipeTitleEmpty = true
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        recipeTitleEmpty = false
+                                    }
                             }
+                            else{
+                                recipeTitleEmpty = false
+                                showSaveButton.toggle()
+                                switch sheetMode {
+                                case .none:
+                                    sheetMode = .mealTimingSelection
+                                case .mealTimingSelection:
+                                    sheetMode = .none
+                                case .quarter:
+                                    sheetMode = .none
+                                }
+                            }
+                        
                         }){
                             Image(systemName:"checkmark.square.fill").resizable()
                                 .frame(width: 30, height: 30)
@@ -74,7 +84,31 @@ struct RecipeEditorHomeMenu: View {
                         .padding(.top, 25)
                         .padding(.leading, 25)
                         .submitLabel(.done)
-                    
+                        .overlay(
+                                !recipeTitleEmpty ?
+                                    AnyView(EmptyView()) :
+                                    AnyView(
+                                        VStack {
+                                            Spacer()
+                                            Text("Recipe title cannot be empty")
+                                                .foregroundColor(.white)
+                                                .font(.body)
+                                                .padding()
+                                                .background(Color("graySettingsPillbox"))
+                                                .cornerRadius(10)
+                                                .offset(y: -10)
+                                                .padding(10)
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                        .padding(.bottom, 40)
+                                        .padding(.trailing, 25)
+                                    )
+                            )
+                  
+
+
+
+
                     RecipePrepTimeSection(recipeClass: recipeClass)
                         .padding(.leading, 25)
                         .padding(.bottom, 25)
@@ -127,7 +161,6 @@ struct RecipeEditorHomeMenu: View {
                     if showSaveButton {
                         VStack {
                            
-                            
                             SaveRecipeButton(showSuccessMessage: $showSuccessMessage, recipeClass: recipeClass, dismissSaveRecipeSheet: $showSaveButton)
                          //       .background(Color.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 5.0, style: .continuous))
