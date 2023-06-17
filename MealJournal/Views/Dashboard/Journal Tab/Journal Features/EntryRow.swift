@@ -21,10 +21,10 @@ struct EntryRow: View {
         
         HStack{
                 VStack(alignment: .leading){
-                    Text(mealEntry.entryName ?? "Default Value")
+                    Text(mealEntry.entryName ?? "Generic")
                       
                         .foregroundColor(colorScheme == .dark ? .white : .black)
-                        Text("Default Value")
+                    Text(mealEntry.mealBrand ?? "Generic")
                             .font(.subheadline)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
                            

@@ -57,12 +57,13 @@ class UserJournalHelper: ObservableObject {
         }
     }
     //actual save function
-    func saveJournalEntry (entryName: String, mealTiming: String, dayOfWeekCreated: String ,context: NSManagedObjectContext, entryCalories: Int16, entryProtein: Int16, entryFat: Int16, entryCarbs: Int16, totalCalories: String) {
+    func saveJournalEntry (entryBrand: String, entryName: String, mealTiming: String, dayOfWeekCreated: String ,context: NSManagedObjectContext, entryCalories: Int16, entryProtein: Int16, entryFat: Int16, entryCarbs: Int16, totalCalories: String) {
         let entry = JournalEntry(context: context)
         entry.date = Date()
         //TTL - time until journal entry is removed (unless saved by user)
         entry.timeToLive = calendarHelper.timeToLiveDate(entryCreatedAt: Date())
         entry.id = UUID()
+        entry.mealBrand = entryBrand
         entry.entryName = entryName
         entry.mealTiming = mealTiming
         entry.createdDate = calendarHelper.currentDate()

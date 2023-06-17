@@ -15,7 +15,7 @@ extension JournalEntry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<JournalEntry> {
         return NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
     }
-
+    @NSManaged public var mealBrand: String?
     @NSManaged public var entryName: String?
     @NSManaged public var mealTiming: String?
     @NSManaged public var id: UUID?

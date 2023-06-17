@@ -68,6 +68,7 @@ struct MealTimingSelectorView: View {
                     Button(action: {
                         //save journal entry
                         UserJournalHelper().saveJournalEntry(
+                            entryBrand: meal.brand ?? "Generic",
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "breakfast",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
@@ -96,6 +97,7 @@ struct MealTimingSelectorView: View {
                     Button(action: {
                         
                         UserJournalHelper().saveJournalEntry(
+                            entryBrand: meal.brand ?? "Generic",
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "lunch",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
@@ -123,6 +125,7 @@ struct MealTimingSelectorView: View {
                     Button(action: {
                         
                         UserJournalHelper().saveJournalEntry(
+                            entryBrand: meal.brand ?? "Generic",
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "dinner",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),
@@ -149,6 +152,7 @@ struct MealTimingSelectorView: View {
                     Button(action: {
                         
                         UserJournalHelper().saveJournalEntry(
+                            entryBrand: meal.brand ?? "Generic",
                             entryName: meal.mealName ?? "Default",
                             mealTiming: "snack",
                             dayOfWeekCreated: weekdayAsString(date: CalendarHelper().currentDay),

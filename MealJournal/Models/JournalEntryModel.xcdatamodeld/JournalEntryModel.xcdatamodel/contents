@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="JournalEntry" representedClassName="JournalEntry" syncable="YES">
         <attribute name="createdDate" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -7,6 +7,7 @@
         <attribute name="entryName" optional="YES" attributeType="String"/>
         <attribute name="entrySaved" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="mealBrand" optional="YES" attributeType="String"/>
         <attribute name="mealCalories" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mealCarbs" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mealFat" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -16,7 +17,4 @@
         <attribute name="timeToLive" optional="YES" attributeType="String"/>
         <attribute name="totalCalories" optional="YES" attributeType="String"/>
     </entity>
-    <elements>
-        <element name="JournalEntry" positionX="-54" positionY="27" width="128" height="239"/>
-    </elements>
 </model>
