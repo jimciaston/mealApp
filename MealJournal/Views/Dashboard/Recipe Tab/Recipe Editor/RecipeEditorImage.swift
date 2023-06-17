@@ -32,11 +32,8 @@ struct RecipeEditorImage: View {
                        .onTapGesture {
                            showingImagePicker = true
                        }
-               
-                       .sheet(isPresented: $showingImagePicker){
-                           PhotosPicker("Select Image", selection: $selectedRecipeImage, matching: .images)
-
-                       }
+                       .photosPicker(isPresented: $showingImagePicker, selection: $selectedRecipeImage)
+                      
                 } else{
                     ZStack {
                         Color("LightWhite")
@@ -61,11 +58,8 @@ struct RecipeEditorImage: View {
                     .onTapGesture {
                         showingImagePicker = true
                     }
-            
-                    .sheet(isPresented: $showingImagePicker){
-                        PhotosPicker("Select Image", selection: $selectedRecipeImage, matching: .images)
-
-                    }
+                    .photosPicker(isPresented: $showingImagePicker, selection: $selectedRecipeImage)
+//
                 }
 //
 //

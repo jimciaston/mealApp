@@ -84,12 +84,10 @@ struct CaloriesCircularSelector: View {
                            if newValue > prevCalorieValue {
                                movingForward = true
                                movingBackwards = false
-                               print("Moving forward")
                            } else if newValue < prevCalorieValue {
                                movingForward = false
                                reachedMaxAngle = false
                                movingBackwards = true
-                               print("Moving backward")
                            }
                            prevCalorieValue = newValue
                     }

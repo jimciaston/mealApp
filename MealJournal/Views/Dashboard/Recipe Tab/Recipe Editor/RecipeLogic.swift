@@ -98,7 +98,7 @@ class RecipeLogic: ObservableObject {
                                 .document(document.documentID)
                                 .updateData(["directions" : directions])
                                     
-                            print("Updated Direction Recipe")
+                         
                         }
                     }
                 }
@@ -168,7 +168,7 @@ class RecipeLogic: ObservableObject {
                                    ]
                                 )
                         }
-                        print("saved title to firestore")
+                      
                     }
                 }
     }
@@ -196,7 +196,7 @@ class RecipeLogic: ObservableObject {
                                    ]
                                 )
                         }
-                        print("saved title to firestore")
+                       
                     }
                 }
     }
@@ -226,7 +226,7 @@ class RecipeLogic: ObservableObject {
                                     
                           
                         }
-                        print("saved prep to firestore")
+                      
                     }
                 }
     }
@@ -259,7 +259,6 @@ class RecipeLogic: ObservableObject {
                                     "recipeProteinMacro": recipeProteinMacro ]
                                 )
                                     
-                            print("Updaeeddfdsfted macros Recipe")
                         }
                     }
                 }
@@ -285,7 +284,7 @@ class RecipeLogic: ObservableObject {
                                 .collection("userRecipes")
                                 .document(document.documentID)
                                 .updateData(["recipeImage": recipeImage ])
-                            print("Updated Image for Recipe")
+                          
                         }
                     }
                 }

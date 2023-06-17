@@ -196,7 +196,7 @@ struct RecipeControllerNonUser: View {
                     
                   
                       .onTapGesture{
-                         print("tapped")
+                        
                           if isRecipeSaved{
                               switch sheetMode {
                                   case .none:

@@ -33,15 +33,10 @@ class FoodApiSearch: ObservableObject{
     func searchFood(userItem: String, showMoreResults: Bool){
         guard let key = apiKey, !key.isEmpty else {
             
-            // 3
-            print("API key does not exist")
             return
         }
         if !customFoodSearch{
-            // 2
-           
-            print(apiKey)
-            
+          
             isFoodSearchLoading = true
             self.isFoodSearchTimedOut = false
             self.foodResultsDisplayed = 0

@@ -247,11 +247,11 @@ struct RecipeControllerModal: View {
                                 }
                                 
                                 if originalName != ema.recipeTitle {
-                                    print("saved recipe")
+                                  
                                     rm.saveRecipeTitle(recipeTitle: ema.recipeTitle, currentRecipe: recipeID)
                                 }
                                 if originalPrepTime != ema.recipePrepTime{
-                                    print("saved prep")
+                                
                                     rm.saveRecipePrepTime(recipePrepTime: ema.recipePrepTime, currentRecipe: recipeID)
                                 }
                                 //save dash headers to firestore

@@ -15,7 +15,7 @@ import FirebaseMessaging
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
+      
         if let token = fcmToken {
             //Send FCM Token To Server
             // TODO: If necessary send token to application server.
@@ -112,8 +112,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
-
-        print(userInfo)
 
         completionHandler(UIBackgroundFetchResult.newData)
     }

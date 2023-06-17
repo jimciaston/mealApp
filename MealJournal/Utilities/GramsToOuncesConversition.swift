@@ -35,7 +35,7 @@ func OuncesConversion(gramsMeasurement: Double, measurementUnit: String) -> Stri
         
         var gramsConversion = gramsMeasurement / 28.35
         let gramConverted = Int(Double(round(gramsConversion))) // << remove zeros in double
-      //  print(gramConverted)
+    
         return String("\(gramConverted) oz")
         
     }
