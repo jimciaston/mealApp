@@ -1523,8 +1523,8 @@
 				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Macro Mate";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) would like to use your camera.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) would like to access your photo library.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to photos to upload photos from your library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to photos to upload photos from your library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -1562,8 +1562,8 @@
 				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Macro Mate";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) would like to use your camera.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) would like to access your photo library.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to photos to upload photos from your library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to photos to upload photos from your library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";

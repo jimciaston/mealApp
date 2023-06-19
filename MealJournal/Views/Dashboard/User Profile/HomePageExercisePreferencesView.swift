@@ -15,7 +15,7 @@ struct HomePageExercisePreferencesView: View {
             ForEach (exercisePreferences, id: \.self)  { exercise in
                 ZStack {
                     Text(exercise)
-                        .padding([.leading, .trailing], 10)
+                       .padding([.leading, .trailing], 10)
                         .font(.caption)
                         .foregroundColor(.white)
                         .background(
@@ -28,8 +28,8 @@ struct HomePageExercisePreferencesView: View {
             }
         }
 
-//struct HomePageExercisePreferencesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HomePageExercisePreferencesView()
-//    }
-//}
+struct HomePageExercisePreferencesView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomePageExercisePreferencesView(exercisePreferences: ["bodybuilding ", "Exercise 2", "Exercise 3"])
+    }
+}

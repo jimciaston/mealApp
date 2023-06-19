@@ -18,6 +18,8 @@ struct UserDashController: View {
     @ObservedObject var signUpController: LandingPageViewModel
     @AppStorage("followingCount") var followingCount = 0
     @AppStorage("followersCount") var followersCount = 0
+    @State var countingFollowing = 0
+    @State var countingFollower = 0
     @State private var action: Int? = 0
     @State private var userSigningOut = false
     @State private var showMenu = false
@@ -32,6 +34,8 @@ struct UserDashController: View {
     
     
     func fetchFollowingCount(){
+        countingFollowing = 0
+        followersCount = 0
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             print("no current User")
             return
@@ -45,9 +49,9 @@ struct UserDashController: View {
                     print ("error grabbing users ")
                     return
                 }
-           
-                followingCount = data ["followingCount"] as? Int ?? 0
-                followersCount = data ["followersCount"] as? Int ?? 0
+           print(data["followingCount"] as? Int ?? 0)
+                countingFollowing = data ["followingCount"] as? Int ?? 0
+                countingFollower = data ["followersCount"] as? Int ?? 0
                
             }
         }
@@ -78,7 +82,7 @@ struct UserDashController: View {
                                         NavigationLink(destination: FollowingUsersView(), tag: 1, selection: $action) {
                                                                            EmptyView()
                                                                        }
-                                        Text(String(followingCount))
+                                        Text(String(countingFollowing))
                                         Text("Following").foregroundColor(.gray)
                                     }
                                     .padding(.trailing, 15)
@@ -94,7 +98,7 @@ struct UserDashController: View {
                                         NavigationLink(destination: FollowersUsersView(), tag: 2, selection: $action) {
                                                EmptyView()
                                            }
-                                        Text(String(followersCount))
+                                        Text(String(countingFollower))
                                         Text("Followers").foregroundColor(.gray)
                                     }
                                     .padding(.leading, 15)

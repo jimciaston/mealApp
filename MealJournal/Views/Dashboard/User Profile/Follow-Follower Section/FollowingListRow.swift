@@ -60,11 +60,12 @@ struct FollowingListRow: View {
                                 
                                 HStack {
                                     HomePageExercisePreferencesView(exercisePreferences: userExercisePreferences)
-                                    Spacer()
+                                      Spacer()
+                                   
                                 }
-                                
-                                .padding(.top, -5)
                               
+                                .padding(.top, -5)
+                                
 
                             }
                           
@@ -74,7 +75,7 @@ struct FollowingListRow: View {
                         .padding()
                         
                       
-                        .frame(maxWidth: horizontalSizeClass == .regular ? 500 : 340)
+                        .frame(maxWidth: horizontalSizeClass == .regular ? 500 : 380)
                     }
                   
                     .background(
@@ -94,9 +95,16 @@ struct FollowingListRow: View {
     }
     
 }
-
-//struct FollowingListRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FollowingListRow(userUID: "", userName: "John Doe", userBio: "", userProfileImage: "", userExercisePreferences: ["Bodybuilding"], userSocialLink: "www.google.com")
-//    }
-//}
+struct FollowingListRow_Previews: PreviewProvider {
+    static var previews: some View {
+        FollowingListRow(userUID: "userID",
+                         userName: "John Doe",
+                         userBio: "Lorem ipsum dolor sit amet",
+                         userProfileImage: "profileImageURL",
+                         userExercisePreferences: ["bodybuilding", "bodyweight", "Boxing"],
+                         userSocialLink: "https://example.com",
+                         fcmToken: "fcmToken",
+                         jm: JournalDashLogicNonUser(),
+                         rm: RecipeLogicNonUser())
+    }
+}
