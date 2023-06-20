@@ -14,9 +14,68 @@ import _PhotosUI_SwiftUI
 @available(iOS 16.0, *)
 struct RecipeEditorImage: View {
     @EnvironmentObject var recipeClass: Recipe
+    @State var showingPhotoPermissionAlert = false
     @State private var showingImagePicker = false
     @State private var inputImage: Image?
     @State private var selectedRecipeImage: PhotosPickerItem?
+    
+    struct PhotoPermissionAlert: View {
+        var body: some View {
+            VStack {
+                Text("Please grant permission to access your photos")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 20)
+                
+                Text("To grant permission, go to Settings > Privacy > Photos, and turn on the toggle next to the name of this app.")
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                
+                Button(action: {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }) {
+                    Text("Open Settings")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+            }
+            .padding()
+        }
+    }
+    
+    func checkPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+            case .authorized:
+                showingImagePicker = true
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization({
+                    (newStatus) in
+                    print("status is \(newStatus)")
+                    if newStatus ==  PHAuthorizationStatus.authorized {
+                        /* do stuff here */
+                        showingImagePicker = true
+                    }
+                })
+                print("It is not determined until now")
+            case .restricted:
+                // same same
+                print("User does not have access to photo album.")
+            //handle user deny
+            case .denied:
+                showingPhotoPermissionAlert = true
+            
+        @unknown default:
+               // Handle any future cases that may be added to the `PHAuthorizationStatus` enumeration.
+               print("Unknown authorization status.")
+           
+        }
+    }
+    
+    
     
     var body: some View {
         VStack{
@@ -56,9 +115,25 @@ struct RecipeEditorImage: View {
                     }
                     .padding(.top, 25)
                     .onTapGesture {
-                        showingImagePicker = true
+                       checkPermission()
                     }
                     .photosPicker(isPresented: $showingImagePicker, selection: $selectedRecipeImage)
+                    
+                    .alert(isPresented: $showingPhotoPermissionAlert) {
+                               Alert(
+                                   title: Text("Permission Required"),
+                                   message: Text("To access your photos, please go to Settings > Privacy > Photos and enable permissions for this app."),
+                                   primaryButton: .default(Text("Go to Settings"), action: {
+                                       guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                                           return
+                                       }
+                                       UIApplication.shared.open(settingsUrl)
+                                   }),
+                                   secondaryButton: .cancel()
+                               )
+                           }
+                    
+                    
 //
                 }
 //
