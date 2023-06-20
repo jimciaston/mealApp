@@ -16,7 +16,7 @@ struct HomePageExercisePreferencesView: View {
                 ZStack {
                     Text(exercise)
                        .padding([.leading, .trailing], 10)
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundColor(.white)
                         .background(
                                RoundedRectangle(cornerRadius: 10)
