@@ -42,6 +42,7 @@ struct ProfileCardsMainDisplay: View {
     @ObservedObject var jm = JournalDashLogic()
     @State var showAllRecipes = false
     @State var showAllJournals = false
+    @State var showMealRemindersView = false
     let transition: AnyTransition = .asymmetric(insertion: .move(edge:.trailing), removal: .move(edge: .leading))
     
     var body: some View {
@@ -128,6 +129,31 @@ struct ProfileCardsMainDisplay: View {
         .onTapGesture {
             showAllJournals = true
           
+        }
+        HStack{
+            HStack{
+                Image("837043")
+                    .resizable()
+                    .renderingMode(.original)
+                    .frame(width: 60, height: 50)
+                    .foregroundColor(Color(.systemPink))
+                    
+                Text("Meal Reminders")
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+            }
+        }
+       
+        .frame(width: 300, height: 100)
+        .background(Color("mealreminders"))
+        .cornerRadius(25)
+        .shadow(color: Color("LighterGray"), radius: 5, x: 0, y: 8)
+        .onTapGesture{
+            showMealRemindersView = true
+        }
+        .sheet(isPresented: $showMealRemindersView){
+            MealRemindersView()
+                .transition(transition)
         }
     }
 }

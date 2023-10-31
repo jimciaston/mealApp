@@ -122,7 +122,7 @@ struct RecipeEditorImage: View {
                     .alert(isPresented: $showingPhotoPermissionAlert) {
                                Alert(
                                    title: Text("Permission Required"),
-                                   message: Text("To access your photos, please go to Settings > Privacy > Photos and enable permissions for this app."),
+                                   message: Text("To access your photos so you may upload from your library, please go to Settings > Privacy > Photos and enable permissions for Macro Mate."),
                                    primaryButton: .default(Text("Go to Settings"), action: {
                                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                                            return

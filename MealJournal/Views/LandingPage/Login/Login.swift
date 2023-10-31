@@ -40,17 +40,23 @@ struct userLogin: View {
 //                    .fontWeight(.medium)
 //
                 HStack{
-                    Image(systemName: "mail")
+//                    Image(systemName: "mail")
+//                        .padding(15)
+//                        .foregroundColor(Color("sports"))
+//
+                    TextField("", text: $userEmail)
+                        .placeholder(when: userEmail.isEmpty) {
+                            Text("Email").foregroundColor(Color(.white))
+                                .font(.custom("Montserrat-Regular", size: 20))
+                                                    .fontWeight(.medium)
+                        }
                         .padding(15)
-                        .foregroundColor(Color("sports"))
-                    
-                    TextField("Email", text: $userEmail)
-                        .font(.title3)
-                        .frame(width:280, height:50)
+                       .padding(.leading, 65)
                         .submitLabel(.done)
                       
                     }
-                .padding(.trailing, 25) //evens out email width with password
+                .foregroundColor(.white)
+               // .padding(.trailing, 25) //evens out email width with password
                 .padding(.bottom, -10)
 //
 //                    .overlay( RoundedRectangle(cornerRadius: 25)
@@ -61,33 +67,48 @@ struct userLogin: View {
                 
                 VStack{
                     HStack{
-                        Image(systemName: "lock")
-                            .padding(15)
-                            .foregroundColor(Color("sports"))
-                        
+//                        Image(systemName: "lock")
+//                            .padding(15)
+//                            .foregroundColor(Color("sports"))
+//
                         HStack{
                             if isPWSecured {
-                                SecureField("Password", text: $userPassword)
-                                    .font(.title3)
-                                    .frame(width:280, height:50)
-                                    .submitLabel(.done)
-                            }
-                            else {
-                                TextField("Password", text: $userPassword)
-                                    .font(.title3)
-                                    .frame(width:280, height:50)
-                                    .submitLabel(.done)
-                            }
-                            Button(action: {
-                                isPWSecured.toggle()
-                            }){
-                                Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
-                                        .accentColor(.gray)
-                                        .padding(.trailing, 25)
-                                        .frame(width:10)
-                            }
+                                   SecureField("", text: $userPassword)
+                                       .placeholder(when: userPassword.isEmpty) {
+                                           Text("Password").foregroundColor(Color(.white))
+                                               .font(.custom("Montserrat-Regular", size: 20))
+                                               .fontWeight(.medium)
+                                              
+                                       }
+                                       .padding(15)
+                                       .padding(.leading, 65)
+                                       .submitLabel(.done)
+                                       .foregroundColor(Color(.white))
+                               } else {
+                                   TextField("", text: $userPassword)
+                                       .placeholder(when: userPassword.isEmpty) {
+                                           Text("Password").foregroundColor(Color(.white))
+                                               .font(.custom("Montserrat-Regular", size: 20))
+                                               .fontWeight(.medium)
+                                             
+                                       }
+                                       .padding(15)
+                                       .padding(.leading, 65)
+                                       .submitLabel(.done)
+                                       .foregroundColor(Color(.white))
+                                      
+                               }
+                           
                         }
-
+                        Button(action: {
+                            isPWSecured.toggle()
+                        }){
+                            Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
+                                    .accentColor(.gray)
+                                   
+                        }
+                        .padding(.leading, -140)
+                        .frame(width:10)
                     }
 //
 //                    .overlay( RoundedRectangle(cornerRadius: 25)

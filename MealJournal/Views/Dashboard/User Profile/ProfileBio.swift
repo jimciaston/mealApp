@@ -11,7 +11,7 @@ struct ProfileBio: View {
     @Binding var userBio: String
     var body: some View {
         Text(userBio == "" ? "User has not entered a Bio yet": userBio)
-            .font(.custom("OpenSans-Regular", size: 18))
+            .font(.custom("OpenSans-Regular", size: 16))
             .multilineTextAlignment(.center)
            // .frame(width: 250, height: 100)
       

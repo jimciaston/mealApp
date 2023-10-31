@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUI
+import SwiftUI 
 
 //class that holds info, saves to firestore
 class Recipe: ObservableObject, Identifiable {

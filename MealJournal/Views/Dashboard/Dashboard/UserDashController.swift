@@ -110,7 +110,7 @@ struct UserDashController: View {
                                     self.action = 2
                                 }
                             }
-                           .padding(.top, 15)
+                           .padding(.top, 5)
                             .padding(.bottom, 25)
                                 //custom divider
                             Rectangle()
@@ -125,8 +125,8 @@ struct UserDashController: View {
                             //User Bio
                             ProfileBio(userBio: .constant(vm.userModel?.userBio ?? "User has yet to enter bio"))
                                 .padding(.top, 10)
-                                .minimumScaleFactor(0.5)
-                                .padding(.bottom, 50)
+                               // .minimumScaleFactor(0.5)
+                                .padding(.bottom, 40)
                                 .frame(width: Geo.size.width / 1.25)
                          
                             .padding(.top, -15)// << bring follow/followers up

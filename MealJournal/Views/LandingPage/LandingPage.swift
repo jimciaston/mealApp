@@ -78,12 +78,12 @@ struct LandingPage: View {
                                     .frame(minWidth: 0, maxWidth: 200)
                                     .padding(10)
                                     .foregroundColor(.white)
-                                    
+                                    .font(.custom("Montserrat-Regular", size: 21))
                                 //draw rectange around buttons
                                       .overlay( RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color("getStartedButton"), lineWidth: 4)
+                                        .stroke(Color("getStartedButton"), lineWidth: 3)
                                    )
-                                      .shadow(color: colorScheme != .dark ? Color("LightWhite") : .white, radius: 4, x: 0, y: 3)
+                                      .shadow(color: colorScheme != .dark ? Color("LightWhite") : .white, radius: 1, x: 0, y: 1)
                             }
                             
                                Button(action: {
@@ -91,11 +91,11 @@ struct LandingPage: View {
                                    scale -= 0.50
                                    isMealJournalTitleShowing = true
                                }){
-                                   Text("Login")
+                                   Text("Login").fontWeight(.bold)
                                        .frame(minWidth: 0, maxWidth: 200)
                                        .padding(10)
                                        .foregroundColor(.white)
-                                       
+                                       .font(.custom("Montserrat-Regular", size: 20))
                                    //draw rectange around buttons
                                      }
                                .padding(.top, 10) // << button padding from top

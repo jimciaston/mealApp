@@ -95,8 +95,8 @@ struct createUserAccount: View {
                             Section(){
                                 TextField("", text: $fullName)
                                     .placeholder(when: fullName.isEmpty) {
-                                        Text("Full Name").foregroundColor(Color("accentUserText"))
-                                            .font(.custom("Montserrat-Regular", size: 18))
+                                        Text("Full Name").foregroundColor(Color(.white))
+                                            .font(.custom("Montserrat-Regular", size: 20))
                                                                 .fontWeight(.medium)
                                     }
                                    
@@ -104,16 +104,16 @@ struct createUserAccount: View {
                                     .submitLabel(.done)
                                 TextField("", text: $userName)
                                     .placeholder(when: userName.isEmpty) {
-                                        Text("User Name").foregroundColor(Color("accentUserText"))
-                                            .font(.custom("Montserrat-Regular", size: 18))
+                                        Text("User Name").foregroundColor(Color(.white))
+                                            .font(.custom("Montserrat-Regular", size: 20))
                                                                 .fontWeight(.medium)
                                     }
                                     .padding(.leading, 25)
                                     .submitLabel(.done)
                                 TextField("", text: $userEmail)
                                     .placeholder(when: userEmail.isEmpty) {
-                                        Text("Email").foregroundColor(Color("accentUserText"))
-                                            .font(.custom("Montserrat-Regular", size: 18))
+                                        Text("Email").foregroundColor(Color(.white))
+                                            .font(.custom("Montserrat-Regular", size: 20))
                                                                 .fontWeight(.medium)
                                     }
                                     .padding(.leading, 25)
@@ -137,8 +137,8 @@ struct createUserAccount: View {
                                     if isPWSecured {
                                         SecureField("", text: $userPassword)
                                             .placeholder(when: userPassword.isEmpty) {
-                                                Text("Password").foregroundColor(Color("accentUserText"))
-                                                    .font(.custom("Montserrat-Regular", size: 18))
+                                                Text("Password").foregroundColor(Color(.white))
+                                                    .font(.custom("Montserrat-Regular", size: 20))
                                                                         .fontWeight(.medium)
                                             }
                                             .submitLabel(.done)
@@ -146,8 +146,8 @@ struct createUserAccount: View {
                                     else {
                                         TextField("", text: $userPassword)
                                             .placeholder(when: userPassword.isEmpty) {
-                                                Text("Password").foregroundColor(Color("accentUserText"))
-                                                    .font(.custom("Montserrat-Regular", size: 18))
+                                                Text("Password").foregroundColor(Color(.white))
+                                                    .font(.custom("Montserrat-Regular", size: 20))
                                                                         .fontWeight(.medium)
                                             }
                                             .submitLabel(.done)
@@ -156,7 +156,7 @@ struct createUserAccount: View {
                                         isPWSecured.toggle()
                                     }){
                                         Image(systemName: self.isPWSecured ? "eye.slash" : "eye")
-                                    .accentColor(Color("accentUserText"))
+                                            .accentColor(.white)
                                     }
                                     .padding(.leading, -115)
                                 }
@@ -170,6 +170,7 @@ struct createUserAccount: View {
                                   
                                }
                             }
+                
                             .padding(.leading, 50)
                                     .listRowBackground(Color.clear)
                                     .padding()
@@ -202,7 +203,7 @@ struct createUserAccount: View {
                                             .frame(width: 200, height: 50)
                                            
                                             .foregroundColor(colorScheme == .dark ? .black : .white)
-                                            .background(Color("PieChart1"))
+                                            .background(Color("ButtonTwo"))
                                             .font(.title3)
                                             .background(.clear)
                                             .cornerRadius(5)
@@ -229,7 +230,8 @@ struct createUserAccount: View {
                                             viewState = .login
                                         }){
                                             Text("Login")
-                                                .foregroundColor(Color("ButtonTwo")).font(.callout)
+                                                .foregroundColor(Color("ButtonTwo"))
+                                                .font(.custom("Montserrat-Regular", size: 18))
                                         }
                                     }
                                     

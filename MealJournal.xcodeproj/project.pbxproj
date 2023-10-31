@@ -74,6 +74,10 @@
 		0A5E691227C4AE2600ACB6A5 /* FoodSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */; };
 		0A5E691427C5F97900ACB6A5 /* DailyMacrosCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */; };
 		0A5E691627CC5C1D00ACB6A5 /* MacroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */; };
+		0A5EF3762A98D40500F489CC /* MealRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EF3752A98D40500F489CC /* MealRemindersView.swift */; };
+		0A5EF3782A9B96D900F489CC /* ReminderPickerPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EF3772A9B96D900F489CC /* ReminderPickerPopUp.swift */; };
+		0A5EF37A2AAB982600F489CC /* ReminderLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EF3792AAB982600F489CC /* ReminderLogic.swift */; };
+		0A5EF37C2AE15E1F00F489CC /* ActionSheetPicker_3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5EF37B2AE15E1F00F489CC /* ActionSheetPicker_3_0.framework */; };
 		0A630F4E29C87D8E0088A789 /* PillBoxExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */; };
 		0A630F5029C94ECF0088A789 /* ExercisePreferencesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */; };
 		0A630F5229CCD5610088A789 /* HomePageExercisePills_NonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A630F5129CCD5610088A789 /* HomePageExercisePills_NonUser.swift */; };
@@ -278,6 +282,10 @@
 		0A5E691127C4AE2600ACB6A5 /* FoodSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearchResultsView.swift; sourceTree = "<group>"; };
 		0A5E691327C5F97900ACB6A5 /* DailyMacrosCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMacrosCounter.swift; sourceTree = "<group>"; };
 		0A5E691527CC5C1D00ACB6A5 /* MacroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroView.swift; sourceTree = "<group>"; };
+		0A5EF3752A98D40500F489CC /* MealRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealRemindersView.swift; sourceTree = "<group>"; };
+		0A5EF3772A9B96D900F489CC /* ReminderPickerPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPickerPopUp.swift; sourceTree = "<group>"; };
+		0A5EF3792AAB982600F489CC /* ReminderLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderLogic.swift; sourceTree = "<group>"; };
+		0A5EF37B2AE15E1F00F489CC /* ActionSheetPicker_3_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ActionSheetPicker_3_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A630F4D29C87D8E0088A789 /* PillBoxExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillBoxExercise.swift; sourceTree = "<group>"; };
 		0A630F4F29C94ECF0088A789 /* ExercisePreferencesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePreferencesSettings.swift; sourceTree = "<group>"; };
 		0A630F5129CCD5610088A789 /* HomePageExercisePills_NonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageExercisePills_NonUser.swift; sourceTree = "<group>"; };
@@ -414,6 +422,7 @@
 				0AFABC552A072C5F000E0145 /* FirebaseFunctions in Frameworks */,
 				0A07D96028480A140080A4ED /* SDWebImageSwiftUI in Frameworks */,
 				5050F8938CF760902C7FCD67 /* Pods_MealJournal.framework in Frameworks */,
+				0A5EF37C2AE15E1F00F489CC /* ActionSheetPicker_3_0.framework in Frameworks */,
 				0A9F4965287BCBCC002F227E /* OrderedCollections in Frameworks */,
 				0AFABC532A06CB71000E0145 /* FirebaseAnalytics in Frameworks */,
 				0A8BC8F929B65B92001B0E06 /* Kingfisher in Frameworks */,
@@ -607,6 +616,9 @@
 				0A2D895C296F561C001EDF01 /* SavedJournalDashboard.swift */,
 				0A8C89222946AA7F008C549A /* SavedJournalsList.swift */,
 				0A2D89662978251F001EDF01 /* JournalDashLogicNonUser.swift */,
+				0A5EF3752A98D40500F489CC /* MealRemindersView.swift */,
+				0A5EF3792AAB982600F489CC /* ReminderLogic.swift */,
+				0A5EF3772A9B96D900F489CC /* ReminderPickerPopUp.swift */,
 			);
 			path = "Profile Cards";
 			sourceTree = "<group>";
@@ -903,6 +915,7 @@
 		24D857BFE476881478C49E47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A5EF37B2AE15E1F00F489CC /* ActionSheetPicker_3_0.framework */,
 				0A36C1E929CF352100CE3A23 /* libswiftWebKit.tbd */,
 				C25B5864F41EB32D84F3D2A4 /* Pods_MealJournal.framework */,
 				2FB9401F219CF3C3DD2C591D /* Pods_MealJournal_MealJournalUITests.framework */,
@@ -1293,6 +1306,7 @@
 				0A8C89252947845C008C549A /* FetchEntryTotals.swift in Sources */,
 				0ADDCCA729B977CD0082FB1E /* FoodCategoryTextOutput.swift in Sources */,
 				0AB112B9290590CD0071B3ED /* TabBar.swift in Sources */,
+				0A5EF37A2AAB982600F489CC /* ReminderLogic.swift in Sources */,
 				0AFABC572A07F5AF000E0145 /* NetworkConnectivity.swift in Sources */,
 				0A6325F4288863AF003B3D02 /* PickerOptionsStorage.swift in Sources */,
 				0A4189F5285997D3005876F2 /* RecipeSuccessPopUp.swift in Sources */,
@@ -1321,10 +1335,12 @@
 				0A36C1EC29CF35CD00CE3A23 /* RecipePrepTimeSection.swift in Sources */,
 				0A2D895D296F561C001EDF01 /* SavedJournalDashboard.swift in Sources */,
 				0A9F495F28793E33002F227E /* EditModeActive.swift in Sources */,
+				0A5EF3762A98D40500F489CC /* MealRemindersView.swift in Sources */,
 				0AB381A129F723CD00B96A94 /* ExistingRecipeHeaders.swift in Sources */,
 				0AAE15B1282DA34900B9B85A /* EditorIngredients.swift in Sources */,
 				0A3E03D828D39BC3009613CF /* GramsToOuncesConversition.swift in Sources */,
 				0AA11759282031400024FECE /* WholeNFractionPicker.swift in Sources */,
+				0A5EF3782A9B96D900F489CC /* ReminderPickerPopUp.swift in Sources */,
 				0A8F990B27AB0B92008F5584 /* CreateAccount.swift in Sources */,
 				0A8D8075282A28CB0055021A /* FlexibleSheetPicker.swift in Sources */,
 				0A8C89232946AA7F008C549A /* SavedJournalsList.swift in Sources */,
@@ -1516,15 +1532,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MealJournal/MealJournal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"MealJournal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Macro Mate";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to photos to upload photos from your library";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to photos to upload photos from your library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grant access to your photos to upload images of your meals and set a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grant access to your photos to upload images of your meals and set a profile picture";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -1555,15 +1571,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MealJournal/MealJournal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"MealJournal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MealJournal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Macro Mate";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to photos to upload photos from your library";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to photos to upload photos from your library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grant access to your photos to upload images of your meals and set a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grant access to your photos to upload images of your meals and set a profile picture";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
